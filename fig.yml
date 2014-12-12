@@ -1,0 +1,13 @@
+web:
+  build: .
+  ports:
+    - "5000:5000"
+  volumes:
+    - .:/user/src/app
+  links:
+    - db:db
+
+db:
+  image: postgres
+  ports:
+    - "5432:5432"

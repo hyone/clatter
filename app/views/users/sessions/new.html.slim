@@ -1,0 +1,31 @@
+div.session-page
+  div.row
+    h1 Sign in
+
+    = form_for(resource, as: resource_name,
+                         url: session_path(resource_name),
+                         html: {  role: 'form' }) do |f|
+      div.form-group
+        = f.label :login, class: 'sr-only'
+        = f.text_field :login, autofocus: true,
+                                class: 'form-control',
+                                placeholder: 'Email or Username'
+
+      div.form-group
+        / = f.label :password, class: 'control-label'
+        = f.label :password, class: 'sr-only'
+        = f.password_field :password, autocomplete: "off",
+                                      class: 'form-control',
+                                      placeholder: 'Password'
+
+      - if devise_mapping.rememberable?
+        div.form-group
+          div.checkbox
+            = f.label(:remember_me) do
+              = f.check_box(:remember_me)
+              = t('devise.sessions.new.remember_me')
+
+      div.form-group
+        = f.submit "Sign in", class: 'btn btn-primary'
+
+  = render 'users/shared/links'
