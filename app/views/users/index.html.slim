@@ -1,0 +1,12 @@
+- provide(:title, 'All Users')
+
+div.content-head
+  h1 All Users
+
+div.content
+  div.users-list.col-md-12
+    ul
+      = render @users
+
+div.content-foot
+  = paginate @users

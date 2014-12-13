@@ -16,10 +16,16 @@
  *= require users
  */
 
+@import "flatly/variables";
+
 
 body {
   margin: auto;
   padding-top: 50px;
+}
+
+div#main {
+  padding: 15px 0;
 }
 
 div.row {
@@ -27,9 +33,28 @@ div.row {
 }
 
 h1 {
-  margin: 15px 0;
+  margin: 0px 0 15px 0;
 }
 
-.glyphicon {
+// navigation bar
+
+// icons
+.icon {
   margin-right: 5px;
+}
+
+.fa, .glyphicon {
+  .icon;
+}
+
+div.navbar {
+  .user-thumb {
+    margin-right: 5px;
+  }
+}
+
+.additional-info {
+  font-size: 80%;
+  color: @gray-light;
+  margin: 0.5em;
 }

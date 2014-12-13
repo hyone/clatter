@@ -18,8 +18,10 @@ gem 'twitter-bootswatch-rails'
 gem 'twitter-bootswatch-rails-fontawesome'
 gem 'twitter-bootswatch-rails-helpers'
 gem 'kaminari'
-
+gem 'kaminari-bootstrap'
 gem 'devise'
+gem 'carrierwave'
+gem 'mini_magick'
 
 
 group :development, :test do

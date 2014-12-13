@@ -1,5 +1,6 @@
 div.session-page
-  h2 Sign up
+  h1 Sign up
+
 
   = form_for(resource, as: resource_name,
                        url: registration_path(resource_name),
@@ -7,20 +8,26 @@ div.session-page
     = devise_error_messages!
 
     div.form-group
-      = f.label :screen_name, class: 'sr-only'
+      = f.label :screen_name
       = f.text_field :screen_name, autofocus: true, class: 'form-control', placeholder: 'Username'
 
     div.form-group
-      = f.label :email, class: 'sr-only'
+      = f.label :email
       = f.email_field :email, class: 'form-control', placeholder: 'Email'
 
     div.form-group
-      = f.label :password, class: 'sr-only'
+      = f.label :password
       = f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: 'Password'
 
     div.form-group
       = f.label :password_confirmation, class: 'sr-only'
       = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', placeholder: 'Password Confirmation'
+
+    h3 Profile
+
+    div.form-group
+      = f.label :name, class: 'sr-only'
+      = f.text_field :name, autofocus: true, class: 'form-control', placeholder: 'Name'
 
     div.form-group
       = f.submit 'Sign up', class: 'btn btn-primary'

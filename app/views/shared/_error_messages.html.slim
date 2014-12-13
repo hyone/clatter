@@ -1,6 +1,6 @@
 - if object.errors.any?
   div#error_explanation
-    div.alert.alert-error.danger
+    div.alert.alert-error.alert-danger
       h4 The form contains #{pluralize(object.errors.count, 'error')}.
       ul
         - object.errors.full_messages.each do |message|

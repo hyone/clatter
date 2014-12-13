@@ -1,0 +1,92 @@
+@import "flatly/variables";
+
+
+@separator : #ccc;
+
+
+.panel {
+  margin: 10px 0;
+  border: 1px solid @separator;
+  border-radius: 10px;
+}
+
+.list-panel {
+  .panel;
+  padding: 0;
+  border-bottom: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+
+  > ul {
+    margin: 0;
+    padding: 0;
+
+    > li {
+      margin: 0;
+      padding: 10px;
+      border-bottom: 1px solid @separator;
+      list-style-type: none;
+    }
+  }
+}
+
+
+// All Users page
+
+div.users-list {
+  .list-panel;
+
+  li.user {
+    .user-profile-image {
+      margin-right: 10px;
+    }
+
+    .user-name {
+      font-size: 120%;
+      font-weight: bold;
+    }
+    .user-screen-name {
+      margin: 0 5px;
+      font-size: 80%;
+      color: @gray-light;
+    }
+  }
+}
+
+div.content-foot {
+  text-align: center;
+}
+
+
+// Profile page
+
+div.profile {
+  .panel;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+
+  div.user-profile-image {
+    padding-top: 10px;
+    text-align: center;
+  }
+}
+
+div.tweets {
+  .list-panel;
+  margin-left: 10px;
+  margin-right: 10px;
+
+  li.tweet {
+    .tweet-header {
+      .tweet-owner-name {
+        font-weight: bold;
+      }
+      .tweet-info {
+        margin: 0 5px;
+        font-size: 80%;
+        color: #666;
+      }
+    }
+  }
+}

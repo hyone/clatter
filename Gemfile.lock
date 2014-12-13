@@ -43,6 +43,11 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     celluloid (0.16.0)
       timers (~> 4.0.0)
     childprocess (0.5.5)
@@ -108,6 +113,9 @@ GEM
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    kaminari-bootstrap (3.0.1)
+      kaminari (>= 0.13.0)
+      rails
     less (2.6.0)
       commonjs (~> 0.2.7)
     less-rails (2.6.0)
@@ -123,6 +131,7 @@ GEM
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
     mime-types (2.4.3)
+    mini_magick (4.0.1)
     mini_portile (0.6.1)
     minitest (5.4.3)
     multi_json (1.10.1)
@@ -258,6 +267,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   capybara
+  carrierwave
   coffee-rails (~> 4.0.0)
   devise
   factory_girl_rails
@@ -269,7 +279,9 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
+  kaminari-bootstrap
   less-rails
+  mini_magick
   pg
   pry-rails
   rails (= 4.1.8)

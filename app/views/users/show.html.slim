@@ -1,0 +1,57 @@
+- provide(:title, title("#{@user.name} (@#{@user.screen_name})"))
+
+div.content-head
+
+div.content
+  div.row
+    div.profile.col-sm-3
+      div.user-profile-image
+        = image_tag @user.profile_image.normal.url
+      h2 = link_to @user.name, @user
+      p = link_to @user.screen_name, @user
+      p = @user.description
+
+    div.tweets.col-sm-8
+      ul
+        li.tweet
+          div.tweet-header
+            span.tweet-owner-name
+              | ほげ
+            span.tweet-info
+              | @hoge - 15m
+          div.tweet-body
+          | tweet1
+        li.tweet
+          div.tweet-header
+            span.tweet-owner-name
+              | ほげ
+            span.tweet-info
+              | @hoge - 15m
+          div.tweet-body
+          | tweet2
+        li.tweet
+          div.tweet-header
+            span.tweet-owner-name
+              | ほげ
+            span.tweet-info
+              | @hoge - 15m
+          div.tweet-body
+          | tweet3
+        li.tweet
+          div.tweet-header
+            span.tweet-owner-name
+              | ほげ
+            span.tweet-info
+              | @hoge - 15m
+          div.tweet-body
+          | tweet4
+        li.tweet
+          div.tweet-header
+            span.tweet-owner-name
+              | ほげ
+            span.tweet-info
+              | @hoge - 15m
+          div.tweet-body
+          | tweet5
+
+div.content-foot

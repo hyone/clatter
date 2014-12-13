@@ -8,10 +8,15 @@ class User < ActiveRecord::Base
   # virtual field for screen_name or email
   attr_accessor :login
 
+  mount_uploader :profile_image, ProfileImageUploader
+
   validates :screen_name,
     presence: true,
     length: { maximum: 32 },
     uniqueness: { case_sensitive: false }
+
+  validates :name,
+    presence: true
 
   validates :description,
     length: { maximum: 160 }

@@ -1,4 +1,5 @@
 require 'rails_helper'
+# require 'controllers/users_controller'
 include Warden::Test::Helpers
 
 
@@ -22,9 +23,13 @@ describe 'Users page' do
     describe 'content' do
       it { should have_title('All Users') }
 
-      it 'should list all users' do
-        User.all do |user|
-          expect(page).to have_selector('li', text: user.screen_name)
+      describe 'pagination' do
+        it { should have_selector('ul.pagination') }
+
+        it 'should list each users in page 1' do
+          User.page(1).per(UsersController::PAGE_SIZE).each do |user|
+            expect(page).to have_selector('li', text: user.screen_name)
+          end
         end
       end
     end
@@ -100,6 +105,7 @@ describe 'Users page' do
       before {
         fill_in 'Email', with: user.email
         fill_in 'Username', with: user.screen_name
+        fill_in 'Name', with: user.name
         fill_in 'Password', with: user.password
         fill_in 'Password confirmation', with: user.password
       }
