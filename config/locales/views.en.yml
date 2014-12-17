@@ -1,0 +1,30 @@
+en:
+  views:
+    users:
+      index:
+        title: All Users
+      signup:
+        title: Sign up
+      signin:
+        title: Sign in
+      form:
+        basic_information: Basic Information
+        connected_account: Connected Account
+        connect_with: Connect with
+        danger_zone: Danger Zone
+        delete_my_account: Delete My Account
+        disconnect_provider: "Disconnect %{provider}"
+        email_or_name: "%{email} or %{name}"
+        forget_your_password: Forgot your password?
+        leave_blank_if_not_change: leave blank if you don't want to change it
+        need_current_password: we need your current password when password changes
+        new_visitor_question: New visitor?
+        oauth: OAuth
+        oauth_disabled_disconnect: Connecting with other services or registering a password is required.
+        profile: Profile
+        signin: Sign in
+        signup: Sign up
+        signup_link_text: Sign up with Email »
+        update: Update
+      edit:
+        title: Setting

@@ -3,7 +3,10 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, omniauth_providers: [:github, :google_oauth2, :twitter],
          :authentication_keys => [:login]
+
+  has_many :authentications, dependent: :destroy
 
   # virtual field for screen_name or email
   attr_accessor :login
@@ -21,6 +24,23 @@ class User < ActiveRecord::Base
   validates :description,
     length: { maximum: 160 }
 
+
+  def apply_omniauth(omniauth)
+    self.name  = omniauth['info']['name']  if name.blank?
+    self.email = omniauth['info']['email'] if email.blank?
+
+    authentications.build(
+      provider: omniauth['provider'],
+      uid: omniauth['uid'],
+      account_name: omniauth['info']['_account_name'],
+      url: omniauth['info']['_url']
+    )
+  end
+
+  def password_required?
+    (authentications.empty? || !password.blank?) && super
+  end
+
   class << self
     def find_first_by_auth_conditions(warden_conditions)
       conditions = warden_conditions.dup
@@ -33,4 +53,5 @@ class User < ActiveRecord::Base
       end
     end
   end
+
 end

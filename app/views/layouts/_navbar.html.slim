@@ -27,7 +27,7 @@ div.navbar.navbar-inverse.navbar-fixed-top
                 / b.glyphicon.glyphicon-user
                 / = image_tag @user.profile_image.xsmall.url, class: 'user-thumb'
                 b.fa.fa-user.fa-lg
-                = current_user.email
+                = current_user.screen_name
                   b.caret
               ul.dropdown-menu
                 / - if current_user.try(:admin?)

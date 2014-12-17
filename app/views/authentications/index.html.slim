@@ -1,0 +1,13 @@
+h1 Authentications
+
+table.table
+  tr
+    th User
+    th Provider
+    th Uid
+    td Account Name
+    td Actions
+  = render @authentications
+
+p Add another services to sign in with:
+= render 'users/shared/provider_signin', { resource_class: User }

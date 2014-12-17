@@ -1,7 +1,7 @@
 - User
   - screen_name
   - email
-  - name (optional)
+  - name
   - description 160文字 (optional)
   - url (optional)
   - icon_url (optional)

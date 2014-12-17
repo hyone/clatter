@@ -1,53 +1,68 @@
-h1 Setting
+- provide(:title, title(t('views.users.edit.title')))
+
 
 div.row
-  = form_for(resource, as: resource_name,
-                       url: registration_path(resource_name),
-                       html: { method: :put }) do |f|
-    = devise_error_messages!
+  h1 = t('views.users.edit.title')
+
+= form_for(resource, as: resource_name,
+                     url: registration_path(resource_name),
+                     html: { method: :put }) do |f|
+  = devise_error_messages!
+
+  div.row
+    h3 = t('views.users.form.basic_information')
 
     div.form-group
       = f.label :screen_name
-      = f.text_field :screen_name, class: 'form-control', placeholder: 'Username'
+      = f.text_field :screen_name, class: 'form-control', placeholder: t_user('screen_name')
 
     div.form-group
       = f.label :email
-      = f.email_field :email, class: 'form-control', placeholder: 'Email'
+      = f.email_field :email, class: 'form-control', placeholder: t_user('email')
 
-    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-      div Currently waiting confirmation for: #{resource.unconfirmed_email}
+    / - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+      / div Currently waiting confirmation for: #{resource.unconfirmed_email}
 
     div.form-group
       = f.label :password
       span.help-block
-        | leave blank if you don't want to change it
+        = t('views.users.form.leave_blank_if_not_change')
       = f.password_field :password, autocomplete: 'off',
                                     class: 'form-control',
-                                    placeholder: 'Password'
+                                    placeholder: t_user('password')
 
     div.form-group
       = f.label :password_confirmation, class: 'sr-only'
       = f.password_field :password_confirmation, autocomplete: 'off',
                                                  class: 'form-control',
-                                                 placeholder: 'Password Confirmation'
-    h3 Profile
+                                                 placeholder: t_user('password_confirmation')
+    div.form-group
+      = f.label :current_password, class: 'sr-only'
+      span.help-block
+        = t('views.users.form.need_current_password')
+      = f.password_field :current_password, autocomplete: 'off',
+                                    class: 'form-control',
+                                    placeholder: t_user('current_password')
+
+  div.row
+    h3 = t('views.users.form.profile')
 
     div.form-group
       = f.label :name, class: 'sr-only'
-      = f.text_field :name,  class: 'form-control', placeholder: 'Name'
+      = f.text_field :name,  class: 'form-control', placeholder: t_user('name')
 
     div.form-group
       = f.label :url, class: 'sr-only'
-      = f.text_field :url, class: 'form-control', placeholder: 'URL'
+      = f.text_field :url, class: 'form-control', placeholder: t_user('url')
 
     div.form-group
       = f.label :description, class: 'sr-only'
-      = f.text_field :description, class: 'form-control', placeholder: 'Description...'
+      = f.text_field :description, class: 'form-control', placeholder: t('activerecord.attributes.user.description')
 
     div.form-group
       = f.label :profile_image
       - if resource.profile_image?
-        div
+        div.profile_image
           = image_tag resource.profile_image.url
       = f.file_field :profile_image, class: 'form-control'
       = f.hidden_field :profile_image_cache
@@ -56,50 +71,49 @@ div.row
         div.checkbox
           = f.label(:remove_profile_image) do
             = f.check_box :remove_profile_image
-            = t('activerecord.user.remove_profile_image')
+            = t_user('remove_profile_image')
 
-    h3 Confirmation
-
-    div.form-group
-      = f.label :current_password, class: 'sr-only'
-      span.help-block
-        | we need your current password to confirm your changes
-      = f.password_field :current_password, autocomplete: 'off',
-                                    class: 'form-control',
-                                    placeholder: 'Current Password'
+  div.row
+    h3 = t('views.users.form.update')
 
     div.form-group
       = f.submit 'Update', class: 'btn btn-primary'
 
-/ div#oauth-section.row
-  / h3 OAuth
-  / ul.list-unstyled
-    / - User.omniauth_providers.each do |provider|
-      / li
-        / - name = provider_name "#{provider}"
-        / = image_tag "#{name}_32.png", alt: name.titleize
+div.row.setting-oauth
+  h3 = t('views.users.form.oauth')
+  ul.list-unstyled
+    - User.omniauth_providers.each do |provider|
+      li
+        = image_tag "#{provider_name provider}_32.png", alt: provider.to_s.titleize, class: 'icon'
 
-        / - if authentication = current_user.authentications.find_by(provider: "#{provider}")
-          / = link_to  authentication, method: :delete,
-                                     / class: 'btn-sm btn-danger',
-                                     / data: { confirm: 'You sure?' } do
-            / | Disconnect #{name}
-          / span.description
-            / | ( Connected to account:
-            / - if authentication.url
-              / = link_to authentication.account_name, authentication.url
-            / - else
-              / = authentication.account_name
-            / | )
-        / - else
-          / = link_to user_omniauth_authorize_path(provider),
-              / class: 'btn-sm btn-primary' do
-            / | Connect with #{name.titleize}
+        - if authentication = current_user.authentications.find_by(provider: "#{provider}")
+          - if authentication.deletable?
+            = link_to authentication, method: :delete,
+                                      class: 'btn btn-sm btn-danger',
+                                      data: { confirm: 'You sure?' } do
+              = text_disconnect_provider(provider)
+          - else
+            = link_to authentication, method: :delete,
+                                      class: 'btn btn-default btn-sm disabled',
+                                      data: { confirm: 'You sure?' } do
+              = text_disconnect_provider(provider)
+            span.additional-info
+              = "( #{t('views.users.form.oauth_disabled_disconnect')} )"
+          p
+            = "#{t('views.users.form.connected_account')}: "
+            b
+              - if authentication.url.blank?
+                = authentication.account_name
+              - else
+                = link_to authentication.account_name, authentication.url
+        - else
+          = link_to user_omniauth_authorize_path(provider),
+              class: 'btn-sm btn-primary' do
+            = text_connect_provider(provider)
 
-div.row
-  div#danger-zone-section.alert.alert-danger
-    h3 Danger zone
-    p
-      = link_to "Delete my account", registration_path(resource_name),
-                                     data: { confirm: "Are you sure?" },
-                                     method: :delete, class: 'btn btn-danger'
+div.row.setting-danger-zone
+  h3 = t('views.users.form.danger-zone')
+  p
+    = link_to t('delete_my_account'), registration_path(resource_name),
+                                      data: { confirm: "Are you sure?" },
+                                      method: :delete, class: 'btn btn-danger'

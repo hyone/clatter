@@ -1,7 +1,0 @@
-ul.list-inline
-  - resource_class.omniauth_providers.each do |provider|
-    li
-      = link_to user_omniauth_authorize_path(provider) do
-          - name = provider_name provider.to_s
-          = image_tag "#{name}_32.png", alt: name.titleize
-          = name.titleize

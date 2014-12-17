@@ -20,12 +20,16 @@ gem 'twitter-bootswatch-rails-helpers'
 gem 'kaminari'
 gem 'kaminari-bootstrap'
 gem 'devise'
+gem 'omniauth-github'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-twitter'
 gem 'carrierwave'
 gem 'mini_magick'
 
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'rspec-its'
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'faker'
@@ -42,6 +46,7 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'guard-rspec'
+  gem 'guard-shell'
   gem 'terminal-notifier-guard'
 end
 

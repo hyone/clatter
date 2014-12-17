@@ -1,0 +1,19 @@
+tr
+  - name = provider_name authentication.provider
+  td
+    = authentication.user.name
+  td
+    = image_tag "#{name}_32.png", alt: "#{name.titleize}", class: 'icon'
+    = name.titleize
+  td
+    = authentication.uid
+  td
+    - if authentication.url.blank?
+      = authentication.account_name
+    - else
+      = link_to authentication.account_name, authentication.url
+  td
+    ul.list-inline
+      li
+        = link_to 'Delete', authentication, method: :delete,
+                                            data: { confirm: 'You sure?' }

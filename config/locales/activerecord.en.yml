@@ -1,0 +1,14 @@
+en:
+  activerecord:
+    attributes:
+      user:
+        screen_name: Username
+        email: Email
+        login: Login
+        password: Password
+        password_confirmation: Password Confirmation
+        current_password: Current Password
+        name: Full Name
+        url: URL
+        description: Description
+        remove_profile_image: Remove Profile Image

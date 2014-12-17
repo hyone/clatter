@@ -1,8 +1,12 @@
 @import "flatly/variables";
+@import "twitter/bootstrap/mixins/alerts";
+@import "twitter/bootstrap/alerts";
 
 
 @separator : #ccc;
 
+
+// Mixins
 
 .panel {
   margin: 10px 0;
@@ -31,7 +35,7 @@
 }
 
 
-// All Users page
+// /Users/
 
 div.users-list {
   .list-panel;
@@ -58,7 +62,7 @@ div.content-foot {
 }
 
 
-// Profile page
+// /Users/:id
 
 div.profile {
   .panel;
@@ -88,5 +92,51 @@ div.tweets {
         color: #666;
       }
     }
+  }
+}
+
+
+// /Users/sign_in
+
+span.form-additional-info {
+  margin-left: 1em;
+}
+
+div.row {
+  h3 {
+    margin: 0 0 15px 0;
+  }
+}
+
+
+// /Users/:id/edit
+
+div.profile_image {
+  margin-bottom: 10px;
+
+  img {
+    border: 1px solid @gray-lighter;
+  }
+}
+
+div.setting-oauth {
+  /* border: 1px solid @gray-light; */
+  /* border-radius: @alert-border-radius; */
+
+  margin-top: 20px;
+
+  li {
+    margin-top: 10px;
+  }
+}
+
+div.setting-danger-zone {
+  .alert;
+  .alert-danger;
+
+  margin-top: 30px;
+
+  h3 {
+    border-color: darken(@btn-danger-bg, 20%);
   }
 }
