@@ -9,14 +9,24 @@
 #                          installed the spring binstubs per the docs)
 #  * zeus: 'zeus rspec' (requires the server to be started separetly)
 #  * 'just' rspec: 'rspec'
+
+require 'active_support/inflector'
+
+
 guard :rspec, cmd: 'spring rspec' do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')  { "spec" }
 
-  # Rails example
-  watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
-  watch(%r{^app/(.*)(\.erb|\.haml|\.slim)$})          { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
+  watch(%r{^app/(.+)\.rb$}) { |m| "spec/#{m[1]}_spec.rb" }
+
+  # model
+  watch(%r{^app/models/(.+)\.rb$}) {
+    |m|
+    p m
+    p "spec/features/#{m[1].pluralize}_spec.rb"
+    "spec/features/#{m[1].pluralize}_spec.rb"
+  }
 
   # controllers
   watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| [
@@ -27,16 +37,25 @@ guard :rspec, cmd: 'spring rspec' do
   ] }
 
   # views
-  watch(%r{^app/views/(.+)/}) { |m|
+  watch(%r{^app/views/(.+)(\.erb|\.haml|\.slim)$}) { |m|
+    "spec/views/#{m[1]}#{m[2]}_spec.rb"
+  }
+  watch(%r{^app/views/(.+?)/(.+)(\.erb|\.haml|\.slim)}) { |m|
     "spec/features/#{m[1]}_spec.rb"
   }
+  watch(%r{^app/views/layouts/(.+)(\.erb|\.haml|\.slim)$/}) { |m|
+    'spec/features'
+  }
 
-  watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
-  watch('config/routes.rb')                           { "spec/routing" }
-  watch('app/controllers/application_controller.rb')  { "spec/controllers" }
-  watch('spec/rails_helper.rb')                       { "spec" }
+  # other files
+  watch(%r{^spec/support/(.+)\.rb$})                  { 'spec' }
+  watch('config/routes.rb')                           { 'spec/routing' }
+  watch('app/controllers/application_controller.rb')  { 'spec/controllers' }
+  watch('spec/rails_helper.rb')                       { 'spec' }
 
-  # Turnip features and steps
-  watch(%r{^spec/acceptance/(.+)\.feature$})
-  watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance' }
+  watch('config/application.rb') { 'spec' }
+  watch('config/environment.rb') { 'spec' }
+  watch(%r{^config/environments/.+\.rb$}) { 'spec' }
+  watch(%r{^config/initializers/.+\.rb$}) { 'spec' }
+
 end
