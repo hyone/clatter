@@ -26,13 +26,18 @@ gem 'omniauth-twitter'
 gem 'carrierwave'
 gem 'mini_magick'
 
+gem 'factory_girl_rails'
+gem 'faker'
+
+
+group :production do
+  gem 'rails_12factor'
+end
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'capybara'
-  gem 'factory_girl_rails'
-  gem 'faker'
 end
 
 group :development do
