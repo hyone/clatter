@@ -141,6 +141,7 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    newrelic_rpm (3.9.8.273)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
     oauth (0.4.7)
@@ -323,6 +324,7 @@ DEPENDENCIES
   kaminari-bootstrap
   less-rails
   mini_magick
+  newrelic_rpm
   omniauth-github
   omniauth-google-oauth2
   omniauth-twitter
