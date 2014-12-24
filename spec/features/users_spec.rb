@@ -25,7 +25,7 @@ describe 'Users page', type: :feature do
         it { should have_selector('ul.pagination') }
 
         it 'should list each user in page 1' do
-          User.page(1).per(UsersController::PAGE_SIZE).each do |user|
+          User.page(1).per(UsersController::USER_PAGE_SIZE).each do |user|
             expect(page).to have_selector('li', text: user.screen_name)
           end
         end
@@ -38,7 +38,7 @@ describe 'Users page', type: :feature do
     before { visit new_user_session_path }
 
     describe 'content' do
-      it { should have_content('Sign in') }
+      it { should have_content(I18n.t('views.users.form.signin')) }
 
       # oauth links
       User.omniauth_providers.each do |provider|
@@ -59,10 +59,13 @@ describe 'Users page', type: :feature do
         before { click_signin_button }
 
         it 'back to the sign in page' do
-          expect(current_path).to be == new_user_session_path
+          expect(current_path).to eq(new_user_session_path)
         end
 
-        it { should have_message(:alert, 'Invalid') }
+        it { should have_message(:alert, I18n.t(
+          'devise.failure.invalid',
+          { authentication_keys: User.authentication_keys.join(', ') }
+        )) }
       end
 
       context 'with valid info' do
@@ -76,7 +79,7 @@ describe 'Users page', type: :feature do
           }
 
           it 'redirect to the root page' do
-            expect(current_path).to be == root_path
+            expect(current_path).to eq(root_path)
           end
 
           it { should have_message(:notice, I18n.t('devise.sessions.signed_in')) }
@@ -90,7 +93,7 @@ describe 'Users page', type: :feature do
           }
 
           it 'redirect to the root page' do
-            expect(current_path).to be == root_path
+            expect(current_path).to eq(root_path)
           end
 
           it { should have_message(:notice, I18n.t('devise.sessions.signed_in')) }
@@ -175,7 +178,7 @@ describe 'Users page', type: :feature do
       before { click_signup_button }
 
       it 'back to the sign up form' do
-        expect(current_path).to be == user_registration_path
+        expect(current_path).to eq(user_registration_path)
       end
 
       it { should have_message(:error, 'error') }

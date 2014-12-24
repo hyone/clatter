@@ -2,47 +2,15 @@
 @import "twitter/bootstrap/mixins/alerts";
 @import "twitter/bootstrap/alerts";
 
+@import "variables.css.less";
+@import "mixins.css.less";
 
-@separator : #ccc;
-
-
-// Mixins
-
-.panel {
-  margin: 10px 0;
-  border: 1px solid @separator;
-  border-radius: 10px;
-}
-
-.list-panel {
-  .panel;
-  padding: 0;
-  border-bottom: 0px;
-  border-bottom-right-radius: 0px;
-  border-bottom-left-radius: 0px;
-
-  > ul {
-    margin: 0;
-    padding: 0;
-
-    > li {
-      margin: 0;
-      padding: 10px;
-      border-bottom: 1px solid @separator;
-      list-style-type: none;
-    }
-  }
-}
-
-
-// /Users/
 
 div.users-list {
   .list-panel;
 
   li.user {
     .user-profile-image {
-      margin-right: 10px;
     }
 
     .user-name {
@@ -57,46 +25,9 @@ div.users-list {
   }
 }
 
-div.content-foot {
-  text-align: center;
-}
-
-
-// /Users/:id
-
-div.profile {
-  .panel;
-  margin-left: 10px;
-  margin-right: 10px;
-  padding: 10px;
-
-  div.user-profile-image {
-    padding-top: 10px;
-    text-align: center;
-  }
-}
-
-div.tweets {
-  .list-panel;
-  margin-left: 10px;
-  margin-right: 10px;
-
-  li.tweet {
-    .tweet-header {
-      .tweet-owner-name {
-        font-weight: bold;
-      }
-      .tweet-info {
-        margin: 0 5px;
-        font-size: 80%;
-        color: #666;
-      }
-    }
-  }
-}
-
-
-// /Users/sign_in
+// --------------------------------------------------------------------------------
+// /users/sign_in
+// --------------------------------------------------------------------------------
 
 span.form-additional-info {
   margin-left: 1em;
@@ -109,34 +40,120 @@ div.row {
 }
 
 
-// /Users/:id/edit
+// --------------------------------------------------------------------------------
+// form pages
+// --------------------------------------------------------------------------------
 
-div.profile_image {
-  margin-bottom: 10px;
-
-  img {
-    border: 1px solid @gray-lighter;
-  }
-}
-
-div.setting-oauth {
-  /* border: 1px solid @gray-light; */
-  /* border-radius: @alert-border-radius; */
-
-  margin-top: 20px;
-
-  li {
-    margin-top: 10px;
-  }
-}
-
-div.setting-danger-zone {
-  .alert;
-  .alert-danger;
-
-  margin-top: 30px;
-
+.session {
   h3 {
-    border-color: darken(@btn-danger-bg, 20%);
+    border-bottom: 1px solid @gray-light;
+  }
+
+  div.profile_image {
+    margin-bottom: 10px;
+
+    img {
+      border: 1px solid @app-separator;
+    }
+  }
+
+  div.setting-oauth {
+    /* border: 1px solid @gray-light; */
+    /* border-radius: @alert-border-radius; */
+
+    margin-top: 20px;
+
+    li {
+      margin-top: 10px;
+    }
+  }
+
+  div.setting-danger-zone {
+    .alert;
+    .alert-danger;
+
+    margin-top: 20px;
+
+    h3 {
+      border-color: darken(@btn-danger-bg, 20%);
+    }
+  }
+}
+
+
+// --------------------------------------------------------------------------------
+// /user/:id
+// --------------------------------------------------------------------------------
+
+// navigation bar
+div.header {
+  div.content-navigation {
+    padding: 0;
+
+    ul.nav {
+      padding: 0;
+
+      li {
+        text-align: center;
+
+        span.nav-label,
+        span.nav-value {
+          display: block;
+        }
+
+        span.nav-label {
+          font-size: 75%;
+          color: @gray-light;
+        }
+        span.nav-value {
+          font-weight: bold;
+        }
+
+        a {
+          padding: 5px 15px;
+          border-bottom: 5px solid transparent;
+        }
+
+        &.active a,
+        a:hover {
+          border-bottom-color: @component-active-bg;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}
+
+
+div.user {
+  div.posts-header {
+    padding: 0 15px;
+    font-size: 18px;
+
+    ul li {
+      padding: 10px 30px 0 0;
+    }
+  }
+
+  div.posts {
+    ul li.post {
+      .post-header {
+        img {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      .post-body,
+      .post-footer {
+        margin-left: 30px;
+      }
+
+      .post-footer {
+        ul li {
+          padding-left: 10px;
+        }
+      }
+    }
   }
 }

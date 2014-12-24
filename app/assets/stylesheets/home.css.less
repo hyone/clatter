@@ -1,3 +1,166 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Less here: http://lesscss.org/
+
+@import "variables.css.less";
+@import "mixins.css.less";
+
+// NOTE:
+// .home はページの識別子として header block, main block の両方で使われているので、
+// 直下にスタイルを定義しないように。
+
+
+// --------------------------------------------------------------------------------
+//  guest_home
+// --------------------------------------------------------------------------------
+
+.header .home {
+  .header-title {
+    position: relative;
+    height: 375px;
+
+    h1 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+
+      width: 100%;
+      height: 50px;
+
+      font-size: 50px;
+      line-height: 50px;
+      text-align: center;
+      color: @app-body-bg;
+    }
+  }
+}
+
+
+// --------------------------------------------------------------------------------
+//  user_home
+// --------------------------------------------------------------------------------
+
+#main .home {
+  div.profile {
+    div.col-inner {
+      .panel;
+    }
+
+    top: 0;
+
+    div.user-profile-header {
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+      height: 95px;
+      background-color: @app-active;
+    }
+
+    div.user-profile-image {
+      margin-left: 10px;
+      margin-right:10px;
+      margin-top: -30px;
+      width: 80px;
+      height: 80px;
+      border-width: 0;
+      border-radius: 5px;
+      float: left;
+
+      img {
+        width: 72px;
+        height: 72px;
+        border-radius: 3px;
+      }
+    }
+
+    div.user-profile-main {
+      padding-top: 5px;
+      padding-left: 10px;
+      padding-right: 10px;
+
+      p.user-profile-name {
+        margin: 0;
+        font-size: 125%;
+        font-weight: bold;
+        a, a:visited, a:hover {
+          color: @app-text;
+        }
+      }
+
+      .user-profile-screen-name {
+        margin: 0;
+        font-size: 82.5%;
+      }
+    }
+
+    ul.list-inline {
+      margin-top: 15px;
+      li {
+        padding-right: 13px;
+      }
+    }
+
+    span.nav-label,
+    span.nav-value {
+      display: block;
+    }
+
+    span.nav-label {
+      font-size: 75%;
+      color: @app-text-lighter;
+    }
+    span.nav-value {
+      font-weight: bold;
+    }
+  }
+
+
+  // Posts Column
+
+  div.posts {
+    div.posts-header {
+      padding: 10px;
+      background-color: @app-bg-active;
+      border-bottom: 1px solid @app-separator-active;
+      border-top-left-radius:  10px;
+      border-top-right-radius: 10px;
+
+      .post-icon {
+        position: absolute;
+
+        img {
+          width: 32px;
+          height: 32px;
+          border-radius: 3px;
+        }
+      }
+
+      form.post-form {
+        margin-left: 40px;
+
+        .post-submit {
+          display: none;
+        }
+      }
+    }
+
+    ul li.post {
+      .post-header {
+        .post-icon {
+          img {
+            width: 48px;
+            height: 48px;
+          }
+        }
+      }
+
+      .post-footer {
+        ul li {
+          padding-left: 0px;
+        }
+      }
+    }
+  }
+}

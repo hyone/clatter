@@ -55,4 +55,10 @@ module RequestHelpers
       })
     end
   end
+
+  def post_post(p)
+    post posts_path, {
+      post: { text: p.text }
+    }
+  end
 end

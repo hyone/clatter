@@ -1,22 +1,26 @@
 - User
-  - screen_name
-  - email
-  - name
-  - description 160文字 (optional)
-  - url (optional)
-  - icon_url (optional)
-  - private
+  - screen_name:string
+  - email:string
+  - name:string
+  - description:string 160文字 (optional)
+  - url:string (optional)
+  - profile_image:string (optional)
+  - private:bool
 
 - Post
   - text
   - user_id
-  - favorited
-  - created_at
   - reply_to (optional)
 
+text:string user_id:references created_at:datetime reply_to:references
+
+- Favorite
+  - user:references
+  - post:references
+
 - Relationship
-  - follower_id     # follow した人
-  - followed_id     # follow された人
+  - follower:references     # follow した人
+  - followed:references     # follow された人
 
 - Retweet
   - id

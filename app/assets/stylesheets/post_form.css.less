@@ -1,0 +1,23 @@
+@import "variables.css.less";
+@import "mixins.css.less";
+
+
+form.post-form {
+  .form-group {
+    margin-bottom: 0px;
+
+    textarea.post-text {
+      border: 1px solid @app-separator-active;
+      .placeholder-color(@app-active);
+    }
+  }
+
+  .post-submit {
+    padding-top: 10px;
+    text-align: right;
+
+    .post-count {
+      margin-right: 15px;
+    }
+  }
+}

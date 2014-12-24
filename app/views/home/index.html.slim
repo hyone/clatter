@@ -1,4 +1,6 @@
-- provide(:title, title)
+- provide(:title, page_title)
 
-h1 Home#index
-p Find me in app/views/home/index.html.slim
+- if user_signed_in?
+  = render 'home/user_home'
+- else
+  = render 'home/guest_home'

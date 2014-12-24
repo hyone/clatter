@@ -1,5 +1,27 @@
 en:
   views:
+    generic:
+      please_sign_in: Please sign in.
+
+    navigation:
+      profile: Profile
+      settings: Settings
+      signout: Sign out
+      signin: Sign in
+      new_post: New Post
+      compose_new_post: Compose new Post
+      close: Close
+
+    home:
+      welcome_message: Welcome to TwitterApp
+      signup_now: Sign up now!
+      form:
+        new_post: What's happening?
+        submit: Post
+
+    posts:
+      success: Post created!
+
     users:
       index:
         title: All Users
@@ -28,3 +50,12 @@ en:
         update: Update
       edit:
         title: Setting
+      show:
+        navigation:
+          posts: POSTS
+          following: FOLLOWING
+          followers: FOLLOWERS
+          favorites: FAVORITES
+        posts: Posts
+        posts_and_replies: Posts & replies
+

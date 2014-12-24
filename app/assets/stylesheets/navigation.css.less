@@ -1,0 +1,109 @@
+// navigation bar
+
+@import "variables.css.less";
+
+@app-global-navigation-bg: #fff;
+
+
+#global-navigation {
+  border-top: 1px solid @app-separator;
+  /* border-bottom: 1px solid darken(@app-active, 20%); */
+  border-bottom: 1px solid @app-separator;
+  /* border-bottom-width: 0; */
+  background-color: @app-global-navigation-bg;
+
+  div.container {
+    padding: 0 5px;
+  }
+
+  ul.nav {
+    & > li > a {
+      & {
+        padding-top: 15px;
+        padding-bottom: 10px;
+        border-bottom: 5px solid transparent;
+        background-color: @app-global-navigation-bg;
+        color: @app-text-light;
+      }
+
+      &.active, &:hover {
+        color: @link-color;
+        /* background-color: @app-global-navigation-bg; */
+        border-bottom-color: @app-active;
+      }
+    }
+  }
+
+
+  // right block of navigation
+  ul#navbar-right-block {
+    form.navbar-form-search {
+      padding: 0;
+      padding-top: 2px;
+
+      input, button {
+        border-color: @app-separator-active;
+        background-color: @app-bg-active-light;
+      }
+    }
+
+    & > li {
+      margin-left: 10px;
+    }
+
+    & > li#navbar-user {
+      & > a {
+        padding: 0 5px;
+        padding-top: 9px;
+        border-bottom-width: 0;
+
+        &:hover {
+          text-decoration: none;
+        }
+
+        img {
+          width: 32px;
+          height: 32px;
+          border: 1px solid @app-separator;
+          border-radius: 5px;
+        }
+      }
+
+      // dropdown
+      ul.dropdown-menu li a {
+        & {
+          color: @app-text-light;
+        }
+
+        &:hover {
+          color: @app-global-navigation-bg;
+          background-color: @app-active;
+        }
+      }
+    }
+  }
+}
+
+
+// modal dialog
+
+#modal-post-form {
+  div.modal-header {
+    border-bottom-color: @app-separator-active;
+    padding: 10px;
+
+    h4 {
+      font-size: 16px;
+      color: @app-text-light;
+      text-align: center;
+    }
+  }
+
+  div.modal-body {
+    background-color: @app-bg-active;  
+    border-bottom-left-radius:  5px;
+    border-bottom-right-radius: 5px;
+    padding: 10px;
+  }
+}
+ 

@@ -13,42 +13,32 @@
  *
  *= require flatly/loader
  *= require fontawesome
+ *= require navigation
+ *= require post_form
  *= require users
+ *= require home
  */
 
-@import "flatly/variables";
+@import "variables.css.less";
+@import "mixins.css.less";
 
 
-body {
-  margin: auto;
-  padding-top: 50px;
-}
-
-div#main {
-  padding: 15px 0;
-}
-
-div.row {
-  padding: 10px;
-}
+// --------------------------------------------------------------------------------
+//  Basic
+// --------------------------------------------------------------------------------
 
 h1 {
   margin: 0 0 10px 0;
 }
 
 h3 {
-  border-bottom: 1px solid @gray-light;
   margin: 0 0 10px 0;
   padding: 3px 0;
 }
 
-.bordered {
-  border-top: 1px solid @gray-lighter;
-}
+// utilities
+// ----------------------------------------------
 
-// navigation bar
-
-// icons
 .icon {
   margin-right: 5px;
 }
@@ -57,16 +47,202 @@ h3 {
   .icon;
 }
 
-.navbar {
-  .user-thumb {
-    margin-right: 5px;
-  }
-}
-
 .additional-info {
-  color: @gray-light;
+  color: @app-text-light;
 }
 
 span.additional-info {
   margin: 0.5em;
+}
+
+
+// --------------------------------------------------------------------------------
+//  Layouts
+// --------------------------------------------------------------------------------
+
+body {
+  margin: auto;
+  padding-top: 50px;
+}
+
+#main {
+  padding: 0;
+  background-color: @app-main-bg;
+
+  h1 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.row {
+  padding: 5px 0;
+}
+
+.col {
+  padding: 5px;
+}
+
+.bordered {
+  border-top: 1px solid @app-separator;
+}
+
+
+// header
+// ----------------------------------------------
+
+.header {
+  border-bottom: 1px solid @app-separator;
+}
+
+.header-title {
+  height: 150px;
+  background-color: @app-active;
+  border-top: 2px solid darken(@app-active, 20%);
+  border-bottom: 1px solid darken(@app-active, 20%);
+}
+
+
+// main content
+// ----------------------------------------------
+
+div.content-foot {
+  text-align: center;
+}
+
+
+// alert block
+// ----------------------------------------------
+
+.alert-block {
+  padding: 0;
+
+  > div.col-sm-12 {
+    padding: 0 5px;
+
+    .alert {
+      margin-top: 10px;
+      margin-bottom: 0px;
+    }
+  }
+}
+
+// profile block
+// ----------------------------------------------
+
+div.profile {
+  top: -180px;
+
+  div.col-inner {
+    /* .panel; */
+  }
+
+  div.user-profile-image {
+    position: relative;
+    width: 210px;
+    height: 210px;
+    border: 1px solid @app-separator;
+    border-radius: 10px;
+    padding: 4px;
+    background-color: @app-body-bg;
+
+    img {
+      width: 200px;
+      height: 200px;
+      border-radius: 5px;
+    }
+  }
+
+  .user-profile-main {
+    padding-left: 5px;
+
+    .user-profile-name {
+      margin: 0;
+      padding: 0;
+      font-size: 24px;
+      a {
+        color: @text-color;
+      }
+    }
+
+    p.user-profile-screen-name {
+      color: @app-text-light;
+      a {
+        color: @app-text-light;
+      }
+    }
+  }
+}
+
+
+// post lists block
+// ----------------------------------------------
+
+div.posts {
+  div.col-inner {
+    .list-panel;
+  }
+
+  div.posts-header {
+    border-bottom: 1px solid @app-separator;
+    margin: 0;
+  }
+
+  ul li.post {
+    .post-header {
+      a {
+        text-decoration: none;
+
+        .post-icon {
+          float: left;
+          margin-top: 5px;
+          margin-right: 10px;
+
+          img {
+            border-radius: 3px;
+          }
+        }
+
+        .post-owner-name {
+          clear: both;
+          color: @text-color;
+          font-weight: bold;
+        }
+
+        .post-info {
+          margin: 0 5px;
+          font-size: 80%;
+          color: @app-text-lighter;
+        }
+
+        &:hover {
+          .post-owner-name {
+            color: @app-active;
+            text-decoration: underline;
+          }
+
+          .post-info {
+            color: @app-text-lighter;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+
+    .post-footer {
+      margin-top: 5px;
+
+      a {
+        color: @app-text-light;
+
+        &:hover {
+          color: @app-active;
+        }
+      }
+
+      ul li {
+        padding-right: 20px;
+      }
+    }
+  }
 }

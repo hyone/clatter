@@ -12,24 +12,36 @@ html lang="en"
     /![if lt IE 9]
     /!<script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
     /![endif]
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'application', media: 'all'
     = yield(:page_stylesheet) if content_for?(:page_stylesheet)
 
   body
-    = render 'layouts/navbar'
+    = render 'layouts/navigation'
 
-    div#main.container
-      - flash.each do |key, value|
-        - status = case key \
-                   when 'notice'          then 'success' \
-                   when 'alert', 'error'  then 'danger' \
-                   else key \
-                   end
-        = content_tag(:div, value, class: "alert alert-#{status} alert-#{key}")
-      = yield
+    div.header
+      = yield(:header)
+
+    div#main
+      div.container
+        /! alert block
+        - unless flash.empty?
+          div.row.alert-block
+            div.col-sm-12
+              - flash.each do |key, value|
+                - status = case key \
+                           when 'notice'          then 'success' \
+                           when 'alert', 'error'  then 'danger' \
+                           else key \
+                           end
+                = content_tag(:div, value, class: "alert alert-#{status} alert-#{key}")
+
+        /! main contents block
+        = yield
 
     /! Javascripts
     /!==================================================
     /! Placed at the end of the document so the pages load faster
-    = javascript_include_tag "flatly"
-    = yield(:page_javascript) if content_for?(:page_javascript)
+    / = javascript_include_tag "flatly"
+    / = yield(:page_javascript) if content_for?(:page_javascript)
+    / = javascript_include_tag 'application', 'data-turbolinks-track' => true 
+    = javascript_include_tag 'application'

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ApplicationHelper, type: :helper do
   describe '#title' do
-    subject { title(text) }
+    subject { page_title(text) }
 
     context 'with "home"' do
       let (:text) { 'home' }
@@ -20,7 +20,30 @@ describe ApplicationHelper, type: :helper do
     end
 
     context 'with arguments' do
-      it { expect(title).to be == 'TwitterApp' }
+      it { expect(page_title).to be == 'TwitterApp' }
+    end
+  end
+
+  describe '#active?' do
+    let (:request) { instance_double('ActionDispatch::Request') }
+    before {
+      allow(request).to receive(:path_info) { '/home' }
+    }
+    subject { active?(url) }
+
+    context 'with "/home"' do
+      let (:url) { '/home' }
+      it { should be_truthy }
+    end
+
+    context 'with "/about"' do
+      let (:url) { '/about' }
+      it { should be_falsey }
+    end
+
+    context 'with nil' do
+      let (:url) { nil }
+      it { should be_falsey }
     end
   end
 end

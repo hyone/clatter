@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
          :authentication_keys => [:login]
 
   has_many :authentications, dependent: :destroy
+  has_many :posts, dependent: :destroy
 
   # virtual field for screen_name or email
   attr_accessor :login

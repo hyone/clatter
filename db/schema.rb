@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 20141219132959) do
 
   add_index "authentications", ["user_id"], name: "index_authentications_on_user_id", using: :btree
 
+  create_table "posts", force: true do |t|
+    t.string   "text",        null: false
+    t.integer  "user_id",     null: false
+    t.integer  "reply_to_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -53,4 +63,8 @@ ActiveRecord::Schema.define(version: 20141219132959) do
   add_index "users", ["screen_name"], name: "index_users_on_screen_name", unique: true, using: :btree
 
   add_foreign_key "authentications", "users", name: "authentications_user_id_fk", dependent: :delete
+
+  add_foreign_key "posts", "posts", name: "posts_reply_to_id_fk", column: "reply_to_id", dependent: :delete
+  add_foreign_key "posts", "users", name: "posts_user_id_fk", dependent: :delete
+
 end

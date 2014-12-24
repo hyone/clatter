@@ -1,0 +1,23 @@
+li.post
+  div.post-header
+    a href="#{user_path(@user)}"
+      span.post-icon
+        = image_tag @user.profile_image.small.url
+      span.post-owner-name
+        = post.user.name
+      span.post-info
+        | @#{post.user.screen_name} - #{time_ago_in_words(post.created_at)}
+  div.post-body
+    = post.text
+  div.post-footer
+    ul.list-inline
+      li
+        = link_to '#' do
+          b.fa.fa-reply
+      li
+        = link_to '#' do
+          b.fa.fa-retweet
+      li
+        = link_to '#' do
+          b.fa.fa-star-o
+          / b.fa.fa-star

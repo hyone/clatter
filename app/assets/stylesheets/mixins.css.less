@@ -1,0 +1,39 @@
+@import "variables.css.less";
+
+
+.placeholder-color(@color) {
+     &:-moz-placeholder {
+         color: @color;
+     }
+     &::-webkit-input-placeholder {
+         color: @color;
+     }
+ }
+
+
+.panel {
+  border: 1px solid @app-separator;
+  border-radius: 10px;
+  background-color: @app-body-bg;
+}
+
+.list-panel {
+  .panel;
+
+  padding: 0;
+  border-bottom: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+
+  > ul {
+    margin: 0;
+    padding: 0;
+
+    > li {
+      margin: 0;
+      padding: 10px;
+      border-bottom: 1px solid @app-separator;
+      list-style-type: none;
+    }
+  }
+}
