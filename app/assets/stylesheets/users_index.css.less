@@ -1,0 +1,66 @@
+@import "variables.css.less";
+@import "mixins.css.less";
+
+.users-index {
+  .main {
+    h1 {
+      margin-bottom: 5px;
+    }
+  }
+
+  .users-list {
+    .col-inner {
+      .list-panel;
+    }
+
+    li.user {
+      padding: 10px;
+      min-height: 78px;
+
+      a {
+        text-decoration: none;
+
+        .user-icon {
+          float: left;
+          padding-top: 5px;
+          padding-right: 10px;
+
+          img {
+            border-radius: 3px;
+            width: 48px;
+            height: 48px;
+          }
+        }
+
+        .user-name {
+          clear: both;
+          color: @app-text;
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        .user-screen-name {
+          margin: 0 5px;
+          font-size: 12px;
+          color: @app-text-lighter;
+        }
+
+        &:hover {
+          .user-name {
+            color: @app-active;
+            text-decoration: underline;
+          }
+
+          .user-screen-name {
+            color: @app-text-lighter;
+            text-decoration: none;
+          }
+        }
+      }
+
+      .user-body {
+        color: @app-text;
+      }
+    }
+  }
+}

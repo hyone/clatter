@@ -69,7 +69,7 @@ div.session
           = f.label :profile_image
           - if resource.profile_image?
             div.profile_image
-              = image_tag resource.profile_image.url
+              = image_tag resource.profile_image.url, class: 'thumbnail'
           = f.file_field :profile_image, class: 'form-control'
           = f.hidden_field :profile_image_cache
 

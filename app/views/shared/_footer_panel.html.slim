@@ -1,0 +1,10 @@
+div.footer-panel
+  div.col-inner.panel
+    = t('views.footer_panel.copyright_html', appname: t('views.generic.appname'))
+    ul.list-inline
+      li
+        = link_to root_path do
+          = t('views.footer_panel.home')
+      li
+        = link_to home_about_path do
+          = t('views.footer_panel.about')

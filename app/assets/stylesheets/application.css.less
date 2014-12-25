@@ -13,10 +13,14 @@
  *
  *= require flatly/loader
  *= require fontawesome
+ *
  *= require navigation
  *= require post_form
- *= require users
- *= require home
+ *= require sessions
+ *= require users_index
+ *= require users_show
+ *= require guest_home
+ *= require user_home
  */
 
 @import "variables.css.less";
@@ -26,10 +30,6 @@
 // --------------------------------------------------------------------------------
 //  Basic
 // --------------------------------------------------------------------------------
-
-h1 {
-  margin: 0 0 10px 0;
-}
 
 h3 {
   margin: 0 0 10px 0;
@@ -63,24 +63,53 @@ span.additional-info {
 body {
   margin: auto;
   padding-top: 50px;
+  background-color: @app-main-bg;
 }
 
-#main {
-  padding: 0;
-  background-color: @app-main-bg;
 
-  h1 {
-    margin-top: 10px;
-    margin-bottom: 10px;
+.fixed-container {
+  @media (max-width: 1199px) {
+    min-width: 890px;
+    max-width: 890px;
+  }
+  @media (min-width: 1200px) {
+     min-width: 1200px;
+     max-width: 1200px;
   }
 }
 
-.row {
-  padding: 5px 0;
+
+#global-navigation {
+  .container {
+    .fixed-container;
+  }
+}
+
+.header {
+  .container {
+    .fixed-container;
+  }
+}
+
+.main {
+  padding: 0;
+
+  h1 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .container {
+    .fixed-container;
+  }
 }
 
 .col {
-  padding: 5px;
+  padding: 10px 5px;
+}
+
+.col-inner {
+  .panel;
 }
 
 .bordered {
@@ -95,7 +124,7 @@ body {
   border-bottom: 1px solid @app-separator;
 }
 
-.header-title {
+.header-head {
   height: 150px;
   background-color: @app-active;
   border-top: 2px solid darken(@app-active, 20%);
@@ -103,29 +132,51 @@ body {
 }
 
 
-// main content
+// content panel
 // ----------------------------------------------
+
+div.content-main-foot {
+  text-align: center;
+}
 
 div.content-foot {
   text-align: center;
 }
 
 
-// alert block
+// footer panel
 // ----------------------------------------------
 
-.alert-block {
-  padding: 0;
+div.footer-panel {
+  div.col-inner {
+    padding: 10px;
+    color: @app-text-lighter;
+    font-size: 12px;
+    line-height: 18px;
 
-  > div.col-sm-12 {
-    padding: 0 5px;
-
-    .alert {
-      margin-top: 10px;
+    ul.list-inline {
       margin-bottom: 0px;
+    }
+
+    a {
+      color: @app-text-lighter;
     }
   }
 }
+
+
+// alert panel
+// ----------------------------------------------
+
+.alert-panel {
+  padding: 0 5px;
+
+  .alert {
+    margin-top: 10px;
+    margin-bottom: 0px;
+  }
+}
+
 
 // profile block
 // ----------------------------------------------
@@ -134,7 +185,7 @@ div.profile {
   top: -180px;
 
   div.col-inner {
-    /* .panel; */
+    .panel;
   }
 
   div.user-profile-image {
@@ -175,7 +226,7 @@ div.profile {
 }
 
 
-// post lists block
+// posts list block
 // ----------------------------------------------
 
 div.posts {
@@ -189,7 +240,7 @@ div.posts {
   }
 
   ul li.post {
-    .post-header {
+    .post-head {
       a {
         text-decoration: none;
 
@@ -229,7 +280,7 @@ div.posts {
       }
     }
 
-    .post-footer {
+    .post-foot {
       margin-top: 5px;
 
       a {

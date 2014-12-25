@@ -1,3 +1,32 @@
+
+# Hack to get the current template name from the layout file (controller)
+# see: http://stackoverflow.com/questions/4973699/rails-3-find-current-view-while-in-the-layout
+
+class ActionController::Base
+  attr_accessor :active_template
+
+  def active_template_virtual_path
+    self.active_template.virtual_path if self.active_template
+  end
+end
+
+class ActionView::TemplateRenderer
+  alias_method :_render_template_original, :render_template
+
+  def render_template(template, layout_name = nil, locals = {})
+    if @view.controller && @view.controller.respond_to?('active_template=')
+      @view.controller.active_template = template 
+    end
+    result = _render_template_original( template, layout_name, locals)
+    if @view.controller && @view.controller.respond_to?('active_template=')
+      @view.controller.active_template = nil
+    end
+    return result
+
+  end
+end
+
+
 class ApplicationController < ActionController::Base
   include ActionsHelper
 

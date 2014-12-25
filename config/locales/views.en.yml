@@ -2,6 +2,12 @@ en:
   views:
     generic:
       please_sign_in: Please sign in.
+      appname: TwitterApp
+
+    footer_panel:
+      about: About
+      home: Home
+      copyright_html: "&copy; 2014 %{appname}"
 
     navigation:
       profile: Profile

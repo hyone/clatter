@@ -1,7 +1,3 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.
-// You can use Less here: http://lesscss.org/
-
 @import "variables.css.less";
 @import "mixins.css.less";
 
@@ -9,47 +5,20 @@
 // .home はページの識別子として header block, main block の両方で使われているので、
 // 直下にスタイルを定義しないように。
 
+.home-index {
 
-// --------------------------------------------------------------------------------
-//  guest_home
-// --------------------------------------------------------------------------------
+  //  profile panel
+  // ----------------------------------------------
 
-.header .home {
-  .header-title {
-    position: relative;
-    height: 375px;
-
-    h1 {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      margin: auto;
-
-      width: 100%;
-      height: 50px;
-
-      font-size: 50px;
-      line-height: 50px;
-      text-align: center;
-      color: @app-body-bg;
-    }
-  }
-}
-
-
-// --------------------------------------------------------------------------------
-//  user_home
-// --------------------------------------------------------------------------------
-
-#main .home {
   div.profile {
+    top: 0;
+
     div.col-inner {
-      .panel;
     }
 
-    top: 0;
+    div.row {
+      padding: 0;
+    }
 
     div.user-profile-header {
       border-top-right-radius: 10px;
@@ -93,12 +62,12 @@
         margin: 0;
         font-size: 82.5%;
       }
-    }
 
-    ul.list-inline {
-      margin-top: 15px;
-      li {
-        padding-right: 13px;
+      ul.list-inline {
+        margin-top: 15px;
+        li {
+          padding-right: 13px;
+        }
       }
     }
 
@@ -117,7 +86,8 @@
   }
 
 
-  // Posts Column
+  //  posts panel
+  // ----------------------------------------------
 
   div.posts {
     div.posts-header {
@@ -147,7 +117,7 @@
     }
 
     ul li.post {
-      .post-header {
+      .post-head {
         .post-icon {
           img {
             width: 48px;
@@ -156,11 +126,12 @@
         }
       }
 
-      .post-footer {
+      .post-foot {
         ul li {
           padding-left: 0px;
         }
       }
     }
   }
+
 }

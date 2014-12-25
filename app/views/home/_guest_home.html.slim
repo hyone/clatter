@@ -1,10 +1,11 @@
 - content_for :header do
 
   div.home
-    div.header-title
-      h1
-        = t('views.home.welcome_message')
-        P
-          = link_to t('views.home.signup_now'),
-              new_user_registration_path,
-              class: 'btn btn-default btn-warning'
+    div.header-head
+      div.container
+        h1
+          = t('views.home.welcome_message')
+          P
+            = link_to t('views.home.signup_now'),
+                new_user_registration_path,
+                class: 'btn btn-default btn-warning'

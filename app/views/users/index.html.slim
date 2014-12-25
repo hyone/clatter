@@ -3,10 +3,16 @@
 div.content-head
   h1 = t('views.users.index.title')
 
-div.content
-  div.users-list.col-md-12
-    ul
-      = render @users
+div.content-body
+  div.row
+    div.col.col-xs-12.users-list
+      div.row
+        div.col-xs-12.content-main-body
+          div.col-inner
+            ul
+              = render @users
+
+        div.col-xs-12.content-main-foot
+            = paginate @users
 
 div.content-foot
-  = paginate @users

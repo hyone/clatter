@@ -1,16 +1,14 @@
 li.user
-  p
-    span.user-profile-image
-      = image_tag user.profile_image.small.url
+  div.user-head
+    = link_to user do
+      span.user-icon
+        = image_tag user.profile_image.small.url
 
-    span.user-name
-      = link_to user do
+      span.user-name
         = user.name
 
-    span.user-screen-name
-      = link_to user do
-        | (@
-        = user.screen_name
-        | )
-  p
+      span.user-screen-name
+        | @#{user.screen_name}
+
+  div.user-body
     = user.description

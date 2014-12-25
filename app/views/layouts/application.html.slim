@@ -6,7 +6,7 @@ html lang="en"
     meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
     title
-      = content_for?(:title) ? yield(:title) : "TwitterApp"
+      = content_for?(:title) ? yield(:title) : t('views.generic.appname')
     = csrf_meta_tags
     /! Le HTML5 shim, for IE6-8 support of HTML elements
     /![if lt IE 9]
@@ -15,33 +15,38 @@ html lang="en"
     = stylesheet_link_tag 'application', media: 'all'
     = yield(:page_stylesheet) if content_for?(:page_stylesheet)
 
-  body
+  - template_name = controller.active_template.virtual_path.gsub('/', '-')
+  body class="#{template_name}"
+
     = render 'layouts/navigation'
 
     div.header
       = yield(:header)
 
-    div#main
+    div.main
       div.container
+
         /! alert block
         - unless flash.empty?
-          div.row.alert-block
-            div.col-sm-12
-              - flash.each do |key, value|
-                - status = case key \
-                           when 'notice'          then 'success' \
-                           when 'alert', 'error'  then 'danger' \
-                           else key \
-                           end
-                = content_tag(:div, value, class: "alert alert-#{status} alert-#{key}")
+            div.row
+              div.col-xs-12.alert-panel
+                - flash.each do |key, value|
+                  - status = case key \
+                             when 'notice'          then 'success' \
+                             when 'alert', 'error'  then 'danger' \
+                             else key \
+                             end
+                  = content_tag :div, value, class: "alert alert-#{status} alert-#{key}"
 
         /! main contents block
         = yield
+
+    div.footer
 
     /! Javascripts
     /!==================================================
     /! Placed at the end of the document so the pages load faster
     / = javascript_include_tag "flatly"
     / = yield(:page_javascript) if content_for?(:page_javascript)
-    / = javascript_include_tag 'application', 'data-turbolinks-track' => true 
+    / = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = javascript_include_tag 'application'

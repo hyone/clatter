@@ -1,46 +1,62 @@
-div.home
-  div.content-head
+div.content-head
 
-  div.content
-    div.row
-      div.col-sm-4.col.profile
-        div.col-inner
-          div.user-profile-header
-          div.user-profile-image
-            = link_to @user do
-              = image_tag @user.profile_image.normal.url
-          div.user-profile-main
-            p.user-profile-name
-              = link_to @user.name, @user
-            p.user-profile-screen-name
-              | @#{ link_to @user.screen_name, @user }
-            ul.list-inline
-              li.user-profile-posts-count
+div.content-body
+  div.row
+    div.col.col-xs-4.col-lg-3.profile
+        div.row
+          div.col-xs-12
+            div.col-inner
+              div.user-profile-header
+              div.user-profile-image
                 = link_to @user do
-                  span.nav-label = t('views.users.show.navigation.posts')
-                  span.nav-value #{@user.posts.count}
-              li.user-profile-following
-                a href="#" 
-                  span.nav-label = t('views.users.show.navigation.following')
-                  span.nav-value 5
-              li.user-profile-followers
-                a href="#"
-                  span.nav-label = t('views.users.show.navigation.followers')
-                  span.nav-value 6
+                  = image_tag @user.profile_image.normal.url
+              div.user-profile-main
+                p.user-profile-name
+                  = link_to @user.name, @user
+                p.user-profile-screen-name
+                  | @#{ link_to @user.screen_name, @user }
+                ul.list-inline
+                  li.user-profile-posts-count
+                    = link_to @user do
+                      span.nav-label = t('views.users.show.navigation.posts')
+                      span.nav-value #{@user.posts.count}
+                  li.user-profile-following
+                    a href="#" 
+                      span.nav-label = t('views.users.show.navigation.following')
+                      span.nav-value 5
+                  li.user-profile-followers
+                    a href="#"
+                      span.nav-label = t('views.users.show.navigation.followers')
+                      span.nav-value 6
 
-      div.col-sm-8.col.posts
-        div.col-inner
-          div.posts-header
-            span.post-icon
-              = image_tag @user.profile_image.small.url
-            = render 'shared/post_form'
+          div.hidden-lg
+            div.col-xs-12
+              = render 'shared/footer_panel'
+            / div.col-xs-12
+              / = render 'shared/footer_panel'
 
-          - if @user.posts.any?
-            ul
-              = render @feeds
+    div.col.col-xs-8.col-lg-6.posts
+      div.row
+        div.col-xs-12.content-main-body
+          div.col-inner
+            div.posts-header
+              span.post-icon
+                = image_tag @user.profile_image.small.url
+              = render 'shared/post_form'
 
-  div.content-foot
-    div.row
-      div.col-sm-4
-      div.col-sm-8
-        = paginate @feeds
+            - if @user.posts.any?
+              ul
+                = render @feeds
+
+        div.col-xs-12.content-main-foot
+          = paginate @feeds
+
+    div.visible-lg-block
+      div.col.col-lg-3
+        div.row
+          div.col-xs-12
+            = render 'shared/footer_panel'
+          / div.col-xs-12
+            / = render 'shared/footer_panel'
+
+div.content-foot
