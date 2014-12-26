@@ -1,5 +1,4 @@
 require 'rails_helper'
-include RequestHelpers
 
 
 describe 'Posts page', type: :request do

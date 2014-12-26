@@ -11,7 +11,7 @@ describe 'Home Page' do
 
     context 'as guest' do
       it { should have_content(I18n.t('views.home.welcome_message')) }
-      it { should have_content(I18n.t('views.home.signup_now')) }
+      it { should have_link(I18n.t('views.home.signup_now'), new_user_registration_path) }
     end
 
     context 'as user' do
