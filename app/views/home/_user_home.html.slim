@@ -39,10 +39,10 @@ div.content-body
       div.row
         div.col-xs-12.content-main-body
           div.col-inner
-            div.posts-header
+            div.posts-head
               span.post-icon
                 = image_tag @user.profile_image.small.url
-              = render 'shared/post_form'
+              = render 'shared/post_form', post: @post, prefix: 'content-main-'
 
             - if @user.posts.any?
               ul

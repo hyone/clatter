@@ -2,17 +2,17 @@
 
 @import "variables.css.less";
 
-@app-global-navigation-bg: #fff;
+@app-navigation-bg: #fff;
 
 
-#global-navigation {
+#navigation {
   border-top: 1px solid @app-separator;
   /* border-bottom: 1px solid darken(@app-active, 20%); */
   border-bottom: 1px solid @app-separator;
   /* border-bottom-width: 0; */
-  background-color: @app-global-navigation-bg;
+  background-color: @app-navigation-bg;
 
-  div.container {
+  .container {
     padding: 0 5px;
   }
 
@@ -22,13 +22,13 @@
         padding-top: 15px;
         padding-bottom: 10px;
         border-bottom: 5px solid transparent;
-        background-color: @app-global-navigation-bg;
+        background-color: @app-navigation-bg;
         color: @app-text-light;
       }
 
       &.active, &:hover {
         color: @link-color;
-        /* background-color: @app-global-navigation-bg; */
+        /* background-color: @app-navigation-bg; */
         border-bottom-color: @app-active;
       }
     }
@@ -76,7 +76,7 @@
         }
 
         &:hover {
-          color: @app-global-navigation-bg;
+          color: @app-navigation-bg;
           background-color: @app-active;
         }
       }

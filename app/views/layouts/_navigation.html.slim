@@ -1,6 +1,6 @@
 /! Fixed navbar
 / div.navbar.navbar-inverse.navbar-fixed-top role='navigation'
-div.navbar.navbar-fixed-top#global-navigation role='navigation'
+div.navbar.navbar-fixed-top#navigation role='navigation'
   div.container
     div.navbar-header
       button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"
@@ -12,7 +12,7 @@ div.navbar.navbar-fixed-top#global-navigation role='navigation'
         li
           = link_to root_path, class: active?(root_path) ? 'active' : nil do
             b.fa.fa-home.fa-lg
-            | Home
+            = t('views.navigation.home')
         / li
           / = link_to home_about_path, class: active?(home_about_path) ? 'active' : nil do
             / / b.glyphicon.glyphicon-info-sign
@@ -22,7 +22,7 @@ div.navbar.navbar-fixed-top#global-navigation role='navigation'
         li
           = link_to users_path, class: active?(users_path) ? 'active' : nil do
             b.fa.fa-users.fa-lg
-            | Users
+            = t('views.navigation.users')
 
       ul.nav.navbar-nav.pull-right#navbar-right-block
         /! serach form
@@ -30,9 +30,9 @@ div.navbar.navbar-fixed-top#global-navigation role='navigation'
           form.navbar-form.navbar-left.navbar-form-search role="search"
             div.form-group
               div.input-group
-                input.form-control.input-sm type="text" placeholder="Search"
+                input.form-control.input-sm#navigation-search-input type="text" placeholder="Search"
                 div.input-group-btn.
-                  button.btn.btn-default.input-sm type="submit"
+                  button.btn.btn-default.input-sm#navigation-search-submit type="submit"
                     i.glyphicon.glyphicon-search
 
         /! user menu
@@ -86,6 +86,6 @@ div.navbar.navbar-fixed-top#global-navigation role='navigation'
                   span.sr-only = t('views.navigation.close')
                 h4 class="modal-title" id="modalPostFormLabel" = t('views.navigation.compose_new_post')
               div.modal-body
-                = render 'shared/post_form'
+                = render 'shared/post_form', post: @post, prefix: 'modal'
               / div.modal-footer
                 / button type="button" class="btn btn-default" data-dismiss="modal" 閉じる

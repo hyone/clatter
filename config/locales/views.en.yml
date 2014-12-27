@@ -10,6 +10,8 @@ en:
       copyright_html: "&copy; 2014 %{appname}"
 
     navigation:
+      home: Home
+      users: Users
       profile: Profile
       settings: Settings
       signout: Sign out

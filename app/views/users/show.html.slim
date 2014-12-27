@@ -10,19 +10,19 @@
       div.col-sm-8.col.col-lg-9.content-navigation
         div.col-inner
           ul.nav.navbar-nav
-            li.active role="presentation"
-              a href="#" 
+            li.active.content-navigation-posts role="presentation"
+              = link_to user_path(@user) do
                 span.nav-label = t('views.users.show.navigation.posts')
                 span.nav-value #{@user.posts.count}
-            li
+            li.content-navigation-following
               a href="#" 
                 span.nav-label = t('views.users.show.navigation.following')
                 span.nav-value 5
-            li
+            li.content-navigation-followers
               a href="#"
                 span.nav-label = t('views.users.show.navigation.followers')
                 span.nav-value 6
-            li
+            li.content-navigation-favorites
               a href="#"
                 span.nav-label = t('views.users.show.navigation.favorites')
                 span.nav-value 3
@@ -60,7 +60,7 @@ div.content-body
       div.row
         div.col-xs-12.content-main-body
           div.col-inner
-            div.posts-header
+            div.posts-head
               ul.list-inline
                 li
                   - if request.path_info == user_path(@user)

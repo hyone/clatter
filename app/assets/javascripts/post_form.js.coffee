@@ -39,7 +39,7 @@ $ ->
       setPostFormState($modalForm)
 
   # post form in header of posts list block
-  $postForm = $('.posts .posts-header .post-form')
+  $postForm = $('.posts .posts-head .post-form')
   $postForm.find('textarea.post-text')
     .focus ->
       setPostFormState($postForm)
