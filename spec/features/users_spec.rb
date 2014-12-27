@@ -206,9 +206,41 @@ describe 'Users page', type: :feature do
     let (:user) { FactoryGirl.create(:user) }
     before { visit user_path(user) }
 
-    describe 'content' do
-      it { should have_selector('div.profile', text: user.name) }
-      it { should have_selector('div.profile', text: user.screen_name) }
+    context 'in header' do
+      let (:count) { 10 }
+      before {
+        count.times { FactoryGirl.create(:post, user: user) }
+        visit current_path
+      }
+
+      it 'should have "POSTS" link with posts count' do
+        expect(page).to have_selector('.content-navigation-posts', text: count)
+        expect(page).to have_link(I18n.t('views.users.show.navigation.posts'), href: user_path(user))
+      end
+    end
+
+    context 'in profile panel' do
+      it { should have_selector('.user-profile-name', text: user.name) }
+      it { should have_selector('.user-profile-screen-name', text: user.screen_name) }
+    end
+
+    context 'in posts list panel' do
+      context 'in pagination' do
+        before {
+          (HomeController::POST_PAGE_SIZE + 1).times {
+            FactoryGirl.create(:post, user: user)
+          }
+          visit current_path
+        }
+
+        it { should have_selector('ul.pagination') }
+
+        it 'should list each feed in page 1' do
+          User.page(1).per(UsersController::POST_PAGE_SIZE).each do |user|
+            expect(page).to have_selector('li', text: user.screen_name)
+          end
+        end
+      end
     end
   end
 
