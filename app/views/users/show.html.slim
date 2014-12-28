@@ -15,17 +15,22 @@
                 span.nav-label = t('views.users.show.navigation.posts')
                 span.nav-value #{@user.posts.count}
             li.content-navigation-following
-              a href="#" 
+              = link_to following_user_path(@user)
                 span.nav-label = t('views.users.show.navigation.following')
-                span.nav-value 5
+                span.nav-value #{@user.followed_users.count}
             li.content-navigation-followers
-              a href="#"
+              = link_to followers_user_path(@user)
                 span.nav-label = t('views.users.show.navigation.followers')
-                span.nav-value 6
+                span.nav-value #{@user.followers.count}
             li.content-navigation-favorites
               a href="#"
                 span.nav-label = t('views.users.show.navigation.favorites')
                 span.nav-value 3
+            li.content-navigation-buttons
+              = button_tag class: 'btn btn-link content-navigation-actions',
+                           type: 'submit' do
+                  b.fa.fa-lg.fa-cog
+              = render 'shared/follow_or_unfollow_button', user: @user
 
   div.header-foot
 
@@ -38,19 +43,20 @@ div.content-body
       div.row
         div.col-xs-12
           div.col-inner.user-profile
-            div.user-profile-image
-              = link_to @user do
-                = image_tag @user.profile_image.url
-            div.user-profile-main
-              h1.user-profile-name
-                = link_to @user.name, @user
-              p.user-profile-screen-name
-                | @#{ link_to @user.screen_name, @user }
-              p = @user.description
-              - unless @user.url.blank?
-                p
-                  b.fa.fa-link.icon
-                  = link_to truncate(@user.url), @user.url
+            div#profile-user-data data-user-id="#{@user.id}" data-screen-name="#{@user.screen_name}" data-name="#{@user.name}"
+              div.user-profile-image
+                = link_to @user do
+                  = image_tag @user.profile_image.url
+              div.user-profile-main
+                h1.user-profile-name
+                  = link_to @user.name, @user
+                p.user-profile-screen-name
+                  | @#{ link_to @user.screen_name, @user }
+                p = @user.description
+                - unless @user.url.blank?
+                  p
+                    b.fa.fa-link.icon
+                    = link_to truncate(@user.url), @user.url
 
         div.hidden-lg
           div.col-xs-12

@@ -9,6 +9,15 @@ class User < ActiveRecord::Base
   has_many :authentications, dependent: :destroy
   has_many :posts, dependent: :destroy
 
+  has_many :relationships, foreign_key: 'follower_id',
+                           dependent: :destroy
+  has_many :followed_users, through: :relationships, source: :followed
+
+  has_many :reverse_relationships, foreign_key: 'followed_id',
+                                   dependent: :destroy,
+                                   class_name: 'Relationship'
+  has_many :followers, through: :reverse_relationships, source: :follower
+
   # virtual field for screen_name or email
   attr_accessor :login
 
@@ -24,6 +33,19 @@ class User < ActiveRecord::Base
 
   validates :description,
     length: { maximum: 160 }
+
+
+  def following?(other_user)
+    relationships.find_by(followed_id: other_user.id)
+  end
+
+  def follow!(other_user)
+    relationships.create!(followed_id: other_user.id)
+  end
+
+  def unfollow!(other_user)
+    relationships.find_by(followed_id: other_user.id).destroy
+  end
 
 
   def apply_omniauth(omniauth)

@@ -14,5 +14,6 @@
 #= require jquery_ujs
 #  require turbolinks
 #= require flatly/loader
+#= require follow_or_unfollow_button
 #= require post_form
 #= require home

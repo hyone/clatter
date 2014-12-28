@@ -1,0 +1,40 @@
+= content_tag :div, class: 'follow-or-unfollow-button',
+    'data-user-id' => user.id,
+    'data-screen-name' => user.screen_name,
+    'data-name' => user.name do
+  - if user_signed_in?
+    - if current_user == user
+    / unfollow button
+    - elsif current_user.following?(user)
+      = form_for(current_user.relationships.find_by(followed_id: user.id),
+                 html: { method: :delete, class: 'unfollow-button' },
+                 format: 'json',
+                 remote: true) do |f|
+            = button_tag class: 'btn btn-primary',
+                         type: 'submit' do
+                span.following
+                  = t('views.navigation.following')
+                span.unfollow
+                  = t('views.navigation.unfollow')
+
+    / follow button
+    - else
+      = form_for(current_user.relationships.build(followed_id: user.id),
+                 html: { class: 'follow-button' },
+                 format: 'json',
+                 remote: true) do |f|
+            = f.hidden_field :followed_id
+            = button_tag class: 'btn btn-default',
+                         type: 'submit' do
+                b.fa.fa-user
+                = t('views.navigation.follow')
+
+  / follow button (redirect to signin page)
+  - else
+    = form_tag(new_user_session_path,
+               method: :get,
+               class: 'follow-button') do
+          = button_tag class: 'btn btn-default',
+                       type: 'submit' do
+              b.fa.fa-user
+              = t('views.navigation.follow')

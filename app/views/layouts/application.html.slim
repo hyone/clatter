@@ -23,7 +23,7 @@ html lang="en"
     div.header
       = yield(:header)
 
-    div.main
+    div.main#current-user-data data-user-id="#{current_user ? current_user.id : ''}"
       div.container
 
         /! alert block

@@ -19,6 +19,9 @@ en:
       new_post: New Post
       compose_new_post: Compose new Post
       close: Close
+      follow: Follow
+      following: Following
+      unfollow: Unfollow
 
     home:
       welcome_message: Welcome to TwitterApp

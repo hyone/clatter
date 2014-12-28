@@ -207,15 +207,29 @@ describe 'Users page', type: :feature do
     before { visit user_path(user) }
 
     context 'in header' do
-      let (:count) { 10 }
       before {
-        count.times { FactoryGirl.create(:post, user: user) }
+        10.times { FactoryGirl.create(:post, user: user) }
+        4.times  { FactoryGirl.create(:relationship, follower: user) }
+        5.times  { FactoryGirl.create(:relationship, followed: user) }
         visit current_path
       }
 
-      it 'should have "POSTS" link with posts count' do
-        expect(page).to have_selector('.content-navigation-posts', text: count)
+      # posts
+      it "should have posts link with its count" do
         expect(page).to have_link(I18n.t('views.users.show.navigation.posts'), href: user_path(user))
+        expect(page).to have_selector '.content-navigation-posts', user.posts.count
+      end
+
+      # following
+      it "should have following link with its count" do
+        expect(page).to have_link(I18n.t('views.users.show.navigation.following'), href: following_user_path(user))
+        expect(page).to have_selector '.content-navigation-following', user.followed_users.count
+      end
+
+      # followers
+      it "should have followers link with its count" do
+        expect(page).to have_link(I18n.t('views.users.show.navigation.followers'), href: followers_user_path(user))
+        expect(page).to have_selector '.content-navigation-followers', user.followers.count
       end
     end
 

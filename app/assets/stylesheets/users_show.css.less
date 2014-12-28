@@ -1,5 +1,6 @@
 @import "variables.css.less";
 @import "mixins.css.less";
+@import "twitter/bootstrap/bootstrap";
 
 
 .users-show {
@@ -10,37 +11,58 @@
   .header {
     background-color: @app-body-bg;
 
-    .content-navigation {
+    .header-body > .container {
       padding: 0;
 
-      ul.nav {
-        padding: 0;
+      .content-navigation {
+        padding: 0 5px;
 
-        li {
-          text-align: center;
+        ul.nav {
+          width: 100%;
+          padding: 0;
 
-          span.nav-label,
-          span.nav-value {
-            display: block;
+          li {
+            text-align: center;
+
+            span.nav-label,
+            span.nav-value {
+              display: block;
+            }
+
+            span.nav-label {
+              font-size: 11px;
+              color: @gray-light;
+            }
+            span.nav-value {
+              font-weight: bold;
+            }
+
+            a {
+              padding: 5px 15px;
+              border-bottom: 5px solid transparent;
+            }
+
+            &.active a,
+            a:hover {
+              border-bottom-color: @app-active;
+              background-color: transparent;
+            }
           }
 
-          span.nav-label {
-            font-size: 75%;
-            color: @gray-light;
-          }
-          span.nav-value {
-            font-weight: bold;
-          }
+          li.content-navigation-buttons {
+            .pull-right();
 
-          a {
-            padding: 5px 15px;
-            border-bottom: 5px solid transparent;
-          }
+            height: 55px;
+            padding-top: 10px;
+            margin: auto;
 
-          &.active a,
-          a:hover {
-            border-bottom-color: @component-active-bg;
-            background-color: transparent;
+            form {
+              display: inline;
+            }
+
+            button.content-navigation-actions {
+              color: @app-text-light;
+            }
           }
         }
       }
