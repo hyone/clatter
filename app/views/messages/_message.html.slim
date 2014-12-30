@@ -1,15 +1,15 @@
-li.post
-  div.post-head
+li.message
+  div.message-head
     a href="#{user_path(@user)}"
-      span.post-icon
+      span.message-icon
         = image_tag @user.profile_image.small.url
-      span.post-owner-name
-        = post.user.name
-      span.post-info
-        | @#{post.user.screen_name} - #{time_ago_in_words(post.created_at)}
-  div.post-body
-    = post.text
-  div.post-foot
+      span.message-owner-name
+        = message.user.name
+      span.message-info
+        | @#{message.user.screen_name} - #{time_ago_in_words(message.created_at)}
+  div.message-body
+    = message.text
+  div.message-foot
     ul.list-inline
       li
         = link_to '#' do

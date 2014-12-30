@@ -63,17 +63,17 @@ div.navbar.navbar-fixed-top#navigation role='navigation'
               b.glyphicon.glyphicon-log-in
               = t('views.navigation.signin')
 
-        /! post button
+        /! message button
         - if user_signed_in?
           li
-            button.btn.btn-primary.btn-sm.navbar-btn data-toggle="modal" data-target="#modal-post-form" data-keyboard="true" data-backdrop="true"
+            button.btn.btn-primary.btn-sm.navbar-btn data-toggle="modal" data-target="#modal-message-form" data-keyboard="true" data-backdrop="true"
               / / b.fa.fa-pencil-square-o
               b.fa.fa-pencil
-              = t('views.navigation.new_post')
+              = t('views.navigation.new_message')
 
-/! modal post form 
+/! modal message form
 - if user_signed_in?
-  div.modal.fade#modal-post-form tabindex="-1" role="dialog" aria-labelledby="modalPostFormLabel" aria-hidden="true"
+  div.modal.fade#modal-message-form tabindex="-1" role="dialog" aria-labelledby="modalMessageFormLabel" aria-hidden="true"
     div.modal-dialog
       div.container
         div.row
@@ -84,8 +84,8 @@ div.navbar.navbar-fixed-top#navigation role='navigation'
                 button type="button" class="close" data-dismiss="modal"
                   span aria-hidden="true" &times;
                   span.sr-only = t('views.navigation.close')
-                h4 class="modal-title" id="modalPostFormLabel" = t('views.navigation.compose_new_post')
+                h4 class="modal-title" id="modalMessageFormLabel" = t('views.navigation.compose_new_message')
               div.modal-body
-                = render 'shared/post_form', post: @post, prefix: 'modal'
+                = render 'shared/message_form', message: @message, prefix: 'modal'
               / div.modal-footer
                 / button type="button" class="btn btn-default" data-dismiss="modal" 閉じる

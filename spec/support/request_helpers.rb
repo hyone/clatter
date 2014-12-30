@@ -56,9 +56,9 @@ module RequestHelpers
     end
   end
 
-  def post_post(p)
-    post posts_path, {
-      post: { text: p.text }
+  def post_message(p)
+    post messages_path, {
+      message: { text: p.text }
     }
   end
 end

@@ -10,10 +10,10 @@
       div.col-sm-8.col.col-lg-9.content-navigation
         div.col-inner
           ul.nav.navbar-nav
-            li.active.content-navigation-posts role="presentation"
+            li.active.content-navigation-messages role="presentation"
               = link_to user_path(@user) do
-                span.nav-label = t('views.users.show.navigation.posts')
-                span.nav-value #{@user.posts.count}
+                span.nav-label = t('views.users.show.navigation.messages')
+                span.nav-value #{@user.messages.count}
             li.content-navigation-following
               = link_to following_user_path(@user)
                 span.nav-label = t('views.users.show.navigation.following')
@@ -62,28 +62,28 @@ div.content-body
           div.col-xs-12
             = render 'shared/footer_panel'
 
-    div.col.col-sm-8.col-lg-6.posts
+    div.col.col-sm-8.col-lg-6.messages
       div.row
         div.col-xs-12.content-main-body
           div.col-inner
-            div.posts-head
+            div.messages-head
               ul.list-inline
                 li
                   - if request.path_info == user_path(@user)
-                    = t('views.users.show.posts')
+                    = t('views.users.show.messages')
                   - else
-                    = link_to t('views.users.show.posts'), user_path(@user)
+                    = link_to t('views.users.show.messages'), user_path(@user)
                 li 
                   - if request.path_info == with_replies_user_path(@user)
-                    = t('views.users.show.posts_and_replies')
+                    = t('views.users.show.messages_and_replies')
                   - else
-                    = link_to t('views.users.show.posts_and_replies'), with_replies_user_path(@user)
-            - if @user.posts.any?
+                    = link_to t('views.users.show.messages_and_replies'), with_replies_user_path(@user)
+            - if @user.messages.any?
               ul.
-                = render @posts
+                = render @messages
 
         div.col-xs-12.content-main-foot
-          = paginate @posts
+          = paginate @messages
 
     div.visible-lg-block
       div.col.col-lg-3

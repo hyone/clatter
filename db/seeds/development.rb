@@ -9,10 +9,10 @@ def gen_users
   99.times { |n| FactoryGirl.create(:user) }
 end
 
-def gen_posts
+def gen_messages
   users = User.order(created_at: :desc).limit(5).push(MAIN_USER)
   users.each do |user|
-    50.times { FactoryGirl.create(:post, user: user) }
+    50.times { FactoryGirl.create(:message, user: user) }
   end
 end
 
@@ -29,5 +29,5 @@ def gen_relations
 end
 
 gen_users
-gen_posts
+gen_messages
 gen_relations

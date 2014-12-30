@@ -15,5 +15,5 @@
 #  require turbolinks
 #= require flatly/loader
 #= require follow_or_unfollow_button
-#= require post_form
+#= require message_form
 #= require home

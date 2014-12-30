@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 
-describe Post, :type => :model do
-  let (:post) { FactoryGirl.create(:post) }
-  subject { post }
+describe Message, :type => :model do
+  let (:message) { FactoryGirl.create(:message) }
+  subject { message }
 
-  it 'original post should be valid' do
+  it 'original message should be valid' do
     should be_valid
   end
 
@@ -23,7 +23,7 @@ describe Post, :type => :model do
 
   describe '#reply_to' do
     it { should respond_to(:reply_to) }
-    it { should belong_to(:reply_to).class_name('Post') }
+    it { should belong_to(:reply_to).class_name('Message') }
   end
 
   describe '#created_at' do

@@ -208,16 +208,16 @@ describe 'Users page', type: :feature do
 
     context 'in header' do
       before {
-        10.times { FactoryGirl.create(:post, user: user) }
+        10.times { FactoryGirl.create(:message, user: user) }
         4.times  { FactoryGirl.create(:relationship, follower: user) }
         5.times  { FactoryGirl.create(:relationship, followed: user) }
         visit current_path
       }
 
-      # posts
-      it "should have posts link with its count" do
-        expect(page).to have_link(I18n.t('views.users.show.navigation.posts'), href: user_path(user))
-        expect(page).to have_selector '.content-navigation-posts', user.posts.count
+      # messages
+      it "should have messages link with its count" do
+        expect(page).to have_link(I18n.t('views.users.show.navigation.messages'), href: user_path(user))
+        expect(page).to have_selector '.content-navigation-messages', user.messages.count
       end
 
       # following
@@ -238,11 +238,11 @@ describe 'Users page', type: :feature do
       it { should have_selector('.user-profile-screen-name', text: user.screen_name) }
     end
 
-    context 'in posts list panel' do
+    context 'in messages list panel' do
       context 'in pagination' do
         before {
-          (HomeController::POST_PAGE_SIZE + 1).times {
-            FactoryGirl.create(:post, user: user)
+          (HomeController::MESSAGE_PAGE_SIZE + 1).times {
+            FactoryGirl.create(:message, user: user)
           }
           visit current_path
         }
@@ -250,7 +250,7 @@ describe 'Users page', type: :feature do
         it { should have_selector('ul.pagination') }
 
         it 'should list each feed in page 1' do
-          User.page(1).per(UsersController::POST_PAGE_SIZE).each do |user|
+          User.page(1).per(UsersController::MESSAGE_PAGE_SIZE).each do |user|
             expect(page).to have_selector('li', text: user.screen_name)
           end
         end

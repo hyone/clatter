@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141227095929) do
+ActiveRecord::Schema.define(version: 20141230091423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20141227095929) do
 
   add_index "authentications", ["user_id"], name: "index_authentications_on_user_id", using: :btree
 
-  create_table "posts", force: true do |t|
+  create_table "messages", force: true do |t|
     t.string   "text",        null: false
     t.integer  "user_id",     null: false
     t.integer  "reply_to_id"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20141227095929) do
     t.datetime "updated_at"
   end
 
-  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "relationships", force: true do |t|
     t.integer  "follower_id"
@@ -75,8 +75,8 @@ ActiveRecord::Schema.define(version: 20141227095929) do
 
   add_foreign_key "authentications", "users", name: "authentications_user_id_fk", dependent: :delete
 
-  add_foreign_key "posts", "posts", name: "posts_reply_to_id_fk", column: "reply_to_id", dependent: :delete
-  add_foreign_key "posts", "users", name: "posts_user_id_fk", dependent: :delete
+  add_foreign_key "messages", "messages", name: "posts_reply_to_id_fk", column: "reply_to_id", dependent: :delete
+  add_foreign_key "messages", "users", name: "posts_user_id_fk", dependent: :delete
 
   add_foreign_key "relationships", "users", name: "relationships_followed_id_fk", column: "followed_id", dependent: :delete
   add_foreign_key "relationships", "users", name: "relationships_follower_id_fk", column: "follower_id", dependent: :delete

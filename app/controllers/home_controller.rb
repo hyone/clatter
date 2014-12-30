@@ -1,11 +1,11 @@
 class HomeController < ApplicationController
-  POST_PAGE_SIZE = 50
+  MESSAGE_PAGE_SIZE = 50
 
   def index
     if user_signed_in?
-      @user  = current_user
-      @post  = current_user.posts.build
-      @feeds = @user.posts.page(params[:page]).per(POST_PAGE_SIZE)
+      @user    = current_user
+      @message = current_user.messages.build
+      @feeds   = @user.messages.page(params[:page]).per(MESSAGE_PAGE_SIZE)
     end
   end
 

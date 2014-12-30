@@ -16,10 +16,10 @@ div.content-body
                 p.user-profile-screen-name
                   | @#{ link_to @user.screen_name, @user }
                 ul.list-inline
-                  li.user-profile-posts-count
+                  li.user-profile-messages-count
                     = link_to @user do
-                      span.nav-label = t('views.users.show.navigation.posts')
-                      span.nav-value #{@user.posts.count}
+                      span.nav-label = t('views.users.show.navigation.messages')
+                      span.nav-value #{@user.messages.count}
                   li.user-profile-following
                     = link_to following_user_path(@user)
                       span.nav-label = t('views.users.show.navigation.following')
@@ -35,16 +35,16 @@ div.content-body
             / div.col-xs-12
               / = render 'shared/footer_panel'
 
-    div.col.col-xs-8.col-lg-6.posts
+    div.col.col-xs-8.col-lg-6.messages
       div.row
         div.col-xs-12.content-main-body
           div.col-inner
-            div.posts-head
-              span.post-icon
+            div.messages-head
+              span.message-icon
                 = image_tag @user.profile_image.small.url
-              = render 'shared/post_form', post: @post, prefix: 'content-main-'
+              = render 'shared/message_form', message: @message, prefix: 'content-main-'
 
-            - if @user.posts.any?
+            - if @user.messages.any?
               ul
                 = render @feeds
 

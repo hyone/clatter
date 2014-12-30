@@ -32,8 +32,8 @@ describe User, :type => :model do
     it { should respond_to(:email) }
   end
 
-  describe '#posts' do
-    it { should respond_to(:posts) }
+  describe '#messages' do
+    it { should respond_to(:messages) }
   end
 
 

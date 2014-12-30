@@ -23,7 +23,7 @@ describe 'Home Page', type: :feature do
 
       context 'in profile panel' do
         before {
-          3.times { FactoryGirl.create(:post, user: user) }
+          3.times { FactoryGirl.create(:message, user: user) }
           4.times { FactoryGirl.create(:relationship, follower: user) }
           5.times { FactoryGirl.create(:relationship, followed: user) }
           visit current_path
@@ -32,13 +32,13 @@ describe 'Home Page', type: :feature do
         it { should have_link(user.name, href: user_path(user)) }
         it { should have_link(user.screen_name, href: user_path(user)) }
 
-        # posts
-        it "should have posts link with its count" do
+        # messages
+        it "should have messages link with its count" do
           expect(page).to have_link(
-            I18n.t('views.users.show.navigation.posts'),
+            I18n.t('views.users.show.navigation.messages'),
             href: user_path(user)
           )
-          expect(page).to have_selector '.user-profile-posts-count', user.posts.count
+          expect(page).to have_selector '.user-profile-messages-count', user.messages.count
         end
 
         # following
@@ -63,8 +63,8 @@ describe 'Home Page', type: :feature do
       context 'in feed panel' do
         context 'in pagination' do
           before {
-            (UsersController::POST_PAGE_SIZE + 1).times {
-              FactoryGirl.create(:post, user: user)
+            (UsersController::MESSAGE_PAGE_SIZE + 1).times {
+              FactoryGirl.create(:message, user: user)
             }
             visit current_path
           }
@@ -72,7 +72,7 @@ describe 'Home Page', type: :feature do
           it { should have_selector('ul.pagination') }
 
           it 'should list each feed in page 1' do
-            User.page(1).per(UsersController::POST_PAGE_SIZE).each do |user|
+            User.page(1).per(UsersController::MESSAGE_PAGE_SIZE).each do |user|
               expect(page).to have_selector('li', text: user.screen_name)
             end
           end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe PostsController, :type => :controller do
+describe MessagesController, :type => :controller do
   let (:valid_session) { {} }
 
   describe 'GET create' do

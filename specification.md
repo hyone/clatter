@@ -7,7 +7,7 @@
   - profile_image:string (optional)
   - private:bool
 
-- Post
+- Message
   - text
   - user_id
   - reply_to (optional)
@@ -16,7 +16,7 @@ text:string user_id:references created_at:datetime reply_to:references
 
 - Favorite
   - user:references
-  - post:references
+  - message:references
 
 - Relationship
   - follower:references     # follow した人
@@ -24,7 +24,7 @@ text:string user_id:references created_at:datetime reply_to:references
 
 - Retweet
   - id
-  - post_id
+  - message_id
   - original_id
   - created_at
 

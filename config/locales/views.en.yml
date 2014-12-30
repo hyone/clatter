@@ -16,8 +16,8 @@ en:
       settings: Settings
       signout: Sign out
       signin: Sign in
-      new_post: New Post
-      compose_new_post: Compose new Post
+      new_message: New Message
+      compose_new_message: Compose New Message
       close: Close
       follow: Follow
       following: Following
@@ -27,11 +27,11 @@ en:
       welcome_message: Welcome to TwitterApp
       signup_now: Sign up now!
       form:
-        new_post: What's happening?
-        submit: Post
+        new_message: What's happening?
+        submit: Message
 
-    posts:
-      success: Post created!
+    messages:
+      success: Message created!
 
     users:
       index:
@@ -63,10 +63,10 @@ en:
         title: Setting
       show:
         navigation:
-          posts: POSTS
+          messages: MESSAGES
           following: FOLLOWING
           followers: FOLLOWERS
           favorites: FAVORITES
-        posts: Posts
-        posts_and_replies: Posts & replies
+        messages: Messages
+        messages_and_replies: Messages & replies
 

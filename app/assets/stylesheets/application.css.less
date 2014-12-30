@@ -15,7 +15,7 @@
  *= require fontawesome
  *
  *= require navigation
- *= require post_form
+ *= require message_form
  *= require sessions
  *= require users_index
  *= require users_show
@@ -227,25 +227,25 @@ div.profile {
 }
 
 
-// posts list block
+// messages list block
 // ----------------------------------------------
 
-div.posts {
+div.messages {
   div.col-inner {
     .list-panel;
   }
 
-  div.posts-head {
+  div.messages-head {
     border-bottom: 1px solid @app-separator;
     margin: 0;
   }
 
-  ul li.post {
-    .post-head {
+  ul li.message {
+    .message-head {
       a {
         text-decoration: none;
 
-        .post-icon {
+        .message-icon {
           float: left;
           margin-top: 5px;
           margin-right: 10px;
@@ -255,25 +255,25 @@ div.posts {
           }
         }
 
-        .post-owner-name {
+        .message-owner-name {
           clear: both;
           color: @text-color;
           font-weight: bold;
         }
 
-        .post-info {
+        .message-info {
           margin: 0 5px;
           font-size: 80%;
           color: @app-text-lighter;
         }
 
         &:hover {
-          .post-owner-name {
+          .message-owner-name {
             color: @app-active;
             text-decoration: underline;
           }
 
-          .post-info {
+          .message-info {
             color: @app-text-lighter;
             text-decoration: none;
           }
@@ -281,7 +281,7 @@ div.posts {
       }
     }
 
-    .post-foot {
+    .message-foot {
       margin-top: 5px;
 
       a {

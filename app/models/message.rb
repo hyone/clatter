@@ -1,6 +1,6 @@
-class Post < ActiveRecord::Base
+class Message < ActiveRecord::Base
   belongs_to :user
-  belongs_to :reply_to, class_name: 'Post'
+  belongs_to :reply_to, class_name: 'Message'
 
   validates :user, presence: true
   validates :text,

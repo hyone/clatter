@@ -1,0 +1,22 @@
+- message ||= current_user.messages.build
+/ ok both whether '-' is the end of prefix or not that is passed
+- prefix = prefix.blank? ? nil : prefix.sub(/-*$/, '')
+
+= form_for(message, html: { class: 'message-form' }) do |f|
+  = render 'shared/error_messages', object: f.object
+
+  div.form-group
+    = f.text_area :text,
+        rows: 1,
+        id: "#{prefix}-message-form-text",
+        class: 'form-control message-text',
+        placeholder: t('views.home.form.new_message')
+
+  div.form-group.message-submit
+      span.message-count
+        | 0
+      = button_tag class: 'btn btn-primary',
+                   id: "#{prefix}-message-form-submit",
+                   type: 'submit' do
+          b.fa.fa-pencil-square-o
+          = t('views.home.form.submit')

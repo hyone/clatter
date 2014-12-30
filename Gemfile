@@ -31,11 +31,10 @@ gem 'mini_magick'
 gem 'factory_girl_rails'
 gem 'faker'
 
-gem 'newrelic_rpm'
-
 
 group :production do
   gem 'rails_12factor'
+  gem 'newrelic_rpm'
 end
 
 group :development, :test do

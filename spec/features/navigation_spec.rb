@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-def click_new_post
-  click_on I18n.t('views.navigation.new_post')
+def click_new_message
+  click_on I18n.t('views.navigation.new_message')
 end
 
 
@@ -27,54 +27,54 @@ describe 'Navigation', type: :feature do
     it { should have_selector('button#navigation-search-submit') }
   end
 
-  describe 'New Post', js: true  do
-    before { click_new_post }
+  describe 'New Message', js: true  do
+    before { click_new_message }
 
     it 'should display modal window' do
-      expect(page.find('#modal-post-form')).to be_visible
+      expect(page.find('#modal-message-form')).to be_visible
     end
 
     context 'with empty text' do
-      it 'should be disabled post button' do
-        expect(page).to have_selector('#modal-post-form-submit:disabled')
+      it 'should be disabled message button' do
+        expect(page).to have_selector('#modal-message-form-submit:disabled')
       end
     end
 
     context 'with some text' do
-      before { fill_in 'modal-post-form-text', with: 'Hello World' }
+      before { fill_in 'modal-message-form-text', with: 'Hello World' }
 
-      it 'should be enabled post button' do
-        expect(page).to have_selector('#modal-post-form-submit')
-        expect(page).not_to have_selector('#modal-post-form-submit:disabled')
+      it 'should be enabled message button' do
+        expect(page).to have_selector('#modal-message-form-submit')
+        expect(page).not_to have_selector('#modal-message-form-submit:disabled')
       end
 
       it 'should display textarea count in normal color' do
-        expect(page).not_to have_selector('#modal-post-form .post-form .text-danger')
+        expect(page).not_to have_selector('#modal-message-form .message-form .text-danger')
       end
 
       context 'after submit' do
-        it 'should create a new post' do
-          expect { click_button 'modal-post-form-submit' }.to change(Post, :count).by(1)
+        it 'should create a new message' do
+          expect { click_button 'modal-message-form-submit' }.to change(Message, :count).by(1)
         end
       end
     end
 
     context "with text that's length is near limit" do
-      before { fill_in 'modal-post-form-text', with: 'a' * 131 }
+      before { fill_in 'modal-message-form-text', with: 'a' * 131 }
 
       it 'should display textarea count in danger color' do
-        expect(page).to have_selector('#modal-post-form .post-form .text-danger')
+        expect(page).to have_selector('#modal-message-form .message-form .text-danger')
       end
     end
 
     context 'with too long text' do
-      before { fill_in 'modal-post-form-text', with: 'a' * 141 }
-      it 'should be disabled post button' do
-        expect(page).to have_selector('#modal-post-form-submit:disabled')
+      before { fill_in 'modal-message-form-text', with: 'a' * 141 }
+      it 'should be disabled message button' do
+        expect(page).to have_selector('#modal-message-form-submit:disabled')
       end
 
       it 'should display textarea count in danger color' do
-        expect(page).to have_selector('#modal-post-form .post-form .text-danger')
+        expect(page).to have_selector('#modal-message-form .message-form .text-danger')
       end
     end
   end
