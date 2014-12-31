@@ -1,6 +1,15 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_action :get_omniauth
 
+  # to avoid InvalidAuthenticityToken exception
+  protect_from_forgery with: :exception, except: :developer
+
+  def developer
+    # '_account_name' key must be set value on every provider
+    @omniauth['info']['_account_name'] = @omniauth['info']['name']
+    create_authentication(@omniauth)
+  end
+
   def twitter
     @omniauth['info']['_account_name'] = @omniauth['info']['nickname']
     @omniauth['info']['_url']          = @omniauth['info']['urls']['Twitter']
@@ -19,6 +28,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     create_authentication(@omniauth)
   end
 
+
   private
   def get_omniauth
     @omniauth = request.env['omniauth.auth']
@@ -26,7 +36,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       puts @omniauth.to_yaml
     end
   end
-
 
   def create_authentication(omniauth)
     authentication = Authentication.find_by(

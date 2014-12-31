@@ -102,7 +102,8 @@ describe 'Users page', type: :feature do
     end
 
     context 'by oauth login' do
-      let! (:provider) { 'twitter' }
+      let! (:provider) { 'developer' }
+      let! (:provider_text) { provider_name(provider).titleize }
       let! (:omniauth) { setup_omniauth(provider) }
 
       describe 'content' do
@@ -110,7 +111,7 @@ describe 'Users page', type: :feature do
       end
 
       context 'when have not had a user yet that has linked to the service' do
-        before { click_link 'Twitter' }
+        before { click_link provider_text }
 
         it 'redirect to the sign up page' do
           expect(current_path).to eq new_user_registration_path
@@ -144,23 +145,23 @@ describe 'Users page', type: :feature do
             :authentication,
             provider:     omniauth['provider'],
             uid:          omniauth['uid'],
-            account_name: omniauth['info']['nickname'],
-            url:          omniauth['info']['urls']['Twitter'],
+            account_name: omniauth['info']['nickname'] || omniauth['info']['name'] ,
           )
         }
 
         it 'should not create either new user or authentication' do
-          expect { click_link 'Twitter' }.not_to change { [User.count, Authentication.count] }
+          expect { click_link provider_text }.not_to change { [User.count, Authentication.count] }
         end
 
         context 'after signed in' do
-          before { click_link 'Twitter' }
+          before { click_link provider_text }
 
           it 'redirect to the root page' do
             expect(current_path).to eq root_path
           end
 
-          it { should have_message(:notice, 'Successfully authenticated from twitter account.') }
+
+          it { should have_message(:notice, I18n.t('devise.omniauth_callbacks.success', kind: provider)) }
         end
       end
     end
@@ -285,11 +286,11 @@ describe 'Users page', type: :feature do
 
       # oauth
       describe 'oauth links' do
-        let! (:provider) { 'twitter' }
+        let! (:provider) { 'developer' }
         let! (:text_connect) { text_connect_provider(provider) }
         let! (:text_disconnect) { text_disconnect_provider(provider) }
 
-        context 'when have not linked to twitter' do
+        context 'when have not linked to <provider>' do
           it { should have_link(text_connect, user_omniauth_authorize_path(provider)) }
 
           context 'after clicking the link to connect twitter' do
@@ -307,7 +308,7 @@ describe 'Users page', type: :feature do
           end
         end
 
-        context 'when have already linked to twitter' do
+        context 'when have already linked to <provider>' do
           let! (:authentication) {
             FactoryGirl.create(:authentication, provider: provider, user: user)
           }
@@ -330,12 +331,12 @@ describe 'Users page', type: :feature do
               visit edit_user_registration_path(user)
             }
 
-            it 'should have disabled link "Disconnect twitter"' do
+            it 'should have disabled link "Disconnect <provider>"' do
               should have_selector('.setting-oauth a.disabled', text: text_disconnect_provider(provider))
             end
           end
 
-          context 'after clicking the link to connect twitter' do
+          context 'after clicking the link to connect <provider>' do
             before {
               click_link text_disconnect
               visit edit_user_registration_path(user)

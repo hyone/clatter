@@ -23,6 +23,13 @@ module RequestHelpers
     })
 
     case service.to_s
+    when 'developer'
+      OmniAuth.config.add_mock(service, {
+        info: {
+          name: username,
+          email: "#{username}@example.com"
+        }
+      })
     when 'twitter'
       OmniAuth.config.add_mock(service, {
         info: {
