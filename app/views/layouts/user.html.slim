@@ -1,0 +1,55 @@
+- provide(:title, page_title("#{@user.name} (@#{@user.screen_name})"))
+
+- provide(:page_type, 'user-page')
+
+
+- content_for :header do
+
+  div.header-head
+
+  div.header-body
+    div.container
+      div.col-sm-4.col.col-lg-3
+      div.col-sm-8.col.col-lg-9.content-navigation
+        div.col-inner
+          ul.nav.navbar-nav
+            = content_tag :li,
+              class: "content-navigation-messages #{ active?(user_path(@user)) }",
+              role: 'presentation' do
+              = link_to user_path(@user) do
+                span.nav-label = t('views.users.show.navigation.messages')
+                span.nav-value #{@user.messages.count}
+            = content_tag :li,
+              class: "content-navigation-following #{ active?(following_user_path(@user)) }" do
+              = link_to following_user_path(@user)
+                span.nav-label = t('views.users.show.navigation.following')
+                span.nav-value #{@user.followed_users.count}
+            = content_tag :li,
+              class: "content-navigation-followers #{ active?(followers_user_path(@user)) }" do
+              = link_to followers_user_path(@user)
+                span.nav-label = t('views.users.show.navigation.followers')
+                span.nav-value #{@user.followers.count}
+            li.content-navigation-favorites
+              a href="#"
+                span.nav-label = t('views.users.show.navigation.favorites')
+                span.nav-value 3
+            li.content-navigation-buttons
+              = button_tag class: 'btn btn-link user-actions-button',
+                           type: 'submit' do
+                  b.fa.fa-lg.fa-cog
+              = render 'shared/follow_or_unfollow_button', user: @user
+
+  div.header-foot
+
+
+- content_for :content do
+
+  div.content-head
+
+  div.content-body
+    = yield
+
+  div.content-foot
+
+
+= render template: 'layouts/application'

@@ -7,11 +7,11 @@ class Message < ActiveRecord::Base
     presence: true,
     length: { maximum: 140 }
 
-  scope :latest_order, ->() {
+  scope :newer, ->() {
     order(created_at: :desc)
   }
 
-  scope :latest_order_without_replies, ->() {
-    where(reply_to: nil).order(created_at: :desc)
+  scope :without_replies, ->() {
+    where(reply_to: nil)
   }
 end

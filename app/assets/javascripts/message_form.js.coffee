@@ -39,7 +39,7 @@ $ ->
       setMessageFormState($modalForm)
 
   # message form in header of messages list block
-  $messageForm = $('.messages .messages-head .message-form')
+  $messageForm = $('.messages-panel .messages-panel-head .message-form')
   $messageForm.find('textarea.message-text')
     .focus ->
       setMessageFormState($messageForm)

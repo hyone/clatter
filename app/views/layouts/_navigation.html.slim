@@ -10,7 +10,7 @@ div.navbar.navbar-fixed-top#navigation role='navigation'
     div.navbar-collapse.collapse
       ul.nav.navbar-nav
         li
-          = link_to root_path, class: active?(root_path) ? 'active' : nil do
+          = link_to root_path, class: active?(root_path) do
             b.fa.fa-home.fa-lg
             = t('views.navigation.home')
         / li
@@ -20,7 +20,7 @@ div.navbar.navbar-fixed-top#navigation role='navigation'
             / | About
 
         li
-          = link_to users_path, class: active?(users_path) ? 'active' : nil do
+          = link_to users_path, class: active?(users_path) do
             b.fa.fa-users.fa-lg
             = t('views.navigation.users')
 
@@ -59,7 +59,7 @@ div.navbar.navbar-fixed-top#navigation role='navigation'
                   = t('views.navigation.signout')
         - else
           li
-            = link_to new_user_session_path, class: active?(new_user_session_path) ? 'active' : nil do
+            = link_to new_user_session_path, class: active?(new_user_session_path) do
               b.glyphicon.glyphicon-log-in
               = t('views.navigation.signin')
 

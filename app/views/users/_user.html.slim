@@ -1,14 +1,18 @@
-li.user
-  div.user-head
-    = link_to user do
-      span.user-icon
-        = image_tag user.profile_image.small.url
-
-      span.user-name
-        = user.name
-
-      span.user-screen-name
-        | @#{user.screen_name}
-
-  div.user-body
-    = user.description
+li.col-sm-6.col-lg-4.col.user
+  div.col-inner
+    div.user-profile-panel-head
+      div.user-profile-image
+        = link_to user do
+          = image_tag user.profile_image.normal.url
+    div.user-profile-panel-main
+      div.user-profile-buttons
+        = button_tag class: 'btn btn-link user-actions-button',
+                     type: 'submit' do
+            b.fa.fa-lg.fa-cog
+        = render 'shared/follow_or_unfollow_button', user: user
+      p.user-profile-name
+        = link_to user.name, user
+      p.user-profile-screen-name
+        | @#{ link_to user.screen_name, user }
+      div.user-body
+        = user.description

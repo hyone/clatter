@@ -17,8 +17,7 @@
  *= require navigation
  *= require message_form
  *= require sessions
- *= require users_index
- *= require users_show
+ *= require users
  *= require guest_home
  *= require user_home
  */
@@ -136,7 +135,7 @@ body {
 // content panel
 // ----------------------------------------------
 
-div.content-main-foot {
+div.pager-panel {
   text-align: center;
 }
 
@@ -182,9 +181,7 @@ div.footer-panel {
 // profile block
 // ----------------------------------------------
 
-div.profile {
-  top: -180px;
-
+.content-left {
   div.col-inner {
     .panel;
   }
@@ -205,7 +202,7 @@ div.profile {
     }
   }
 
-  .user-profile-main {
+  .user-profile-panel-main {
     padding-left: 5px;
 
     .user-profile-name {
@@ -230,12 +227,12 @@ div.profile {
 // messages list block
 // ----------------------------------------------
 
-div.messages {
-  div.col-inner {
-    .list-panel;
+.messages-panel {
+  > .col-inner {
+    .list-panel();
   }
 
-  div.messages-head {
+  div.messages-panel-head {
     border-bottom: 1px solid @app-separator;
     margin: 0;
   }
@@ -300,11 +297,16 @@ div.messages {
 }
 
 
-// follow buttons
+//  buttons
 // ----------------------------------------------
 
+.user-actions-button {
+  color: @app-text-light;
+  padding: 6px;
+}
+
 .follow-or-unfollow-button {
-  display: inline;
+  display: inline-block;
 
   form.follow-button {
     > button {

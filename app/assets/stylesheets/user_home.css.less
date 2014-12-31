@@ -5,51 +5,44 @@
 // .home はページの識別子として header block, main block の両方で使われているので、
 // 直下にスタイルを定義しないように。
 
-.home-index {
+.home {
 
-  //  profile panel
+  //  home profile panel
   // ----------------------------------------------
 
-  div.profile {
-    top: 0;
-
-    div.col-inner {
-    }
-
-    div.row {
-      padding: 0;
-    }
-
-    div.user-profile-header {
+  div.home-profile-panel {
+    div.home-profile-panel-head {
       border-top-right-radius: 10px;
       border-top-left-radius: 10px;
       height: 95px;
       background-color: @app-active;
-    }
 
-    div.user-profile-image {
-      margin-left: 10px;
-      margin-right:10px;
-      margin-top: -30px;
-      width: 80px;
-      height: 80px;
-      border-width: 0;
-      border-radius: 5px;
-      float: left;
+      div.home-profile-image {
+        border-radius: 5px;
+        width: 80px;
+        height: 80px;
+        margin-left: 10px;
+        margin-right:10px;
+        margin-top: 60px;
+        padding: 4px;
+        float: left;
+        background-color: @app-body-bg;
 
-      img {
-        width: 72px;
-        height: 72px;
-        border-radius: 3px;
+        img {
+          width: 72px;
+          height: 72px;
+          border-radius: 3px;
+        }
       }
+
     }
 
-    div.user-profile-main {
+    div.home-profile-panel-main {
       padding-top: 5px;
       padding-left: 10px;
       padding-right: 10px;
 
-      p.user-profile-name {
+      p.home-profile-name {
         margin: 0;
         font-size: 125%;
         font-weight: bold;
@@ -58,30 +51,35 @@
         }
       }
 
-      .user-profile-screen-name {
+      .home-profile-screen-name {
         margin: 0;
+        color: @app-text-light;
         font-size: 82.5%;
+
+        a {
+          color: @app-text-light;
+        }
       }
 
       ul.list-inline {
         margin-top: 15px;
         li {
           padding-right: 13px;
+
+          span.nav-label,
+          span.nav-value {
+            display: block;
+          }
+
+          span.nav-label {
+            font-size: 75%;
+            color: @app-text-lighter;
+          }
+          span.nav-value {
+            font-weight: bold;
+          }
         }
       }
-    }
-
-    span.nav-label,
-    span.nav-value {
-      display: block;
-    }
-
-    span.nav-label {
-      font-size: 75%;
-      color: @app-text-lighter;
-    }
-    span.nav-value {
-      font-weight: bold;
     }
   }
 
@@ -89,8 +87,8 @@
   //  messages panel
   // ----------------------------------------------
 
-  div.messages {
-    div.messages-head {
+  div.messages-panel {
+    div.messages-panel-head {
       padding: 10px;
       background-color: @app-bg-active;
       border-bottom: 1px solid @app-separator-active;

@@ -1,0 +1,17 @@
+- provide(:title, 'Following')
+
+
+div.row
+  div.col.col-sm-4.col-lg-3.content-left
+    div.row
+      div.col-xs-12
+        = render 'shared/user_profile_panel'
+
+  div.col.col-sm-8.col-lg-9.content-main
+    div.row.users
+      div.col-xs-12.users-panel
+        ul.row
+          = render @followed_users
+
+      div.col-xs-12.pager-panel
+        = paginate @followed_users

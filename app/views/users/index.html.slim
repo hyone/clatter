@@ -1,18 +1,20 @@
 - provide(:title, 'All Users')
 
+- provide(:page_type, 'user-page')
+
+
 div.content-head
   h1 = t('views.users.index.title')
 
 div.content-body
   div.row
-    div.col.col-xs-12.users-list
-      div.row
-        div.col-xs-12.content-main-body
-          div.col-inner
-            ul
-              = render @users
+    div.col.col-xs-12
+      div.row.users
+        div.col-xs-12.users-panel
+          ul.row
+            = render @users
 
-        div.col-xs-12.content-main-foot
+        div.col-xs-12.pager-panel
             = paginate @users
 
 div.content-foot

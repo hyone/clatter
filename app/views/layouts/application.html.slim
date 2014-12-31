@@ -15,8 +15,7 @@ html lang="en"
     = stylesheet_link_tag 'application', media: 'all'
     = yield(:page_stylesheet) if content_for?(:page_stylesheet)
 
-  - template_name = controller.active_template.virtual_path.gsub('/', '-')
-  body class="#{template_name}"
+  body class="#{ content_for?(:page_type) ? yield(:page_type) : '' }"
 
     = render 'layouts/navigation'
 
@@ -39,7 +38,7 @@ html lang="en"
                   = content_tag :div, value, class: "alert alert-#{status} alert-#{key}"
 
         /! main contents block
-        = yield
+        = content_for?(:content) ? yield(:content) : yield
 
     div.footer
 

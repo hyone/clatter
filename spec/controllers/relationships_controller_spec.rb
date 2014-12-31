@@ -22,7 +22,6 @@ describe RelationshipsController, :type => :controller do
       it 'should return http success' do
         xhr :post, :create, format: :json, relationship: { followed_id: other_user.id }
         expect(response).to have_http_status(:success)
-        p response.body
       end
     end
   end

@@ -1,33 +1,37 @@
+- provide(:page_type, 'home')
+
+
 div.content-head
 
 div.content-body
   div.row
-    div.col.col-xs-4.col-lg-3.profile
+    div.col.col-xs-4.col-lg-3.content-left
         div.row
           div.col-xs-12
-            div.col-inner
-              div.user-profile-header
-              div.user-profile-image
-                = link_to @user do
-                  = image_tag @user.profile_image.normal.url
-              div.user-profile-main
-                p.user-profile-name
-                  = link_to @user.name, @user
-                p.user-profile-screen-name
-                  | @#{ link_to @user.screen_name, @user }
-                ul.list-inline
-                  li.user-profile-messages-count
+            div.home-profile-panel
+              div.col-inner
+                div.home-profile-panel-head
+                  div.home-profile-image
                     = link_to @user do
-                      span.nav-label = t('views.users.show.navigation.messages')
-                      span.nav-value #{@user.messages.count}
-                  li.user-profile-following
-                    = link_to following_user_path(@user)
-                      span.nav-label = t('views.users.show.navigation.following')
-                      span.nav-value #{@user.followed_users.count}
-                  li.user-profile-followers
-                    = link_to followers_user_path(@user)
-                      span.nav-label = t('views.users.show.navigation.followers')
-                      span.nav-value #{@user.followers.count}
+                      = image_tag @user.profile_image.normal.url
+                div.home-profile-panel-main
+                  p.home-profile-name
+                    = link_to @user.name, @user
+                  p.home-profile-screen-name
+                    | @#{ link_to @user.screen_name, @user }
+                  ul.list-inline
+                    li.home-profile-messages-count
+                      = link_to @user do
+                        span.nav-label = t('views.users.show.navigation.messages')
+                        span.nav-value #{@user.messages.count}
+                    li.home-profile-following
+                      = link_to following_user_path(@user)
+                        span.nav-label = t('views.users.show.navigation.following')
+                        span.nav-value #{@user.followed_users.count}
+                    li.home-profile-followers
+                      = link_to followers_user_path(@user)
+                        span.nav-label = t('views.users.show.navigation.followers')
+                        span.nav-value #{@user.followers.count}
 
           div.hidden-lg
             div.col-xs-12
@@ -35,21 +39,23 @@ div.content-body
             / div.col-xs-12
               / = render 'shared/footer_panel'
 
-    div.col.col-xs-8.col-lg-6.messages
+    div.col.col-xs-8.col-lg-6.content-main
       div.row
-        div.col-xs-12.content-main-body
-          div.col-inner
-            div.messages-head
-              span.message-icon
-                = image_tag @user.profile_image.small.url
-              = render 'shared/message_form', message: @message, prefix: 'content-main-'
+        div.col-xs-12
+          div.messages-panel
+            div.col-inner
+              div.messages-panel-head
+                span.message-icon
+                  = image_tag @user.profile_image.small.url
+                = render 'shared/message_form', message: @message, prefix: 'content-main-'
 
-            - if @user.messages.any?
-              ul
-                = render @feeds
+              - if @user.messages.any?
+                ul
+                  = render @feeds
 
-        div.col-xs-12.content-main-foot
-          = paginate @feeds
+        div.col-xs-12
+          div.pager-panel
+            = paginate @feeds
 
     div.visible-lg-block
       div.col.col-lg-3

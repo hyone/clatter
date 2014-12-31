@@ -35,7 +35,7 @@ describe 'Navigation', type: :feature do
     end
 
     context 'with empty text' do
-      it 'should be disabled message button' do
+      it 'should be disabled post button' do
         expect(page).to have_selector('#modal-message-form-submit:disabled')
       end
     end
@@ -43,7 +43,7 @@ describe 'Navigation', type: :feature do
     context 'with some text' do
       before { fill_in 'modal-message-form-text', with: 'Hello World' }
 
-      it 'should be enabled message button' do
+      it 'should be enabled post button' do
         expect(page).to have_selector('#modal-message-form-submit')
         expect(page).not_to have_selector('#modal-message-form-submit:disabled')
       end
@@ -69,7 +69,7 @@ describe 'Navigation', type: :feature do
 
     context 'with too long text' do
       before { fill_in 'modal-message-form-text', with: 'a' * 141 }
-      it 'should be disabled message button' do
+      it 'should be disabled post button' do
         expect(page).to have_selector('#modal-message-form-submit:disabled')
       end
 

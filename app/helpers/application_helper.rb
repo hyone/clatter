@@ -6,6 +6,6 @@ module ApplicationHelper
   end
 
   def active?(url)
-    request.path_info == url
+    request.path_info == url ? 'active' : nil
   end
 end

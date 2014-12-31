@@ -16,7 +16,7 @@ en:
       settings: Settings
       signout: Sign out
       signin: Sign in
-      new_message: New Message
+      new_message: Message
       compose_new_message: Compose New Message
       close: Close
       follow: Follow
@@ -28,7 +28,7 @@ en:
       signup_now: Sign up now!
       form:
         new_message: What's happening?
-        submit: Message
+        submit: Post
 
     messages:
       success: Message created!

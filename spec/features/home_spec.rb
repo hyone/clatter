@@ -38,7 +38,7 @@ describe 'Home Page', type: :feature do
             I18n.t('views.users.show.navigation.messages'),
             href: user_path(user)
           )
-          expect(page).to have_selector '.user-profile-messages-count', user.messages.count
+          expect(page).to have_selector '.home-profile-messages-count', user.messages.count
         end
 
         # following
@@ -47,7 +47,7 @@ describe 'Home Page', type: :feature do
             I18n.t('views.users.show.navigation.following'),
             href: following_user_path(user)
           )
-          expect(page).to have_selector '.user-profile-following', user.followed_users.count
+          expect(page).to have_selector '.home-profile-following', user.followed_users.count
         end
 
         # followers
@@ -56,7 +56,7 @@ describe 'Home Page', type: :feature do
             I18n.t('views.users.show.navigation.followers'),
             href: followers_user_path(user)
           )
-          expect(page).to have_selector '.user-profile-followers', user.followers.count
+          expect(page).to have_selector '.home-profile-followers', user.followers.count
         end
       end
 

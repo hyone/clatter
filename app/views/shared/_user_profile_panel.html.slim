@@ -1,0 +1,17 @@
+div.user-profile-panel#profile-user-data data-user-id="#{@user.id}" data-screen-name="#{@user.screen_name}" data-name="#{@user.name}"
+  div.col-inner
+      div.user-profile-panel-head
+        div.user-profile-image
+          = link_to @user do
+            = image_tag @user.profile_image.url
+      div.user-profile-panel-main
+        h1.user-profile-name
+          = link_to @user.name, @user
+        p.user-profile-screen-name
+          | @#{ link_to @user.screen_name, @user }
+        p = @user.description
+        - unless @user.url.blank?
+          p
+            b.fa.fa-link.icon
+            = link_to truncate(@user.url), @user.url
+

@@ -33,7 +33,7 @@ describe ApplicationHelper, type: :helper do
 
     context 'with "/home"' do
       let (:url) { '/home' }
-      it { should be_truthy }
+      it { should eq('active') }
     end
 
     context 'with "/about"' do

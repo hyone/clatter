@@ -1,72 +1,22 @@
 - provide(:title, page_title("#{@user.name} (@#{@user.screen_name})"))
 
-- content_for :header do
 
-  div.header-head
+div.row
+  div.col.col-sm-4.col-lg-3.content-left
+    div.row
+      div.col-xs-12
+        = render 'shared/user_profile_panel'
 
-  div.header-body
-    div.container
-      div.col-sm-4.col.col-lg-3
-      div.col-sm-8.col.col-lg-9.content-navigation
-        div.col-inner
-          ul.nav.navbar-nav
-            li.active.content-navigation-messages role="presentation"
-              = link_to user_path(@user) do
-                span.nav-label = t('views.users.show.navigation.messages')
-                span.nav-value #{@user.messages.count}
-            li.content-navigation-following
-              = link_to following_user_path(@user)
-                span.nav-label = t('views.users.show.navigation.following')
-                span.nav-value #{@user.followed_users.count}
-            li.content-navigation-followers
-              = link_to followers_user_path(@user)
-                span.nav-label = t('views.users.show.navigation.followers')
-                span.nav-value #{@user.followers.count}
-            li.content-navigation-favorites
-              a href="#"
-                span.nav-label = t('views.users.show.navigation.favorites')
-                span.nav-value 3
-            li.content-navigation-buttons
-              = button_tag class: 'btn btn-link content-navigation-actions',
-                           type: 'submit' do
-                  b.fa.fa-lg.fa-cog
-              = render 'shared/follow_or_unfollow_button', user: @user
-
-  div.header-foot
-
-
-div.content-head
-
-div.content-body
-  div.row
-    div.col.col-sm-4.col-lg-3.profile
-      div.row
+      div.hidden-lg
         div.col-xs-12
-          div.col-inner.user-profile
-            div#profile-user-data data-user-id="#{@user.id}" data-screen-name="#{@user.screen_name}" data-name="#{@user.name}"
-              div.user-profile-image
-                = link_to @user do
-                  = image_tag @user.profile_image.url
-              div.user-profile-main
-                h1.user-profile-name
-                  = link_to @user.name, @user
-                p.user-profile-screen-name
-                  | @#{ link_to @user.screen_name, @user }
-                p = @user.description
-                - unless @user.url.blank?
-                  p
-                    b.fa.fa-link.icon
-                    = link_to truncate(@user.url), @user.url
+          = render 'shared/footer_panel'
 
-        div.hidden-lg
-          div.col-xs-12
-            = render 'shared/footer_panel'
-
-    div.col.col-sm-8.col-lg-6.messages
-      div.row
-        div.col-xs-12.content-main-body
+  div.col.col-sm-8.col-lg-6.content-main
+    div.row
+      div.col-xs-12
+        div.messages-panel
           div.col-inner
-            div.messages-head
+            div.messages-panel-head
               ul.list-inline
                 li
                   - if request.path_info == user_path(@user)
@@ -79,14 +29,14 @@ div.content-body
                   - else
                     = link_to t('views.users.show.messages_and_replies'), with_replies_user_path(@user)
             - if @user.messages.any?
-              ul.
+              ul
                 = render @messages
 
-        div.col-xs-12.content-main-foot
+      div.col-xs-12
+        div.pager-panel
           = paginate @messages
 
-    div.visible-lg-block
-      div.col.col-lg-3
-        = render 'shared/footer_panel'
+  div.visible-lg-block
+    div.col.col-lg-3
+      = render 'shared/footer_panel'
 
-div.content-foot
