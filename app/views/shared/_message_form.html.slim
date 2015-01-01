@@ -1,5 +1,5 @@
 - message ||= current_user.messages.build
-/ ok both whether '-' is the end of prefix or not that is passed
+/ prefix is ok both whether '-' is the end of it or not
 - prefix = prefix.blank? ? nil : prefix.sub(/-*$/, '')
 
 = form_for(message, html: { class: 'message-form' }) do |f|

@@ -22,6 +22,7 @@ en:
       follow: Follow
       following: Following
       unfollow: Unfollow
+      edit_profile: Edit Profile
 
     home:
       welcome_message: Welcome to TwitterApp

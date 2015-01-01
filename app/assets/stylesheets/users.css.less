@@ -21,7 +21,7 @@
           width: 100%;
           padding: 0;
 
-          li {
+          > li {
             text-align: center;
 
             span.nav-label,
@@ -37,13 +37,14 @@
               font-weight: bold;
             }
 
-            a {
+            > a {
               padding: 5px 15px;
               border-bottom: 5px solid transparent;
             }
 
-            &.active a,
-            a:hover {
+            > a,
+            > a:hover,
+            > &.active {
               border-bottom-color: @app-active;
               background-color: transparent;
             }
@@ -118,13 +119,11 @@
 }
 
 
-.users {
-  padding-left: 0;
-
-  ul {
+.users-panel {
+  > ul {
     padding-left: 10px;
 
-    li.user {
+    li.user-panel {
       padding-top: 0px;
       list-style-type: none;
       max-width: 300px;
