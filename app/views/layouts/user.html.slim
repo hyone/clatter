@@ -34,9 +34,7 @@
                 span.nav-label = t('views.users.show.navigation.favorites')
                 span.nav-value 3
             li.content-navigation-buttons
-              = button_tag class: 'btn btn-link user-actions-button',
-                           type: 'submit' do
-                  b.fa.fa-lg.fa-cog
+              = render 'shared/more_actions_button', user: @user
               = render 'shared/follow_or_unfollow_button', user: @user
 
   div.header-foot

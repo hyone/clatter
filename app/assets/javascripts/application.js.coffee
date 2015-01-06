@@ -17,3 +17,4 @@
 #= require follow_or_unfollow_button
 #= require message_form
 #= require home
+#= require users

@@ -35,6 +35,8 @@ en:
       success: Message created!
 
     users:
+      user:
+        message_to: 'Message to @%{screen_name}'
       index:
         title: All Users
       signup:

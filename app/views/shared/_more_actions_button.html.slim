@@ -1,0 +1,16 @@
+div.btn-group
+  = button_tag class: 'btn btn-link user-actions-button dropdown-toggle',
+               id: "#{user.screen_name}-actions-button",
+               type: 'button',
+               'data-toggle'  => 'dropdown',
+               'ari-expanded' => 'false' do
+      b.fa.fa-lg.fa-cog
+  ul.dropdown-menu role="menu"
+    li
+      a href="#" id="reply-to-#{user.screen_name}" class="open-reply-to" data-toggle="modal" data-target="#modal-message-form" data-keyboard="true" data-backdrop="true"
+        = t('views.users.user.message_to', screen_name: user.screen_name)
+    / li
+      / a href="#" Another action
+    / li.divider
+    / li
+      / a href="#" Separated link
