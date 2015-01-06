@@ -23,7 +23,7 @@ describe 'Users pages', type: :feature do
         it { should have_selector('ul.pagination') }
 
         it 'should list each user in page 1' do
-          User.page(1).per(UsersController::USER_PAGE_SIZE).each do |user|
+          User.newer.page(1).per(UsersController::USER_PAGE_SIZE).each do |user|
             expect(page).to have_selector('li', text: "@#{user.screen_name}")
           end
         end

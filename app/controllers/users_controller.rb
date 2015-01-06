@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   MESSAGE_PAGE_SIZE = 30
 
   def index
-    @users = User.page(params[:page]).per(USER_PAGE_SIZE)
+    @users = User.newer.page(params[:page]).per(USER_PAGE_SIZE)
   end
 
   def show

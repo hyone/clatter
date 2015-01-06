@@ -36,6 +36,11 @@ class User < ActiveRecord::Base
     length: { maximum: 160 }
 
 
+  scope :newer, ->() {
+    order(created_at: :desc)
+  }
+
+
   def following?(other_user)
     relationships.find_by(followed_id: other_user.id)
   end
