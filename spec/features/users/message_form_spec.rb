@@ -88,6 +88,5 @@ describe 'Message Form', type: :feature, js: true do
         end
       end
     end
-
   end
 end
