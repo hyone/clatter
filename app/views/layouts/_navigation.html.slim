@@ -66,14 +66,14 @@ div.navbar.navbar-fixed-top#navigation role='navigation'
         /! message button
         - if user_signed_in?
           li
-            button.btn.btn-primary.btn-sm.navbar-btn data-toggle="modal" data-target="#modal-message-form" data-keyboard="true" data-backdrop="true"
+            button.btn.btn-primary.btn-sm.navbar-btn#navigation-new-message data-toggle="modal" data-target="#message-dialog" data-keyboard="true" data-backdrop="true"
               / / b.fa.fa-pencil-square-o
               b.fa.fa-pencil
               = t('views.navigation.new_message')
 
 /! modal message form
 - if user_signed_in?
-  div.modal.fade#modal-message-form tabindex="-1" role="dialog" aria-labelledby="modalMessageFormLabel" aria-hidden="true"
+  div.modal.fade#message-dialog tabindex="-1" role="dialog" aria-labelledby="modalMessageFormLabel" aria-hidden="true"
     div.modal-dialog
       div.container
         div.row

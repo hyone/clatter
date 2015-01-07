@@ -11,11 +11,10 @@ $ ->
   $(document)
     .on 'click', '.content-navigation .open-reply-to', () ->
       screen_name = $('#profile-user-data').data('screen-name')
-      $('#modal-message-form textarea.message-text').val("@#{screen_name} ")
+      $('#modal-message-form-text').val("@#{screen_name} ")
 
   # in user panel
   $(document)
     .on 'click', '.user-panel .open-reply-to', () ->
-      screen_name = $(this)
-                      .closest('.user-data').data('screen-name')
-      $('#modal-message-form textarea.message-text').val("@#{screen_name} ")
+      screen_name = $(this).closest('.user-data').data('screen-name')
+      $('#modal-message-form-text').val("@#{screen_name} ")

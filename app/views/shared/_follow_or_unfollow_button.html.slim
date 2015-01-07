@@ -17,6 +17,7 @@
                  format: 'json',
                  remote: true) do |f|
             = button_tag class: 'btn btn-primary',
+                         id: "unfollow-#{user.screen_name}",
                          type: 'submit' do
                 span.following
                   = t('views.navigation.following')
@@ -31,6 +32,7 @@
                  remote: true) do |f|
             = f.hidden_field :followed_id
             = button_tag class: 'btn btn-default',
+                         id: "follow-#{user.screen_name}",
                          type: 'submit' do
                 b.fa.fa-user
                 = t('views.navigation.follow')
@@ -41,6 +43,7 @@
                method: :get,
                class: 'follow-button') do
           = button_tag class: 'btn btn-default',
+                       id: "follow-#{user.screen_name}",
                        type: 'submit' do
               b.fa.fa-user
               = t('views.navigation.follow')

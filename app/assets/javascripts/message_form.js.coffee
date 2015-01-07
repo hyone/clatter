@@ -28,7 +28,7 @@ toggleMessageFormVisible = ($form, open = false) ->
 
 $ ->
   # message form in modal dialog
-  $modalForm = $('#modal-message-form .message-form')
+  $modalForm = $('#modal-message-form')
   toggleMessageFormVisible($modalForm, true)
   setMessageFormState($modalForm)
 
@@ -39,7 +39,7 @@ $ ->
       setMessageFormState($modalForm)
 
   # message form in header of messages list block
-  $messageForm = $('.messages-panel .messages-panel-head .message-form')
+  $messageForm = $('#content-main-message-form')
   $messageForm.find('textarea.message-text')
     .focus ->
       setMessageFormState($messageForm)

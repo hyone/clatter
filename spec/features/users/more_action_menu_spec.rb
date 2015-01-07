@@ -18,7 +18,7 @@ describe 'More Actions Menu', type: :feature, js: true do
         }
 
         it 'should display modal window' do
-          expect(page.find('#modal-message-form')).to be_visible
+          expect(page.find('#message-dialog')).to be_visible
         end
 
         it "text should be set to '@screen_name'" do

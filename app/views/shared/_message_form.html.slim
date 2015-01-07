@@ -2,7 +2,7 @@
 / prefix is ok both whether '-' is the end of it or not
 - prefix = prefix.blank? ? nil : prefix.sub(/-*$/, '')
 
-= form_for(message, html: { class: 'message-form' }) do |f|
+= form_for(message, html: { class: 'message-form', id: "#{prefix}-message-form" }) do |f|
   = render 'shared/error_messages', object: f.object
 
   div.form-group

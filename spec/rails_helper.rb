@@ -62,12 +62,14 @@ RSpec.configure do |config|
   config.include RequestHelpers, type: :feature
   config.include RequestHelpers, type: :request
 
+
   # database_cleaner
+
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  # use trunsaction on usual tests
+  # use transaction on usual tests
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
   end
