@@ -11,6 +11,7 @@ end
 
 def gen_messages
   users = User.order(created_at: :desc).limit(5).push(MAIN_USER)
+  # users = User.order(created_at: :desc).push(MAIN_USER)
   users.each do |user|
     50.times { FactoryGirl.create(:message, user: user) }
   end
@@ -27,6 +28,7 @@ def gen_relations
     FactoryGirl.create(:relationship, follower: follower, followed: MAIN_USER)
   end
 end
+
 
 gen_users
 gen_messages

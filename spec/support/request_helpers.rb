@@ -69,7 +69,8 @@ module RequestHelpers
     }
   end
 
-  # wait to ajax proccess have finished
+  # From http://blog.kntmrkm.me/posts/2014/08/21/rspec-js-test-error.html
+  # wait that ajax proccesses have finished to avoid js test failures with database_cleaner
 
   def wait_for_ajax
     Timeout.timeout(Capybara.default_wait_time) do
