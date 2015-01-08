@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141230091423) do
+ActiveRecord::Schema.define(version: 20150108092311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20141230091423) do
     t.datetime "updated_at"
   end
 
+  add_index "messages", ["user_id", "created_at"], name: "index_messages_on_user_id_and_created_at", using: :btree
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "relationships", force: true do |t|
@@ -50,21 +51,21 @@ ActiveRecord::Schema.define(version: 20141230091423) do
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                              default: "", null: false
+    t.string   "encrypted_password",                 default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "screen_name"
-    t.string   "name"
-    t.text     "description"
+    t.string   "screen_name",                                     null: false
+    t.string   "name",                                            null: false
+    t.string   "description",            limit: 160
     t.string   "url"
     t.string   "profile_image"
   end
@@ -75,7 +76,7 @@ ActiveRecord::Schema.define(version: 20141230091423) do
 
   add_foreign_key "authentications", "users", name: "authentications_user_id_fk", dependent: :delete
 
-  add_foreign_key "messages", "messages", name: "posts_reply_to_id_fk", column: "reply_to_id", dependent: :delete
+  add_foreign_key "messages", "messages", name: "posts_reply_to_id_fk", column: "reply_to_id"
   add_foreign_key "messages", "users", name: "posts_user_id_fk", dependent: :delete
 
   add_foreign_key "relationships", "users", name: "relationships_followed_id_fk", column: "followed_id", dependent: :delete
