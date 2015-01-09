@@ -12,5 +12,8 @@ FactoryGirl.define do
     # factory :admin do
       # admin true
     # end
+
+    # if screen_name has already taken
+    initialize_with { User.find_or_create_by(screen_name: screen_name) }
   end
 end
