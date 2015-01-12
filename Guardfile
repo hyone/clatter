@@ -21,12 +21,10 @@ guard :rspec, cmd: 'spring rspec' do
   watch(%r{^app/(.+)\.rb$}) { |m| "spec/#{m[1]}_spec.rb" }
 
   # model
-  watch(%r{^app/models/(.+)\.rb$}) {
-    |m|
-    p m
-    p "spec/features/#{m[1].pluralize}_spec.rb"
+  watch(%r{^app/models/(.+)\.rb$}) { |m| [
+    "spec/models/#{m[1]}_spec.rb",
     "spec/features/#{m[1].pluralize}_spec.rb"
-  }
+  ] }
 
   # controllers
   watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| [
