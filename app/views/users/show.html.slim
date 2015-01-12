@@ -13,28 +13,18 @@ div.row
 
   div.col.col-sm-8.col-lg-6.content-main
     div.row
-      div.col-xs-12
-        div.messages-panel
-          div.col-inner
-            div.messages-panel-head
-              ul.list-inline
-                li
-                  - if request.path_info == user_path(@user)
-                    = t('views.users.show.messages')
-                  - else
-                    = link_to t('views.users.show.messages'), user_path(@user)
-                li 
-                  - if request.path_info == with_replies_user_path(@user)
-                    = t('views.users.show.messages_and_replies')
-                  - else
-                    = link_to t('views.users.show.messages_and_replies'), with_replies_user_path(@user)
-            - if @user.messages.any?
-              ul
-                = render @messages
-
-      div.col-xs-12
-        div.pager-panel
-          = paginate @messages
+      = render layout: 'shared/messages_panel', locals: { messages: @messages } do
+        ul.list-inline
+          li
+            - if request.path_info == user_path(@user)
+              = t('views.users.show.messages')
+            - else
+              = link_to t('views.users.show.messages'), user_path(@user)
+          li 
+            - if request.path_info == with_replies_user_path(@user)
+              = t('views.users.show.messages_and_replies')
+            - else
+              = link_to t('views.users.show.messages_and_replies'), with_replies_user_path(@user)
 
   div.visible-lg-block
     div.col.col-lg-3

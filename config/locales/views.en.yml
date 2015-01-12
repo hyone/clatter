@@ -4,32 +4,35 @@ en:
       please_sign_in: Please sign in.
       appname: TwitterApp
 
+    navigation:
+      compose_new_message: Compose New Message
+      close: Close
+      edit_profile: Edit Profile
+      follow: Follow
+      following: Following
+      home: Home
+      new_message: Message
+      profile: Profile
+      settings: Settings
+      signout: Sign out
+      signin: Sign in
+      unfollow: Unfollow
+      users: Users
+
+    message_form:
+      new_message: What's happening?
+      submit: Post
+
     footer_panel:
       about: About
       home: Home
       copyright_html: "&copy; 2014 %{appname}"
 
-    navigation:
-      home: Home
-      users: Users
-      profile: Profile
-      settings: Settings
-      signout: Sign out
-      signin: Sign in
-      new_message: Message
-      compose_new_message: Compose New Message
-      close: Close
-      follow: Follow
-      following: Following
-      unfollow: Unfollow
-      edit_profile: Edit Profile
-
     home:
-      welcome_message: Welcome to TwitterApp
-      signup_now: Sign up now!
-      form:
-        new_message: What's happening?
-        submit: Post
+      index:
+        description: Your timeline is currently empty. Follow people and topics you find interesting to see their messages in your timeline. 
+        signup_now: Sign up now!
+        welcome_message: Welcome to TwitterApp
 
     messages:
       success: Message created!

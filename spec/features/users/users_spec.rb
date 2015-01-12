@@ -80,8 +80,9 @@ describe 'Users pages', type: :feature do
         it { should have_selector('ul.pagination') }
 
         it 'should list each feed in page 1' do
-          User.page(1).per(UsersController::MESSAGE_PAGE_SIZE).each do |user|
-            expect(page).to have_selector('li', text: user.screen_name)
+          user.messages_without_replies.newer.
+            page(1).per(UsersController::MESSAGE_PAGE_SIZE).each do |message|
+              expect(page).to have_selector("li#message-#{message.id}")
           end
         end
       end

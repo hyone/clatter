@@ -23,8 +23,6 @@
 
   padding: 0;
   border-bottom: 0px;
-  border-bottom-right-radius: 0px;
-  border-bottom-left-radius: 0px;
 
   > ul {
     margin: 0;
@@ -35,6 +33,10 @@
       padding: 10px;
       border-bottom: 1px solid @app-separator;
       list-style-type: none;
+
+      &:last-child {
+        border-bottom-width: 0;
+      }
     }
   }
 }

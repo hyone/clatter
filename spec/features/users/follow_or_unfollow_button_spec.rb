@@ -55,6 +55,7 @@ describe 'Follow/Unfollow button', type: :feature do
 
         it 'should be 1 followers', js: true do
           click_follow_button(other_user)
+          wait_for_ajax
           expect(page).to have_selector('.content-navigation-followers .nav-value', 1)
         end
       end

@@ -41,21 +41,14 @@ div.content-body
 
     div.col.col-xs-8.col-lg-6.content-main
       div.row
-        div.col-xs-12
-          div.messages-panel
-            div.col-inner
-              div.messages-panel-head
-                span.message-icon
-                  = image_tag @user.profile_image.small.url
-                = render 'shared/message_form', message: @message, prefix: 'content-main-'
 
-              - if @user.messages.any?
-                ul
-                  = render @feeds
-
-        div.col-xs-12
-          div.pager-panel
-            = paginate @feeds
+        = render layout: 'shared/messages_panel', locals: { \
+            messages: @feeds, \
+            description: t('views.home.index.description') \
+          } do
+          span.message-icon
+            = image_tag @user.profile_image.small.url
+          = render 'shared/message_form', message: @message, prefix: 'content-main-'
 
     div.visible-lg-block
       div.col.col-lg-3

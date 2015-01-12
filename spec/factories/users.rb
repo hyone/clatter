@@ -13,7 +13,14 @@ FactoryGirl.define do
       # admin true
     # end
 
-    # if screen_name has already taken
-    initialize_with { User.find_or_create_by(screen_name: screen_name) }
+    # if screen_name or email has already taken
+    initialize_with {
+      User.where( User.arel_table[:screen_name].eq(screen_name).or(
+        User.arel_table[:email].eq(email)
+      ) ).first_or_create do |u|
+        u.screen_name = screen_name
+        u.email = email
+      end
+    }
   end
 end

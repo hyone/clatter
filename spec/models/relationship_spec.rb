@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+
 describe Relationship, :type => :model do
   let (:follower) { FactoryGirl.create(:user) }
   let (:followed) { FactoryGirl.create(:user) }
@@ -12,7 +13,7 @@ describe Relationship, :type => :model do
   describe '#follower' do
     it { should respond_to(:follower) }
 
-    it { should validate_presence_of(:follower_id) }
+    it { should validate_presence_of(:follower) }
     it { should belong_to(:follower).class_name(:User) }
 
     it 'should return follower' do
@@ -23,7 +24,7 @@ describe Relationship, :type => :model do
   describe '#followed' do
     it { should respond_to(:followed) }
 
-    it { should validate_presence_of(:followed_id) }
+    it { should validate_presence_of(:followed) }
     it { should belong_to(:followed).class_name(:User) }
 
     it 'should return followed' do

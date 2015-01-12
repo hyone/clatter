@@ -1,4 +1,4 @@
-li.message
+li.message.message-data id="message-#{message.id}" data-message-id="#{message.id}" data-screen-name="#{message.user.screen_name}" data-user-id="#{message.user_id}"
   div.message-head
     a href="#{user_path(message.user)}"
       span.message-icon
@@ -20,4 +20,3 @@ li.message
       li
         = link_to '#' do
           b.fa.fa-star-o
-          / b.fa.fa-star

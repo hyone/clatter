@@ -10,13 +10,15 @@ class User < ActiveRecord::Base
   has_many :authentications, dependent: :destroy
   has_many :messages, dependent: :destroy
 
+  # following relationships
   has_many :relationships, foreign_key: 'follower_id',
                            dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
 
+  # followers relationships
   has_many :reverse_relationships, foreign_key: 'followed_id',
-                                   dependent: :destroy,
-                                   class_name: 'Relationship'
+                                   class_name: 'Relationship',
+                                   dependent: :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
 
   # reply relationships that the user received from
@@ -30,6 +32,7 @@ class User < ActiveRecord::Base
   attr_accessor :login
 
   mount_uploader :profile_image, ProfileImageUploader
+
 
   validates :screen_name,
     presence: true,
@@ -67,6 +70,9 @@ class User < ActiveRecord::Base
     Message.mentions_of(self)
   end
 
+
+  # follow/unfollow
+
   def following?(other_user)
     relationships.find_by(followed_id: other_user.id)
   end
@@ -79,6 +85,7 @@ class User < ActiveRecord::Base
     relationships.find_by(followed_id: other_user.id).destroy
   end
 
+  # omniauth
 
   def apply_omniauth(omniauth)
     self.name  = omniauth['info']['name']  if name.blank?
@@ -95,6 +102,7 @@ class User < ActiveRecord::Base
   def password_required?
     (authentications.empty? || !password.blank?) && super
   end
+
 
   class << self
     def find_first_by_auth_conditions(warden_conditions)

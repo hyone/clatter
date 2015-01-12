@@ -1,0 +1,29 @@
+/ [variables]
+/ - messages : messges list
+/ - description : description is displayed when messages is empty
+/
+/ [content]
+/ messages panel head content
+
+- description ||= nil
+
+
+div.col-xs-12
+  div.messages-panel
+    div.col-inner
+      div.messages-panel-head
+        = yield if block_given?
+      ul
+        - if messages.any?
+          = render messages
+        - else
+          li.message
+            div.message-body
+              - if description
+                div.empty-description
+                  span.fa.fa-twitter.fa-lg
+                  = description
+
+  div.col-xs-12
+    div.pager-panel
+      = paginate messages
