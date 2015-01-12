@@ -1,14 +1,14 @@
 li.message
   div.message-head
-    a href="#{user_path(@user)}"
+    a href="#{user_path(message.user)}"
       span.message-icon
-        = image_tag @user.profile_image.small.url
+        = image_tag message.user.profile_image.small.url
       span.message-owner-name
         = message.user.name
       span.message-info
         | @#{message.user.screen_name} - #{time_ago_in_words(message.created_at)}
   div.message-body
-    = message.text
+    = raw replace_reply_at_to_user_link message
   div.message-foot
     ul.list-inline
       li

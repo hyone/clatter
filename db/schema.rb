@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150108092311) do
+ActiveRecord::Schema.define(version: 20150108121141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,9 +29,8 @@ ActiveRecord::Schema.define(version: 20150108092311) do
   add_index "authentications", ["user_id"], name: "index_authentications_on_user_id", using: :btree
 
   create_table "messages", force: true do |t|
-    t.string   "text",        null: false
-    t.integer  "user_id",     null: false
-    t.integer  "reply_to_id"
+    t.string   "text",       null: false
+    t.integer  "user_id",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -49,6 +48,18 @@ ActiveRecord::Schema.define(version: 20150108092311) do
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id", using: :btree
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true, using: :btree
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
+
+  create_table "replies", force: true do |t|
+    t.integer  "message_id",    null: false
+    t.integer  "to_user_id",    null: false
+    t.integer  "to_message_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "replies", ["message_id"], name: "index_replies_on_message_id", using: :btree
+  add_index "replies", ["to_message_id"], name: "index_replies_on_to_message_id", using: :btree
+  add_index "replies", ["to_user_id"], name: "index_replies_on_to_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                              default: "", null: false
@@ -76,10 +87,13 @@ ActiveRecord::Schema.define(version: 20150108092311) do
 
   add_foreign_key "authentications", "users", name: "authentications_user_id_fk", dependent: :delete
 
-  add_foreign_key "messages", "messages", name: "posts_reply_to_id_fk", column: "reply_to_id"
   add_foreign_key "messages", "users", name: "posts_user_id_fk", dependent: :delete
 
   add_foreign_key "relationships", "users", name: "relationships_followed_id_fk", column: "followed_id", dependent: :delete
   add_foreign_key "relationships", "users", name: "relationships_follower_id_fk", column: "follower_id", dependent: :delete
+
+  add_foreign_key "replies", "messages", name: "replies_message_id_fk", dependent: :delete
+  add_foreign_key "replies", "messages", name: "replies_to_message_id_fk", column: "to_message_id", dependent: :delete
+  add_foreign_key "replies", "users", name: "replies_to_user_id_fk", column: "to_user_id", dependent: :delete
 
 end

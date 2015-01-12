@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+
 describe User, :type => :model do
   let (:user) { FactoryGirl.create(:user) }
   subject { user }
@@ -36,45 +37,93 @@ describe User, :type => :model do
     it { should respond_to(:messages) }
   end
 
+  describe '#login' do
+    it { should respond_to(:login) }
+  end
+
+  describe '#profile_image' do
+    it { should respond_to(:profile_image) }
+  end
+
 
   describe '#relationships' do
-    let! (:relationship) { FactoryGirl.create(:relationship, follower: user) }
-
     it { should respond_to(:relationships) }
+    it { should have_many(:relationships) }
 
-    it 'should have 1 relationship' do
-      expect(user.relationships.count).to eq(1)
-    end
+    context 'with 2 followed_users' do
+      before { FactoryGirl.create_list(:relationship, 2, follower: user) }
 
-    # test for dependent: destroy
-    context 'when the user is destroyed' do
-      before { user.destroy }
-      its(:relationships) { should be_empty }
+      it 'should have 2 relationships' do
+        expect(user.relationships.count).to eq(2)
+      end
+
+      # test for dependent: destroy
+      context 'when the user is destroyed' do
+        before { user.destroy }
+        its(:relationships) { should be_empty }
+      end
     end
   end
 
   describe '#reverse_relationships' do
-    let! (:reverse_relationships) { FactoryGirl.create(:relationship, followed: user) }
-
     it { should respond_to(:reverse_relationships) }
+    it { should have_many(:reverse_relationships) }
 
-    it 'should have 1 reverse_relationship' do
-      expect(user.reverse_relationships.count).to eq(1)
-    end
+    context 'with 2 followers' do
+      before { FactoryGirl.create_list(:relationship, 2, followed: user) }
 
-    # test for dependent: destroy
-    context 'when the user is destroyed' do
-      before { user.destroy }
-      its(:reverse_relationships) { should be_empty }
+      it 'should have 2 reverse_relationships' do
+        expect(user.reverse_relationships.count).to eq(2)
+      end
+
+      # test for dependent: destroy
+      context 'when the user is destroyed' do
+        before { user.destroy }
+        its(:reverse_relationships) { should be_empty }
+      end
     end
   end
 
+
+  describe 'about reply' do
+    context 'when the user have 2 replies' do
+      let! (:message1) { FactoryGirl.create(:message, user: user) }
+      let! (:message2) { FactoryGirl.create(:message, user: user) }
+      let! (:reply1) { FactoryGirl.create(:reply, message: message1) }
+      let! (:reply2) { FactoryGirl.create(:reply, message: message2) }
+
+      describe '#replies' do
+        it 'should return 2 messages' do
+          expect(user.replies.count).to eq(2)
+        end
+      end
+
+      describe '#messages_without_replies' do
+        let! (:message3) { FactoryGirl.create(:message, user: user) }
+
+        it 'should include message that is not a reply' do
+          expect(user.messages_without_replies).to include(message3)
+        end
+
+        it 'should not include replies' do
+          [message1, message2].each do |r|
+            expect(user.messages_without_replies).not_to include(r)
+          end
+        end
+      end
+    end
+    
+  end 
+
+
   describe '#followed_users' do
     it { should respond_to(:followed_users) }
+    it { should have_many(:followed_users).through(:relationships) }
   end
 
   describe '#followers' do
     it { should respond_to(:followers) }
+    it { should have_many(:followers).through(:reverse_relationships) }
   end
 
   describe '#follow!' do
@@ -84,7 +133,6 @@ describe User, :type => :model do
   describe '#unfollow!' do
     it { should respond_to(:unfollow!) }
   end
-
 
   describe 'about follow' do
     let (:other_user) { FactoryGirl.create(:user) }
@@ -120,7 +168,17 @@ describe User, :type => :model do
         end
       end
     end
+  end
 
+  # reply
 
+  describe '#reverse_reply_relationships' do
+    it { should respond_to(:reverse_reply_relationships) }
+    it { should have_many(:reverse_reply_relationships) }
+  end
+
+  describe '#replies_received' do
+    it { should respond_to(:replies_received) }
+    it { should have_many(:replies_received).through(:reverse_reply_relationships) }
   end
 end

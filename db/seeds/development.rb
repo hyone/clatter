@@ -6,14 +6,24 @@ MAIN_USER = FactoryGirl.create(
 
 
 def gen_users
-  99.times { |n| FactoryGirl.create(:user) }
+  FactoryGirl.create_list(:user, 99)
 end
 
 def gen_messages
   users = User.order(created_at: :desc).limit(5).push(MAIN_USER)
-  # users = User.order(created_at: :desc).push(MAIN_USER)
   users.each do |user|
-    50.times { FactoryGirl.create(:message, user: user) }
+    50.times { |n|
+      if n % 5 != 0
+        FactoryGirl.create(:message, user: user)
+      else
+        to_user = n.even? ? MAIN_USER : User.offset(rand(User.count)).first
+        FactoryGirl.create(
+          :message_with_reply,
+          user: user,
+          users_replied_to: [to_user]
+        )
+      end
+    }
   end
 end
 

@@ -21,12 +21,92 @@ describe Message, :type => :model do
     it { should belong_to(:user) }
   end
 
-  describe '#reply_to' do
-    it { should respond_to(:reply_to) }
-    it { should belong_to(:reply_to).class_name('Message') }
-  end
-
   describe '#created_at' do
     it { should respond_to(:created_at) }
+  end
+
+  describe '#reply_relationships' do
+    it { should respond_to(:reply_relationships) }
+
+    context 'when the message has replied 2 users' do
+      let! (:reply1) { FactoryGirl.create(:reply, message: message) } 
+      let! (:reply2) { FactoryGirl.create(:reply, message: message) }
+
+      it 'should have 2 reply_relationships' do
+        expect(message.reply_relationships.count).to eq(2)
+      end
+    end 
+  end
+
+  describe '#users_replied_to' do
+    it { should respond_to(:users_replied_to) }
+
+    context 'when the message has replied to 2 users' do
+      let! (:reply1) { FactoryGirl.create(:reply, message: message) } 
+      let! (:reply2) { FactoryGirl.create(:reply, message: message) }
+
+      it 'should have 2 users_replied_to' do
+        expect(message.users_replied_to.count).to eq(2)
+      end
+    end 
+  end
+
+  describe '#reverse_reply_relationships' do
+    it { should respond_to(:reverse_reply_relationships) }
+
+    context 'when the message has received 2 replies' do
+      let! (:reply1) { FactoryGirl.create(:reply, to_message: message) }
+      let! (:reply2) { FactoryGirl.create(:reply, to_message: message) }
+
+      it 'should have 2 reverse_reply_relationships' do
+        expect(message.reverse_reply_relationships.count).to eq(2)
+      end
+    end
+  end
+
+  describe '#message_id_replied_to' do
+    it { should respond_to(:message_id_replied_to) }
+  end
+
+
+  describe '#parent' do
+    context 'when the message reply to the another message' do
+      let! (:parent) { FactoryGirl.create(:message) }
+      let! (:reply1) { FactoryGirl.create(:reply, message: message, to_message: parent) }
+
+      it 'should return the another message' do
+        expect(message.parent).to eq(parent)
+      end
+    end
+  end
+
+  describe '::timeline_of' do
+  end
+
+
+  context 'after saved' do
+    context 'when text includes @screen_name' do
+      let (:user1) { FactoryGirl.create(:user) }
+      let (:user2) { FactoryGirl.create(:user) }
+      let (:text)  { "@#{user1.screen_name} @#{user2.screen_name} hello world" }
+      let (:message) { FactoryGirl.build(:message, text: text) }
+
+      it 'reply relationships should be created' do
+        message.save
+        expect(message.reply_relationships.count).to eq(2)
+      end
+
+      context 'when message_id_replied_to is set'  do
+        let (:parent) { FactoryGirl.create(:message) }
+        before { message.message_id_replied_to = parent.id }
+
+        it 'reply relationships created should have to_message_id' do
+          message.save
+          message.reply_relationships.each do |r|
+            expect(r.to_message).not_to be_nil
+          end
+        end
+      end
+    end
   end
 end

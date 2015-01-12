@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  layout 'user', only: [:followers, :following, :show]
+  layout 'user', except: [:index]
 
   USER_PAGE_SIZE = 20
   MESSAGE_PAGE_SIZE = 30
@@ -10,8 +10,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @messages = @user.messages
-                  .without_replies.newer
+    @messages = @user.messages_without_replies
+                  .newer
                   .page(params[:page]).per(MESSAGE_PAGE_SIZE)
   end
 
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
 
   def with_replies
     @user = User.find(params[:id])
-    @messages = @user.messages.latest_order.page(params[:page]).per(MESSAGE_PAGE_SIZE)
+    @messages = @user.messages.newer.page(params[:page]).per(MESSAGE_PAGE_SIZE)
     render 'show'
   end
 end

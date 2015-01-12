@@ -278,6 +278,25 @@ div.footer-panel {
       }
     }
 
+    .message-body {
+      // reply link
+      .at-reply-link {
+        color: @app-active;
+
+        &:hover {
+          color: @app-active;
+          text-decoration: none;
+
+          .at-reply-screen-name {
+            text-decoration: underline;
+          }
+
+          .at-mark {
+          }  
+        }
+      }
+    }
+
     .message-foot {
       margin-top: 5px;
 

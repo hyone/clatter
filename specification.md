@@ -8,19 +8,21 @@
   - private:bool
 
 - Message
-  - text
-  - user_id
-  - reply_to (optional)
-
-text:string user_id:references created_at:datetime reply_to:references
-
-- Favorite
-  - user:references
-  - message:references
+  - text:string
+  - user_id:references (User)
 
 - Relationship
-  - follower:references     # follow した人
-  - followed:references     # follow された人
+  - follower_id:references (User)     # follow した人
+  - followed_id:references (User)     # follow された人
+
+- Reply
+  - message_id:references (Message)
+  - to_message_id:references (Message) (optional)
+  - to_user_id:references (User) (required)
+
+- Favorite
+  - user_id:references
+  - message_id:references (Message)
 
 - Retweet
   - id
