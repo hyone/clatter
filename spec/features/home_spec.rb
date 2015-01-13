@@ -82,10 +82,77 @@ describe 'Home Page', type: :feature do
     end
   end
 
+
   describe 'GET /home/about' do
     before { visit home_about_path }
 
     it { should have_title(page_title('About')) }
     it { should have_content('Home#about') }
+  end
+
+
+  describe 'GET /home/mentions' do
+    before { visit home_mentions_path }
+
+    context 'as guest' do
+      it 'redirect to the sign in page' do
+        expect(current_path).to eq(new_user_session_path)
+      end
+    end
+
+    context 'as user' do
+      let (:user) { FactoryGirl.create(:user) }
+      before { 
+        signin user
+        visit home_mentions_path
+      }
+
+      its(:status_code) { should == 200 }
+
+      describe 'content' do
+        let! (:followed_user) { FactoryGirl.create(:user) }
+        let! (:relationships) { FactoryGirl.create(
+          :relationship,
+          follower: user,
+          followed: followed_user
+        ) }
+        let! (:reply_from_followed_user) { FactoryGirl.create(
+          :message_with_reply,
+          user: followed_user,
+          users_replied_to: [user]
+        ) }
+        let! (:reply_from_other) { FactoryGirl.create(
+          :message_with_reply,
+          users_replied_to: [user]
+        ) }
+
+        it { should have_link(I18n.t('views.menu_panel.mentions'), home_mentions_path) }
+
+        context 'when "filter" parameter is none' do
+          before { visit current_path }
+
+          it { should have_link(
+            I18n.t('views.home.mentions.people_you_follow'),
+            home_mentions_path(filter: 'following')
+          ) }
+
+          it 'should have all replies' do
+            expect(page).to have_selector("#message-#{reply_from_followed_user.id}")
+            expect(page).to have_selector("#message-#{reply_from_other.id}")
+          end
+        end
+
+        context 'when "filter" parameter is "following"' do
+          before { visit home_mentions_path(filter: 'following') }
+
+          it { should have_link(I18n.t('views.home.mentions.all'), home_mentions_path) }
+
+          it 'should have replies from followed users' do
+            expect(page).to have_selector("#message-#{reply_from_followed_user.id}")
+            expect(page).not_to have_selector("#message-#{reply_from_other.id}")
+          end
+        end
+      end
+    end
   end
 end

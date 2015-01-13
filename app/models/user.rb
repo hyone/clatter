@@ -66,8 +66,8 @@ class User < ActiveRecord::Base
     messages.includes(:reply_relationships).where(replies: {id: nil}).references(:reply_relationships)
   end
 
-  def mentions
-    Message.mentions_of(self)
+  def mentions(filter: nil)
+    Message.mentions_of(self, filter: filter)
   end
 
 

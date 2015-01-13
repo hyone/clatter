@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  before_action :require_user, only: [:mentions]
+
   MESSAGE_PAGE_SIZE = 30
 
   def index
@@ -10,5 +12,13 @@ class HomeController < ApplicationController
   end
 
   def about
+  end
+
+  def notifications
+  end
+
+  def mentions
+    @user  = current_user
+    @feeds = @user.mentions(filter: params[:filter]).page(params[:page]).per(MESSAGE_PAGE_SIZE)
   end
 end

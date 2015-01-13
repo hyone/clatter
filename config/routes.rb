@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   get 'home/index'
   get 'home/about'
+  get 'home/mentions'
+  get 'home/notifications'
 
   devise_for :users, controllers: {
     registrations: 'registrations',

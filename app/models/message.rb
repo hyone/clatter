@@ -44,11 +44,24 @@ class Message < ActiveRecord::Base
        # .newer()
     end
 
-    def mentions_of(user)
-      includes(:reply_relationships).where(
-        Reply.arel_table[:to_user_id].eq(user.id)
-      ).references(:reply_relationships)
-      .newer()
+    def mentions_of(user, filter: nil)
+      case filter
+      when 'following'
+        joins(:reply_relationships).where(
+          replies: { to_user_id: user.id },
+          user_id: Relationship.where(follower: user).select(:followed_id)
+          # # in case by using arel
+          # Reply.arel_table[:to_user_id].eq(user.id).and(
+          #   Message.arel_table[:user_id].in(
+          #     Relationship.where(follower: user).select(:followed_id).arel
+          #   )
+          # )
+        ).newer()
+      else
+        joins(:reply_relationships).merge(
+          Reply.where(to_user_id: user.id)
+        ).newer()
+      end
     end
   end
 

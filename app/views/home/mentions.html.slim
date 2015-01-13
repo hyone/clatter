@@ -1,0 +1,54 @@
+- provide(:page_type, 'notifications')
+
+div.content-head
+
+div.content-body
+  div.row
+    div.col.col-xs-4.col-lg-3.content-left
+        div.row
+          div.col-xs-12
+            div.menu-panel
+              / = link_to home_notifications_path, class: "list-group-item #{active?(home_notifications_path)}" do
+                / = t('views.menu_panel.notifications')
+                / span.fa.fa-chevron-right
+
+              = link_to home_mentions_path, class: "list-group-item #{active?(home_mentions_path)}" do
+                = t('views.menu_panel.mentions')
+                span.fa.fa-chevron-right
+
+          div.hidden-lg
+            div.col-xs-12
+              = render 'shared/footer_panel'
+
+    div.col.col-xs-8.col-lg-6.content-main
+      div.row
+        - description = params[:filter].blank? ? \
+            t('views.home.mentions.description_all') : \
+            t('views.home.mentions.description_people_you_follow')
+        = render layout: 'shared/messages_panel', locals: { \
+            messages: @feeds, \
+            description: description \
+          } do
+          h2.messages-panel-head-title = t('views.home.mentions.title')
+          ul.list-inline
+            li
+              - if params[:filter].blank?
+                = t('views.home.mentions.all')
+              - else
+                = link_to t('views.home.mentions.all'), home_mentions_path
+            li 
+              | /
+            li
+              - if params[:filter] == 'following'
+                = t('views.home.mentions.people_you_follow')
+              - else
+                = link_to t('views.home.mentions.people_you_follow'), home_mentions_path(filter: 'following')
+
+
+    div.visible-lg-block
+      div.col.col-lg-3
+        div.row
+          div.col-xs-12
+            = render 'shared/footer_panel'
+
+div.content-foot

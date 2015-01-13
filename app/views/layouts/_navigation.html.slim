@@ -18,6 +18,10 @@ div.navbar.navbar-fixed-top#navigation role='navigation'
             / / b.glyphicon.glyphicon-info-sign
             / b.fa.fa-info-circle.fa-lg
             / | About
+        li
+          = link_to home_mentions_path, class: active?(home_mentions_path) do
+            b.fa.fa-bell.fa-lg
+            = t('views.navigation.notifications')
 
         li
           = link_to users_path, class: active?(users_path) do

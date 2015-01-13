@@ -12,6 +12,7 @@ en:
       following: Following
       home: Home
       new_message: Message
+      notifications: Notifications
       profile: Profile
       settings: Settings
       signout: Sign out
@@ -28,11 +29,21 @@ en:
       home: Home
       copyright_html: "&copy; 2014 %{appname}"
 
+    menu_panel:
+      notifications: Notifications
+      mentions: Mentions
+
     home:
       index:
         description: Your timeline is currently empty. Follow people and topics you find interesting to see their messages in your timeline. 
         signup_now: Sign up now!
         welcome_message: Welcome to TwitterApp
+      mentions:
+        title: Mentions
+        all: All
+        people_you_follow: People you follow
+        description_all: Find mentions about you here.
+        description_people_you_follow: Find mentions from people you follow. Start a conversation with your friends!
 
     messages:
       success: Message created!
