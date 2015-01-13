@@ -36,7 +36,7 @@ describe 'Authentication pages', type: :feature do
           expect(current_path).to eq(new_user_session_path)
         end
 
-        it { should have_message(:alert, I18n.t(
+        it { should have_alert(:alert, I18n.t(
           'devise.failure.invalid',
           { authentication_keys: User.authentication_keys.join(', ') }
         )) }
@@ -56,7 +56,7 @@ describe 'Authentication pages', type: :feature do
             expect(current_path).to eq(root_path)
           end
 
-          it { should have_message(:notice, I18n.t('devise.sessions.signed_in')) }
+          it { should have_alert(:notice, I18n.t('devise.sessions.signed_in')) }
         end
 
         context 'with screen_name' do
@@ -70,7 +70,7 @@ describe 'Authentication pages', type: :feature do
             expect(current_path).to eq(root_path)
           end
 
-          it { should have_message(:notice, I18n.t('devise.sessions.signed_in')) }
+          it { should have_alert(:notice, I18n.t('devise.sessions.signed_in')) }
         end
       end
     end
@@ -108,7 +108,7 @@ describe 'Authentication pages', type: :feature do
 
           context 'after signed up' do
             before { click_signup_button }
-            it { should have_message(:notice, 'signed') }
+            it { should have_alert(:notice, 'signed') }
           end
         end
       end
@@ -135,7 +135,7 @@ describe 'Authentication pages', type: :feature do
           end
 
 
-          it { should have_message(:notice, I18n.t('devise.omniauth_callbacks.success', kind: provider)) }
+          it { should have_alert(:notice, I18n.t('devise.omniauth_callbacks.success', kind: provider)) }
         end
       end
     end
@@ -156,7 +156,7 @@ describe 'Authentication pages', type: :feature do
         expect(current_path).to eq(user_registration_path)
       end
 
-      it { should have_message(:error, 'error') }
+      it { should have_alert(:error, 'error') }
     end
 
     context 'with valid info' do
