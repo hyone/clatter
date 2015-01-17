@@ -18,10 +18,12 @@ div.navbar.navbar-fixed-top#navigation role='navigation'
             / / b.glyphicon.glyphicon-info-sign
             / b.fa.fa-info-circle.fa-lg
             / | About
-        li
-          = link_to home_mentions_path, class: active?(home_mentions_path) do
-            b.fa.fa-bell.fa-lg
-            = t('views.navigation.notifications')
+
+        - if user_signed_in?
+          li
+            = link_to home_mentions_path, class: active?(home_mentions_path) do
+              b.fa.fa-bell.fa-lg
+              = t('views.navigation.notifications')
 
         li
           = link_to users_path, class: active?(users_path) do
@@ -44,9 +46,6 @@ div.navbar.navbar-fixed-top#navigation role='navigation'
           li.dropdown#navbar-user
             a href="#" class="dropdown-toggle" data-toggle="dropdown"
               = image_tag current_user.profile_image.small.url, class: 'user-thumb'
-              / b.fa.fa-user.fa-lg
-              / = current_user.screen_name
-                / b.caret
             ul.dropdown-menu
               li
                 = link_to user_path(current_user) do
@@ -70,26 +69,7 @@ div.navbar.navbar-fixed-top#navigation role='navigation'
         /! message button
         - if user_signed_in?
           li
-            button.btn.btn-primary.btn-sm.navbar-btn#navigation-new-message data-toggle="modal" data-target="#message-dialog" data-keyboard="true" data-backdrop="true"
+            button.btn.btn-primary.btn-sm.navbar-btn#navigation-new-message data-toggle="modal" data-target="#message-dialog" data-keyboard="false" data-backdrop="true"
               / / b.fa.fa-pencil-square-o
               b.fa.fa-pencil
               = t('views.navigation.new_message')
-
-/! modal message form
-- if user_signed_in?
-  div.modal.fade#message-dialog tabindex="-1" role="dialog" aria-labelledby="modalMessageFormLabel" aria-hidden="true"
-    div.modal-dialog
-      div.container
-        div.row
-          div.col-xs-12
-            div.modal-content
-              div.container
-              div.modal-header
-                button type="button" class="close" data-dismiss="modal"
-                  span aria-hidden="true" &times;
-                  span.sr-only = t('views.navigation.close')
-                h4 class="modal-title" id="modalMessageFormLabel" = t('views.navigation.compose_new_message')
-              div.modal-body
-                = render 'shared/message_form', message: @message, prefix: 'modal'
-              / div.modal-footer
-                / button type="button" class="btn btn-default" data-dismiss="modal" 閉じる

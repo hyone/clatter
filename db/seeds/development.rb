@@ -1,7 +1,7 @@
 MAIN_USER = FactoryGirl.create(
   :user,
-  screen_name: 'hoshijiro_dev',
-  name: 'hoshijiro (dev)'
+  screen_name: 'sample_user',
+  name: 'sample user'
 )
 
 

@@ -1,0 +1,15 @@
+/! modal message form
+div.modal.fade#message-dialog tabindex="-1" role="dialog" aria-labelledby="modalMessageFormLabel" aria-hidden="true"
+  div.modal-dialog
+    div.container
+      div.row
+        div.col-xs-12
+          div.modal-content
+            div.modal-head
+              button type="button" class="close" data-dismiss="modal"
+                span aria-hidden="true" &times;
+                span.sr-only = t('views.navigation.close')
+              h4 class="modal-title" id="modalMessageFormLabel" = t('views.navigation.compose_new_message')
+            div.modal-body
+            div.modal-foot
+              = render 'shared/message_form', message: @message, prefix: 'modal'

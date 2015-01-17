@@ -17,7 +17,8 @@ html lang="en"
 
   body class="#{ content_for?(:page_type) ? yield(:page_type) : '' }"
 
-    = render 'layouts/navigation'
+    = render 'shared/navigation'
+    = render 'shared/message_dialog' if user_signed_in?
 
     div.header
       = yield(:header)

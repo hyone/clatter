@@ -11,8 +11,11 @@ li.message.message-data id="message-#{message.id}" data-message-id="#{message.id
     = raw replace_reply_at_to_user_link message
   div.message-foot
     ul.list-inline
-      li
-        = link_to '#' do
+      li.open-reply-to-button
+        = link_to '#',
+            'data-toggle'   => 'modal',
+            'data-target'   => '#message-dialog',
+            'data-keyboard' => true do
           b.fa.fa-reply
       li
         = link_to '#' do

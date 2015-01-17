@@ -1,9 +1,19 @@
 = content_tag :div, class: 'follow-or-unfollow-button',
-    'data-user-id' => user.id,
+    'data-user-id'     => user.id,
     'data-screen-name' => user.screen_name,
-    'data-name' => user.name do
-  - if user_signed_in?
-    - if current_user == user
+    'data-name'        => user.name do
+  - case 
+    / when you are not signed in, redirect to signin page.
+    - when !user_signed_in?
+      = form_for(User.new.relationships.build(followed_id: user.id),
+                 html: { class: 'follow-button' }) do |f|
+        = button_tag class: 'btn btn-default',
+                     id: "follow-#{user.screen_name}",
+                     type: 'submit' do
+            b.fa.fa-user
+            = t('views.navigation.follow')
+    / when user is the current signed in user, display edit profile button
+    - when current_user == user
       = form_tag(edit_user_registration_path,
                  method: :get,
                  class: 'follow-button') do
@@ -11,7 +21,8 @@
                          type: 'submit' do
                 b.fa.fa-user
                 = t('views.navigation.edit_profile')
-    - elsif current_user.following?(user)
+    / unfollow button
+    - when current_user.following?(user)
       = form_for(current_user.relationships.find_by(followed_id: user.id),
                  html: { method: :delete, class: 'unfollow-button' },
                  format: 'json',
@@ -23,7 +34,6 @@
                   = t('views.navigation.following')
                 span.unfollow
                   = t('views.navigation.unfollow')
-
     / follow button
     - else
       = form_for(current_user.relationships.build(followed_id: user.id),
@@ -36,14 +46,3 @@
                          type: 'submit' do
                 b.fa.fa-user
                 = t('views.navigation.follow')
-
-  / follow button (redirect to signin page)
-  - else
-    = form_tag(new_user_session_path,
-               method: :get,
-               class: 'follow-button') do
-          = button_tag class: 'btn btn-default',
-                       id: "follow-#{user.screen_name}",
-                       type: 'submit' do
-              b.fa.fa-user
-              = t('views.navigation.follow')

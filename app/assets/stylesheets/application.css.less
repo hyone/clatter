@@ -57,6 +57,13 @@ span.additional-info {
 }
 
 
+form {
+  .field_with_errors {
+    .has-error();
+  }
+}
+
+
 // --------------------------------------------------------------------------------
 //  Layouts
 // --------------------------------------------------------------------------------
@@ -237,94 +244,96 @@ div.footer-panel {
     border-bottom: 1px solid @app-separator;
     margin: 0;
   }
+}
 
-  ul li.message {
-    .message-head {
-      a {
-        text-decoration: none;
+li.message {
+  list-style-type: none;
 
-        .message-icon {
-          float: left;
-          margin-top: 5px;
-          margin-right: 10px;
+  .message-head {
+    a {
+      text-decoration: none;
 
-          img {
-            border-radius: 3px;
-          }
+      .message-icon {
+        float: left;
+        margin-top: 5px;
+        margin-right: 10px;
+
+        img {
+          border-radius: 3px;
         }
+      }
 
+      .message-owner-name {
+        clear: both;
+        color: @text-color;
+        font-weight: bold;
+      }
+
+      .message-info {
+        margin: 0 5px;
+        font-size: 80%;
+        color: @app-text-lighter;
+      }
+
+      &:hover {
         .message-owner-name {
-          clear: both;
-          color: @text-color;
-          font-weight: bold;
+          color: @app-active;
+          text-decoration: underline;
         }
 
         .message-info {
-          margin: 0 5px;
-          font-size: 80%;
           color: @app-text-lighter;
-        }
-
-        &:hover {
-          .message-owner-name {
-            color: @app-active;
-            text-decoration: underline;
-          }
-
-          .message-info {
-            color: @app-text-lighter;
-            text-decoration: none;
-          }
-        }
-      }
-    }
-
-    .message-body {
-      // reply link
-      .at-reply-link {
-        color: @app-active;
-
-        &:hover {
-          color: @app-active;
           text-decoration: none;
-
-          .at-reply-screen-name {
-            text-decoration: underline;
-          }
-
-          .at-mark {
-          }  
-        }
-      }
-
-      .empty-description {
-        .additional-info();
-
-        padding: 10px 15px;
-        text-align: center;
-        font-size: 12px;
-
-        > .fa {
-          display: block;
-          padding-bottom: 10px;
         }
       }
     }
+  }
 
-    .message-foot {
-      margin-top: 5px;
+  .message-body {
+    // reply link
+    .at-reply-link {
+      color: @app-active;
 
-      a {
-        color: @app-text-light;
+      &:hover {
+        color: @app-active;
+        text-decoration: none;
 
-        &:hover {
-          color: @app-active;
+        .at-reply-screen-name {
+          text-decoration: underline;
         }
-      }
 
-      ul li {
-        padding-right: 20px;
+        .at-mark {
+        }  
       }
+    }
+
+    .empty-description {
+      .additional-info();
+
+      padding: 10px 15px;
+      text-align: center;
+      font-size: 12px;
+
+      > .fa {
+        display: block;
+        padding-bottom: 10px;
+      }
+    }
+  }
+
+  .message-foot {
+    margin-top: 5px;
+
+    a {
+      color: @app-text-light;
+
+      &:hover {
+        color: @app-active;
+      }
+    }
+
+    ul li {
+      padding-right: 20px;
     }
   }
 }
