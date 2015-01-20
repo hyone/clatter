@@ -1,15 +1,21 @@
 /! modal message form
-div.modal.fade#message-dialog tabindex="-1" role="dialog" aria-labelledby="modalMessageFormLabel" aria-hidden="true"
-  div.modal-dialog
-    div.container
-      div.row
-        div.col-xs-12
-          div.modal-content
-            div.modal-head
-              button type="button" class="close" data-dismiss="modal"
-                span aria-hidden="true" &times;
-                span.sr-only = t('views.navigation.close')
-              h4 class="modal-title" id="modalMessageFormLabel" = t('views.navigation.compose_new_message')
-            div.modal-body
-            div.modal-foot
-              = render 'shared/message_form', message: @message, prefix: 'modal'
+script type="text/x-template" id="modal-dialog-template"
+  div.modal.fade#message-dialog tabindex="-1" role="dialog" aria-labelledby="modalMessageFormLabel" aria-hidden="true" v-modal-dialog="message-dialog"
+    div.modal-dialog
+      div.container
+        div.row
+          div.col-xs-12
+            div.modal-content
+              div.modal-head
+                button type="button" class="close" data-dismiss="modal"
+                  span aria-hidden="true" &times;
+                  span.sr-only = t('views.navigation.close')
+                h4 class="modal-title" id="modalMessageFormLabel" {{title}}
+              div.modal-body v-if="body" {{{body}}}
+              div.modal-foot
+                content
+
+= render 'shared/message_form_template', message: @message, prefix: 'modal'
+
+div v-component="modal-dialog"
+  div id="modal-message-form-component" v-component="modal-message-form"

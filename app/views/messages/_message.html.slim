@@ -13,9 +13,11 @@ li.message.message-data id="message-#{message.id}" data-message-id="#{message.id
     ul.list-inline
       li.open-reply-to-button
         = link_to '#',
+            'id'            => "reply-to-message-#{message.id}",
             'data-toggle'   => 'modal',
             'data-target'   => '#message-dialog',
-            'data-keyboard' => true do
+            'data-keyboard' => true,
+            'v-on'          => 'click: onClickReplyToMessageButton' do
           b.fa.fa-reply
       li
         = link_to '#' do

@@ -1,53 +1,68 @@
+MessageForm = Vue.extend
+  data: ->
+    text: ''
+    rows: 3
+    display: 'block'
+    LIMIT: 140
 
-count = (textarea) ->
-  140 - $(textarea).val().length
+  computed:
+    countRest: ->
+      @LIMIT - @text.length
 
-setMessageFormState = ($form) ->
-  cnt = count $form.find('.message-text')
+    isPostable: ->
+      cnt = @countRest
+      0 <= cnt and cnt < @LIMIT
 
-  # whether message button is disabled or not
-  disabled = if cnt == 140 or cnt < 0 then true else false
-  $form.find('div.message-submit > button[type=submit]').prop('disabled', disabled)
+    isNearLimit: ->
+      @countRest < 10
 
-  # counter state
-  $counter = $form.find('span.message-count').text cnt
-  if cnt < 10
-    $counter.removeClass('text-muted').addClass('text-danger')
-  else
-    $counter.removeClass('text-danger').addClass('text-muted')
-
-
-toggleMessageFormVisible = ($form, open = false) ->
-  if open
-    $form.find('.message-text').attr('rows', 3)
-    $form.find('.message-submit').css('display', 'block')
-  else
-    $form.find('.message-text').attr('rows', 1)
-    $form.find('.message-submit').css('display', 'none')
+  methods:
+    onBlur: ->
+    onFocus: ->
 
 
-$ ->
-  # message form in modal dialog
-  $modalForm = $('#modal-message-form')
-  toggleMessageFormVisible($modalForm, true)
-  setMessageFormState($modalForm)
+ContentMainMessageForm = MessageForm.extend
+  template: '#content-main-message-form-component-template'
 
-  $modalForm.find('textarea.message-text')
-    .change ->
-      setMessageFormState($modalForm)
-    .keyup  ->
-      setMessageFormState($modalForm)
+  created: ->
+    @close()
 
-  # message form in header of messages list block
-  $messageForm = $('#content-main-message-form')
-  $messageForm.find('textarea.message-text')
-    .focus ->
-      setMessageFormState($messageForm)
-      toggleMessageFormVisible($messageForm, true)
-    .blur ->
-      if $(this).val().length == 0
-        toggleMessageFormVisible($messageForm, false)
-    .change ->
-      setMessageFormState($messageForm)
-    .keyup  ->
-      setMessageFormState($messageForm)
+  methods:
+    open: ->
+      @rows = 3
+      @display = 'block'
+
+    close: ->
+      @rows = 1
+      @display = 'none'
+
+    onBlur: ->
+      if @countRest == 140
+        @close()
+
+    onFocus: ->
+      @open()
+
+
+ModalMessageForm = MessageForm.extend
+  template: '#modal-message-form-component-template'
+
+  created: ->
+    @$on 'modal-dialog.open-message-reply', @onOpenMessageReply
+    @$on 'modal-dialog.open-user-reply', @onOpenUserReply
+
+  methods:
+    setReplyText: (screen_name) ->
+      @text = "@#{screen_name} "
+
+    onOpenMessageReply: (event, parent, screen_name) ->
+      @setReplyText(screen_name)
+      # $(@$el).find('#modal-message-form-text')[0].focus()
+
+    onOpenUserReply: (event, screen_name) ->
+      console.log 'onOpenUserReply'
+      @setReplyText(screen_name)
+
+
+Vue.component('content-main-message-form', ContentMainMessageForm)
+Vue.component('modal-message-form', ModalMessageForm)

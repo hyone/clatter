@@ -15,7 +15,7 @@ html lang="en"
     = stylesheet_link_tag 'application', media: 'all'
     = yield(:page_stylesheet) if content_for?(:page_stylesheet)
 
-  body class="#{ content_for?(:page_type) ? yield(:page_type) : '' }"
+  body id="app" class="#{ content_for?(:page_type) ? yield(:page_type) : '' }"
 
     = render 'shared/navigation'
     = render 'shared/message_dialog' if user_signed_in?

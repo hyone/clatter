@@ -21,8 +21,10 @@ describe 'More Actions Menu', type: :feature, js: true do
           expect(page.find('#message-dialog')).to be_visible
         end
 
-        it "text should be set to '@screen_name'" do
-          expect(find('#modal-message-form-text').value).to match /@#{target.screen_name}/
+        describe 'textarea' do
+          it "should match '@screen_name'" do
+            expect(find('#modal-message-form-text').value).to match /@#{target.screen_name}/
+          end
         end
       end
     end
@@ -36,14 +38,14 @@ describe 'More Actions Menu', type: :feature, js: true do
     context 'in content navigation' do
       it_behaves_like 'more actions menu' do
         let (:target) { FactoryGirl.create(:user) }
-        before { visit user_path(target) }  
+        before { visit user_path(target) }
       end
     end
 
     context 'in user panel' do
       it_behaves_like 'more actions menu' do
         let! (:target) { FactoryGirl.create(:user) }
-        before { visit users_path }  
+        before { visit users_path }
       end
     end
   end

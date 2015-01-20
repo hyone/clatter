@@ -69,7 +69,7 @@ div.navbar.navbar-fixed-top#navigation role='navigation'
         /! message button
         - if user_signed_in?
           li
-            button.btn.btn-primary.btn-sm.navbar-btn#navigation-new-message data-toggle="modal" data-target="#message-dialog" data-keyboard="false" data-backdrop="true"
+            button.btn.btn-primary.btn-sm.navbar-btn#navigation-new-message data-toggle="modal" data-target="#message-dialog" data-keyboard="false" data-backdrop="true" v-on='click: onClickNewMessageButton'
               / / b.fa.fa-pencil-square-o
               b.fa.fa-pencil
               = t('views.navigation.new_message')

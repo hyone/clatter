@@ -34,8 +34,9 @@
                 span.nav-label = t('views.users.show.navigation.favorites')
                 span.nav-value 3
             li.content-navigation-buttons
-              = render 'shared/more_actions_button', user: @user
-              = render 'shared/follow_or_unfollow_button', user: @user
+              div.user-data id="user-#{@user.id}" data-user-id="#{@user.id}" data-screen-name="#{@user.screen_name}" data-name="#{@user.name}"
+                = render 'shared/more_actions_button', user: @user
+                = render 'shared/follow_or_unfollow_button', user: @user
 
   div.header-foot
 

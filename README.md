@@ -1,21 +1,22 @@
 # TwitterApp
 
-Twitter クローンっぽいアプリケーション
+web application like a twitter clone
 
 [![Build Status](https://travis-ci.org/hyone/twitter_app.svg?branch=master)](https://travis-ci.org/hyone/twitter_app)
 
-## デモ
+## Demo
 
 https://hyone-twitter-app.herokuapp.com
 
-## 必要なもの
+## Requirement
 
 - ImageMagick
+- bower
 
-## 開発に必要なもの
+## Requirement on Development
 
-上記に加えて、
+In addition to packages above:
 
 - docker
 - fig
-- terminal-notifier (Only Mac)
+- terminal-notifier (Optional)

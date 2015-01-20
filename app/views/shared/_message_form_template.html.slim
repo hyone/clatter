@@ -1,0 +1,29 @@
+- message ||= current_user.messages.build
+
+/ prefix is ok both whether '-' is the end of it or not
+- prefix = prefix.blank? ? nil : prefix.sub(/-*$/, '')
+
+script type="text/x-template" id="#{prefix}-message-form-component-template"
+  = form_for(message, html: { class: 'message-form', id: "#{prefix}-message-form" }) do |f|
+    = render 'shared/error_messages', object: f.object
+
+    div.form-group
+      = f.text_area :text,
+          id: "#{prefix}-message-form-text",
+          class: 'form-control message-text',
+          placeholder: t('views.message_form.new_message'),
+          rows: 1,
+          'v-model' => 'text',
+          'v-attr'  => 'rows: rows',
+          'v-on'    => 'focus: onFocus, blur: onBlur'
+
+    div.form-group.message-submit v-style='display: display'
+      span.message-count v-text="countRest" v-class="text-danger: isNearLimit, text-muted: !isNearLimit"
+      = button_tag class: 'btn btn-primary',
+                   id: "#{prefix}-message-form-submit",
+                   type: 'submit',
+                   'v-attr' => 'disabled: !isPostable' do
+        b.fa.fa-pencil-square-o
+        = t('views.message_form.submit')
+
+/ div id="#{prefix}-message-form-component" v-component="#{prefix}-message-form"
