@@ -8,6 +8,8 @@ bundler_args: --without development --deployment
 cache: bundler
 
 before_script:
+  - npm install
+  - bundle exec rake bower:install
   - cp config/database.travis.yml config/database.yml
   - bundle exec rake db:create
   - bundle exec rake db:migrate
