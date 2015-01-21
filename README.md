@@ -8,6 +8,11 @@ web application like a twitter clone
 
 https://hyone-twitter-app.herokuapp.com
 
+### demo user
+
+    user: sample_user
+    password: password
+
 ## Requirement
 
 - ImageMagick
