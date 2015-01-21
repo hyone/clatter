@@ -12,3 +12,9 @@ en:
         url: URL
         description: Description
         remove_profile_image: Remove Profile Image
+    errors:
+      models:
+        user:
+          attributes:
+            screen_name:
+              invalid: invalid. only alphanumeric or "_" (underscore), and not all numeric

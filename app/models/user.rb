@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  before_save { screen_name.downcase! }
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
@@ -36,8 +38,12 @@ class User < ActiveRecord::Base
 
   validates :screen_name,
     presence: true,
-    length: { maximum: 32 },
+    length: { maximum: 15 },
+    format: { with: /\A[[:alpha:]_][[:alnum:]_]*\Z/ },
     uniqueness: { case_sensitive: false }
+  # hack to use multiple format validations
+  validates :screen_name,
+    format: { without: /\A[[:digit:]_]+\Z/ }
 
   validates :name,
     presence: true
