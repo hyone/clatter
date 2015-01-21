@@ -4,6 +4,8 @@ web application like a twitter clone
 
 [![Build Status](https://travis-ci.org/hyone/twitter_app.svg?branch=master)](https://travis-ci.org/hyone/twitter_app)
 
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 ## Demo
 
 https://hyone-twitter-app.herokuapp.com
