@@ -1,16 +1,16 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
+ruby '2.2.0'
 
 
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.0'
 
 gem 'pg'
 gem 'foreigner'
 
 gem 'bower-rails'
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.1.0'
 gem 'therubyracer',  platforms: :ruby
 gem 'jquery-rails'
 gem 'turbolinks'
@@ -28,10 +28,15 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'responders', '~> 2.0'
 
 gem 'factory_girl_rails'
 gem 'faker'
 
+
+group :doc do
+  gem 'sdoc', '~> 0.4.0'
+end
 
 group :production do
   gem 'rails_12factor'
@@ -56,6 +61,8 @@ group :development do
   gem 'spring-commands-rspec'
   gem 'guard-rspec'
   gem 'terminal-notifier-guard'
+  gem 'byebug'
+  gem 'web-console', '~> 2.0'
 end
 
 group :test do
