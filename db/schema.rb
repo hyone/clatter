@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20150108121141) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "authentications", force: true do |t|
+  create_table "authentications", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "provider",     null: false
     t.string   "uid",          null: false
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20150108121141) do
 
   add_index "authentications", ["user_id"], name: "index_authentications_on_user_id", using: :btree
 
-  create_table "messages", force: true do |t|
+  create_table "messages", force: :cascade do |t|
     t.string   "text",       null: false
     t.integer  "user_id",    null: false
     t.datetime "created_at"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20150108121141) do
   add_index "messages", ["user_id", "created_at"], name: "index_messages_on_user_id_and_created_at", using: :btree
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
-  create_table "relationships", force: true do |t|
+  create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
     t.datetime "created_at"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20150108121141) do
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true, using: :btree
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
 
-  create_table "replies", force: true do |t|
+  create_table "replies", force: :cascade do |t|
     t.integer  "message_id",    null: false
     t.integer  "to_user_id",    null: false
     t.integer  "to_message_id"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20150108121141) do
   add_index "replies", ["to_message_id"], name: "index_replies_on_to_message_id", using: :btree
   add_index "replies", ["to_user_id"], name: "index_replies_on_to_user_id", using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                              default: "", null: false
     t.string   "encrypted_password",                 default: "", null: false
     t.string   "reset_password_token"
@@ -85,15 +85,11 @@ ActiveRecord::Schema.define(version: 20150108121141) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["screen_name"], name: "index_users_on_screen_name", unique: true, using: :btree
 
-  add_foreign_key "authentications", "users", name: "authentications_user_id_fk", dependent: :delete
-
-  add_foreign_key "messages", "users", name: "posts_user_id_fk", dependent: :delete
-
-  add_foreign_key "relationships", "users", name: "relationships_followed_id_fk", column: "followed_id", dependent: :delete
-  add_foreign_key "relationships", "users", name: "relationships_follower_id_fk", column: "follower_id", dependent: :delete
-
-  add_foreign_key "replies", "messages", name: "replies_message_id_fk", dependent: :delete
-  add_foreign_key "replies", "messages", name: "replies_to_message_id_fk", column: "to_message_id", dependent: :delete
-  add_foreign_key "replies", "users", name: "replies_to_user_id_fk", column: "to_user_id", dependent: :delete
-
+  add_foreign_key "authentications", "users", on_delete: :cascade
+  add_foreign_key "messages", "users", name: "fk_messages_user_id", on_delete: :cascade
+  add_foreign_key "relationships", "users", column: "followed_id", name: "fk_relationships_followed_id", on_delete: :cascade
+  add_foreign_key "relationships", "users", column: "follower_id", name: "fk_relationships_follower_id", on_delete: :cascade
+  add_foreign_key "replies", "messages", column: "to_message_id", name: "fk_replies_to_message_id", on_delete: :cascade
+  add_foreign_key "replies", "messages", name: "fk_replies_message_id", on_delete: :cascade
+  add_foreign_key "replies", "users", column: "to_user_id", name: "fk_replies_to_user_id", on_delete: :cascade
 end

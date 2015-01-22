@@ -1,7 +1,5 @@
 class AddForeignKeyToAuthentications < ActiveRecord::Migration
   def change
-    change_table :authentications do |t|
-      t.foreign_key :users, dependent: :delete
-    end
+    add_foreign_key :authentications, :users, on_delete: :cascade
   end
 end

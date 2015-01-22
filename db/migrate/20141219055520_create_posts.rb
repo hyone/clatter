@@ -5,10 +5,11 @@ class CreatePosts < ActiveRecord::Migration
       t.references :user, null: false, index: true
       t.integer :reply_to_id, index: true
 
-      t.foreign_key :users, dependent: :delete
-      t.foreign_key :posts, column: 'reply_to_id'
-
       t.timestamps
     end
+
+    add_foreign_key :posts, :users,
+      name: 'fk_messages_user_id',
+      on_delete: :cascade
   end
 end

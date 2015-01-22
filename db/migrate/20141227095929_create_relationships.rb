@@ -4,11 +4,17 @@ class CreateRelationships < ActiveRecord::Migration
       t.integer :follower_id
       t.integer :followed_id
 
-      t.foreign_key :users, column: 'follower_id', dependent: :delete
-      t.foreign_key :users, column: 'followed_id', dependent: :delete
-
       t.timestamps
     end
+
+    add_foreign_key :relationships, :users,
+                    name: 'fk_relationships_follower_id',
+                    column: 'follower_id',
+                    on_delete: :cascade
+    add_foreign_key :relationships, :users,
+                    name: 'fk_relationships_followed_id',
+                    column: 'followed_id',
+                    on_delete: :cascade
 
     add_index :relationships, :follower_id
     add_index :relationships, :followed_id
