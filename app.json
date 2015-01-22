@@ -4,6 +4,6 @@
     "postdeploy": "bundle exec rake db:migrate"
   },
   "env": {
-    "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-multi.git",
+    "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-multi.git"
   }
 }
