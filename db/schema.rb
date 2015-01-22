@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 20150108121141) do
     t.string   "uid",          null: false
     t.string   "account_name", null: false
     t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "authentications", ["user_id"], name: "index_authentications_on_user_id", using: :btree
@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(version: 20150108121141) do
   create_table "messages", force: :cascade do |t|
     t.string   "text",       null: false
     t.integer  "user_id",    null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "messages", ["user_id", "created_at"], name: "index_messages_on_user_id_and_created_at", using: :btree
@@ -41,8 +41,8 @@ ActiveRecord::Schema.define(version: 20150108121141) do
   create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id", using: :btree
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 20150108121141) do
     t.integer  "message_id",    null: false
     t.integer  "to_user_id",    null: false
     t.integer  "to_message_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "replies", ["message_id"], name: "index_replies_on_message_id", using: :btree
@@ -72,8 +72,8 @@ ActiveRecord::Schema.define(version: 20150108121141) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.string   "screen_name",                                     null: false
     t.string   "name",                                            null: false
     t.string   "description",            limit: 160

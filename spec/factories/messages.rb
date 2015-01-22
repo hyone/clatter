@@ -18,8 +18,8 @@ FactoryGirl.define do
 
       message_id_replied_to nil
     end
-    
-    # Call to like below: 
+
+    # Call to like below:
     #
     # > FactoryGirl.create(:message_with_reply)
     #
@@ -28,6 +28,9 @@ FactoryGirl.define do
     #
     # specify the users which is replied to
     # > FactoryGirl.create(:message_with_reply, users_replied_to: [User.find(1), User.find(5)])
+    #
+    # specify both user (send, receive)
+    # > FactoryGirl.create(:message_with_reply, user: User.find(1), users_replied_to: [User.find(2)])
     #
     # specify the users and the message which is replied to
     # > FactoryGirl.create(:message_with_reply, users_replied_to: [User.find(1)], message_id_replied_to: 135)

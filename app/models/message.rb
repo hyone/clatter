@@ -75,7 +75,7 @@ class Message < ActiveRecord::Base
         joins(:reply_relationships).where(
           replies: { to_user_id: user.id },
           user_id: Relationship.where(follower: user).select(:followed_id)
-          # # in case by using arel
+          # # in case of using arel
           # Reply.arel_table[:to_user_id].eq(user.id).and(
           #   Message.arel_table[:user_id].in(
           #     Relationship.where(follower: user).select(:followed_id).arel

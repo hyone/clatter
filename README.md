@@ -50,8 +50,8 @@ $ heroku run rake db:migrate
 
 ### Using OAuth services to register and login a user
 
-this application is able to use Twitter, Github, Google as oauth authentication services.
-To use these services, set ENVIROMENT VARIABLES below respectively:
+this application is able to use Twitter, Github and Google as oauth authentication services.
+To use these services, set ENVIRONMENT VARIABLES below respectively:
 
 Twitter:
 

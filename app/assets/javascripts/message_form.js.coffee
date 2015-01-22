@@ -60,7 +60,6 @@ ModalMessageForm = MessageForm.extend
       # $(@$el).find('#modal-message-form-text')[0].focus()
 
     onOpenUserReply: (event, screen_name) ->
-      console.log 'onOpenUserReply'
       @setReplyText(screen_name)
 
 
