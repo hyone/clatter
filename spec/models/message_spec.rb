@@ -80,7 +80,58 @@ describe Message, :type => :model do
     end
   end
 
+
   describe '::timeline_of' do
+    subject { Message.timeline_of(user) }
+
+    let! (:user) { FactoryGirl.create(:user) }
+    let! (:followed) { FactoryGirl.create(:relationship, follower: user).followed }
+    let! (:other) { FactoryGirl.create(:user) }
+
+    let! (:message_user) { FactoryGirl.create(:message, user: user) }
+    let! (:message_followed) { FactoryGirl.create(:message, user: followed) }
+    let! (:message_other) { FactoryGirl.create(:message, user: other) }
+    let! (:message_user_reply_to_followed) {
+      FactoryGirl.create(:message_with_reply, user: user, users_replied_to: [followed])
+    }
+    let! (:message_user_reply_to_other) {
+      FactoryGirl.create(:message_with_reply, user: user, users_replied_to: [other])
+    }
+    let! (:message_followed_reply_to_user) {
+      FactoryGirl.create(:message_with_reply, user: followed, users_replied_to: [user])
+    }
+    let! (:message_followed_reply_to_other) {
+      FactoryGirl.create(:message_with_reply, user: followed, users_replied_to: [other])
+    }
+    let! (:message_other_reply_to_user) {
+      FactoryGirl.create(:message_with_reply, user: other, users_replied_to: [user])
+    }
+
+    it "should include all the user's message" do
+      [
+        message_user,
+        message_user_reply_to_followed,
+        message_user_reply_to_other
+      ].each do |m|
+        expect(subject).to include(m)
+      end
+    end
+
+    it "should include followed user's non-reply message" do
+      should include(message_followed)
+    end
+
+    it "should include followed user's reply to the user" do
+      should include(message_followed_reply_to_user)
+    end
+
+    it "should not include non followed user's reply to the user" do
+      should_not include(message_other_reply_to_user)
+    end
+
+    it "should not include any reply to other than the user" do
+      should_not include(message_followed_reply_to_other)
+    end
   end
 
 

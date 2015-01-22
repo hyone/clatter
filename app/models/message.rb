@@ -35,13 +35,38 @@ class Message < ActiveRecord::Base
 
   class << self
     def timeline_of(user)
-      user.messages.newer()
-      # includes(:reply_relationships).where(
-        # Message.arel_table[:user_id].eq(user.id).or(
-          # Reply.arel_table[:to_user_id].eq(user.id)
-        # )
-      # ).references(:reply_relationships)
-       # .newer()
+      users         = User.arel_table
+      messages      = Message.arel_table
+      replies       = Reply.arel_table
+      relationships = Relationship.arel_table
+
+      # collect messages from followed users and the user himself
+      Message.where(
+        messages[:user_id].in(
+          self.union(
+            # followed users
+            users.project(:followed_id).
+              join(relationships).on(
+                users[:id].eq(relationships[:follower_id])
+              ).
+              where(users[:id].eq(user.id)),
+            # the user
+            users.project(:id).where(users[:id].eq(user.id))
+          ).arel
+        )
+      ).
+      # and then, filter above by
+      # - non-reply messages
+      # - replies to the user
+      # - messages of the user himself
+      includes(:reply_relationships).where(
+        replies[:id].eq(nil).or(
+          replies[:to_user_id].eq(user.id).or(
+            messages[:user_id].eq(user.id)
+          )
+        )
+      ).references(:reply_relationships).
+      newer()
     end
 
     def mentions_of(user, filter: nil)
