@@ -31,7 +31,7 @@ describe Reply, :type => :model do
       before { reply; message.destroy; }
 
       it 'should be deleted together' do
-        expect(Reply.exists?(reply)).to be_falsey
+        expect(Reply.exists?(reply.id)).to be_falsey
       end
     end
   end
