@@ -7,7 +7,7 @@ class CreateAuthentications < ActiveRecord::Migration
       t.string :account_name, null: false
       t.string :url
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

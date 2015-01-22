@@ -5,7 +5,7 @@ class CreatePosts < ActiveRecord::Migration
       t.references :user, null: false, index: true
       t.integer :reply_to_id, index: true
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_foreign_key :posts, :users,

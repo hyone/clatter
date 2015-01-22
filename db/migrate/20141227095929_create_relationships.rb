@@ -4,7 +4,7 @@ class CreateRelationships < ActiveRecord::Migration
       t.integer :follower_id
       t.integer :followed_id
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_foreign_key :relationships, :users,
