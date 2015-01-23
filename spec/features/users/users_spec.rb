@@ -40,8 +40,8 @@ describe 'Users pages', type: :feature do
       context 'in header' do
         before {
           FactoryGirl.create_list(:message, 10, user: user) 
-          FactoryGirl.create_list(:relationship, 4, follower: user)
-          FactoryGirl.create_list(:relationship, 5, followed: user)
+          FactoryGirl.create_list(:follow, 4, follower: user)
+          FactoryGirl.create_list(:follow, 5, followed: user)
           visit current_path
         }
 
@@ -146,7 +146,7 @@ describe 'Users pages', type: :feature do
         let! (:other_user) { FactoryGirl.create(:user) }
         before { 
           followed_users.each do |u|
-            FactoryGirl.create(:relationship, follower: user, followed: u)
+            FactoryGirl.create(:follow, follower: user, followed: u)
           end 
           visit current_path
         }
@@ -175,7 +175,7 @@ describe 'Users pages', type: :feature do
         let! (:other_user) { FactoryGirl.create(:user) }
         before { 
           followers.each do |u|
-            FactoryGirl.create(:relationship, follower: u, followed: user)
+            FactoryGirl.create(:follow, follower: u, followed: user)
           end 
           visit current_path
         }

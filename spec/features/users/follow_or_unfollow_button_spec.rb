@@ -41,7 +41,7 @@ describe 'Follow/Unfollow button', type: :feature do
           expect {
             click_follow_button(other_user)
           }.to change {
-            Relationship.find_by(
+            Follow.find_by(
               follower_id: user.id,
               followed_id: other_user.id
             )
@@ -68,7 +68,7 @@ describe 'Follow/Unfollow button', type: :feature do
 
       before {
         unless user.following?(other_user)
-          FactoryGirl.create(:relationship, follower: user, followed: other_user)
+          FactoryGirl.create(:follow, follower: user, followed: other_user)
         end
         visit current_path
       }
@@ -90,7 +90,7 @@ describe 'Follow/Unfollow button', type: :feature do
           expect {
             click_unfollow_button(other_user)
           }.to change {
-            Relationship.find_by(
+            Follow.find_by(
               follower_id: user.id,
               followed_id: other_user.id
             )

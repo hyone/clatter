@@ -11,7 +11,7 @@
   - text:string
   - user_id:references (User)
 
-- Relationship
+- Follow
   - follower_id:references (User)     # follow した人
   - followed_id:references (User)     # follow された人
 

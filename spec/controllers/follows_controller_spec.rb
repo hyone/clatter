@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe RelationshipsController, :type => :controller do
+describe FollowsController, :type => :controller do
   let (:user) { FactoryGirl.create(:user) }
   let (:other_user) { FactoryGirl.create(:user) }
 
@@ -8,11 +8,11 @@ describe RelationshipsController, :type => :controller do
     context 'as user' do
       before { signin user }
 
-      it 'should create the Relationship object' do
+      it 'should create the Follow object' do
         expect {
-          xhr :post, :create, format: 'json', relationship: { followed_id: other_user.id }
+          xhr :post, :create, format: 'json', follow: { followed_id: other_user.id }
         }.to change {
-          Relationship.find_by(
+          Follow.find_by(
             follower_id: user.id,
             followed_id: other_user.id
           )
@@ -20,25 +20,25 @@ describe RelationshipsController, :type => :controller do
       end
 
       it 'should return http success' do
-        xhr :post, :create, format: :json, relationship: { followed_id: other_user.id }
+        xhr :post, :create, format: :json, follow: { followed_id: other_user.id }
         expect(response).to have_http_status(:success)
       end
     end
   end
 
   describe '#destroy' do
-    let! (:relationship) {
-      FactoryGirl.create(:relationship, follower: user, followed: other_user)
+    let! (:follow) {
+      FactoryGirl.create(:follow, follower: user, followed: other_user)
     }
 
     context 'as user' do
       before { signin user }
 
-      it 'should destroy the Relationship object' do
+      it 'should destroy the Follow object' do
         expect {
-          xhr :delete, :destroy, format: :json, id: relationship.id
+          xhr :delete, :destroy, format: :json, id: follow.id
         }.to change {
-          Relationship.find_by(
+          Follow.find_by(
             follower_id: user.id,
             followed_id: other_user.id
           )
@@ -46,7 +46,7 @@ describe RelationshipsController, :type => :controller do
       end
 
       it 'should return http success' do
-        xhr :delete, :destroy, format: :json, id: relationship.id
+        xhr :delete, :destroy, format: :json, id: follow.id
         expect(response).to have_http_status(:success)
       end
     end

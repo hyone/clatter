@@ -27,19 +27,19 @@ def gen_messages
   end
 end
 
-def gen_relations
+def gen_follows
   users = User.all
 
   users[2..50].each do |followed_user|
-    FactoryGirl.create(:relationship, follower: MAIN_USER, followed: followed_user)
+    FactoryGirl.create(:follow, follower: MAIN_USER, followed: followed_user)
   end
 
   users[3..40].each do |follower|
-    FactoryGirl.create(:relationship, follower: follower, followed: MAIN_USER)
+    FactoryGirl.create(:follow, follower: follower, followed: MAIN_USER)
   end
 end
 
 
 gen_users
 gen_messages
-gen_relations
+gen_follows

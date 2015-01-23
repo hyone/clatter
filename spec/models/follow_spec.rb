@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 
-describe Relationship, :type => :model do
+describe Follow, :type => :model do
   let (:follower) { FactoryGirl.create(:user) }
   let (:followed) { FactoryGirl.create(:user) }
-  let (:relationship) { follower.relationships.build(followed_id: followed.id) }
+  let (:follow) { follower.follow_relationships.build(followed_id: followed.id) }
 
-  subject { relationship }
+  subject { follow }
 
   it { should be_valid }
 
@@ -17,7 +17,7 @@ describe Relationship, :type => :model do
     it { should belong_to(:follower).class_name(:User) }
 
     it 'should return follower' do
-      expect(relationship.follower).to eq(follower)
+      expect(follow.follower).to eq(follower)
     end
   end
 
@@ -28,7 +28,7 @@ describe Relationship, :type => :model do
     it { should belong_to(:followed).class_name(:User) }
 
     it 'should return followed' do
-      expect(relationship.followed).to eq(followed)
+      expect(follow.followed).to eq(followed)
     end
   end
 end

@@ -85,7 +85,7 @@ describe Message, :type => :model do
     subject { Message.timeline_of(user) }
 
     let! (:user) { FactoryGirl.create(:user) }
-    let! (:followed) { FactoryGirl.create(:relationship, follower: user).followed }
+    let! (:followed) { FactoryGirl.create(:follow, follower: user).followed }
     let! (:other) { FactoryGirl.create(:user) }
 
     let! (:message_user) { FactoryGirl.create(:message, user: user) }

@@ -24,8 +24,8 @@ describe 'Home Page', type: :feature do
       context 'in profile panel' do
         before {
           3.times { FactoryGirl.create(:message, user: user) }
-          4.times { FactoryGirl.create(:relationship, follower: user) }
-          5.times { FactoryGirl.create(:relationship, followed: user) }
+          4.times { FactoryGirl.create(:follow, follower: user) }
+          5.times { FactoryGirl.create(:follow, followed: user) }
           visit current_path
         }
 
@@ -110,12 +110,11 @@ describe 'Home Page', type: :feature do
       its(:status_code) { should == 200 }
 
       describe 'content' do
-        let! (:followed_user) { FactoryGirl.create(:user) }
-        let! (:relationships) { FactoryGirl.create(
-          :relationship,
-          follower: user,
-          followed: followed_user
-        ) }
+        let! (:followed_user) {
+          u = FactoryGirl.create(:user)
+          FactoryGirl.create(:follow, follower: user, followed: u)
+          u
+        }
         let! (:reply_from_followed_user) { FactoryGirl.create(
           :message_with_reply,
           user: followed_user,

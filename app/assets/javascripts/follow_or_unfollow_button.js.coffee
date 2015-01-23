@@ -20,6 +20,6 @@ $ ->
 
   $(document)
     .on 'ajax:success', '.follow-button', (event, data, status, xhr) ->
-      updateFollowStatus(event.target, data.relationship)
+      updateFollowStatus(event.target, data.follow)
     .on 'ajax:success', '.unfollow-button', (event, data, status, xhr) ->
-      updateFollowStatus(event.target, data.relationship)
+      updateFollowStatus(event.target, data.follow)

@@ -19,6 +19,6 @@ Rails.application.routes.draw do
     end
   end
   resources :authentications, only: [:index, :destroy]
-  resources :relationships,   only: [:create, :destroy]
+  resources :follows,         only: [:create, :destroy]
   resources :messages,        only: [:create, :destroy]
 end

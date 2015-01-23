@@ -76,40 +76,40 @@ describe User, :type => :model do
   end
 
 
-  describe '#relationships' do
-    it { should respond_to(:relationships) }
-    it { should have_many(:relationships) }
+  describe '#follow_relationships' do
+    it { should respond_to(:follow_relationships) }
+    it { should have_many(:follow_relationships) }
 
     context 'with 2 followed_users' do
-      before { FactoryGirl.create_list(:relationship, 2, follower: user) }
+      before { FactoryGirl.create_list(:follow, 2, follower: user) }
 
       it 'should have 2 relationships' do
-        expect(user.relationships.count).to eq(2)
+        expect(user.follow_relationships.count).to eq(2)
       end
 
       # test for dependent: destroy
       context 'when the user is destroyed' do
         before { user.destroy }
-        its(:relationships) { should be_empty }
+        its(:follow_relationships) { should be_empty }
       end
     end
   end
 
-  describe '#reverse_relationships' do
-    it { should respond_to(:reverse_relationships) }
-    it { should have_many(:reverse_relationships) }
+  describe '#reverse_follow_relationships' do
+    it { should respond_to(:reverse_follow_relationships) }
+    it { should have_many(:reverse_follow_relationships) }
 
     context 'with 2 followers' do
-      before { FactoryGirl.create_list(:relationship, 2, followed: user) }
+      before { FactoryGirl.create_list(:follow, 2, followed: user) }
 
-      it 'should have 2 reverse_relationships' do
-        expect(user.reverse_relationships.count).to eq(2)
+      it 'should have 2 reverse_follow_relationships' do
+        expect(user.reverse_follow_relationships.count).to eq(2)
       end
 
       # test for dependent: destroy
       context 'when the user is destroyed' do
         before { user.destroy }
-        its(:reverse_relationships) { should be_empty }
+        its(:reverse_follow_relationships) { should be_empty }
       end
     end
   end
@@ -148,12 +148,12 @@ describe User, :type => :model do
 
   describe '#followed_users' do
     it { should respond_to(:followed_users) }
-    it { should have_many(:followed_users).through(:relationships) }
+    it { should have_many(:followed_users).through(:follow_relationships) }
   end
 
   describe '#followers' do
     it { should respond_to(:followers) }
-    it { should have_many(:followers).through(:reverse_relationships) }
+    it { should have_many(:followers).through(:reverse_follow_relationships) }
   end
 
   describe '#follow!' do
