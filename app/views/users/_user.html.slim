@@ -14,3 +14,6 @@ li.col-sm-6.col-lg-4.col.user-panel.user-data id="user-#{user.id}" data-user-id=
         | @#{ link_to user.screen_name, user }
       div.user-profile-text
         = user.description
+
+  javascript:
+    window.TwitterApp.users[#{user.id}] = #{raw user.to_json}

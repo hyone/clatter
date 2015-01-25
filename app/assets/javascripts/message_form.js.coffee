@@ -22,7 +22,7 @@ MessageForm = Vue.extend
 
 
 ContentMainMessageForm = MessageForm.extend
-  template: '#content-main-message-form-component-template'
+  template: '#content-main-message-form-template'
 
   created: ->
     @close()
@@ -45,7 +45,7 @@ ContentMainMessageForm = MessageForm.extend
 
 
 ModalMessageForm = MessageForm.extend
-  template: '#modal-message-form-component-template'
+  template: '#modal-message-form-template'
 
   created: ->
     @$on 'modal-dialog.open-message-reply', @onOpenMessageReply

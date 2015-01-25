@@ -1,0 +1,25 @@
+script type="text/x-template" id="follow-or-unfollow-button-template"
+  = form_tag('/follows.json',
+         class: 'follow-button',
+         format: 'json',
+         remote: true,
+         'v-show' => '!isFollow') do |f|
+    = hidden_field_tag "follow[followed_id]", "{{userId}}"
+    = button_tag class: 'btn btn-default',
+                 id: "follow-{{screenName}}",
+                 type: 'submit' do
+        b.fa.fa-user
+        = t('views.navigation.follow')
+
+  = form_tag('/follows/{{followId}}.json',
+             method: :delete,
+             class: 'unfollow-button',
+             remote: true,
+             'v-show' => 'isFollow') do |f|
+    = button_tag class: 'btn btn-primary',
+                 id: "unfollow-{{screenName}}",
+                 type: 'submit' do
+        span.following
+          = t('views.navigation.following')
+        span.unfollow
+          = t('views.navigation.unfollow')

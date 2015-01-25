@@ -81,4 +81,15 @@ module RequestHelpers
   def finished_all_ajax_requests?
     page.evaluate_script('jQuery.active').zero?
   end
+
+
+  def wait_for_ready
+    Timeout.timeout(Capybara.default_wait_time) do
+      loop until finished_page_evaluation?
+    end
+  end
+
+  def finished_page_evaluation?
+    page.evaluate_script('window.rendered')
+  end
 end

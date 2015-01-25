@@ -23,6 +23,24 @@
 window.appVM = new Vue
   el: '#app'
 
+  data:
+    following: null
+    followers: null
+
+  created: ->
+    window.rendered = false
+    $d = $('#profile-user-data')
+    if $d.size() > 0
+      @following = $d.data('following-count')
+      @followers = $d.data('followers-count')
+
+    @$on 'follow-or-unfollow-button.update-stats', (event, following, followers) ->
+      @following = following if following?
+      @followers = followers if followers?
+
+  ready: ->
+    window.rendered = true
+
   methods:
     onClickNewMessageButton: (event) ->
       @$broadcast('modal-dialog.open-new', event)

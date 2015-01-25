@@ -3,7 +3,7 @@
 / prefix is ok both whether '-' is the end of it or not
 - prefix = prefix.blank? ? nil : prefix.sub(/-*$/, '')
 
-script type="text/x-template" id="#{prefix}-message-form-component-template"
+script type="text/x-template" id="#{prefix}-message-form-template"
   = form_for(message, html: { class: 'message-form', id: "#{prefix}-message-form" }) do |f|
     = render 'shared/error_messages', object: f.object
 
@@ -25,5 +25,3 @@ script type="text/x-template" id="#{prefix}-message-form-component-template"
                    'v-attr' => 'disabled: !isPostable' do
         b.fa.fa-pencil-square-o
         = t('views.message_form.submit')
-
-/ div id="#{prefix}-message-form-component" v-component="#{prefix}-message-form"

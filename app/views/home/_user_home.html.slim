@@ -47,7 +47,7 @@ div.content-body
           } do
           span.message-icon
             = image_tag @user.profile_image.small.url
-          = render 'shared/message_form_template', message: @message, prefix: 'content-main-'
+          = render 'vue/shared/message_form', message: @message, prefix: 'content-main-'
           div id="content-main-message-form-component" v-component="content-main-message-form"
 
     div.visible-lg-block

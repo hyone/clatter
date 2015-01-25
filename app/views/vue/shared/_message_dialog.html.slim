@@ -15,7 +15,7 @@ script type="text/x-template" id="modal-dialog-template"
               div.modal-foot
                 content
 
-= render 'shared/message_form_template', message: @message, prefix: 'modal'
+= render 'vue/shared/message_form', message: @message, prefix: 'modal'
 
 div v-component="modal-dialog"
   div id="modal-message-form-component" v-component="modal-message-form"

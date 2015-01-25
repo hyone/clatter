@@ -15,10 +15,22 @@ html lang="en"
     = stylesheet_link_tag 'application', media: 'all'
     = yield(:page_stylesheet) if content_for?(:page_stylesheet)
 
+    /! evaluates at init
+    javascript:
+      window.TwitterApp = {
+        current_user: #{current_user ? current_user.id : "null"},
+        users: {},
+        follows: {},
+        messages: {}
+      };
+
+
   body id="app" class="#{ content_for?(:page_type) ? yield(:page_type) : '' }"
 
     = render 'shared/navigation'
-    = render 'shared/message_dialog' if user_signed_in?
+    - if user_signed_in?
+      = render 'vue/shared/message_dialog'
+      = render 'vue/shared/follow_or_unfollow_button'
 
     div.header
       = yield(:header)

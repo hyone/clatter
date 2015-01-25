@@ -23,12 +23,14 @@
               class: "content-navigation-following #{ active?(following_user_path(@user)) }" do
               = link_to following_user_path(@user)
                 span.nav-label = t('views.users.show.navigation.following')
-                span.nav-value #{@user.followed_users.count}
+                span.nav-value v-text="following"
+                / span.nav-value #{@user.followed_users.count}
             = content_tag :li,
               class: "content-navigation-followers #{ active?(followers_user_path(@user)) }" do
               = link_to followers_user_path(@user)
                 span.nav-label = t('views.users.show.navigation.followers')
-                span.nav-value #{@user.followers.count}
+                span.nav-value v-text="followers"
+                / span.nav-value #{@user.followers.count}
             li.content-navigation-favorites
               a href="#"
                 span.nav-label = t('views.users.show.navigation.favorites')

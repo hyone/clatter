@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe FollowsController, :type => :controller do
-  let (:user) { FactoryGirl.create(:user) }
-  let (:other_user) { FactoryGirl.create(:user) }
+  let! (:user) { FactoryGirl.create(:user) }
+  let! (:other_user) { FactoryGirl.create(:user) }
 
   describe '#create' do
     context 'as user' do

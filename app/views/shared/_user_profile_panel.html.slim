@@ -1,4 +1,4 @@
-div.user-profile-panel#profile-user-data data-user-id="#{@user.id}" data-screen-name="#{@user.screen_name}" data-name="#{@user.name}"
+div.user-profile-panel#profile-user-data data-user-id="#{@user.id}" data-screen-name="#{@user.screen_name}" data-name="#{@user.name}" data-following-count="#{@user.followed_users.count}" data-followers-count="#{@user.followers.count}"
   div.col-inner
       div.user-profile-panel-head
         div.user-profile-image
@@ -15,3 +15,5 @@ div.user-profile-panel#profile-user-data data-user-id="#{@user.id}" data-screen-
             b.fa.fa-link.icon
             = link_to truncate(@user.url), @user.url
 
+  javascript:
+    window.TwitterApp.users[#{@user.id}] = #{raw @user.to_json}

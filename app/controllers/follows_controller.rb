@@ -4,28 +4,20 @@ class FollowsController < ApplicationController
   respond_to :html, :json
 
   def create
-    @followed_user = User.find(params[:follow][:followed_id])
+    @followed = User.find(params[:follow][:followed_id])
     @follower = current_user
 
-    @follower.follow!(@followed_user)
-
-    @html = render_to_string partial: 'shared/follow_or_unfollow_button',
-                             formats: :html,
-                             locals: { user: @followed_user }
+    @follow = @follower.follow!(@followed)
 
     respond_with @follower
   end
 
   def destroy
-    follow    = Follow.find(params[:id])
+    @follow   = Follow.find(params[:id])
     @follower = current_user
-    @followed = follow.followed
+    @followed = @follow.followed
 
     @follower.unfollow!(@followed)
-
-    @html = render_to_string partial: 'shared/follow_or_unfollow_button',
-                             formats: :html,
-                             locals: { user: @followed }
 
     respond_with @follower
   end

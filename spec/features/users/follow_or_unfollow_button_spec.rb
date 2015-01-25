@@ -25,21 +25,33 @@ describe 'Follow/Unfollow button', type: :feature do
       visit current_path
     }
 
-    context 'about follow button' do
+    context 'about follow button', js: true do
+      before {
+        # wait until Vue.js compilation and DOM setup have finished
+        # wait_for_ready
+      }
+      # before {
+        # page.evaluate_script('Vue.config.async = false')
+      # }
+
       def click_follow_button(u)
         click_on "follow-#{u.screen_name}"
       end
 
-      it { should have_selector ('.follow-button') }
+      it 'follow button should be visibule' do
+        expect(page.find('.follow-button')).to be_visible
+        expect(page.find('.unfollow-button', visible: false)).not_to be_visible
+      end
 
       it 'should be 0 followers' do
-       expect(page).to have_selector('.content-navigation-followers .nav-value', 0)
+        expect(page).to have_selector('.content-navigation-followers .nav-value', 0)
       end
 
       context 'when click the button' do
         it 'should follow other_user' do
           expect {
             click_follow_button(other_user)
+            wait_for_ajax
           }.to change {
             Follow.find_by(
               follower_id: user.id,
@@ -48,20 +60,24 @@ describe 'Follow/Unfollow button', type: :feature do
           }.from(nil)
         end
 
-        it "'follow' button should change to 'unfollow' button", js: true do
-          click_follow_button(other_user)
-          expect(page).to have_selector('.unfollow-button')
-        end
-
-        it 'should be 1 followers', js: true do
+        it "'follow' button should change to 'unfollow' button" do
           click_follow_button(other_user)
           wait_for_ajax
+
+          expect(page.find('.follow-button', visible: false)).not_to be_visible
+          expect(page.find('.unfollow-button')).to be_visible
+        end
+
+        it 'should be 1 followers' do
+          click_follow_button(other_user)
+          wait_for_ajax
+
           expect(page).to have_selector('.content-navigation-followers .nav-value', 1)
         end
       end
     end
 
-    context 'about unfollow button' do
+    context 'about unfollow button', js: true do
       def click_unfollow_button(u)
         click_on "unfollow-#{u.screen_name}"
       end
@@ -73,7 +89,10 @@ describe 'Follow/Unfollow button', type: :feature do
         visit current_path
       }
 
-      it { should have_selector ('.unfollow-button') }
+      it 'unfollow button should be visibule' do
+        expect(page.find('.follow-button', visible: false)).not_to be_visible
+        expect(page.find('.unfollow-button')).to be_visible
+      end
 
       it 'should be 1 followers' do
        expect(page).to have_selector('.content-navigation-followers .nav-value', 1)
@@ -81,14 +100,18 @@ describe 'Follow/Unfollow button', type: :feature do
 
       context 'when click the button' do
 
-        it "'unfollow' button changes to 'follow' button", js: true do
+        it "'unfollow' button changes to 'follow' button" do
           click_unfollow_button(other_user)
-          expect(page).to have_selector('.follow-button')
+          wait_for_ajax
+
+          expect(page.find('.follow-button')).to be_visible
+          expect(page.find('.unfollow-button', visible: false)).not_to be_visible
         end
 
         it 'should unfollow other_user' do
           expect {
             click_unfollow_button(other_user)
+            wait_for_ajax
           }.to change {
             Follow.find_by(
               follower_id: user.id,
@@ -97,9 +120,10 @@ describe 'Follow/Unfollow button', type: :feature do
           }.to(nil)
         end
 
-        it 'should be 0 followers', js: true do
+        it 'should be 0 followers' do
           click_unfollow_button(other_user)
           wait_for_ajax
+
           expect(page).to have_selector('.content-navigation-followers .nav-value', 0)
         end
       end

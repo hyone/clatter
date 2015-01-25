@@ -25,3 +25,6 @@ li.message.message-data id="message-#{message.id}" data-message-id="#{message.id
       li
         = link_to '#' do
           b.fa.fa-star-o
+
+  javascript:
+    window.TwitterApp.messages[#{message.id}] = #{raw message.to_json}
