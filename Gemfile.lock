@@ -129,6 +129,8 @@ GEM
       unicode-display_width (~> 0.1.1)
     hitimes (1.2.2)
     i18n (0.7.0)
+    i18n-js (2.1.2)
+      i18n
     jbuilder (2.2.6)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -381,6 +383,7 @@ DEPENDENCIES
   guard-rspec
   hirb
   hirb-unicode
+  i18n-js
   jbuilder (~> 2.0)
   jquery-rails
   kaminari

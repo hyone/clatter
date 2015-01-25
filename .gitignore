@@ -15,6 +15,7 @@
 /log/*.log
 /tmp
 
+public/javascripts/translations.js
 public/uploads/
 vendor/assets/bower.json
 vendor/assets/bower_components/

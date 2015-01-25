@@ -25,10 +25,10 @@ ModalDialog = Vue.extend
       @body = ''
 
     setDefaultTitle: ->
-      @title = "<%= I18n.t('views.navigation.compose_new_message') %>"
+      @title = I18n.t('views.modal_dialog.compose_new_message')
 
     setReplyTitle: (screen_name) ->
-      @title = "Reply to @#{screen_name}"
+      @title = I18n.t('views.modal_dialog.reply_to', name: screen_name)
 
     onOpenNew: (event) ->
       @setDefaultTitle()
@@ -41,6 +41,3 @@ ModalDialog = Vue.extend
       @setReplyTitle(screen_name)
 
 Vue.component('modal-dialog', ModalDialog)
-
-
-# vim: set filetype=coffee

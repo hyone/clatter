@@ -5,7 +5,6 @@ en:
       appname: TwitterApp
 
     navigation:
-      compose_new_message: Compose New Message
       close: Close
       edit_profile: Edit Profile
       follow: Follow
@@ -19,6 +18,10 @@ en:
       signin: Sign in
       unfollow: Unfollow
       users: Users
+
+    modal_dialog:
+      compose_new_message: Compose New Message
+      reply_to: "Reply to %{name}"
 
     message_form:
       new_message: What's happening?

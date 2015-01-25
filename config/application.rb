@@ -25,5 +25,8 @@ module TwitterApp
 
     # css engine
     config.sass.preferred_syntax = :less
+
+    # require by i18n-js
+    config.assets.initialize_on_precompile = true
   end
 end

@@ -18,7 +18,8 @@
 #= require follow_or_unfollow_button
 #= require message_form
 #= require message_dialog
-
+#= require i18n
+#= require i18n/translations
 
 window.appVM = new Vue
   el: '#app'
@@ -28,7 +29,6 @@ window.appVM = new Vue
     followers: null
 
   created: ->
-    window.rendered = false
     $d = $('#profile-user-data')
     if $d.size() > 0
       @following = $d.data('following-count')
@@ -59,6 +59,3 @@ window.appVM = new Vue
       d = $(event.target).closest('.user-data')
       screen_name = d.data('screen-name')
       @$broadcast('modal-dialog.open-user-reply', event, screen_name)
-
-
-# vim: set filetype=coffee
