@@ -177,20 +177,25 @@ describe 'Authentication pages', type: :feature do
   end
 
 
-  describe 'GET /users/edit.:id' do
+  describe 'GET /users/edit' do
     let (:user) { FactoryGirl.create(:user) }
 
     context 'as guest' do
       before {
-        visit edit_user_registration_path(user)
+        visit edit_user_registration_path
       }
-      its(:status_code) { should == 401 }
+
+      it 'redirect to signin page' do
+        expect(current_path).to eq(new_user_session_path)
+      end
+
+      it { should have_alert(:alert, I18n.t('devise.failure.unauthenticated')) }
     end
 
     context 'as authenticated user' do
       before {
         signin user
-        visit edit_user_registration_path(user)
+        visit edit_user_registration_path
       }
 
       its(:status_code) { should == 200 }
@@ -214,7 +219,7 @@ describe 'Authentication pages', type: :feature do
             before {
               click_link text_connect_provider(provider)
               # back to setting page
-              visit edit_user_registration_path(user)
+              visit edit_user_registration_path
             }
 
             # have toggled the button to link
@@ -245,7 +250,7 @@ describe 'Authentication pages', type: :feature do
               # replace the user with one without password
               authentication.user = user
               signin user
-              visit edit_user_registration_path(user)
+              visit edit_user_registration_path
             }
 
             it 'should have disabled link "Disconnect <provider>"' do
@@ -256,7 +261,7 @@ describe 'Authentication pages', type: :feature do
           context 'after clicking the link to connect <provider>' do
             before {
               click_link text_disconnect
-              visit edit_user_registration_path(user)
+              visit edit_user_registration_path
             }
 
             it { should have_link(text_connect, user_omniauth_authorize_path(provider)) }

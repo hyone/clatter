@@ -4,14 +4,14 @@ script type="text/x-template" id="follow-or-unfollow-button-template"
          format: 'json',
          remote: true,
          'v-show' => '!isFollow') do |f|
-    = hidden_field_tag "follow[followed_id]", "{{userId}}"
+    = hidden_field_tag 'follow[followed_id]', '{{userId}}'
     = button_tag class: 'btn btn-default',
-                 id: "follow-{{screenName}}",
+                 id: 'follow-{{screenName}}',
                  type: 'submit' do
         b.fa.fa-user
         = t('views.navigation.follow')
 
-  = form_tag('/follows/{{followId}}.json',
+  = form_tag('/follows/{{follow["follow-id"]}}.json',
              method: :delete,
              class: 'unfollow-button',
              remote: true,

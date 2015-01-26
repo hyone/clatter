@@ -15,21 +15,14 @@ https://hyone-twitter-app.herokuapp.com
     user: sample_user
     password: password
 
-## Requirement
+## Installation
+
+### Requirement
+
+To run this app on a local environment, this app requires additional packages below:
 
 - ImageMagick
 - bower
-
-## Requirement on Development
-
-In addition to packages above:
-
-- docker
-- fig
-- terminal-notifier (Optional)
-
-
-## Installation
 
 ### Manual deployment to heroku
 
@@ -77,6 +70,17 @@ $ heroku config:add TWITTER_CONSUMER_KEY=XXXXXXXXXXXXXXXXXXXXXXXXX
 $ heroku config:add TWITTER_CONSUMER_SECRET=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 $ heroku restart
 ```
+
+## Development
+
+### Requirement on Development
+
+In addition to packages required on installation:
+
+- docker
+- fig
+- terminal-notifier (Optional)
+
 
 ### Setup demo data
 

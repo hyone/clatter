@@ -4,6 +4,9 @@ en:
       please_sign_in: Please sign in.
       appname: TwitterApp
 
+    alert:
+      success_delete_message: Your message has been deleted.
+
     navigation:
       close: Close
       edit_profile: Edit Profile
@@ -35,6 +38,10 @@ en:
     menu_panel:
       notifications: Notifications
       mentions: Mentions
+
+    message_panel:
+      delete_message: Delete Message
+      confirm_delete_message: Are you sure you want to delete this message?
 
     home:
       index:

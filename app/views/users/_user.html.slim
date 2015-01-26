@@ -6,7 +6,7 @@ li.col-sm-6.col-lg-4.col.user-panel.user-data id="user-#{user.id}" data-user-id=
           = image_tag user.profile_image.normal.url
     div.user-profile-panel-main
       div.user-profile-buttons
-        = render 'shared/more_actions_button', user: user
+        = render 'shared/more_user_actions_button', user: user
         = render 'shared/follow_or_unfollow_button', user: user
       p.user-profile-name
         = link_to user.name, user

@@ -28,6 +28,7 @@ gem 'omniauth-twitter'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'responders', '~> 2.0'
+gem 'cancancan'
 
 gem 'factory_girl_rails'
 gem 'faker'

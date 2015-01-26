@@ -1,6 +1,8 @@
 class MessagesController < ApplicationController
   before_action :require_user, only: [:create, :destroy]
 
+  load_and_authorize_resource
+
   def create
     @message = current_user.messages.build(message_params)
     if @message.save
@@ -14,9 +16,9 @@ class MessagesController < ApplicationController
   end
 
   def destroy
-    @message = Message.find(params[:id])
-    @message.destroy
-
+    if @message.destroy
+       flash[:success] = I18n.t('views.alert.success_delete_message')
+    end
     redirect_to root_url
   end
 

@@ -333,7 +333,7 @@ li.message {
       }
     }
 
-    ul li {
+    > ul.list-inline > li {
       padding-right: 20px;
     }
   }
@@ -343,10 +343,24 @@ li.message {
 //  buttons
 // ----------------------------------------------
 
+// dropdown button
+
+.dropdown-menu {
+  > li > a {
+    &:hover {
+      color: #fff !important;
+      background-color: @app-active;
+    }
+  }
+}
+
 .user-actions-button {
   color: @app-text-light;
   padding: 6px;
 }
+
+
+// follow or unfollow button
 
 .follow-or-unfollow-button {
   display: inline-block;
