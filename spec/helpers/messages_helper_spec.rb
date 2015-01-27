@@ -22,8 +22,15 @@ describe MessagesHelper, type: :helper do
       let (:message) {
         FactoryGirl.create(:message_with_reply, users_replied_to: [user])
       }
+      let! (:original_text) { message.text.clone() }
+
       it 'should replace "@user" text with a link to the user' do
         expect(subject).to match link_regexp(user)
+      end
+
+      specify 'should not affect the original text of the message' do
+        subject
+        expect(message.text).to eq(original_text)
       end
     end
 
