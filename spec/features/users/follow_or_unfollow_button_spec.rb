@@ -30,9 +30,6 @@ describe 'Follow/Unfollow button', type: :feature do
         # wait until Vue.js compilation and DOM setup have finished
         # wait_for_ready
       }
-      # before {
-        # page.evaluate_script('Vue.config.async = false')
-      # }
 
       def click_follow_button(u)
         click_on "follow-#{u.screen_name}"

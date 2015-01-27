@@ -2,7 +2,6 @@ FollowOrUnfollowButton = Vue.extend
   template: '#follow-or-unfollow-button-template'
 
   data: ->
-    screenName: null
     userId: null
     follow: {}
 
@@ -15,10 +14,8 @@ FollowOrUnfollowButton = Vue.extend
 
   methods:
     bindInit: ->
-      @userId     = $(@$el).data('user-id')
-      @follow     = TwitterApp.follows[@userId]
-      user        = TwitterApp.users[@userId]
-      @screenName = user['screen_name']
+      @userId = $(@$el).data('user-id')
+      @follow = TwitterApp.follows[@userId]
 
     setupEventHandlers: ->
       $(@$el).on 'ajax:success', (event, data, status, xhr) =>
@@ -35,7 +32,8 @@ FollowOrUnfollowButton = Vue.extend
         $(event.target).find('button[type="submit"]').attr('disabled', 'disabled')
 
     updateButtonStatus: (data) ->
-      @follow = { 'follow': data.follow_status == 'follow', 'follow-id': data.follow_id }
+      @follow['follow']    = data.follow_status == 'follow'
+      @follow['follow_id'] = data.follow_id
 
     updateUserStat: (data) ->
       currentUserId = $('#profile-user-data').data('user-id')

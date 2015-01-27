@@ -19,8 +19,9 @@ div.follow-or-unfollow-button
   - else
     div data-user-id="#{user.id}" v-component="follow-or-unfollow-button"
 
-    - data = { 'user-id'   => user.id,
-               'follow'    => !!current_user.following?(user),
-               'follow-id' => current_user.follow_relationships.find_by(followed: user.id).try(:id) }
+    - data = { 'user_id'     => user.id,
+               'screen_name' => user.screen_name,
+               'follow'      => !!current_user.following?(user),
+               'follow_id'   => current_user.follow_relationships.find_by(followed: user.id).try(:id) }
     javascript:
       window.TwitterApp.follows[#{user.id}] = #{raw data.to_json}

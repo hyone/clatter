@@ -21,8 +21,6 @@ https://hyone-twitter-app.herokuapp.com
 
 ### Requirement
 
-To run this app on a local environment, this app requires additional packages below:
-
 - ImageMagick
 - bower
 
@@ -87,6 +85,6 @@ In addition to packages required on installation:
 ### Setup demo data
 
 ```sh
-# after set up database ( bin/rake db:migrate )
+# after set up database
 $ bin/rake db:seed:development
 ```

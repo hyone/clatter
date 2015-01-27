@@ -61,7 +61,7 @@ describe 'Message Actions', type: :feature, js: true do
       }
 
       context 'as guest' do
-        it 'should not be included in the dropdown menu' do
+        it 'should not be included in the dropdown' do
           should_not have_selector("#delete-message-#{message.id}", visible: false)
         end
       end
@@ -71,7 +71,7 @@ describe 'Message Actions', type: :feature, js: true do
           signin other_user
           visit current_path
         }
-        it 'should not be included in the dropdown menu' do
+        it 'should not be included in the dropdown' do
           should_not have_selector("#delete-message-#{message.id}", visible: false)
         end
       end

@@ -16,4 +16,4 @@ div.user-profile-panel#profile-user-data data-user-id="#{@user.id}" data-screen-
             = link_to truncate(@user.url), @user.url
 
   javascript:
-    window.TwitterApp.users[#{@user.id}] = #{raw @user.to_json}
+    window.TwitterApp.profileUser = #{raw @user.to_json}

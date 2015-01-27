@@ -6,18 +6,18 @@ if ENV['COVERAGE']
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
     SimpleCov::Formatter::HTMLFormatter
   ]
-  # SimpleCov.start 'rails'
-  SimpleCov.start do
-    add_filter '/config/'
-    add_filter '/db/'
-    add_filter '/vendor/bundle/'
-    add_filter '/spec/'
+  SimpleCov.start 'rails'
+  # SimpleCov.start do
+    # add_filter '/config/'
+    # add_filter '/db/'
+    # add_filter '/vendor/bundle/'
+    # add_filter '/spec/'
 
-    add_group 'Controllers', 'app/controllers'
-    add_group 'Models', 'app/models'
-    add_group 'Helpers', 'app/helpers'
-    add_group 'Libraries', 'lib'
-  end
+    # add_group 'Controllers', 'app/controllers'
+    # add_group 'Models', 'app/models'
+    # add_group 'Helpers', 'app/helpers'
+    # add_group 'Libraries', 'lib'
+  # end
 end
 
 # coveralls
@@ -26,7 +26,7 @@ if ENV['CI']
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
     Coveralls::SimpleCov::Formatter
   ]
-  SimpleCov.start 'test_frameworks'
+  SimpleCov.start 'rails'
 end
 
 
