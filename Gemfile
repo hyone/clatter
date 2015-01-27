@@ -70,4 +70,6 @@ group :test do
   gem 'shoulda-matchers', require: false
   gem 'poltergeist'
   gem 'database_cleaner'
+  gem 'coveralls', require: false
+  gem 'simplecov', require: false
 end

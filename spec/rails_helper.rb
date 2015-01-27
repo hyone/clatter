@@ -1,5 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
+
 require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
@@ -7,7 +8,39 @@ require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'shoulda/matchers'
+require 'simplecov'
+require 'coveralls'
 
+
+if ENV['COVERAGE']
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    SimpleCov::Formatter::HTMLFormatter
+  ]
+  # SimpleCov.start 'rails'
+  SimpleCov.start do
+    add_filter '/config/'
+    add_filter '/db/'
+    add_filter '/vendor/bundle/'
+    add_filter '/spec/'
+
+    add_group 'Controllers', 'app/controllers'
+    add_group 'Models', 'app/models'
+    add_group 'Helpers', 'app/helpers'
+    add_group 'Libraries', 'lib'
+  end
+end
+
+# coveralls
+if ENV['CI']
+  Coveralls.wear!
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    Coveralls::SimpleCov::Formatter
+  ]
+  SimpleCov.start 'test_frameworks'
+end
+
+
+# capybara
 Capybara.javascript_driver = :poltergeist
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 60)

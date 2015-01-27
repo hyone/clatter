@@ -78,6 +78,12 @@ GEM
     coffee-script-source (1.8.0)
     columnize (0.9.0)
     commonjs (0.2.7)
+    coveralls (0.7.3)
+      multi_json (~> 1.10)
+      rest-client (~> 1.7)
+      simplecov (~> 0.9.1)
+      term-ansicolor (~> 1.3)
+      thor (~> 0.19.1)
     database_cleaner (1.4.0)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
@@ -89,6 +95,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     dotenv (1.0.2)
     erubis (2.7.0)
     execjs (2.2.2)
@@ -171,6 +178,7 @@ GEM
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     nenv (0.2.0)
+    netrc (0.10.2)
     newrelic_rpm (3.9.9.275)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
@@ -258,6 +266,9 @@ GEM
     ref (1.0.5)
     responders (2.0.2)
       railties (>= 4.2.0.alpha, < 5)
+    rest-client (1.7.2)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
       rspec-expectations (~> 3.1.0)
@@ -300,6 +311,11 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (2.7.0)
       activesupport (>= 3.0.0)
+    simplecov (0.9.1)
+      docile (~> 1.1.0)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.8.0)
+    simplecov-html (0.8.0)
     slim (3.0.1)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
@@ -323,6 +339,8 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     temple (0.7.5)
+    term-ansicolor (1.3.0)
+      tins (~> 1.0)
     terminal-notifier-guard (1.6.4)
     therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
@@ -332,6 +350,7 @@ GEM
     tilt (1.4.1)
     timers (4.0.1)
       hitimes
+    tins (1.3.3)
     turbolinks (2.5.3)
       coffee-rails
     twitter-bootswatch-rails (3.2.0.0)
@@ -377,6 +396,7 @@ DEPENDENCIES
   capybara
   carrierwave
   coffee-rails (~> 4.1.0)
+  coveralls
   database_cleaner
   devise
   factory_girl_rails
@@ -408,6 +428,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   selenium-webdriver
   shoulda-matchers
+  simplecov
   slim-rails
   spring
   spring-commands-rspec
