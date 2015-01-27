@@ -3,6 +3,8 @@
 web application like a twitter clone
 
 [![Build Status](https://travis-ci.org/hyone/twitter_app.svg?branch=master)](https://travis-ci.org/hyone/twitter_app)
+[![Coverage Status](https://coveralls.io/repos/hyone/twitter_app/badge.svg?branch=master)](https://coveralls.io/r/hyone/twitter_app?branch=master)
+[![Code Climate](https://codeclimate.com/github/hyone/twitter_app/badges/gpa.svg)](https://codeclimate.com/github/hyone/twitter_app)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
