@@ -32,5 +32,5 @@ div.session
             span.form-additional-info
               = link_to t('views.users.form.forget_your_password'), new_password_path(resource_name)
 
-  = render 'users/shared/provider_signin'
+  = render 'users/shared/omniauth_logins.html.slim', title: 'Sign in with :'
   = render 'users/shared/signup'

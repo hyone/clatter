@@ -36,6 +36,4 @@ div.session
         div.form-group
           = f.submit t('views.users.form.signup'), class: 'btn btn-primary'
 
-    div.row
-      div.col-sm-12
-        = render 'users/shared/links'
+    = render 'users/shared/omniauth_logins.html.slim', title: 'Sign up / Sign in with :'

@@ -1,0 +1,12 @@
+- unless resource_class.omniauth_providers.empty?
+  div.row
+    div.col-sm-12
+      h3 Sign up / Sign in with :
+
+      ul.list-inline
+        - resource_class.omniauth_providers.each do |provider|
+          li[class="login-with-provider login-#{provider}"]
+            = link_to user_omniauth_authorize_path(provider) do
+                - name = provider_name provider
+                = image_tag "#{name}_32.png", class: 'icon'
+                = name.titleize
