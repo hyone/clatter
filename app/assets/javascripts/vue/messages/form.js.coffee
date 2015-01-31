@@ -16,16 +16,42 @@ MessageForm = Vue.extend
     isNearLimit: ->
       @countRest < 10
 
+  compiled: ->
+    @setupAjaxEventListeners()
+
+  events:
+    'message-form.focus': 'focus'
+    'message-form.clear': 'clear'
+
   methods:
-    onBlur: ->
-    onFocus: ->
+    setupAjaxEventListeners: ->
+      $(@$el).on 'ajax:success', (event, data, status, xhr) =>
+        if data.response.status is 'success'
+          @$dispatch 'message.created', event, data.results.message
+        else
+          @$dispatch 'app.alert', event, data.response
+
+      $(@$el).on 'ajax:error', (event, xhr, status, error) =>
+        @$dispatch 'app.alert', event,
+          status: status,
+          message: "#{I18n.t('views.alert.failed_create_message')}: #{error}"
+
+    focus: ->
+      @$$.textarea.focus()
+
+    clear: ->
+      @text = ''
 
 
 ContentMainMessageForm = MessageForm.extend
   template: '#content-main-message-form-template'
+  replace: true
 
   created: ->
     @close()
+
+  events:
+    'content-main-message-form:close': 'close'
 
   methods:
     open: ->
@@ -46,18 +72,21 @@ ContentMainMessageForm = MessageForm.extend
 
 ModalMessageForm = MessageForm.extend
   template: '#modal-message-form-template'
+  replace: true
 
-  created: ->
-    @$on 'modal-dialog.open-message-reply', @onOpenMessageReply
-    @$on 'modal-dialog.open-user-reply', @onOpenUserReply
+  events:
+    'modal-dialog.open-message-reply': 'onOpenMessageReply'
+    'modal-dialog.open-user-reply': 'onOpenUserReply'
 
   methods:
     setReplyText: (screen_name) ->
       @text = "@#{screen_name} "
 
+    onBlur: ->
+    onFocus: ->
+
     onOpenMessageReply: (event, parent, screen_name) ->
       @setReplyText(screen_name)
-      # $(@$el).find('#modal-message-form-text')[0].focus()
 
     onOpenUserReply: (event, screen_name) ->
       @setReplyText(screen_name)

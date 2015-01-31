@@ -52,7 +52,7 @@ describe 'Message Actions', type: :feature, js: true do
     end
   end
 
-  describe 'more action buttons' do
+  describe 'actions button' do
     describe 'delete message menu' do
       let! (:message) { FactoryGirl.create(:message, user: user) }
       let (:other_user) { FactoryGirl.create(:user) }
@@ -63,6 +63,7 @@ describe 'Message Actions', type: :feature, js: true do
       context 'as guest' do
         it 'should not be included in the dropdown' do
           should_not have_selector("#delete-message-#{message.id}", visible: false)
+          # expect(find("#delete-message-#{message.id}", visible: false)).not_to be_visible
         end
       end
 
@@ -73,6 +74,7 @@ describe 'Message Actions', type: :feature, js: true do
         }
         it 'should not be included in the dropdown' do
           should_not have_selector("#delete-message-#{message.id}", visible: false)
+          # expect(find("#delete-message-#{message.id}", visible: false)).not_to be_visible
         end
       end
 
@@ -97,16 +99,15 @@ describe 'Message Actions', type: :feature, js: true do
 
           context 'and then click the menu' do
             it 'should delete the message' do
-              expect { click_link "delete-message-#{message.id}" }.to change(Message, :count).by(-1)
-            end
-
-            it 'redirect to the root page' do
-              click_link "delete-message-#{message.id}"
-              expect(current_path).to eq(root_path)
+              expect {
+                click_link "delete-message-#{message.id}"
+                wait_for_ajax
+              }.to change(Message, :count).by(-1)
             end
 
             it {
               click_link "delete-message-#{message.id}"
+              wait_for_ajax
               expect(page).to have_alert(:success, I18n.t('views.alert.success_delete_message'))
             }
           end

@@ -56,7 +56,10 @@ shared_examples 'a postable form' do |type = :modal|
 
     context 'after submit' do
       it 'should create a new message' do
-        expect { click_button "#{prefix}-message-form-submit" }.to change(Message, :count).by(1)
+        expect {
+          click_button "#{prefix}-message-form-submit"
+          wait_for_ajax
+        }.to change(Message, :count).by(1)
       end
     end
 

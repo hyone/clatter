@@ -1,0 +1,17 @@
+script type="text/x-template" id="user-panel-template"
+  li.col-sm-6.col-lg-4.col.user-panel.user-data id="user-{{user.id}}" data-user-id="{{user.id}}" data-screen-name="{{user.screen_name}}"
+    div.col-inner
+      div.user-profile-panel-head
+        div.user-profile-image
+          a href="#{ bindable_path('user', '{{user.id}}') }"
+            img v-attr="src: user.profile_image_url"
+      div.user-profile-panel-main
+        div.user-profile-buttons
+          div v-component="user-actions-button" v-with="user : user"
+          div v-component="follow-button" v-with="user : user"
+        p.user-profile-name
+          = link_to  '{{user.name}}', bindable_path('user', '{{user.id}}')
+        p.user-profile-screen-name
+          | @#{ link_to '{{user.screen_name}}', bindable_path('user', '{{user.id}}') }
+        div.user-profile-text
+          | {{user.description}}

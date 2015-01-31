@@ -63,12 +63,6 @@ module RequestHelpers
     end
   end
 
-  def post_message(p)
-    post messages_path, {
-      message: { text: p.text }
-    }
-  end
-
   # From http://blog.kntmrkm.me/posts/2014/08/21/rspec-js-test-error.html
   # wait that ajax proccesses have finished to avoid js test failures with database_cleaner
 

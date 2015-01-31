@@ -4,7 +4,9 @@
 - prefix = prefix.blank? ? nil : prefix.sub(/-*$/, '')
 
 script type="text/x-template" id="#{prefix}-message-form-template"
-  = form_for(message, html: { class: 'message-form', id: "#{prefix}-message-form" }) do |f|
+  = form_for(message, html: { class: 'message-form', id: "#{prefix}-message-form" },
+                      format: 'json',
+                      remote: true) do |f|
     = render 'shared/error_messages', object: f.object
 
     div.form-group
@@ -15,7 +17,8 @@ script type="text/x-template" id="#{prefix}-message-form-template"
           rows: 1,
           'v-model' => 'text',
           'v-attr'  => 'rows: rows',
-          'v-on'    => 'focus: onFocus, blur: onBlur'
+          'v-on'    => 'focus: onFocus, blur: onBlur',
+          'v-el'    => 'textarea'
 
     div.form-group.message-submit v-style='display: display'
       span.message-count v-text="countRest" v-class="text-danger: isNearLimit, text-muted: !isNearLimit"

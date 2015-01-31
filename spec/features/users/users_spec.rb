@@ -22,7 +22,7 @@ describe 'Users pages', type: :feature do
       describe 'pagination' do
         it { should have_selector('ul.pagination') }
 
-        it 'should list each user in page 1' do
+        it 'should list each user in page 1', js: true do
           User.newer.page(1).per(UsersController::USER_PAGE_SIZE).each do |user|
             expect(page).to have_selector('li', text: "@#{user.screen_name}")
           end
@@ -37,7 +37,7 @@ describe 'Users pages', type: :feature do
     before { visit user_path(user) }
 
     describe 'content' do
-      context 'in header' do
+      context 'in header', js: true do
         before {
           FactoryGirl.create_list(:message, 10, user: user) 
           FactoryGirl.create_list(:follow, 4, follower: user)
@@ -85,7 +85,7 @@ describe 'Users pages', type: :feature do
 
           it { should have_selector('ul.pagination') }
 
-          it 'should list each feed in page 1' do
+          it 'should list each feed in page 1', js: true do
             user.messages_without_replies.newer.
               page(1).per(UsersController::MESSAGE_PAGE_SIZE).each do |m|
               expect(page).to have_message(m)
@@ -93,7 +93,7 @@ describe 'Users pages', type: :feature do
           end
         end
 
-        context 'in messages list' do
+        context 'in messages list', js: true do
           let! (:messages) { FactoryGirl.create_list(:message, 10, user: user) }
           let! (:reply) { FactoryGirl.create(:message_with_reply, user: user) }
           before { visit current_path }
@@ -121,7 +121,7 @@ describe 'Users pages', type: :feature do
           it { should have_link(I18n.t('views.users.show.messages'), user_path(user)) }
         end
 
-        context 'in messages list' do
+        context 'in messages list', js: true do
           let! (:messages) { FactoryGirl.create_list(:message, 10, user: user) }
           let! (:replies) { FactoryGirl.create_list(:message_with_reply, 10, user: user) }
           before { visit current_path }
@@ -140,7 +140,7 @@ describe 'Users pages', type: :feature do
     let (:user) { FactoryGirl.create(:user) }
     before { visit following_user_path(user) }
 
-    describe 'content' do
+    describe 'content', js: true do
       context 'in users panel' do
         let! (:followed_users) { FactoryGirl.create_list(:user, 10) }
         let! (:other_user) { FactoryGirl.create(:user) }
@@ -169,7 +169,7 @@ describe 'Users pages', type: :feature do
     let (:user) { FactoryGirl.create(:user) }
     before { visit followers_user_path(user) }
 
-    describe 'content' do
+    describe 'content', js: true do
       context 'in users panel' do
         let! (:followers) { FactoryGirl.create_list(:user, 10) }
         let! (:other_user) { FactoryGirl.create(:user) }

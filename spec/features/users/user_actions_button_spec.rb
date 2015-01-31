@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe 'More Actions Menu', type: :feature, js: true do
+describe 'User Actions Menu', type: :feature, js: true do
   subject { page }
 
   shared_examples 'more actions menu' do
@@ -36,14 +36,14 @@ describe 'More Actions Menu', type: :feature, js: true do
     before { signin user }
 
     context 'in content navigation' do
-      it_behaves_like 'more actions menu' do
+      include_examples 'more actions menu' do
         let (:target) { FactoryGirl.create(:user) }
         before { visit user_path(target) }
       end
     end
 
     context 'in user panel' do
-      it_behaves_like 'more actions menu' do
+      include_examples 'more actions menu' do
         let! (:target) { FactoryGirl.create(:user) }
         before { visit users_path }
       end

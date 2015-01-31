@@ -28,7 +28,7 @@ describe 'Authentication pages', type: :feature do
       it { should have_link(I18n.t('views.users.form.signup_link_text'), href: new_user_registration_path) }
     end
 
-    context 'by email login' do
+    context 'by email login', js: true do
       context 'with invalid info' do
         before { click_signin_button }
 
@@ -106,7 +106,7 @@ describe 'Authentication pages', type: :feature do
             }.from([0, 0]).to([1, 1])
           end
 
-          context 'after signed up' do
+          context 'after signed up', js: true do
             before { click_signup_button }
             it { should have_alert(:notice, 'signed') }
           end
@@ -127,7 +127,7 @@ describe 'Authentication pages', type: :feature do
           expect { click_link provider_text }.not_to change { [User.count, Authentication.count] }
         end
 
-        context 'after signed in' do
+        context 'after signed in', js: true do
           before { click_link provider_text }
 
           it 'redirect to the root page' do
@@ -180,7 +180,7 @@ describe 'Authentication pages', type: :feature do
   describe 'GET /users/edit' do
     let (:user) { FactoryGirl.create(:user) }
 
-    context 'as guest' do
+    context 'as guest', js: true do
       before {
         visit edit_user_registration_path
       }

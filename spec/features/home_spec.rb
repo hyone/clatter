@@ -71,7 +71,7 @@ describe 'Home Page', type: :feature do
 
           it { should have_selector('ul.pagination') }
 
-          it 'should list each feed in page 1' do
+          it 'should list each feed in page 1', js: true do
             User.page(1).per(UsersController::MESSAGE_PAGE_SIZE).each do |user|
               expect(page).to have_selector('li', text: user.screen_name)
             end
@@ -135,7 +135,7 @@ describe 'Home Page', type: :feature do
             home_mentions_path(filter: 'following')
           ) }
 
-          it 'should have all replies' do
+          it 'should have all replies', js: true do
             expect(page).to have_selector("#message-#{reply_from_followed_user.id}")
             expect(page).to have_selector("#message-#{reply_from_other.id}")
           end
@@ -146,7 +146,7 @@ describe 'Home Page', type: :feature do
 
           it { should have_link(I18n.t('views.home.mentions.all'), home_mentions_path) }
 
-          it 'should have replies from followed users' do
+          it 'should have replies from followed users', js: true do
             expect(page).to have_selector("#message-#{reply_from_followed_user.id}")
             expect(page).not_to have_selector("#message-#{reply_from_other.id}")
           end

@@ -1,0 +1,44 @@
+script type="text/x-template" id="follow-button-template"
+  div.follow-button-group
+    = form_tag(follows_path(format: 'json'),
+           class: 'follow-button',
+           format: 'json',
+           remote: true,
+           'v-if' => 'isFollowButton') do |f|
+      = hidden_field_tag 'follow[followed_id]', '{{user.id}}'
+      = button_tag class: 'btn btn-default',
+                   id: 'follow-{{user.screen_name}}',
+                   type: 'submit' do
+          b.fa.fa-user
+          = t('views.navigation.follow')
+
+    = form_tag(bindable_path('follow', '{{user.follow.id}}', format: 'json'),
+               method: :delete,
+               class: 'unfollow-button',
+               remote: true,
+               'v-if' => 'isUnfollowButton') do |f|
+      = button_tag class: 'btn btn-primary',
+                   id: 'unfollow-{{user.screen_name}}',
+                   type: 'submit' do
+          span.following
+            = t('views.navigation.following')
+          span.unfollow
+            = t('views.navigation.unfollow')
+
+    = form_tag(edit_user_registration_path,
+               method: :get,
+               class: 'edit-profile-button',
+               'v-if' => 'isEditProfileButton') do
+      = button_tag class: 'btn btn-default',
+                   type: 'submit' do
+          b.fa.fa-user
+          = t('views.navigation.edit_profile')
+
+    = form_tag(follows_path,
+               class: 'redirect-button',
+               'v-if' => 'isRequireLoginButton') do |f|
+      = button_tag class: 'btn btn-default',
+                   id: "follow-{{user.screen_name}}",
+                   type: 'submit' do
+          b.fa.fa-user
+          = t('views.navigation.follow')

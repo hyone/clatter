@@ -43,12 +43,13 @@ div.content-body
       div.row
         = render layout: 'shared/messages_panel', locals: { \
             messages: @feeds, \
+            page: @page, \
             description: t('views.home.index.description') \
           } do
-          span.message-icon
-            = image_tag @user.profile_image.small.url
-          = render 'vue/shared/message_form', message: @message, prefix: 'content-main-'
-          div id="content-main-message-form-component" v-component="content-main-message-form"
+            span.message-icon
+              = image_tag @user.profile_image.small.url
+            = render 'vue/messages/form', message: @message, prefix: 'content-main-'
+            div v-component="content-main-message-form" v-ref='contentMainMessageForm'
 
     div.visible-lg-block
       div.col.col-lg-3
@@ -57,5 +58,8 @@ div.content-body
             = render 'shared/footer_panel'
           / div.col-xs-12
             / = render 'shared/footer_panel'
+
+  javascript:
+    TwitterApp.profileUser = #{raw render(template: 'users/_user', formats: [:json], locals: { user: @user, stats: true, follow: true })};
 
 div.content-foot

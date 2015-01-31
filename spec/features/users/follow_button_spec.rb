@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe 'Follow/Unfollow button', type: :feature do
+describe 'Follow button', type: :feature, js: true do
   let! (:user) { FactoryGirl.create(:user) }
   let! (:other_user) { FactoryGirl.create(:user) }
 
@@ -25,7 +25,7 @@ describe 'Follow/Unfollow button', type: :feature do
       visit current_path
     }
 
-    context 'about follow button', js: true do
+    context 'about follow button' do
       before {
         # wait until Vue.js compilation and DOM setup have finished
         # wait_for_ready
@@ -36,8 +36,8 @@ describe 'Follow/Unfollow button', type: :feature do
       end
 
       it 'follow button should be visibule' do
-        expect(page.find('.follow-button')).to be_visible
-        expect(page.find('.unfollow-button', visible: false)).not_to be_visible
+        expect(page).to have_selector('.follow-button', visible: false)
+        expect(page).not_to have_selector('.unfollow-button')
       end
 
       it 'should be 0 followers' do
@@ -61,8 +61,8 @@ describe 'Follow/Unfollow button', type: :feature do
           click_follow_button(other_user)
           wait_for_ajax
 
-          expect(page.find('.follow-button', visible: false)).not_to be_visible
-          expect(page.find('.unfollow-button')).to be_visible
+          expect(page).to have_selector('.unfollow-button')
+          expect(page).not_to have_selector('.follow-button', visible: false)
         end
 
         it 'should be 1 followers' do
@@ -74,7 +74,7 @@ describe 'Follow/Unfollow button', type: :feature do
       end
     end
 
-    context 'about unfollow button', js: true do
+    context 'about unfollow button' do
       def click_unfollow_button(u)
         click_on "unfollow-#{u.screen_name}"
       end
@@ -87,8 +87,8 @@ describe 'Follow/Unfollow button', type: :feature do
       }
 
       it 'unfollow button should be visibule' do
-        expect(page.find('.follow-button', visible: false)).not_to be_visible
-        expect(page.find('.unfollow-button')).to be_visible
+        expect(page).to have_selector('.unfollow-button')
+        expect(page).not_to have_selector('.follow-button', visible: false)
       end
 
       it 'should be 1 followers' do
@@ -101,8 +101,8 @@ describe 'Follow/Unfollow button', type: :feature do
           click_unfollow_button(other_user)
           wait_for_ajax
 
-          expect(page.find('.follow-button')).to be_visible
-          expect(page.find('.unfollow-button', visible: false)).not_to be_visible
+          expect(page).to have_selector('.follow-button', visible: false)
+          expect(page).not_to have_selector('.unfollow-button')
         end
 
         it 'should unfollow other_user' do

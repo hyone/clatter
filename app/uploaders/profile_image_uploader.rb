@@ -19,11 +19,12 @@ class ProfileImageUploader < CarrierWave::Uploader::Base
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url
     base = 'default_profile_image.jpg'
-    if version_name.blank?
-      base
-    else
-      "#{version_name}_#{base}"
-    end
+    '/images/' +
+      if version_name.blank?
+        base
+      else
+        "#{version_name}_#{base}"
+      end
   end
 
   process resize_to_fill: [400, 400]
@@ -63,5 +64,4 @@ class ProfileImageUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-
 end

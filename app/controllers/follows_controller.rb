@@ -9,6 +9,7 @@ class FollowsController < ApplicationController
 
     @follow = @follower.follow!(@followed)
 
+    @status = :success
     respond_with @follower
   end
 
@@ -19,6 +20,7 @@ class FollowsController < ApplicationController
 
     @follower.unfollow!(@followed)
 
+    @status = :success
     respond_with @follower
   end
 end

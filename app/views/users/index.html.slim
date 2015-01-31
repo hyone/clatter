@@ -12,7 +12,9 @@ div.content-body
       div.row.users
         div.col-xs-12.users-panel
           ul.row
-            = render @users
+            javascript:
+              TwitterApp.users = #{raw render(template: 'users/index', formats: [:json], locals: { users: @users, follow: true })};
+            li v-repeat="user: users" v-component="user-panel"
 
         div.col-xs-12.pager-panel
             = paginate @users

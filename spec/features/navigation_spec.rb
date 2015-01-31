@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe 'Navigation', type: :feature do
+describe 'Navigation', type: :feature, js: true do
   let (:user) { FactoryGirl.create(:user) }
   subject { page }
 

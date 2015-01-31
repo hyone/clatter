@@ -2,10 +2,15 @@ en:
   views:
     generic:
       please_sign_in: Please sign in.
+      not_message_owner: You are not the owner of the message.
       appname: TwitterApp
 
     alert:
+      success_create_message: Message created!
+      failed_create_message: Failed to create message
       success_delete_message: Your message has been deleted.
+      failed_delete_message: Failed to delete message
+      failed_follow_message: "Failed to folllow %{user}"
 
     navigation:
       close: Close
@@ -54,9 +59,6 @@ en:
         people_you_follow: People you follow
         description_all: Find mentions about you here.
         description_people_you_follow: Find mentions from people you follow. Start a conversation with your friends!
-
-    messages:
-      success: Message created!
 
     users:
       user:

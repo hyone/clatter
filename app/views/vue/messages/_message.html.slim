@@ -1,0 +1,37 @@
+script type="text/x-template" id="message-template"
+  li.message.message-data id="message-{{message.id}}" data-message-id="{{message.id}}" data-screen-name="{{message.user.screen_name}}" data-user-id="{{message.user_id}}"
+    div.message-head
+      / a href="#{user_path(message.user)}"
+      a href="/users/{{message.user.id}}"
+        span.message-icon
+          img v-attr="src: message.user.profile_image_url_small"
+        span.message-owner-name
+          | {{message.user.name}}
+        span.message-info
+          | @{{message.user.screen_name}} - {{message.created_at_human}}
+    div.message-body
+      | {{{message.html_text}}}
+    div.message-foot
+      ul.list-inline
+        li.open-reply-to-button
+          a href='#' id="reply-to-message-{{message.id}}" v-on="click: onClickReplyButton"
+            b.fa.fa-reply
+        li
+          = link_to '#' do
+            b.fa.fa-retweet
+        li
+          = link_to '#' do
+            b.fa.fa-star-o
+        li.more-message-actions-button v-show="message.permissions.destroy"
+          div.btn-group
+            a href='#' class="btn-link message-actions-button dropdown-toggle" id="more-actions-message-{{message.id}}" type="button" data-toggle="dropdown" ari-expanded="false"
+              b.fa.fa-ellipsis-h
+            ul.dropdown-menu role="menu"
+              li v-if="message.permissions.destroy"
+                = link_to t('views.message_panel.delete_message'),
+                    bindable_path('message', "{{message.id}}", format: [:json]).html_safe,
+                    method: 'delete',
+                    remote: true,
+                    id: "delete-message-{{message.id}}",
+                    class: "delete-message",
+                    data: { confirm: t('views.message_panel.confirm_delete_message') }

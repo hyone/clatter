@@ -1,1 +1,4 @@
 asset 'vue'
+asset 'jquery'
+asset 'jquery-ujs'
+asset 'jquery.easing'

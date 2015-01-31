@@ -27,6 +27,7 @@ div.content-body
             t('views.home.mentions.description_people_you_follow')
         = render layout: 'shared/messages_panel', locals: { \
             messages: @feeds, \
+            page: @page, \
             description: description \
           } do
           h2.messages-panel-head-title = t('views.home.mentions.title')

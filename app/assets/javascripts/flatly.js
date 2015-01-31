@@ -1,6 +1,6 @@
 // Flatly
 // Bootswatch
 //= require jquery
-//= require jquery_ujs
+//= require jquery-ujs
 //= require flatly/loader
 //= require flatly/bootswatch

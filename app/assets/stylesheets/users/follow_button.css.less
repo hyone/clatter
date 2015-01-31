@@ -1,0 +1,33 @@
+@import "twitter/bootstrap/bootstrap";
+@import "variables.css.less";
+
+
+.follow-button-group {
+  display: inline-block;
+
+  form.follow-button, form.edit-profile-button, form.redirect-button {
+    > button {
+      font-weight: bold;
+
+      > b {
+        color: @app-active;
+      }
+    }
+  }
+
+  form.unfollow-button {
+    > button {
+      min-width: 90px;
+
+      > .unfollow  { display: none; }
+      > .following { display: inline-block; }
+
+      &:hover {
+        .btn-danger();
+
+        > .unfollow  { display: inline-block; }
+        > .following { display: none; }
+      }
+    }
+  }
+}

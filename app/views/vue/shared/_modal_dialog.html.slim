@@ -1,6 +1,6 @@
 /! modal message form
 script type="text/x-template" id="modal-dialog-template"
-  div.modal.fade#message-dialog tabindex="-1" role="dialog" aria-labelledby="modalMessageFormLabel" aria-hidden="true" v-modal-dialog="message-dialog"
+  div.modal.fade#message-dialog tabindex="-1" role="dialog" aria-labelledby="modalMessageFormLabel" aria-hidden="true"
     div.modal-dialog
       div.container
         div.row
@@ -13,9 +13,4 @@ script type="text/x-template" id="modal-dialog-template"
                 h4 class="modal-title" id="modalMessageFormLabel" {{title}}
               div.modal-body v-if="body" {{{body}}}
               div.modal-foot
-                content
-
-= render 'vue/shared/message_form', message: @message, prefix: 'modal'
-
-div v-component="modal-dialog"
-  div id="modal-message-form-component" v-component="modal-message-form"
+                div v-component="{{view}}"

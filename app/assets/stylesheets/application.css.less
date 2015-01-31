@@ -14,14 +14,15 @@
  *= require flatly/loader
  *= require fontawesome
  *
- *= require navigation
- *= require message_dialog
- *= require message_form
- *= require sessions
- *= require users
- *= require guest_home
- *= require user_home
- *= require notifications
+ *= require shared/navigation
+ *= require shared/modal_dialog
+ *= require messages/form
+ *= require users/sessions
+ *= require users/users
+ *= require users/follow_button
+ *= require home/guest_home
+ *= require home/user_home
+ *= require home/notifications
  */
 
 @import "twitter/bootstrap/bootstrap";
@@ -62,6 +63,11 @@ form {
   .field_with_errors {
     .has-error();
   }
+}
+
+
+[v-cloak] {
+  display: none;
 }
 
 
@@ -178,11 +184,30 @@ div.footer-panel {
 // ----------------------------------------------
 
 .alert-panel {
-  padding: 0 5px;
+  padding: 0;
+  position: fixed;
+  z-index: 1;
 
   .alert {
-    margin-top: 10px;
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 2px;
     margin-bottom: 0px;
+    border-top: 1px solid @app-separator-dark-light;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    box-shadow: 0 2px 4px @app-separator-dark;
+
+
+    > h4 {
+      margin-bottom: 0;
+      font-size: 16px;
+    }
+
+    > ul {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
   }
 }
 
@@ -249,6 +274,13 @@ div.footer-panel {
 
 li.message {
   list-style-type: none;
+
+  /* transition: all .3s ease; */
+  /* &.expand-enter, &.expand-leave { */
+    /* height: 0; */
+    /* padding: 0 10px; */
+    /* opacity: 0; */
+  /* } */
 
   .message-head {
     a {
@@ -357,37 +389,4 @@ li.message {
 .user-actions-button {
   color: @app-text-light;
   padding: 6px;
-}
-
-
-// follow or unfollow button
-
-.follow-or-unfollow-button {
-  display: inline-block;
-
-  form.follow-button {
-    > button {
-      font-weight: bold;
-
-      > b {
-        color: @app-active;
-      }
-    }
-  }
-
-  form.unfollow-button {
-    > button {
-      min-width: 90px;
-
-      > .unfollow  { display: none; }
-      > .following { display: inline-block; }
-
-      &:hover {
-        .btn-danger();
-
-        > .unfollow  { display: inline-block; }
-        > .following { display: none; }
-      }
-    }
-  }
 }

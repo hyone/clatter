@@ -10,9 +10,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @page = params[:page] || 1
     @messages = @user.messages_without_replies
                   .newer
-                  .page(params[:page]).per(MESSAGE_PAGE_SIZE)
+                  .page(@page)
+                  .per(MESSAGE_PAGE_SIZE)
   end
 
   def followers
