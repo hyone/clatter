@@ -10,24 +10,29 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *
- *= require flatly/loader
- *= require fontawesome
- *
- *= require shared/navigation
- *= require shared/modal_dialog
- *= require messages/form
- *= require users/sessions
- *= require users/users
- *= require users/follow_button
- *= require home/guest_home
- *= require home/user_home
- *= require home/notifications
  */
 
+@import "flatly/loader.css.less";
+@import "flatly/bootswatch.css.less";
 @import "twitter/bootstrap/bootstrap";
+@import "fontawesome";
+
 @import "variables.css.less";
 @import "mixins.css.less";
+@import "home/guest_home.css.less";
+@import "home/user_home.css.less";
+@import "home/notifications.css.less";
+@import "users/sessions.css.less";
+@import "users/users.css.less";
+@import "vue/shared/alert.css.less";
+@import "vue/shared/modal_dialog.css.less";
+@import "vue/shared/navigation.css.less";
+@import "vue/messages/form.css.less";
+@import "vue/messages/message.css.less";
+@import "vue/users/content_navigation.css.less";
+@import "vue/users/follow_button.css.less";
+@import "vue/users/user_actions_button.css.less";
+@import "vue/users/user_panel.css.less";
 
 
 // --------------------------------------------------------------------------------
@@ -180,38 +185,6 @@ div.footer-panel {
 }
 
 
-// alert panel
-// ----------------------------------------------
-
-.alert-panel {
-  padding: 0;
-  position: fixed;
-  z-index: 1;
-
-  .alert {
-    width: 600px;
-    margin: 0 auto;
-    margin-top: 2px;
-    margin-bottom: 0px;
-    border-top: 1px solid @app-separator-dark-light;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    box-shadow: 0 2px 4px @app-separator-dark;
-
-
-    > h4 {
-      margin-bottom: 0;
-      font-size: 16px;
-    }
-
-    > ul {
-      margin-top: 10px;
-      padding-left: 20px;
-    }
-  }
-}
-
-
 // profile block
 // ----------------------------------------------
 
@@ -270,123 +243,4 @@ div.footer-panel {
     border-bottom: 1px solid @app-separator;
     margin: 0;
   }
-}
-
-li.message {
-  list-style-type: none;
-
-  /* transition: all .3s ease; */
-  /* &.expand-enter, &.expand-leave { */
-    /* height: 0; */
-    /* padding: 0 10px; */
-    /* opacity: 0; */
-  /* } */
-
-  .message-head {
-    a {
-      text-decoration: none;
-
-      .message-icon {
-        float: left;
-        margin-top: 5px;
-        margin-right: 10px;
-
-        img {
-          border-radius: 3px;
-        }
-      }
-
-      .message-owner-name {
-        clear: both;
-        color: @text-color;
-        font-weight: bold;
-      }
-
-      .message-info {
-        margin: 0 5px;
-        font-size: 80%;
-        color: @app-text-lighter;
-      }
-
-      &:hover {
-        .message-owner-name {
-          color: @app-active;
-          text-decoration: underline;
-        }
-
-        .message-info {
-          color: @app-text-lighter;
-          text-decoration: none;
-        }
-      }
-    }
-  }
-
-  .message-body {
-    // reply link
-    .at-reply-link {
-      color: @app-active;
-
-      &:hover {
-        color: @app-active;
-        text-decoration: none;
-
-        .at-reply-screen-name {
-          text-decoration: underline;
-        }
-
-        .at-mark {
-        }  
-      }
-    }
-
-    .empty-description {
-      .additional-info();
-
-      padding: 10px 15px;
-      text-align: center;
-      font-size: 12px;
-
-      > .fa {
-        display: block;
-        padding-bottom: 10px;
-      }
-    }
-  }
-
-  .message-foot {
-    margin-top: 5px;
-
-    a {
-      color: @app-text-light;
-
-      &:hover {
-        color: @app-active;
-      }
-    }
-
-    > ul.list-inline > li {
-      padding-right: 20px;
-    }
-  }
-}
-
-
-//  buttons
-// ----------------------------------------------
-
-// dropdown button
-
-.dropdown-menu {
-  > li > a {
-    &:hover {
-      color: #fff !important;
-      background-color: @app-active;
-    }
-  }
-}
-
-.user-actions-button {
-  color: @app-text-light;
-  padding: 6px;
 }

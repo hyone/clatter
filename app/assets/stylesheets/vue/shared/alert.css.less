@@ -1,0 +1,32 @@
+@import "variables.css.less";
+
+.alert-panel {
+  padding: 0;
+  position: fixed;
+  z-index: 1;
+
+  .alert {
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 2px;
+    margin-bottom: 0px;
+    border-top: 1px solid @app-separator-dark-light;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    box-shadow: 0 2px 4px @app-separator-dark;
+
+
+    > h4 {
+      margin-bottom: 0;
+      font-size: 16px;
+    }
+
+    > ul {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+  }
+}
+
+
+

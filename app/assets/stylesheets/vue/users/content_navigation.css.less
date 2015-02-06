@@ -1,0 +1,45 @@
+ul.content-navigation {
+  width: 100%;
+  padding: 0;
+
+  > li {
+    text-align: center;
+
+    span.nav-label,
+    span.nav-value {
+      display: block;
+    }
+
+    span.nav-label {
+      font-size: 11px;
+      color: @gray-light;
+    }
+    span.nav-value {
+      font-weight: bold;
+    }
+
+    > a {
+      padding: 5px 15px;
+      border-bottom: 5px solid transparent;
+    }
+
+    > a,
+    > a:hover,
+    > &.active {
+      border-bottom-color: @app-active;
+      background-color: transparent;
+    }
+  }
+
+  li.content-navigation-buttons {
+    .pull-right();
+
+    height: 55px;
+    padding-top: 10px;
+    margin: auto;
+
+    form {
+      display: inline;
+    }
+  }
+}

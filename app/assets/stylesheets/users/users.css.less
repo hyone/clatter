@@ -5,7 +5,7 @@
 
 .user-page {
 
-  // content navigation
+  // header
   // ----------------------------------------------
 
   .header {
@@ -14,58 +14,12 @@
     .header-body > .container {
       padding: 0;
 
-      .content-navigation {
-        padding: 0 5px;
-
-        ul.nav {
-          width: 100%;
-          padding: 0;
-
-          > li {
-            text-align: center;
-
-            span.nav-label,
-            span.nav-value {
-              display: block;
-            }
-
-            span.nav-label {
-              font-size: 11px;
-              color: @gray-light;
-            }
-            span.nav-value {
-              font-weight: bold;
-            }
-
-            > a {
-              padding: 5px 15px;
-              border-bottom: 5px solid transparent;
-            }
-
-            > a,
-            > a:hover,
-            > &.active {
-              border-bottom-color: @app-active;
-              background-color: transparent;
-            }
-          }
-
-          li.content-navigation-buttons {
-            .pull-right();
-
-            height: 55px;
-            padding-top: 10px;
-            margin: auto;
-
-            form {
-              display: inline;
-            }
-          }
-        }
+      .content-navigation-block {
+        padding: 0;
+        > .col-inner { border: 0; }
       }
     }
   }
-
 
   // profile block
   // ----------------------------------------------
@@ -122,86 +76,5 @@
 .users-panel {
   > ul {
     padding-left: 10px;
-
-    li.user-panel {
-      padding-top: 0px;
-      list-style-type: none;
-      max-width: 300px;
-
-      > .col-inner {
-        border-width: 0;
-        height: 280px;
-        margin-bottom: 0;
-        background-color: transparent;
-      }
-
-      .user-profile-panel-head {
-        border: 1px solid @app-separator;
-        border-bottom-width: 0;
-        border-top-right-radius: 10px;
-        border-top-left-radius: 10px;
-        height: 95px;
-        background-color: @app-active;
-      }
-
-      .user-profile-image {
-        margin-left: 10px;
-        margin-right:10px;
-        margin-top: 65px;
-        width: 78px;
-        height: 78px;
-        border-radius: 5px;
-        background-color: @app-body-bg;
-        float: left;
-        padding: 3px;
-
-        img {
-          width: 72px;
-          height: 72px;
-          border-radius: 3px;
-        }
-      }
-
-      div.user-profile-panel-main {
-        height: 185px;
-        border: 1px solid @app-separator;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        padding: 10px;
-        background-color: @app-body-bg;
-
-        p.user-profile-name {
-          margin: 0;
-          font-size: 125%;
-          font-weight: bold;
-          a, a:visited, a:hover {
-            color: @app-text;
-          }
-        }
-
-        .user-profile-screen-name {
-          margin: 0;
-          color: @app-text-light;
-          font-size: 82.5%;
-
-          a {
-            color: @app-text-light;
-          }
-        }
-
-        .user-profile-buttons {
-          text-align: right;
-          height: 40px;
-        }
-
-
-        ul.list-inline {
-          margin-top: 15px;
-          li {
-            padding-right: 13px;
-          }
-        }
-      }
-    }
   }
 }

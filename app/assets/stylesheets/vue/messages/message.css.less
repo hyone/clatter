@@ -1,0 +1,100 @@
+@import "variables.css.less";
+
+
+li.message {
+  list-style-type: none;
+
+  /* transition: all .3s ease; */
+  /* &.expand-enter, &.expand-leave { */
+    /* height: 0; */
+    /* padding: 0 10px; */
+    /* opacity: 0; */
+  /* } */
+
+  .message-head {
+    a {
+      text-decoration: none;
+
+      .message-icon {
+        float: left;
+        margin-top: 5px;
+        margin-right: 10px;
+
+        img {
+          border-radius: 3px;
+        }
+      }
+
+      .message-owner-name {
+        clear: both;
+        color: @text-color;
+        font-weight: bold;
+      }
+
+      .message-info {
+        margin: 0 5px;
+        font-size: 80%;
+        color: @app-text-lighter;
+      }
+
+      &:hover {
+        .message-owner-name {
+          color: @app-active;
+          text-decoration: underline;
+        }
+
+        .message-info {
+          color: @app-text-lighter;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .message-body {
+    // reply link
+    .at-reply-link {
+      color: @app-active;
+
+      &:hover {
+        color: @app-active;
+        text-decoration: none;
+
+        .at-reply-screen-name {
+          text-decoration: underline;
+        }
+
+        .at-mark {
+        }
+      }
+    }
+
+    .empty-description {
+      padding: 10px 15px;
+      text-align: center;
+      font-size: 12px;
+      color: @app-text-light;
+
+      > .fa {
+        display: block;
+        padding-bottom: 10px;
+      }
+    }
+  }
+
+  .message-foot {
+    margin-top: 5px;
+
+    a {
+      color: @app-text-light;
+
+      &:hover {
+        color: @app-active;
+      }
+    }
+
+    > ul.list-inline > li {
+      padding-right: 20px;
+    }
+  }
+}
