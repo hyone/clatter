@@ -1,7 +1,10 @@
 TwitterApp.ContentNavigationComponent = Vue.extend
   template: '#content-navigation-template'
-
   replace: true
+
+  components:
+    'follow-button': TwitterApp.FollowButtonComponent
+    'user-actions-button': TwitterApp.UserActionsButtonComponent
 
   data: ->
     user: TwitterApp.profileUser
@@ -17,5 +20,3 @@ TwitterApp.ContentNavigationComponent = Vue.extend
     onUpdateStats: (event, following, followers) ->
       @updateStats(following, followers)
       false
-
-Vue.component('content-navigation', TwitterApp.ContentNavigationComponent)

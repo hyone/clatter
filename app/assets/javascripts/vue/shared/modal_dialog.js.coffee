@@ -7,6 +7,9 @@ TwitterApp.ModalDialogComponent = Vue.extend
     title: ''
     view: 'modal-message-form'
 
+  components:
+    'modal-message-form': TwitterApp.ModalMessageFormComponent
+
   compiled: ->
     @setupModalEventListeners()
 
@@ -63,6 +66,3 @@ TwitterApp.ModalDialogComponent = Vue.extend
     onOpenMessageReply: (event, body, screen_name) ->
       @openMessageReply(body, screen_name)
       @$broadcast('modal-dialog.open-message-reply', event, body, screen_name)
-
-
-Vue.component('modal-dialog', TwitterApp.ModalDialogComponent)

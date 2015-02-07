@@ -1,6 +1,5 @@
 TwitterApp.UserActionsButtonComponent = Vue.extend
   template: '#user-actions-button-template'
-
   replace: true
 
   data: ->
@@ -13,6 +12,3 @@ TwitterApp.UserActionsButtonComponent = Vue.extend
   methods:
     onClickReplyToUserButton: (event) ->
       @$dispatch('user-actions-button.click-user-reply-button', event, @user.screen_name)
-
-
-Vue.component('user-actions-button', TwitterApp.UserActionsButtonComponent)

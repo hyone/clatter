@@ -1,4 +1,4 @@
-Message = Vue.extend
+TwitterApp.MessageComponent = Vue.extend
   template: '#message-template'
   replace: true
 
@@ -26,6 +26,3 @@ Message = Vue.extend
       parent.find('.message-foot').empty()
       parent_html = parent.wrapAll("<div>").parent().html()
       @$dispatch('message.on-click-reply-button', event, parent_html, @message.user.screen_name)
-
-
-Vue.component('message', Message)

@@ -20,12 +20,12 @@
 #= require vue/transitions/fade
 #= require vue/transitions/slide_down
 #= require vue/shared/alert
-#= require vue/shared/modal_dialog
-#= require vue/shared/navigation
 #= require vue/messages/form
 #= require vue/messages/message
-#= require vue/users/content_navigation
 #= require vue/users/follow_button
 #= require vue/users/user_actions_button
+#= require vue/shared/modal_dialog
+#= require vue/shared/navigation
+#= require vue/users/content_navigation
 #= require vue/users/user_panel
 #= require vue/app

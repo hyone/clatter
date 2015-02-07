@@ -43,7 +43,7 @@ MessageForm = Vue.extend
       @text = ''
 
 
-ContentMainMessageForm = MessageForm.extend
+TwitterApp.ContentMainMessageFormComponent = MessageForm.extend
   template: '#content-main-message-form-template'
   replace: true
 
@@ -70,7 +70,7 @@ ContentMainMessageForm = MessageForm.extend
       @open()
 
 
-ModalMessageForm = MessageForm.extend
+TwitterApp.ModalMessageFormComponent = MessageForm.extend
   template: '#modal-message-form-template'
   replace: true
 
@@ -90,7 +90,3 @@ ModalMessageForm = MessageForm.extend
 
     onOpenUserReply: (event, screen_name) ->
       @setReplyText(screen_name)
-
-
-Vue.component('content-main-message-form', ContentMainMessageForm)
-Vue.component('modal-message-form', ModalMessageForm)

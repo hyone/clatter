@@ -5,8 +5,14 @@ TwitterApp.appVM = new Vue
     messages: TwitterApp.messages?.messages
     users: TwitterApp.users
 
-  ready: ->
-    window.rendered = true
+  components:
+    'alert': TwitterApp.AlertComponent
+    'content-main-message-form': TwitterApp.ContentMainMessageFormComponent
+    'content-navigation': TwitterApp.ContentNavigationComponent
+    'message': TwitterApp.MessageComponent
+    'modal-dialog': TwitterApp.ModalDialogComponent
+    'navigation': TwitterApp.NavigationComponent
+    'user-panel': TwitterApp.UserPanelComponent
 
   events:
     'follow.update-stats': 'onUpdateStats'
@@ -16,6 +22,9 @@ TwitterApp.appVM = new Vue
     'user-actions-button.click-user-reply-button': 'onClickReplyToUserButton'
     'navigation.click-new-message-button': 'onClickNewMessageButton'
     'app.alert': 'onAlert'
+
+  ready: ->
+    window.rendered = true
 
   methods:
     addMessage: (message) ->

@@ -1,4 +1,4 @@
-TwitterApp.AlertComponent = Vue.extend
+window.TwitterApp.AlertComponent = Vue.extend
   template: '#alert-template'
 
   replace: true
@@ -34,5 +34,3 @@ TwitterApp.AlertComponent = Vue.extend
 
     onClickCloseButton: ->
       @close()
-
-Vue.component('alert', TwitterApp.AlertComponent)
