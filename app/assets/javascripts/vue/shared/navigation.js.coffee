@@ -3,6 +3,9 @@ window.TwitterApp.NavigationComponent = Vue.extend
   replace: true
 
   methods:
+    isActiveMenu: (url) ->
+      @$interpolate(url) is location.pathname
+
     onClickNewMessageButton: (args...) ->
       @$dispatch('navigation.click-new-message-button', args...)
       false

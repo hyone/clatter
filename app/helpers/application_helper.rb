@@ -5,10 +5,6 @@ module ApplicationHelper
     [text, base].join(' | ')
   end
 
-  def active?(url)
-    request.path_info == url ? 'active' : nil
-  end
-
 
   # From https://github.com/tnantoka/miclo/
 

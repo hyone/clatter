@@ -11,23 +11,24 @@ script type="text/x-template" id="navigation-template"
       div.navbar-collapse.collapse
         ul.nav.navbar-nav
           li
-            = link_to root_path, class: active?(root_path) do
+            a href="#{ root_path }" v-class="
+              active: isActiveMenu('#{ root_path }')
+            "
               b.fa.fa-home.fa-lg
               = t('views.navigation.home')
-          / li
-            / = link_to home_about_path, class: active?(home_about_path) ? 'active' : nil do
-              / / b.glyphicon.glyphicon-info-sign
-              / b.fa.fa-info-circle.fa-lg
-              / | About
 
           - if user_signed_in?
             li
-              = link_to home_mentions_path, class: active?(home_mentions_path) do
+              a href="#{ home_mentions_path }" v-class="
+                active: isActiveMenu('#{ home_mentions_path }')
+              "
                 b.fa.fa-bell.fa-lg
                 = t('views.navigation.notifications')
 
           li
-            = link_to users_path, class: active?(users_path) do
+            a href="#{ users_path }" v-class="
+              active: isActiveMenu('#{ users_path }')
+            "
               b.fa.fa-users.fa-lg
               = t('views.navigation.users')
 
@@ -63,7 +64,9 @@ script type="text/x-template" id="navigation-template"
                     = t('views.navigation.signout')
           - else
             li
-              = link_to new_user_session_path, class: active?(new_user_session_path) do
+              a href="#{ new_user_session_path }" v-class="
+                active: isActiveMenu('#{ new_user_session_path }')
+              "
                 b.glyphicon.glyphicon-log-in
                 = t('views.navigation.signin')
 

@@ -23,27 +23,4 @@ describe ApplicationHelper, type: :helper do
       it { expect(page_title).to be == 'TwitterApp' }
     end
   end
-
-  describe '#active?' do
-    let (:request) { instance_double('ActionDispatch::Request') }
-    before {
-      allow(request).to receive(:path_info) { '/home' }
-    }
-    subject { active?(url) }
-
-    context 'with "/home"' do
-      let (:url) { '/home' }
-      it { should eq('active') }
-    end
-
-    context 'with "/about"' do
-      let (:url) { '/about' }
-      it { should be_falsey }
-    end
-
-    context 'with nil' do
-      let (:url) { nil }
-      it { should be_falsey }
-    end
-  end
 end

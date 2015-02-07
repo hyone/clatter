@@ -27,6 +27,9 @@ TwitterApp.appVM = new Vue
     window.rendered = true
 
   methods:
+    isActiveMenu: (url) ->
+      @$interpolate(url) is location.pathname
+
     addMessage: (message) ->
       @messages.unshift(message)
       @messages.pop()

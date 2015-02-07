@@ -8,11 +8,15 @@ div.content-body
         div.row
           div.col-xs-12
             div.menu-panel
-              / = link_to home_notifications_path, class: "list-group-item #{active?(home_notifications_path)}" do
+              / a.list-group-item href="#{ home_notifications_path }" v-class="
+                / active: isActiveMenu('#{ home_notifications_path }')
+              / "
                 / = t('views.menu_panel.notifications')
                 / span.fa.fa-chevron-right
 
-              = link_to home_mentions_path, class: "list-group-item #{active?(home_mentions_path)}" do
+              a.list-group-item href="#{ home_mentions_path }" v-class="
+                active: isActiveMenu('#{ home_mentions_path }')
+              "
                 = t('views.menu_panel.mentions')
                 span.fa.fa-chevron-right
 
