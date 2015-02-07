@@ -22,9 +22,11 @@ shared_examples 'a postable form' do |type = :modal|
     if type == :foldable
       context 'and then when blur the textarea' do
         before {
-          page.find('#content-main-message-form-text').trigger('blur')
+          page.find("\##{prefix}-message-form-text").trigger('blur')
         }
         it 'submit button should be hidden' do
+          # wait until the form have hidden
+          sleep 0.1
           expect(page.find("\##{prefix}-message-form-submit", visible: false)).not_to be_visible
         end
       end
@@ -46,7 +48,7 @@ shared_examples 'a postable form' do |type = :modal|
     if type == :foldable
       context 'and then when blur the textarea' do
         before {
-          page.find('#content-main-message-form-text').trigger('blur')
+          page.find("\##{prefix}-message-form-text").trigger('blur')
         }
         it 'submit button should be visible' do
           expect(page.find("\##{prefix}-message-form-submit")).to be_visible

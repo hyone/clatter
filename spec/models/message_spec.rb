@@ -12,7 +12,7 @@ describe Message, :type => :model do
   describe '#text' do
     it { should respond_to(:text) }
     it { should validate_presence_of(:text) }
-    it { should ensure_length_of(:text).is_at_most(140) }
+    it { should validate_length_of(:text).is_at_most(140) }
   end
 
   describe '#user' do

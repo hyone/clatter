@@ -12,7 +12,7 @@ describe User, :type => :model do
   describe '#screen_name' do
     it { should respond_to(:screen_name) }
     it { should validate_presence_of(:screen_name) }
-    it { should ensure_length_of(:screen_name).is_at_most(15) }
+    it { should validate_length_of(:screen_name).is_at_most(15) }
 
     context 'when given proper screen_name' do
       let (:screen_names) { %w{
@@ -52,7 +52,7 @@ describe User, :type => :model do
 
   describe '#description' do
     it { should respond_to(:description) }
-    it { should ensure_length_of(:description).is_at_most(160) }
+    it { should validate_length_of(:description).is_at_most(160) }
   end
 
   describe '#url' do
