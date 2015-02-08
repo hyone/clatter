@@ -1,25 +1,25 @@
-@import "variables.css.less";
+@import "variables";
 
 
-.placeholder-color(@color) {
-     &:-moz-placeholder {
-         color: @color;
-     }
-     &::-webkit-input-placeholder {
-         color: @color;
-     }
- }
+@mixin placeholder-color($color) {
+  &:-moz-placeholder {
+    color: $color;
+  }
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+}
 
 .panel {
-  border: 1px solid @app-separator;
+  border: 1px solid $app-separator;
   border-radius: 10px;
-  background-color: @app-body-bg;
+  background-color: $app-body-bg;
   margin-bottom: 10px;
   box-shadow: none;
 }
 
 .list-panel {
-  .panel;
+  @extend .panel;
 
   padding: 0;
   border-bottom: 0px;
@@ -31,7 +31,7 @@
     > li {
       margin: 0;
       padding: 10px;
-      border-bottom: 1px solid @app-separator;
+      border-bottom: 1px solid $app-separator;
       list-style-type: none;
 
       &:last-child {

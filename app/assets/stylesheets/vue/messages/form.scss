@@ -1,5 +1,5 @@
-@import "variables.css.less";
-@import "mixins.css.less";
+@import "variables";
+@import "mixins";
 
 
 form.message-form {
@@ -7,8 +7,8 @@ form.message-form {
     margin-bottom: 0px;
 
     textarea.message-text {
-      border: 1px solid @app-separator-active;
-      .placeholder-color(@app-active);
+      border: 1px solid $app-separator-active;
+      @include placeholder-color($app-active);
     }
   }
 

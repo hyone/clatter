@@ -1,16 +1,16 @@
 // navigation bar
 
-@import "variables.css.less";
+@import "variables";
 
-@app-navigation-bg: #fff;
+$app-navigation-bg: #fff;
 
 
 #navigation {
-  border-top: 1px solid @app-separator;
-  /* border-bottom: 1px solid darken(@app-active, 20%); */
-  border-bottom: 1px solid @app-separator;
+  border-top: 1px solid $app-separator;
+  /* border-bottom: 1px solid darken($app-active, 20%); */
+  border-bottom: 1px solid $app-separator;
   /* border-bottom-width: 0; */
-  background-color: @app-navigation-bg;
+  background-color: $app-navigation-bg;
 
   .container {
     padding: 0 5px;
@@ -22,14 +22,14 @@
         padding-top: 15px;
         padding-bottom: 10px;
         border-bottom: 5px solid transparent;
-        background-color: @app-navigation-bg;
-        color: @app-text-light;
+        background-color: $app-navigation-bg;
+        color: $app-text-light;
       }
 
       &.active, &:hover {
-        color: @link-color;
-        /* background-color: @app-navigation-bg; */
-        border-bottom-color: @app-active;
+        color: $link-color;
+        /* background-color: $app-navigation-bg; */
+        border-bottom-color: $app-active;
       }
     }
   }
@@ -42,8 +42,8 @@
       padding-top: 2px;
 
       input, button {
-        border-color: @app-separator-active;
-        background-color: @app-bg-active-light;
+        border-color: $app-separator-active;
+        background-color: $app-bg-active-light;
       }
     }
 
@@ -64,7 +64,7 @@
         img {
           width: 32px;
           height: 32px;
-          border: 1px solid @app-separator;
+          border: 1px solid $app-separator;
           border-radius: 5px;
         }
       }
@@ -72,12 +72,12 @@
       // dropdown
       ul.dropdown-menu li a {
         & {
-          color: @app-text-light;
+          color: $app-text-light;
         }
 
         &:hover {
-          color: @app-navigation-bg;
-          background-color: @app-active;
+          color: $app-navigation-bg;
+          background-color: $app-active;
         }
       }
     }

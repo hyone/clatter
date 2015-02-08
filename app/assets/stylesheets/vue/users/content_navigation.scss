@@ -12,7 +12,7 @@ ul.content-navigation {
 
     span.nav-label {
       font-size: 11px;
-      color: @gray-light;
+      color: $gray-light;
     }
     span.nav-value {
       font-weight: bold;
@@ -26,13 +26,13 @@ ul.content-navigation {
     > a,
     > a:hover,
     > &.active {
-      border-bottom-color: @app-active;
+      border-bottom-color: $app-active;
       background-color: transparent;
     }
   }
 
   li.content-navigation-buttons {
-    .pull-right();
+    @extend .pull-right;
 
     height: 55px;
     padding-top: 10px;

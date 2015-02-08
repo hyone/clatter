@@ -1,0 +1,46 @@
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap/mixins/alerts";
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap/alerts";
+@import "variables";
+@import "mixins";
+
+
+.session {
+  h3 {
+    margin: 0 0 15px 0;
+    border-bottom: 1px solid $gray-light;
+  }
+
+  .profile_image {
+    margin-bottom: 10px;
+
+    img {
+      border: 1px solid $app-separator;
+    }
+  }
+
+  .form-additional-info {
+    margin-left: 1em;
+  }
+
+
+  .setting-oauth {
+    /* border: 1px solid $gray-light; */
+    /* border-radius: $alert-border-radius; */
+    margin-top: 20px;
+
+    li {
+      margin-top: 10px;
+    }
+  }
+
+  .setting-danger-zone {
+    @extend .alert;
+    @extend .alert-danger;
+
+    margin-top: 20px;
+
+    h3 {
+      border-color: darken($btn-danger-bg, 20%);
+    }
+  }
+}

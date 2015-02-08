@@ -1,4 +1,4 @@
-@import "variables.css.less";
+@import "variables";
 
 // use a hack to place a inner element to center in box
 // see: http://c-brains.jp/blog/wsg/14/08/06-100100.php
@@ -22,7 +22,7 @@
         font-size: 64px;
         line-height: 50px;
         text-align: center;
-        color: @app-body-bg;
+        color: $app-body-bg;
 
         p {
           margin-top: 10px;

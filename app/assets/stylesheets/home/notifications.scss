@@ -1,33 +1,37 @@
-@import "twitter/bootstrap/bootstrap";
-@import "variables.css.less";
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap/mixins";
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap/forms";
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap/list-group";
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap/panels";
+@import "variables";
+@import "mixins";
 
 
 .notifications {
 
   .menu-panel {
-    .list-group();
+    @extend .list-group;
     margin-bottom: 10px;
 
     .list-group-item {
-      border-color: @app-separator;
-      color: @app-text-light;
-      background-color: @app-body-bg;
+      border-color: $app-separator;
+      color: $app-text-light;
+      background-color: $app-body-bg;
       padding: 8px 12px;
       line-height: 14px;
 
       &:hover {
-        color: @app-active;
-        background-color: @app-bg-active-light;
+        color: $app-active;
+        background-color: $app-bg-active-light;
       }
 
       &.active {
-        color: @app-text;
+        color: $app-text;
         font-weight: bold;
       }
 
       &.active:hover {
-        color: @app-active;
-        border-color: @app-separator;
+        color: $app-active;
+        border-color: $app-separator;
       }
 
       // icon
@@ -57,7 +61,7 @@
       // notifications
       .messages-panel-head-title {
         margin: 0;
-        color: @app-text-lighter;
+        color: $app-text-lighter;
         font-size: 22px;
         font-weight: 300;
       }

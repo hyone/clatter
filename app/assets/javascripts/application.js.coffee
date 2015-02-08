@@ -12,13 +12,11 @@
 #
 #= require jquery
 #= require jquery-ujs
-#= require jquery.easing
-#= require flatly/loader
+#= require bootstrap-sass-official/assets/javascripts/bootstrap-sprockets
 #= require i18n
 #= require i18n/translations
 #= require vue
 #= require vue/transitions/fade
-#= require vue/transitions/slide_down
 #= require vue/shared/alert
 #= require vue/messages/form
 #= require vue/messages/message

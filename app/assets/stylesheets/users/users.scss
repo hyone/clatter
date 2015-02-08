@@ -1,6 +1,5 @@
-@import "variables.css.less";
-@import "mixins.css.less";
-@import "twitter/bootstrap/bootstrap";
+@import "variables";
+@import "mixins";
 
 
 .user-page {
@@ -9,7 +8,7 @@
   // ----------------------------------------------
 
   .header {
-    background-color: @app-body-bg;
+    background-color: $app-body-bg;
 
     .header-body > .container {
       padding: 0;

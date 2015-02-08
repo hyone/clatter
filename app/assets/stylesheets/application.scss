@@ -12,27 +12,31 @@
  *
  */
 
-@import "flatly/loader.css.less";
-@import "flatly/bootswatch.css.less";
-@import "twitter/bootstrap/bootstrap";
-@import "fontawesome";
+// Fix web font paths
+$icon-font-path: "bootstrap-sass-official/assets/fonts/bootstrap/";
+$fa-font-path: "font-awesome-sass/assets/fonts/font-awesome/";
 
-@import "variables.css.less";
-@import "mixins.css.less";
-@import "home/guest_home.css.less";
-@import "home/user_home.css.less";
-@import "home/notifications.css.less";
-@import "users/sessions.css.less";
-@import "users/users.css.less";
-@import "vue/shared/alert.css.less";
-@import "vue/shared/modal_dialog.css.less";
-@import "vue/shared/navigation.css.less";
-@import "vue/messages/form.css.less";
-@import "vue/messages/message.css.less";
-@import "vue/users/content_navigation.css.less";
-@import "vue/users/follow_button.css.less";
-@import "vue/users/user_actions_button.css.less";
-@import "vue/users/user_panel.css.less";
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap-sprockets";
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap";
+@import "font-awesome-sass/assets/stylesheets/font-awesome-sprockets";
+@import "font-awesome-sass/assets/stylesheets/font-awesome";
+
+@import "variables";
+@import "mixins";
+@import "home/guest_home";
+@import "home/user_home";
+@import "home/notifications";
+@import "users/sessions";
+@import "users/users";
+@import "vue/shared/alert";
+@import "vue/shared/modal_dialog";
+@import "vue/shared/navigation";
+@import "vue/messages/form";
+@import "vue/messages/message";
+@import "vue/users/content_navigation";
+@import "vue/users/follow_button";
+@import "vue/users/user_actions_button";
+@import "vue/users/user_panel";
 
 
 // --------------------------------------------------------------------------------
@@ -52,11 +56,11 @@ h3 {
 }
 
 .fa, .glyphicon {
-  .icon;
+  @extend .icon;
 }
 
 .additional-info {
-  color: @app-text-light;
+  color: $app-text-light;
 }
 
 span.additional-info {
@@ -66,7 +70,7 @@ span.additional-info {
 
 form {
   .field_with_errors {
-    .has-error();
+    @extend .has-error;
   }
 }
 
@@ -83,7 +87,7 @@ form {
 body {
   margin: auto;
   padding-top: 50px;
-  background-color: @app-main-bg;
+  background-color: $app-main-bg;
 }
 
 
@@ -101,13 +105,13 @@ body {
 
 #navigation {
   .container {
-    .fixed-container;
+    @extend .fixed-container;
   }
 }
 
 .header {
   .container {
-    .fixed-container;
+    @extend .fixed-container;
   }
 }
 
@@ -120,7 +124,7 @@ body {
   }
 
   .container {
-    .fixed-container;
+    @extend .fixed-container;
   }
 }
 
@@ -129,11 +133,11 @@ body {
 }
 
 .col-inner {
-  .panel;
+  @extend .panel;
 }
 
 .bordered {
-  border-top: 1px solid @app-separator;
+  border-top: 1px solid $app-separator;
 }
 
 
@@ -141,14 +145,14 @@ body {
 // ----------------------------------------------
 
 .header {
-  border-bottom: 1px solid @app-separator;
+  border-bottom: 1px solid $app-separator;
 }
 
 .header-head {
   height: 150px;
-  background-color: @app-active;
-  border-top: 2px solid darken(@app-active, 20%);
-  border-bottom: 1px solid darken(@app-active, 20%);
+  background-color: $app-active;
+  border-top: 2px solid darken($app-active, 20%);
+  border-bottom: 1px solid darken($app-active, 20%);
 }
 
 
@@ -170,7 +174,7 @@ div.content-foot {
 div.footer-panel {
   div.col-inner {
     padding: 10px;
-    color: @app-text-lighter;
+    color: $app-text-lighter;
     font-size: 12px;
     line-height: 18px;
 
@@ -179,7 +183,7 @@ div.footer-panel {
     }
 
     a {
-      color: @app-text-lighter;
+      color: $app-text-lighter;
     }
   }
 }
@@ -190,17 +194,17 @@ div.footer-panel {
 
 .content-left {
   div.col-inner {
-    .panel;
+    @extend .panel;
   }
 
   div.user-profile-image {
     position: relative;
     width: 210px;
     height: 210px;
-    border: 1px solid @app-separator;
+    border: 1px solid $app-separator;
     border-radius: 10px;
     padding: 4px;
-    background-color: @app-body-bg;
+    background-color: $app-body-bg;
 
     img {
       width: 200px;
@@ -217,14 +221,14 @@ div.footer-panel {
       padding: 0;
       font-size: 24px;
       a {
-        color: @text-color;
+        color: $text-color;
       }
     }
 
     p.user-profile-screen-name {
-      color: @app-text-light;
+      color: $app-text-light;
       a {
-        color: @app-text-light;
+        color: $app-text-light;
       }
     }
   }
@@ -236,11 +240,11 @@ div.footer-panel {
 
 .messages-panel {
   > .col-inner {
-    .list-panel();
+    @extend .list-panel;
   }
 
   div.messages-panel-head {
-    border-bottom: 1px solid @app-separator;
+    border-bottom: 1px solid $app-separator;
     margin: 0;
   }
 }

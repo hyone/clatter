@@ -1,4 +1,5 @@
-asset 'vue'
+asset 'bootstrap-sass-official'
+asset 'font-awesome-sass'
 asset 'jquery'
 asset 'jquery-ujs'
-asset 'jquery.easing'
+asset 'vue'

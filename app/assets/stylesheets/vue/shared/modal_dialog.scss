@@ -1,4 +1,4 @@
-@import "variables.css.less";
+@import "variables";
 
 
 #message-dialog {
@@ -8,22 +8,22 @@
   }
 
   div.modal-head {
-    border-bottom-color: @app-separator-active;
+    border-bottom-color: $app-separator-active;
     padding: 10px;
 
     h4 {
       font-size: 16px;
-      color: @app-text-light;
+      color: $app-text-light;
       text-align: center;
     }
   }
 
   div.modal-body {
-    border-top: 1px solid @app-separator;
+    border-top: 1px solid $app-separator;
   }
 
   div.modal-foot {
-    background-color: @app-bg-active;
+    background-color: $app-bg-active;
     border-bottom-left-radius:  5px;
     border-bottom-right-radius: 5px;
     padding: 10px;

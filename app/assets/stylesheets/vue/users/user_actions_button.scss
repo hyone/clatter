@@ -1,17 +1,17 @@
-@import "variables.css.less";
+@import "variables";
 
 
 .dropdown-menu {
   > li > a {
     &:hover {
       color: #fff !important;
-      background-color: @app-active;
+      background-color: $app-active;
     }
   }
 }
 
 .user-actions-button {
-  color: @app-text-light;
+  color: $app-text-light;
   padding: 6px;
 }
 

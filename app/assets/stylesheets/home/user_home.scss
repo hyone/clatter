@@ -1,5 +1,5 @@
-@import "variables.css.less";
-@import "mixins.css.less";
+@import "variables";
+@import "mixins";
 
 // NOTE:
 // .home はページの識別子として header block, main block の両方で使われているので、
@@ -15,7 +15,7 @@
       border-top-right-radius: 10px;
       border-top-left-radius: 10px;
       height: 95px;
-      background-color: @app-active;
+      background-color: $app-active;
 
       div.home-profile-image {
         border-radius: 5px;
@@ -26,7 +26,7 @@
         margin-top: 60px;
         padding: 4px;
         float: left;
-        background-color: @app-body-bg;
+        background-color: $app-body-bg;
 
         img {
           width: 72px;
@@ -47,17 +47,17 @@
         font-size: 125%;
         font-weight: bold;
         a, a:visited, a:hover {
-          color: @app-text;
+          color: $app-text;
         }
       }
 
       .home-profile-screen-name {
         margin: 0;
-        color: @app-text-light;
+        color: $app-text-light;
         font-size: 82.5%;
 
         a {
-          color: @app-text-light;
+          color: $app-text-light;
         }
       }
 
@@ -73,7 +73,7 @@
 
           span.nav-label {
             font-size: 75%;
-            color: @app-text-lighter;
+            color: $app-text-lighter;
           }
           span.nav-value {
             font-weight: bold;
@@ -90,8 +90,8 @@
   div.messages-panel {
     div.messages-panel-head {
       padding: 10px;
-      background-color: @app-bg-active;
-      border-bottom: 1px solid @app-separator-active;
+      background-color: $app-bg-active;
+      border-bottom: 1px solid $app-separator-active;
       border-top-left-radius:  10px;
       border-top-right-radius: 10px;
 
