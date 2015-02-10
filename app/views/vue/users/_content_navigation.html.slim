@@ -1,23 +1,23 @@
 script type="text/x-template" id="content-navigation-template"
   ul.nav.navbar-nav.content-navigation
     li.content-navigation-messages role="presentation" v-class="
-      active: isActiveMenu('#{ bindable_path('user', '{{user.id}}') }')
+      active: isActiveMenu('#{ bindable_path('user', '{{user.screen_name}}') }')
     "
-      a href="#{ bindable_path('user', '{{user.id}}') }"
+      a href="#{ bindable_path('user', '{{user.screen_name}}') }"
         span.nav-label = t('views.users.show.navigation.messages')
         span.nav-value = "{{user.messages_count}}"
 
     li.content-navigation-following v-class="
-      active: isActiveMenu('#{ bindable_path('following_user', '{{user.id}}') }')
+      active: isActiveMenu('#{ bindable_path('following_user', '{{user.screen_name}}') }')
     "
-      a href="#{ bindable_path('following_user', '{{user.id}}') }"
+      a href="#{ bindable_path('following_user', '{{user.screen_name}}') }"
         span.nav-label = t('views.users.show.navigation.following')
         span.nav-value = "{{user.following_count}}"
 
     li.content-navigation-followers v-class="
-      active: isActiveMenu('#{ bindable_path('followers_user', '{{user.id}}') }')
+      active: isActiveMenu('#{ bindable_path('followers_user', '{{user.screen_name}}') }')
     "
-      a href="#{ bindable_path('followers_user', '{{user.id}}') }"
+      a href="#{ bindable_path('followers_user', '{{user.screen_name}}') }"
         span.nav-label = t('views.users.show.navigation.followers')
         span.nav-value = "{{user.followers_count}}"
 

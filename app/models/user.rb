@@ -36,6 +36,9 @@ class User < ActiveRecord::Base
 
   mount_uploader :profile_image, ProfileImageUploader
 
+  extend FriendlyId
+  friendly_id :screen_name
+
 
   validates :screen_name,
     presence: true,

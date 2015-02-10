@@ -32,9 +32,16 @@ describe 'Users pages', type: :feature do
   end
 
 
-  describe 'GET /users/:id' do
+  describe 'GET /users/:screen_name' do
     let (:user) { FactoryGirl.create(:user) }
     before { visit user_path(user) }
+
+    describe 'url' do
+      before { visit current_path }
+      it "should have screen_name in user's page url" do
+        expect(user_path(user)).to include(user.screen_name)
+      end
+    end
 
     describe 'content' do
       context 'in header', js: true do
@@ -111,7 +118,7 @@ describe 'Users pages', type: :feature do
   end
 
 
-  describe 'GET /users/:id/with_replies' do
+  describe 'GET /users/:screen_name/with_replies' do
     let (:user) { FactoryGirl.create(:user) }
     before { visit with_replies_user_path(user) }
 
@@ -136,7 +143,7 @@ describe 'Users pages', type: :feature do
   end
 
 
-  describe 'GET /users/:id/following' do
+  describe 'GET /users/:screen_name/following' do
     let (:user) { FactoryGirl.create(:user) }
     before { visit following_user_path(user) }
 
@@ -165,7 +172,7 @@ describe 'Users pages', type: :feature do
   end
 
 
-  describe 'GET /users/:id/followers' do
+  describe 'GET /users/:screen_name/followers' do
     let (:user) { FactoryGirl.create(:user) }
     before { visit followers_user_path(user) }
 

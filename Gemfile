@@ -26,6 +26,7 @@ gem 'omniauth-twitter'
 # others
 gem 'factory_girl_rails'
 gem 'faker'
+gem 'friendly_id'
 gem 'kaminari'
 gem 'kaminari-bootstrap'
 gem 'carrierwave'

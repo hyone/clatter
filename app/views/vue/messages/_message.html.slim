@@ -1,8 +1,7 @@
 script type="text/x-template" id="message-template"
   li.message.message-data id="message-{{message.id}}" data-message-id="{{message.id}}" data-screen-name="{{message.user.screen_name}}" data-user-id="{{message.user_id}}"
     div.message-head
-      / a href="#{user_path(message.user)}"
-      a href="/users/{{message.user.id}}"
+      a href="#{ bindable_path('user', '{{message.user.screen_name}}') }"
         span.message-icon
           img v-attr="src: message.user.profile_image_url_small"
         span.message-owner-name

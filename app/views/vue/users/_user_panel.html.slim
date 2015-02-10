@@ -3,15 +3,15 @@ script type="text/x-template" id="user-panel-template"
     div.col-inner
       div.user-profile-panel-head
         div.user-profile-image
-          a href="#{ bindable_path('user', '{{user.id}}') }"
+          a href="#{ bindable_path('user', '{{user.screen_name}}') }"
             img v-attr="src: user.profile_image_url"
       div.user-profile-panel-main
         div.user-profile-buttons
           div v-component="user-actions-button" v-with="user : user"
           div v-component="follow-button" v-with="user : user"
         p.user-profile-name
-          = link_to  '{{user.name}}', bindable_path('user', '{{user.id}}')
+          = link_to  '{{user.name}}', bindable_path('user', '{{user.screen_name}}')
         p.user-profile-screen-name
-          | @#{ link_to '{{user.screen_name}}', bindable_path('user', '{{user.id}}') }
+          | @#{ link_to '{{user.screen_name}}', bindable_path('user', '{{user.screen_name}}') }
         div.user-profile-text
           | {{user.description}}
