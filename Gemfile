@@ -5,28 +5,32 @@ ruby '2.2.0'
 gem 'rails', '4.2.0'
 gem 'pg'
 
+# views
 gem 'bower-rails'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
-gem 'therubyracer',  platforms: :ruby
-gem 'turbolinks'
 gem 'i18n-js'
 gem 'jbuilder', '~> 2.0'
+gem 'sass-rails', '~> 5.0'
 gem 'slim-rails'
-gem 'kaminari'
-gem 'kaminari-bootstrap'
+gem 'therubyracer',  platforms: :ruby
+gem 'turbolinks'
+gem 'uglifier', '>= 1.3.0'
+
+# auth
+gem 'cancancan'
 gem 'devise'
 gem 'omniauth-github'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
+
+# others
+gem 'factory_girl_rails'
+gem 'faker'
+gem 'kaminari'
+gem 'kaminari-bootstrap'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'responders', '~> 2.0'
-gem 'cancancan'
-
-gem 'factory_girl_rails'
-gem 'faker'
 
 
 group :doc do
