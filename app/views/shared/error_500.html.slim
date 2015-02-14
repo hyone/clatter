@@ -1,0 +1,12 @@
+- provide(:title, page_title('500 server error'))
+
+- provide(:page_type, 'error500')
+
+- message ||= nil
+
+- content_for :header do
+  div.header-head
+    div.container.centerize
+      h1 = t('views.error500.title')
+      - if message
+        p = message

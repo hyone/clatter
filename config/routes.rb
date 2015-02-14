@@ -23,4 +23,10 @@ Rails.application.routes.draw do
   resources :favorites,       only: [:create, :destroy]
   resources :follows,         only: [:create, :destroy]
   resources :messages,        only: [:create, :destroy]
+
+  resource :errors, only: [] do
+    get :unauthorized
+    get :not_found
+    get :internet_server_error
+  end
 end

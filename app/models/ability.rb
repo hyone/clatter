@@ -6,10 +6,21 @@ class Ability
     # guest user
     when user.nil?
       can :read, :all
+    # logined user
     else
       can :read, :all
-      can :create, Message
-      can :destroy, Message, user: user
+
+      # Message
+      can [:create, :destroy], Message, user: user
+
+      # Follow
+      can [:create, :destroy], Follow, follower: user
+
+      # Favorite
+      can [:create, :destroy], Favorite, user: user
+
+      # Reply
+      can [:create, :destroy], Reply, user: user
     end
 
     # Define abilities for the passed in user here. For example:

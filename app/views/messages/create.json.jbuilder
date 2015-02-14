@@ -1,9 +1,4 @@
-json.response do
-  json.status @status
-  json.message @response_message
-  json.details @response_details
-  json.date DateTime.now
-end
+json.partial! 'shared/response', status: @status, messages: @response_messages
 
 if @status == :success
   json.results do

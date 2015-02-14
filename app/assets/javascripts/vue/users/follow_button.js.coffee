@@ -29,7 +29,8 @@ TwitterApp.FollowButtonComponent = Vue.extend
     setupAjaxEventListeners: ->
       $(@$el).on 'ajax:success', (event, data, status, xhr) =>
         unless data.response.status == 'success'
-          return @$dispatch 'app.alert', event, data.response
+          @$dispatch 'app.alert', event, data.response
+          return false
 
         json = data.results.follow
         @updateButtonStatus(json)
@@ -47,7 +48,12 @@ TwitterApp.FollowButtonComponent = Vue.extend
         $(event.target).find('button[type="submit"]').attr('disabled', 'disabled')
 
     updateButtonStatus: (data) ->
-      @user.follow.id = data.follow_id
+      switch data.status
+        when 'follow'
+          @user.follow.id = data.id
+        when 'unfollow'
+          @user.follow.id = null
+      @$log 'user'
 
     updateUserStat: (data) ->
       return unless TwitterApp.profileUser

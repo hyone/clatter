@@ -1,26 +1,22 @@
 class FollowsController < ApplicationController
-  before_action :require_user, only: [:create, :destroy]
+  before_action :require_user
 
-  respond_to :html, :json
+  # load_and_authorize_resource through: :current_user, through_association: :follow_relationships
+  load_and_authorize_resource
+
+  respond_to :json
 
   def create
-    @followed = User.find(params[:follow][:followed_id])
-    @follower = current_user
-
-    @follow = @follower.follow!(@followed)
-
+    @follow.save!
     @status = :success
-    respond_with @follower
   end
 
   def destroy
-    @follow   = Follow.find(params[:id])
-    @follower = current_user
-    @followed = @follow.followed
-
-    @follower.unfollow!(@followed)
-
+    @follow.destroy!
     @status = :success
-    respond_with @follower
+  end
+
+  def follow_params
+    params.require(:follow).permit(:followed_id)
   end
 end

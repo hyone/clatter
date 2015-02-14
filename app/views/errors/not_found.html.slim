@@ -1,0 +1,9 @@
+- provide(:title, page_title(t('views.errors.not_found.title')))
+
+- provide(:page_type, 'error')
+
+
+- content_for :header do
+  div.header-head
+    div.container.centerize
+      h1 = t('views.errors.not_found.message')
