@@ -5,6 +5,15 @@ MAIN_USER = FactoryGirl.create(
 )
 
 
+def random_user
+  User.offset(rand(User.count)).first
+end
+
+def random_message
+  Message.offset(rand(Message.count)).first
+end
+
+
 def gen_users
   FactoryGirl.create_list(:user, 99)
 end
@@ -39,7 +48,13 @@ def gen_follows
   end
 end
 
+def gen_favorites
+  30.times  { FactoryGirl.create(:favorite, user: MAIN_USER, message: random_message) }
+  200.times { FactoryGirl.create(:favorite, user: random_user, message: random_message) }
+end
+
 
 gen_users
 gen_messages
 gen_follows
+gen_favorites

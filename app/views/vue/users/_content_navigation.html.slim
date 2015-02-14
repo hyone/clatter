@@ -22,9 +22,9 @@ script type="text/x-template" id="content-navigation-template"
         span.nav-value = "{{user.followers_count}}"
 
     li.content-navigation-favorites
-      a href="#"
+      a href="#{ bindable_path('favorites_user', '{{user.screen_name}}') }"
         span.nav-label = t('views.users.show.navigation.favorites')
-        span.nav-value 3
+        span.nav-value = "{{user.favorites_count}}"
 
     li.content-navigation-buttons
       div v-component="user-actions-button" v-with="user : user"

@@ -18,6 +18,7 @@
 #= require vue
 #= require vue/transitions/fade
 #= require vue/shared/alert
+#= require vue/messages/favorite_button
 #= require vue/messages/form
 #= require vue/messages/message
 #= require vue/users/follow_button

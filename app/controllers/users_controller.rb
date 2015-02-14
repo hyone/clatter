@@ -18,6 +18,14 @@ class UsersController < ApplicationController
                   .per(MESSAGE_PAGE_SIZE)
   end
 
+  def favorites
+    @page = params[:page] || 1
+    @messages = @user.favorites
+                  .newer
+                  .page(@page)
+                  .per(MESSAGE_PAGE_SIZE)
+  end
+
   def followers
     @followers = @user.followers.page(params[:page]).per(USER_PAGE_SIZE)
   end

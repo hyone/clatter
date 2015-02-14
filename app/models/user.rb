@@ -12,6 +12,11 @@ class User < ActiveRecord::Base
   has_many :authentications, dependent: :destroy
   has_many :messages, dependent: :destroy
 
+  # favorites relationships
+  has_many :favorite_relationships, class_name: 'Favorite',
+                                    dependent: :destroy
+  has_many :favorites, through: :favorite_relationships, source: :message
+
   # following relationships
   has_many :follow_relationships, foreign_key: 'follower_id',
                                   class_name: 'Follow',

@@ -15,6 +15,7 @@ TwitterApp.appVM = new Vue
     'user-panel': TwitterApp.UserPanelComponent
 
   events:
+    'favorite.update-stats': 'onUpdateStats'
     'follow.update-stats': 'onUpdateStats'
     'message.created': 'onMessageCreated'
     'message.deleted': 'onMessageDeleted'

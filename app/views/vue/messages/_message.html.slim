@@ -12,18 +12,17 @@ script type="text/x-template" id="message-template"
       | {{{message.html_text}}}
     div.message-foot
       ul.list-inline
-        li.open-reply-to-button
-          a href='#' id="reply-to-message-{{message.id}}" v-on="click: onClickReplyButton"
+        li.open-reply-to-button-item
+          button class="btn-link" id="reply-to-message-{{message.id}}" v-on="click: onClickReplyButton"
             b.fa.fa-reply
-        li
-          = link_to '#' do
+        li.retweet-button-item
+          button class="btn-link"
             b.fa.fa-retweet
-        li
-          = link_to '#' do
-            b.fa.fa-star-o
-        li.more-message-actions-button v-show="message.permissions.destroy"
+        li.favorite-button-item
+          div v-component="favorite-button" v-with="message: message"
+        li.message-actions-button-item v-show="message.permissions.destroy"
           div.btn-group
-            a href='#' class="btn-link message-actions-button dropdown-toggle" id="more-actions-message-{{message.id}}" type="button" data-toggle="dropdown" ari-expanded="false"
+            button class="btn-link message-actions-button dropdown-toggle" id="message-actions-{{message.id}}" type="button" data-toggle="dropdown" ari-expanded="false"
               b.fa.fa-ellipsis-h
             ul.dropdown-menu role="menu"
               li v-if="message.permissions.destroy"

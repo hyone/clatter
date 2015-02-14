@@ -2,6 +2,9 @@ TwitterApp.MessageComponent = Vue.extend
   template: '#message-template'
   replace: true
 
+  components:
+    'favorite-button': TwitterApp.FavoriteButtonComponent
+
   compiled: ->
     @setupAjaxEventListeners()
 

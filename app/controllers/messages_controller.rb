@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
-  before_action :require_user, only: [:create, :destroy]
-  before_action :correct_user, only: [:destroy]
+  before_action :require_user,          only: [:create, :destroy]
+  before_action :require_message_owner, only: [:destroy]
 
   load_and_authorize_resource
 

@@ -76,6 +76,17 @@ describe User, :type => :model do
   end
 
 
+  describe '#favorite_relationships' do
+    it { should respond_to(:favorite_relationships) }
+    it { should have_many(:favorite_relationships) }
+  end
+
+  describe '#favorites' do
+    it { should respond_to(:favorites) }
+    it { should have_many(:favorites).through(:favorite_relationships) }
+  end
+
+
   describe '#follow_relationships' do
     it { should respond_to(:follow_relationships) }
     it { should have_many(:follow_relationships) }

@@ -53,6 +53,6 @@ TwitterApp.FollowButtonComponent = Vue.extend
       return unless TwitterApp.profileUser
       switch TwitterApp.profileUser.id
         when data.follower.id
-          @$dispatch('follow.update-stats', event, data.follower.following_count)
+          @$dispatch('follow.update-stats', event, following: data.follower.following_count)
         when data.followed_user.id
-          @$dispatch('follow.update-stats', event, null, data.followed_user.followers_count)
+          @$dispatch('follow.update-stats', event, followers: data.followed_user.followers_count)

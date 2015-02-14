@@ -1,0 +1,23 @@
+- provide(:title, page_title(t('views.users.favorites.title', user: username_formatted(@user))))
+
+
+div.row
+  div.col.col-sm-4.col-lg-3.content-left
+    div.row
+      div.col-xs-12
+        = render 'shared/user_profile_panel'
+
+      div.hidden-lg
+        div.col-xs-12
+          = render 'shared/footer_panel'
+
+  div.col.col-sm-8.col-lg-6.content-main
+    div.row
+      = render layout: 'shared/messages_panel', locals: { messages: @messages, page: @page } do
+        h2 = t('views.users.favorites.header_title')
+
+  div.visible-lg-block
+    div.col.col-lg-3
+      = render 'shared/footer_panel'
+
+

@@ -8,6 +8,7 @@ json.profile_image_url_small  user.profile_image.small.url
 
 if stats
   json.messages_count user.messages.count
+  json.favorites_count user.favorites.count
   json.following_count user.followed_users.count
   json.followers_count user.followers.count
 end

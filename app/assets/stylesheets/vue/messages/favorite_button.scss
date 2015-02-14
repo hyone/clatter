@@ -1,0 +1,19 @@
+@import "variables";
+
+$app-favorite-active : #ffac33;
+
+
+form.favorite-button,
+form.unfavorite-button {
+  > button {
+    &:hover {
+      color: $app-favorite-active;
+    }
+  }
+}
+
+form.unfavorite-button {
+  > button {
+    color: $app-favorite-active;
+  }
+}

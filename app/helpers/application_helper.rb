@@ -5,6 +5,10 @@ module ApplicationHelper
     [text, base].join(' | ')
   end
 
+  def username_formatted(user)
+    "#{user.name} (@#{user.screen_name})"
+  end
+
 
   # From https://github.com/tnantoka/miclo/
 

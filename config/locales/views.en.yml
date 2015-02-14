@@ -3,6 +3,7 @@ en:
     generic:
       please_sign_in: Please sign in.
       not_message_owner: You are not the owner of the message.
+      not_favorite_owner: You are not the owner of the favorite.
       appname: TwitterApp
 
     alert:
@@ -11,6 +12,7 @@ en:
       success_delete_message: Your message has been deleted.
       failed_delete_message: Failed to delete message
       failed_follow_message: "Failed to folllow %{user}"
+      failed_favorite_message: Failed to mark message as favorite
 
     navigation:
       close: Close
@@ -90,6 +92,7 @@ en:
         update: Update
       edit:
         title: Setting
+
       show:
         navigation:
           messages: MESSAGES
@@ -99,3 +102,12 @@ en:
         messages: Messages
         messages_and_replies: Messages & replies
 
+      followers:
+        title: "People following %{user}"
+
+      following:
+        title: "People followed by %{user}"
+
+      favorites:
+        title: "Favorites Messages by %{user}"
+        header_title: Favorites

@@ -143,6 +143,39 @@ describe 'Users pages', type: :feature do
   end
 
 
+  describe 'GET /users/:screen_name/favorites' do
+    let (:user) { FactoryGirl.create(:user) }
+    before { visit favorites_user_path(user) }
+
+    describe 'content', js: true do
+      it { should have_title(I18n.t('views.users.favorites.title', user: username_formatted(user))) }
+
+      context 'in messages panel' do
+        context 'in header' do
+          it { should have_content(I18n.t('views.users.favorites.header_title')) }
+        end
+
+        context 'in message list' do
+          let! (:favorites) { FactoryGirl.create_list(:favorite, 3, user: user) }
+          let! (:other_favorites) { FactoryGirl.create_list(:favorite, 7) }
+          before {
+            stub_const('UsersController::MESSAGE_PAGE_SIZE', 10)
+            visit current_path    # reload page
+          }
+
+          it "should display own favorite's messages" do
+            favorites.each { |f| expect(page).to have_message(f.message) }
+          end
+
+          it "should not display other user favorite's messages" do
+            other_favorites.each { |f| expect(page).not_to have_message(f.message) }
+          end
+        end
+      end
+    end
+  end
+
+
   describe 'GET /users/:screen_name/following' do
     let (:user) { FactoryGirl.create(:user) }
     before { visit following_user_path(user) }

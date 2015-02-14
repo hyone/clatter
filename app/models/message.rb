@@ -12,6 +12,10 @@ class Message < ActiveRecord::Base
                                          class_name: 'Reply',
                                          dependent: :destroy
 
+  # favorite relationships
+  has_many :favorite_relationships, class_name: 'Favorite', dependent: :destroy
+  has_many :favorited_users, through: :favorite_relationships, source: :user
+
   # virtual field to set the id of message replied to
   attr_accessor :message_id_replied_to
 
@@ -32,6 +36,11 @@ class Message < ActiveRecord::Base
   def reply?
     not reply_relationships.empty?
   end
+
+  def favorited_by(user)
+    favorite_relationships.find_by(user: user)
+  end
+
 
   class << self
     def timeline_of(user)

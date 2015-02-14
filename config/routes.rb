@@ -14,11 +14,13 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show] do
     member do
       get :with_replies
+      get :favorites
       get :following
       get :followers
     end
   end
   resources :authentications, only: [:index, :destroy]
+  resources :favorites,       only: [:create, :destroy]
   resources :follows,         only: [:create, :destroy]
   resources :messages,        only: [:create, :destroy]
 end

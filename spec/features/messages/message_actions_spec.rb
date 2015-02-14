@@ -15,16 +15,16 @@ describe 'Message Actions', type: :feature, js: true do
 
         before {
           visit user_path(message.user)
-          click_link "reply-to-message-#{message.id}"
+          click_on "reply-to-message-#{message.id}"
         }
 
         # # Unfotunately, don't work below...
         # it 'should display modal dialog' do
-        # expect {
-        # click_link "reply-to-message-#{message.id}"
-        # }.to change {
-        # page.find('#message-dialog').visible?
-        # }.from(false).to(true)
+        #   expect {
+        #     click_on "reply-to-message-#{message.id}"
+        #   }.to change {
+        #     page.find('#message-dialog').visible?
+        #   }.from(false).to(true)
         # end
 
         it 'should display modal dialog' do
@@ -88,9 +88,9 @@ describe 'Message Actions', type: :feature, js: true do
           should have_selector("#delete-message-#{message.id}", visible: false)
         end
 
-        context 'when click the more action button' do
+        context 'when click the message actions button' do
           before {
-            click_link "more-actions-message-#{message.id}"
+            click_on "message-actions-#{message.id}"
           }
 
           it 'should display' do

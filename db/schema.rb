@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150123064404) do
+ActiveRecord::Schema.define(version: 20150210123137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(version: 20150123064404) do
   end
 
   add_index "authentications", ["user_id"], name: "index_authentications_on_user_id", using: :btree
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "message_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "favorites", ["message_id"], name: "index_favorites_on_message_id", using: :btree
+  add_index "favorites", ["user_id", "message_id"], name: "index_favorites_on_user_id_and_message_id", unique: true, using: :btree
+  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id", using: :btree
 
   create_table "follows", force: :cascade do |t|
     t.integer  "follower_id"
@@ -86,6 +97,8 @@ ActiveRecord::Schema.define(version: 20150123064404) do
   add_index "users", ["screen_name"], name: "index_users_on_screen_name", unique: true, using: :btree
 
   add_foreign_key "authentications", "users", on_delete: :cascade
+  add_foreign_key "favorites", "messages", name: "fk_favorites_message_id", on_delete: :cascade
+  add_foreign_key "favorites", "users", name: "fk_favorites_user_id", on_delete: :cascade
   add_foreign_key "follows", "users", column: "followed_id", name: "fk_relationships_followed_id", on_delete: :cascade
   add_foreign_key "follows", "users", column: "follower_id", name: "fk_relationships_follower_id", on_delete: :cascade
   add_foreign_key "messages", "users", name: "fk_messages_user_id", on_delete: :cascade

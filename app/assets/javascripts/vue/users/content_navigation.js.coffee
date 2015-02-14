@@ -10,16 +10,19 @@ TwitterApp.ContentNavigationComponent = Vue.extend
     user: TwitterApp.profileUser
 
   events:
+    'favorite.update-stats': 'onUpdateStats'
     'follow.update-stats': 'onUpdateStats'
 
   methods:
     isActiveMenu: (url) ->
       @$interpolate(url) is location.pathname
 
-    updateStats: (following, followers) ->
+    updateStats: ({messages, following, followers, favorites}) ->
+      @user.messages_count  = messages  if messages?
       @user.following_count = following if following?
       @user.followers_count = followers if followers?
+      @user.favorites_count = favorites if favorites?
 
-    onUpdateStats: (event, following, followers) ->
-      @updateStats(following, followers)
+    onUpdateStats: (event, args) ->
+      @updateStats(args)
       false
