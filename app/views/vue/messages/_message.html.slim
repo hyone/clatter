@@ -1,5 +1,5 @@
 script type="text/x-template" id="message-template"
-  li.message.message-data id="message-{{message.id}}" data-message-id="{{message.id}}" data-screen-name="{{message.user.screen_name}}" data-user-id="{{message.user_id}}"
+  li.message.message-data.clearfix id="{{prefix}}-{{message.id}}" data-message-id="{{message.id}}" data-screen-name="{{message.user.screen_name}}" data-user-id="{{message.user_id}}"
     div.message-head
       a href="#{ bindable_path('user', '{{message.user.screen_name}}') }"
         span.message-icon
@@ -10,14 +10,18 @@ script type="text/x-template" id="message-template"
           | @{{message.user.screen_name}} - {{message.created_at_human}}
     div.message-body
       | {{{message.html_text}}}
-    div.message-foot
+    div.message-foot v-if="showFoot"
       ul.list-inline
         li.open-reply-to-button-item
-          button class="btn-link" id="reply-to-message-{{message.id}}" v-on="click: onClickReplyButton"
+          button class="btn btn-link" id="reply-to-message-{{message.id}}" v-on="click: onClickReplyButton" v-class="
+            disabled: canActions
+          "
             b.fa.fa-reply
-        li.retweet-button-item
-          button class="btn-link"
-            b.fa.fa-retweet
+        / li.retweet-button-item
+          / button class="btn-link" v-class="
+            / disabled: canActions
+          / "
+            / b.fa.fa-retweet
         li.favorite-button-item
           div v-component="favorite-button" v-with="message: message"
         li.message-actions-button-item v-show="message.permissions.destroy"

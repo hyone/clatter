@@ -2,8 +2,19 @@ TwitterApp.MessageComponent = Vue.extend
   template: '#message-template'
   replace: true
 
+  paramAttributes: ['show-foot', 'prefix']
+
   components:
     'favorite-button': TwitterApp.FavoriteButtonComponent
+
+  data: ->
+    message: undefined
+    showFoot: true
+    prefix: 'message'
+
+  computed:
+    canActions: ->
+      !TwitterApp.currentUser
 
   compiled: ->
     @setupAjaxEventListeners()
@@ -25,7 +36,4 @@ TwitterApp.MessageComponent = Vue.extend
           message: "#{I18n.t('views.alert.failed_create_message')}: #{error}"
 
     onClickReplyButton: (event) ->
-      parent = $(@$el).clone()
-      parent.find('.message-foot').empty()
-      parent_html = parent.wrapAll("<div>").parent().html()
-      @$dispatch('message.on-click-reply-button', event, parent_html, @message.user.screen_name)
+      @$dispatch('message.on-click-reply-button', event, @message)

@@ -18,22 +18,8 @@ describe 'Favorite buttons', type: :feature, js: true do
   end
 
   describe 'as guest' do
-    context 'when click favorite button' do
-      it 'should not create favorite record' do
-        expect {
-          click_favorite_button(message)
-          # wait_for_ajax railse Timeout Error.
-          # because 'jQuery.active' seems not to be 0 when ajax request fails
-          # so, use sleep instead of
-          sleep 0.1
-        }.not_to change(Favorite, :count)
-      end
-
-      # I have yet to determine the reason this fails ...
-      # it {
-        # click_favorite_button(message)
-        # expect(page).to have_alert(:error)
-      # }
+    it 'favorite button should be disabled' do
+      expect(page).to have_selector("#favorite-message-#{message.id}.disabled")
     end
   end
 
@@ -47,6 +33,10 @@ describe 'Favorite buttons', type: :feature, js: true do
       it 'favorite button should be displayed' do
         expect(page).to have_selector("#message-#{message.id} .favorite-button")
         expect(page).not_to have_selector("#message-#{message.id} .unfavorite-button", visible: false)
+      end
+
+      it 'favorite button should be enabled' do
+        expect(page).not_to have_selector("#favorite-message-#{message.id}.disabled")
       end
 
       context 'in content navigation' do
@@ -96,6 +86,10 @@ describe 'Favorite buttons', type: :feature, js: true do
       it 'unfavorite button should be displayed' do
         expect(page).to have_selector("#message-#{message.id} .unfavorite-button")
         expect(page).not_to have_selector("#message-#{message.id} .favorite-button", visible: false)
+      end
+
+      it 'unfavorite button should be enabled' do
+        expect(page).not_to have_selector("#unfavorite-message-#{message.id}.disabled")
       end
 
       context 'in content navigation' do

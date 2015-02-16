@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :messages,        only: [:create, :destroy]
 
   resource :errors, only: [] do
+    get :bad_request
     get :unauthorized
     get :not_found
     get :internet_server_error

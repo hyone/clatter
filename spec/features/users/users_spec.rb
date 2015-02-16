@@ -103,7 +103,10 @@ describe 'Users pages', type: :feature do
         context 'in messages list', js: true do
           let! (:messages) { FactoryGirl.create_list(:message, 10, user: user) }
           let! (:reply) { FactoryGirl.create(:message_with_reply, user: user) }
-          before { visit current_path }
+          before {
+            stub_const('UsersController::MESSAGE_PAGE_SIZE', 20)
+            visit current_path
+          }
 
           it 'should not display reply' do
             should_not have_message(reply)
@@ -131,7 +134,10 @@ describe 'Users pages', type: :feature do
         context 'in messages list', js: true do
           let! (:messages) { FactoryGirl.create_list(:message, 10, user: user) }
           let! (:replies) { FactoryGirl.create_list(:message_with_reply, 10, user: user) }
-          before { visit current_path }
+          before {
+            stub_const('UsersController::MESSAGE_PAGE_SIZE', 20)
+            visit current_path
+          }
 
           it 'should display both messages and replies' do
             messages.each { |m| expect(page).to have_message(m) }
@@ -184,10 +190,11 @@ describe 'Users pages', type: :feature do
       context 'in users panel' do
         let! (:followed_users) { FactoryGirl.create_list(:user, 10) }
         let! (:other_user) { FactoryGirl.create(:user) }
-        before { 
+        before {
           followed_users.each do |u|
             FactoryGirl.create(:follow, follower: user, followed: u)
-          end 
+          end
+          stub_const('UsersController::MESSAGE_PAGE_SIZE', 10)
           visit current_path
         }
 
@@ -213,10 +220,11 @@ describe 'Users pages', type: :feature do
       context 'in users panel' do
         let! (:followers) { FactoryGirl.create_list(:user, 10) }
         let! (:other_user) { FactoryGirl.create(:user) }
-        before { 
+        before {
           followers.each do |u|
             FactoryGirl.create(:follow, follower: u, followed: user)
-          end 
+          end
+          stub_const('UsersController::MESSAGE_PAGE_SIZE', 10)
           visit current_path
         }
 
@@ -231,6 +239,5 @@ describe 'Users pages', type: :feature do
         end
       end
     end
-    
   end
 end

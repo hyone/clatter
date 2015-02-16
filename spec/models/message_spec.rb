@@ -115,6 +115,20 @@ describe Message, :type => :model do
     end
   end
 
+  describe '#reply?' do
+    subject { message.reply? }
+
+    context 'when message is reply' do
+      let! (:message) { FactoryGirl.create(:message_with_reply) }
+      it { should be_truthy }
+    end
+
+    context 'when message is not reply' do
+      let! (:message) { FactoryGirl.create(:message) }
+      it { should be_falsy }
+    end
+  end
+
 
   describe '::timeline_of' do
     subject { Message.timeline_of(user) }

@@ -10,6 +10,8 @@ TwitterApp.FavoriteButtonComponent = Vue.extend
       !!@message.favorited?.id
     hasFavorites: ->
       @message.favorited_count > 0
+    canFavorite: ->
+      !TwitterApp.currentUser
 
   compiled: ->
     @setupAjaxEventListeners()

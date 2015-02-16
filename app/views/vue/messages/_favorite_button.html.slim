@@ -6,18 +6,18 @@ script type="text/x-template" id="favorite-button-template"
         remote: true,
         'v-if' => '!isFavorited') do |f|
       = hidden_field_tag 'favorite[message_id]', '{{message.id}}'
-      = button_tag class: 'btn btn-link',
-                   id: 'favorite-message-{{message.id}}',
-                   type: 'submit' do
-          b.fa.fa-star
-          span.favorites-count v-if="hasFavorites" = "{{ message.favorited_count }}"
+      button class='btn btn-link' id='favorite-message-{{message.id}}' type='submit' v-class="
+        disabled: canFavorite
+      "
+        b.fa.fa-star
+        span.favorites-count v-if="hasFavorites" = "{{ message.favorited_count }}"
     = form_tag(bindable_path('favorite', '{{message.favorited.id}}', format: 'json'),
                method: :delete,
                class: 'unfavorite-button',
                remote: true,
                'v-if' => 'isFavorited') do |f|
-      = button_tag class: 'btn btn-link',
-                   id: 'unfavorite-message-{{message.id}}',
-                   type: 'submit' do
-          b.fa.fa-star
-          span.favorites-count v-if="hasFavorites" = "{{ message.favorited_count }}"
+      button class='btn btn-link' id='unfavorite-message-{{message.id}}' type='submit' v-class="
+        disabled: canFavorite
+      "
+        b.fa.fa-star
+        span.favorites-count v-if="hasFavorites" = "{{ message.favorited_count }}"

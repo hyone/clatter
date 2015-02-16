@@ -2,13 +2,28 @@ TwitterApp.ModalDialogComponent = Vue.extend
   template: '#modal-dialog-template'
   replace: true
 
+  paramAttributes: ['foot-view', 'body-view']
+
   data: ->
-    body: ''
     title: ''
-    view: 'modal-message-form'
+    footView: undefined
+    bodyView: undefined
+    params: {}
 
   components:
     'modal-message-form': TwitterApp.ModalMessageFormComponent
+    message:
+      template: """
+        <div v-component="inner"
+             v-with="
+              message:  params.message,
+              prefix:   params.prefix,
+              showFoot: params.showFoot
+            ">
+        </div>
+      """
+      components:
+        inner: TwitterApp.MessageComponent
 
   compiled: ->
     @setupModalEventListeners()
@@ -24,7 +39,7 @@ TwitterApp.ModalDialogComponent = Vue.extend
       $(@$el).modal('toggle')
 
     clearBody: ->
-      @body = ''
+      @bodyView = null
 
     setDefaultTitle: ->
       @title = I18n.t('views.modal_dialog.compose_new_message')
@@ -47,9 +62,13 @@ TwitterApp.ModalDialogComponent = Vue.extend
       @setDefaultTitle()
       @open()
 
-    openMessageReply: (body, screen_name) ->
-      @body = body
-      @setReplyTitle(screen_name)
+    openMessageReply: (message) ->
+      @params =
+        message: message
+        prefix: 'parent-message'
+        showFoot: false
+      @bodyView = 'message'
+      @setReplyTitle(message.user.screen_name)
       @open()
 
     openUserReply: (screen_name) ->
@@ -63,6 +82,6 @@ TwitterApp.ModalDialogComponent = Vue.extend
       @openUserReply(screen_name)
       @$broadcast('modal-dialog.open-user-reply', event, screen_name)
 
-    onOpenMessageReply: (event, body, screen_name) ->
-      @openMessageReply(body, screen_name)
-      @$broadcast('modal-dialog.open-message-reply', event, body, screen_name)
+    onOpenMessageReply: (event, message) ->
+      @openMessageReply(message)
+      @$broadcast('modal-dialog.open-message-reply', event, message)

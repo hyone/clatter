@@ -1,26 +1,28 @@
 require 'rails_helper'
 
+
 describe ApplicationHelper, type: :helper do
-  describe '#title' do
+
+  describe '#page_title' do
     subject { page_title(text) }
 
     context 'with "home"' do
       let (:text) { 'home' }
-      it { should == 'home | TwitterApp' }
+      it { should eq('home | TwitterApp') }
     end
 
     context 'with ""' do
       let (:text) { '' }
-      it { should == 'TwitterApp' }
+      it { should eq('TwitterApp') }
     end
 
     context 'with nil' do
       let (:text) { nil }
-      it { should == 'TwitterApp' }
+      it { should eq('TwitterApp') }
     end
 
     context 'with arguments' do
-      it { expect(page_title).to be == 'TwitterApp' }
+      it { expect(page_title).to eq('TwitterApp') }
     end
   end
 

@@ -40,8 +40,10 @@ describe 'Follow button', type: :feature, js: true do
         expect(page).not_to have_selector('.unfollow-button')
       end
 
-      it 'should be 0 followers' do
-        expect(page).to have_selector('.content-navigation-followers .nav-value', 0)
+      context 'in content navigation' do
+        it 'should be 0 followers' do
+          expect(page).to have_selector('.content-navigation-followers .nav-value', 0)
+        end
       end
 
       context 'when click the button' do
@@ -65,11 +67,13 @@ describe 'Follow button', type: :feature, js: true do
           expect(page).not_to have_selector('.follow-button', visible: false)
         end
 
-        it 'should be 1 followers' do
-          click_follow_button(other_user)
-          wait_for_ajax
+        context 'in content navigation' do
+          it 'should be 1 followers' do
+            click_follow_button(other_user)
+            wait_for_ajax
 
-          expect(page).to have_selector('.content-navigation-followers .nav-value', 1)
+            expect(page).to have_selector('.content-navigation-followers .nav-value', 1)
+          end
         end
       end
     end
@@ -91,8 +95,10 @@ describe 'Follow button', type: :feature, js: true do
         expect(page).not_to have_selector('.follow-button', visible: false)
       end
 
-      it 'should be 1 followers' do
-       expect(page).to have_selector('.content-navigation-followers .nav-value', 1)
+      context 'in content navigation' do
+        it 'should be 1 followers' do
+         expect(page).to have_selector('.content-navigation-followers .nav-value', 1)
+        end
       end
 
       context 'when click the button' do
@@ -117,11 +123,13 @@ describe 'Follow button', type: :feature, js: true do
           }.to(nil)
         end
 
-        it 'should be 0 followers' do
-          click_unfollow_button(other_user)
-          wait_for_ajax
+        context 'in content navigation' do
+          it 'should be 0 followers' do
+            click_unfollow_button(other_user)
+            wait_for_ajax
 
-          expect(page).to have_selector('.content-navigation-followers .nav-value', 0)
+            expect(page).to have_selector('.content-navigation-followers .nav-value', 0)
+          end
         end
       end
     end

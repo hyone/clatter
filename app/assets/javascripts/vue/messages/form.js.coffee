@@ -85,8 +85,8 @@ TwitterApp.ModalMessageFormComponent = MessageForm.extend
     onBlur: ->
     onFocus: ->
 
-    onOpenMessageReply: (event, parent, screen_name) ->
-      @setReplyText(screen_name)
+    onOpenMessageReply: (event, message) ->
+      @setReplyText(message.user.screen_name)
 
     onOpenUserReply: (event, screen_name) ->
       @setReplyText(screen_name)

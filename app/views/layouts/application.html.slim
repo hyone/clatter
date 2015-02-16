@@ -46,7 +46,7 @@ html lang="en"
         div v-component="alert" v-ref="alert" status="#{key}" message="#{value}"
 
     - if user_signed_in?
-      div v-component="modal-dialog" v-ref="modalDialog"
+      div v-component="modal-dialog" v-ref="modalDialog" foot-view="modal-message-form"
 
     div.header
       = yield(:header)
