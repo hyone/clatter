@@ -23,6 +23,8 @@ $fa-font-path: "font-awesome-sass/assets/fonts/font-awesome/";
 
 @import "variables";
 @import "mixins";
+
+@import "errors";
 @import "home/guest_home";
 @import "home/user_home";
 @import "home/notifications";
@@ -38,8 +40,6 @@ $fa-font-path: "font-awesome-sass/assets/fonts/font-awesome/";
 @import "vue/users/follow_button";
 @import "vue/users/user_actions_button";
 @import "vue/users/user_panel";
-
-@import "error";
 
 
 // --------------------------------------------------------------------------------
@@ -168,7 +168,7 @@ body {
 
 // centerized jumbtron header
 
-.home, .error {
+.home, .errors {
   .header-head {
     position: relative;
     height: 375px;
