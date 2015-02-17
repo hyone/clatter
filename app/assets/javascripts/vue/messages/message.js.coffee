@@ -14,7 +14,7 @@ TwitterApp.MessageComponent = Vue.extend
 
   computed:
     canActions: ->
-      !TwitterApp.currentUser
+      !!TwitterApp.currentUser
 
   compiled: ->
     @setupAjaxEventListeners()

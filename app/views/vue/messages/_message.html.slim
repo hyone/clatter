@@ -14,7 +14,7 @@ script type="text/x-template" id="message-template"
       ul.list-inline
         li.open-reply-to-button-item
           button class="btn btn-link" id="reply-to-message-{{message.id}}" v-on="click: onClickReplyButton" v-class="
-            disabled: canActions
+            disabled: !canActions
           "
             b.fa.fa-reply
         / li.retweet-button-item

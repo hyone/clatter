@@ -6,6 +6,9 @@ TwitterApp.UserActionsButtonComponent = Vue.extend
     user: undefined
 
   computed:
+    canActions: ->
+      !!TwitterApp.currentUser
+
     replyToUserText: ->
       I18n.t('views.users.user.message_to', { screen_name: @user.screen_name })
 

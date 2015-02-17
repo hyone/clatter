@@ -1,12 +1,8 @@
 script type="text/x-template" id="user-actions-button-template"
   div.btn-group
-    = button_tag class: 'btn btn-link user-actions-button dropdown-toggle',
-                 id: "{{user.screen_name}}-actions-button",
-                 type: 'button',
-                 'data-toggle'  => 'dropdown',
-                 'ari-expanded' => 'false' do
-        b.fa.fa-lg.fa-cog
-    ul.dropdown-menu role="menu"
+    button.btn.btn-link.user-actions-button.dropdown-toggle id="{{user.screen_name}}-actions-button" type="button" data-toggle="dropdown" ari-expanded="false" v-if="canActions"
+      b.fa.fa-lg.fa-cog
+    ul.dropdown-menu role="menu" v-if="canActions"
       li
         a href="#" id="reply-to-{{user.screen_name}}" class="open-reply-to" v-text="replyToUserText" v-on='
           click: onClickReplyToUserButton
