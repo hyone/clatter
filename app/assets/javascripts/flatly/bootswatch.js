@@ -1,3 +1,0 @@
-// Flatly
-// Bootswatch
-// bootswatch.js
