@@ -46,7 +46,7 @@ describe ApplicationHelper, type: :helper do
 
     context 'with binding text' do
       let (:arg) { '{{user.id}}' }
-      it { should eq('/users/{{user.id}}') }
+      it { should eq('/u/{{user.id}}') }
     end
 
     context 'with no binding text' do

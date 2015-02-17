@@ -19,8 +19,8 @@ script type="text/x-template" id="navigation-template"
 
           - if user_signed_in?
             li
-              a href="#{ home_mentions_path }" v-class="
-                active: isActiveMenu('#{ home_mentions_path }')
+              a href="#{ mentions_path }" v-class="
+                active: isActiveMenu('#{ mentions_path }')
               "
                 b.fa.fa-bell.fa-lg
                 = t('views.navigation.notifications')

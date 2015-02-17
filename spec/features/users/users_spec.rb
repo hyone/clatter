@@ -4,7 +4,7 @@ require 'rails_helper'
 describe 'Users pages', type: :feature do
   subject { page }
 
-  describe 'GET /users' do
+  describe 'GET /u' do
     before(:all) {
       50.times { FactoryGirl.create(:user) }
     }
@@ -32,7 +32,7 @@ describe 'Users pages', type: :feature do
   end
 
 
-  describe 'GET /users/:screen_name' do
+  describe 'GET /u/:screen_name' do
     let (:user) { FactoryGirl.create(:user) }
     before { visit user_path(user) }
 
@@ -121,7 +121,7 @@ describe 'Users pages', type: :feature do
   end
 
 
-  describe 'GET /users/:screen_name/with_replies' do
+  describe 'GET /u/:screen_name/with_replies' do
     let (:user) { FactoryGirl.create(:user) }
     before { visit with_replies_user_path(user) }
 
@@ -149,7 +149,7 @@ describe 'Users pages', type: :feature do
   end
 
 
-  describe 'GET /users/:screen_name/favorites' do
+  describe 'GET /u/:screen_name/favorites' do
     let (:user) { FactoryGirl.create(:user) }
     before { visit favorites_user_path(user) }
 
@@ -182,7 +182,7 @@ describe 'Users pages', type: :feature do
   end
 
 
-  describe 'GET /users/:screen_name/following' do
+  describe 'GET /u/:screen_name/following' do
     let (:user) { FactoryGirl.create(:user) }
     before { visit following_user_path(user) }
 
@@ -212,7 +212,7 @@ describe 'Users pages', type: :feature do
   end
 
 
-  describe 'GET /users/:screen_name/followers' do
+  describe 'GET /u/:screen_name/followers' do
     let (:user) { FactoryGirl.create(:user) }
     before { visit followers_user_path(user) }
 

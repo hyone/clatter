@@ -8,7 +8,7 @@ describe 'Authentication pages', type: :feature do
   subject { page }
 
 
-  describe 'GET /users/sign_in' do
+  describe 'GET /login' do
     before { visit new_user_session_path }
 
     describe 'content' do
@@ -142,7 +142,7 @@ describe 'Authentication pages', type: :feature do
   end
 
 
-  describe 'GET /users/sign_up' do
+  describe 'GET /signup' do
     before { visit new_user_registration_path }
 
     describe 'content' do
@@ -177,7 +177,7 @@ describe 'Authentication pages', type: :feature do
   end
 
 
-  describe 'GET /users/edit' do
+  describe 'GET /settings' do
     let (:user) { FactoryGirl.create(:user) }
 
     context 'as guest', js: true do

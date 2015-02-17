@@ -6,7 +6,7 @@ div.session
       h1 = t('views.users.edit.title')
 
   = form_for(resource, as: resource_name,
-                       url: registration_path(resource_name),
+                       url: edit_registration_path(resource_name),
                        html: { method: :put }) do |f|
     = devise_error_messages!
 

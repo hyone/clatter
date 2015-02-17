@@ -83,16 +83,16 @@ describe 'Home Page', type: :feature do
   end
 
 
-  describe 'GET /home/about' do
-    before { visit home_about_path }
+  describe 'GET /about' do
+    before { visit about_path }
 
     it { should have_title(page_title('About')) }
     it { should have_content('Home#about') }
   end
 
 
-  describe 'GET /home/mentions' do
-    before { visit home_mentions_path }
+  describe 'GET /mentions' do
+    before { visit mentions_path }
 
     context 'as guest' do
       it 'redirect to the sign in page' do
@@ -104,7 +104,7 @@ describe 'Home Page', type: :feature do
       let (:user) { FactoryGirl.create(:user) }
       before { 
         signin user
-        visit home_mentions_path
+        visit mentions_path
       }
 
       its(:status_code) { should == 200 }
@@ -125,14 +125,14 @@ describe 'Home Page', type: :feature do
           users_replied_to: [user]
         ) }
 
-        it { should have_link(I18n.t('views.menu_panel.mentions'), home_mentions_path) }
+        it { should have_link(I18n.t('views.menu_panel.mentions'), mentions_path) }
 
         context 'when "filter" parameter is none' do
           before { visit current_path }
 
           it { should have_link(
             I18n.t('views.home.mentions.people_you_follow'),
-            home_mentions_path(filter: 'following')
+            mentions_path(filter: 'following')
           ) }
 
           it 'should have all replies', js: true do
@@ -142,9 +142,9 @@ describe 'Home Page', type: :feature do
         end
 
         context 'when "filter" parameter is "following"' do
-          before { visit home_mentions_path(filter: 'following') }
+          before { visit mentions_path(filter: 'following') }
 
-          it { should have_link(I18n.t('views.home.mentions.all'), home_mentions_path) }
+          it { should have_link(I18n.t('views.home.mentions.all'), mentions_path) }
 
           it 'should have replies from followed users', js: true do
             expect(page).to have_selector("#message-#{reply_from_followed_user.id}")

@@ -1,17 +1,33 @@
+
 Rails.application.routes.draw do
   root to: 'home#index'
 
-  get 'home/index'
-  get 'home/about'
-  get 'home/mentions'
-  get 'home/notifications'
+  get '/about',         to: 'home#about'
+  get '/mentions',      to: 'home#mentions'
+  get '/notifications', to: 'home#notifications'
 
-  devise_for :users, controllers: {
+  # devise_for :users, skip: [:sessions, :registrations], path: :u, controllers: {
+  devise_for :users, skip: [:sessions, :registrations], controllers: {
     registrations: 'registrations',
     omniauth_callbacks: 'omniauth_callbacks'
   }
+  devise_scope :user do
+    # signin and signout
+    get    '/login'    => 'devise/sessions#new',     as: :new_user_session
+    post   '/login'    => 'devise/sessions#create',  as: :user_session
+    delete '/logout'   => 'devise/sessions#destroy', as: :destroy_user_session
+    # signup
+    get    '/signup'   => 'registrations#new',       as: :new_user_registration
+    post   '/signup'   => 'registrations#create',    as: :user_registration
+    # settings & cancell
+    get    '/settings' => 'registrations#edit',      as: :edit_user_registration
+    put    '/settings' => 'registrations#update'
+    get    '/cancel'   => 'registrations#cancel',    as: :cancel_user_registration
+    # account deletion
+    delete '/u' => 'devise/registrations#destroy'
+  end
 
-  resources :users, only: [:index, :show] do
+  resources :users, only: [:index, :show], path: 'u' do
     member do
       get :with_replies
       get :favorites
