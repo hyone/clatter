@@ -56,11 +56,8 @@ shared_examples 'a postable form' do |type = :modal|
       end
     end
 
-    context 'after submit' do
-      def submit
-        click_button "#{prefix}-message-form-submit"
-      end
 
+    shared_examples 'new message creatable' do
       it 'should create a new message' do
         expect {
           submit
@@ -75,7 +72,36 @@ shared_examples 'a postable form' do |type = :modal|
       end
     end
 
+    context 'when click submit button' do
+      include_examples 'new message creatable' do
+        def submit
+          click_button "#{prefix}-message-form-submit"
+        end
+      end
+    end
 
+    def hit_key(ctrl: false, meta: false)
+      page.execute_script <<-EOC
+        var e = $.Event('keydown', { keyCode: 13, ctrlKey: true, metaKey: false });
+        $('##{prefix}-message-form-text').trigger(e);
+      EOC
+    end
+
+    context 'when hit ctrl+enter' do
+      include_examples 'new message creatable' do
+        def submit
+          hit_key(ctrl: true, meta: false)
+        end
+      end
+    end
+
+    context 'when hit command+enter' do
+      include_examples 'new message creatable' do
+        def submit
+          hit_key(ctrl: false, meta: true)
+        end
+      end
+    end
   end
 
   context "with text that's length is near limit", js: true  do

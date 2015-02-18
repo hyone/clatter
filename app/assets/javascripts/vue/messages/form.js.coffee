@@ -18,6 +18,7 @@ MessageForm = Vue.extend
 
   compiled: ->
     @setupAjaxEventListeners()
+    @setupKeybinds()
 
   events:
     'message-form.focus': 'focus'
@@ -36,6 +37,13 @@ MessageForm = Vue.extend
         @$dispatch 'app.alert', event,
           status: status,
           message: "#{I18n.t('views.alert.failed_create_message')}: #{error}"
+
+    setupKeybinds: ->
+      $(@$el).keydown (event) =>
+        # ctrl + enter (command + enter)
+        if ((event.ctrlKey and !event.metaKey) or (!event.ctrlKey and event.metaKey)) and \
+          event.keyCode == 13
+            $(@$el).find('button[type=submit]').click()
 
     focus: ->
       @$$.textarea.focus()
