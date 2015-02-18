@@ -8,9 +8,9 @@ Rails.application.routes.draw do
 
   # devise_for :users, skip: [:sessions, :registrations], path: :u, controllers: {
   devise_for :users, skip: [:sessions, :registrations], controllers: {
-    registrations: 'registrations',
-    passwords: 'passwords',
-    omniauth_callbacks: 'omniauth_callbacks'
+    registrations: 'users/registrations',
+    passwords: 'users/passwords',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
   devise_scope :user do
     # signin and signout
@@ -18,14 +18,14 @@ Rails.application.routes.draw do
     post   '/login'    => 'devise/sessions#create',  as: :user_session
     delete '/logout'   => 'devise/sessions#destroy', as: :destroy_user_session
     # signup
-    get    '/signup'   => 'registrations#new',       as: :new_user_registration
-    post   '/signup'   => 'registrations#create',    as: :user_registration
+    get    '/signup'   => 'users/registrations#new',       as: :new_user_registration
+    post   '/signup'   => 'users/registrations#create',    as: :user_registration
     # settings & cancell
-    get    '/settings' => 'registrations#edit',      as: :edit_user_registration
-    put    '/settings' => 'registrations#update'
-    get    '/cancel'   => 'registrations#cancel',    as: :cancel_user_registration
+    get    '/settings' => 'users/registrations#edit',      as: :edit_user_registration
+    put    '/settings' => 'users/registrations#update'
+    get    '/cancel'   => 'users/registrations#cancel',    as: :cancel_user_registration
     # account deletion
-    delete '/u/:id'    => 'registrations#destroy', as: :delete_user_registration
+    delete '/u/:id'    => 'users/registrations#destroy', as: :delete_user_registration
   end
 
   resources :users, only: [:index, :show], path: 'u' do
