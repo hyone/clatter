@@ -27,4 +27,21 @@ class ApplicationController < ActionController::Base
       )
     }
   end
+
+  # redirect back when login succeeded
+  # https://github.com/plataformatec/devise/wiki/How-To:-redirect-to-a-specific-page-on-successful-sign-in
+  def after_sign_in_path_for(resource)
+    to_url = get_and_reset_return_url
+    if to_url == new_user_session_path
+      super
+    else
+      stored_location_for(resource) || to_url
+    end
+  end
+
+  def get_and_reset_return_url()
+    to_url = session[:return_to] || root_path
+    session[:return_to] = nil
+    to_url
+  end
 end

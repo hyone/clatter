@@ -19,7 +19,7 @@ describe 'Authentication pages', type: :feature do
         it {
           should have_link(
             provider_name(provider).titleize,
-            href: user_omniauth_authorize_path(provider)
+            href: user_omniauth_authorize_path(provider, origin: current_url)
           )
         }
       end

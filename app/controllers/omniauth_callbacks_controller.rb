@@ -46,11 +46,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if authentication
       flash[:notice] = t('devise.omniauth_callbacks.success', kind: omniauth['provider'])
       sign_in authentication.user
-      redirect_to root_path
+      redirect_to get_and_reset_return_url
     elsif current_user
       current_user.apply_omniauth(omniauth).save!
       flash[:notice] = t('devise.omniauth_callbacks.success', kind: omniauth['provider'])
-      redirect_to root_path
+      redirect_to get_and_reset_return_url
     else
       user = User.new
       user.apply_omniauth(omniauth)
