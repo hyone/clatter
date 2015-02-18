@@ -270,8 +270,17 @@ describe 'Authentication pages', type: :feature do
         end
       end
 
-      # delete the account
-      it { should have_link(I18n.t('views.users.form.delete_my_account'), registration_path(user)) }
+      describe 'user deletion' do
+        it { should have_link(I18n.t('views.users.form.delete_my_account'), registration_path(user)) }
+
+        context 'when click user delete button' do
+          it 'should delete user account' do
+            expect { click_on 'delete-user-acount' }.to change {
+              User.exists?(user.id)
+            }.to(false)
+          end
+        end
+      end
     end
   end
 end

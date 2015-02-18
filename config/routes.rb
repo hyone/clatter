@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     put    '/settings' => 'registrations#update'
     get    '/cancel'   => 'registrations#cancel',    as: :cancel_user_registration
     # account deletion
-    delete '/u' => 'devise/registrations#destroy'
+    delete '/u/:id'    => 'registrations#destroy', as: :delete_user_registration
   end
 
   resources :users, only: [:index, :show], path: 'u' do
