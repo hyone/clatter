@@ -125,7 +125,8 @@ div.session
         h3 = t('views.users.form.danger-zone')
         p
           / = link_to t('delete_my_account'), registration_path(resource_name),
-          = link_to t('delete_my_account'), delete_user_registration_path(resource_name),
-                                            id: 'delete-user-acount',
-                                            data: { confirm: "Are you sure?" },
-                                            method: :delete, class: 'btn btn-danger'
+          = link_to t('views.users.form.delete_my_account'),
+                    delete_user_registration_path(resource_name),
+                    id: 'delete-user-acount',
+                    data: { confirm: "Are you sure?" },
+                    method: :delete, class: 'btn btn-danger'
