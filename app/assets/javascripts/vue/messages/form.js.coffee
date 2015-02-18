@@ -30,6 +30,7 @@ MessageForm = Vue.extend
           @$dispatch 'message.created', event, data.results.message
         else
           @$dispatch 'app.alert', event, data.response
+        @clear()
 
       $(@$el).on 'ajax:error', (event, xhr, status, error) =>
         @$dispatch 'app.alert', event,

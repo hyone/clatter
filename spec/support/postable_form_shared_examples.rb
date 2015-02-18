@@ -57,11 +57,21 @@ shared_examples 'a postable form' do |type = :modal|
     end
 
     context 'after submit' do
+      def submit
+        click_button "#{prefix}-message-form-submit"
+      end
+
       it 'should create a new message' do
         expect {
-          click_button "#{prefix}-message-form-submit"
+          submit
           wait_for_ajax
         }.to change(Message, :count).by(1)
+      end
+
+      it 'should clear textarea' do
+        submit
+        wait_for_ajax
+        expect(find("\##{prefix}-message-form-text").value).to be_empty
       end
     end
 
