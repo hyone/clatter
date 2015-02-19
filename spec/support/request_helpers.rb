@@ -86,4 +86,12 @@ module RequestHelpers
   def finished_page_evaluation?
     page.evaluate_script('window.rendered')
   end
+
+  def focus?(selector_id)
+    page.evaluate_script('document.activeElement.id') == selector_id
+  end
+
+  def blur?(selector_id)
+    not focus?(selector_id)
+  end
 end

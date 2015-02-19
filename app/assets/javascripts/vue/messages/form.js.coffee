@@ -38,6 +38,9 @@ MessageForm = Vue.extend
           status: status,
           message: "#{I18n.t('views.alert.failed_create_message')}: #{error}"
 
+      $(@$el).on 'ajax:before', (event, data, status, xhr) =>
+        @$$.textarea.blur()
+
     setupKeybinds: ->
       $(@$el).keydown (event) =>
         # ctrl + enter (command + enter)

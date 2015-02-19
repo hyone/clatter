@@ -65,10 +65,19 @@ shared_examples 'a postable form' do |type = :modal|
         }.to change(Message, :count).by(1)
       end
 
-      it 'should clear textarea' do
-        submit
-        wait_for_ajax
-        expect(find("\##{prefix}-message-form-text").value).to be_empty
+      describe 'textarea' do
+        specify 'content should be cleared' do
+          submit
+          wait_for_ajax
+          expect(find("\##{prefix}-message-form-text").value).to be_empty
+        end
+
+        it 'should be blurred' do
+          textarea_id = "\##{prefix}-message-form-text"
+          submit
+          wait_for_ajax
+          expect(blur?(textarea_id)).to be_truthy
+        end
       end
     end
 
