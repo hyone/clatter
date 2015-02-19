@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe 'Home Page', type: :feature do
+describe 'Home Page', type: :feature, js: true do
   subject { page }
 
   describe 'GET /' do
@@ -60,8 +60,8 @@ describe 'Home Page', type: :feature do
         end
       end
 
-      context 'in feed panel' do
-        context 'in pagination' do
+      context 'in timeline panel' do
+        context 'when has some messages' do
           before {
             (UsersController::MESSAGE_PAGE_SIZE + 1).times {
               FactoryGirl.create(:message, user: user)
@@ -69,12 +69,24 @@ describe 'Home Page', type: :feature do
             visit current_path
           }
 
-          it { should have_selector('ul.pagination') }
+          it 'should not have greeting text' do
+            should_not have_selector('.empty-description', I18n.t('views.home.index.description'))
+          end
 
-          it 'should list each feed in page 1', js: true do
-            User.page(1).per(UsersController::MESSAGE_PAGE_SIZE).each do |user|
-              expect(page).to have_selector('li', text: user.screen_name)
+          context 'in pagination' do
+            it { should have_selector('ul.pagination') }
+
+            it 'should list each feed in page 1' do
+              User.page(1).per(UsersController::MESSAGE_PAGE_SIZE).each do |user|
+                expect(page).to have_selector('li', text: user.screen_name)
+              end
             end
+          end
+        end
+
+        context 'when has not any messages' do
+          it 'should have greeting text' do
+            should have_selector('.empty-description', I18n.t('views.home.index.description'))
           end
         end
       end
@@ -110,45 +122,61 @@ describe 'Home Page', type: :feature do
       its(:status_code) { should == 200 }
 
       describe 'content' do
-        let! (:followed_user) {
-          u = FactoryGirl.create(:user)
-          FactoryGirl.create(:follow, follower: user, followed: u)
-          u
-        }
-        let! (:reply_from_followed_user) { FactoryGirl.create(
-          :message_with_reply,
-          user: followed_user,
-          users_replied_to: [user]
-        ) }
-        let! (:reply_from_other) { FactoryGirl.create(
-          :message_with_reply,
-          users_replied_to: [user]
-        ) }
-
         it { should have_link(I18n.t('views.menu_panel.mentions'), mentions_path) }
 
-        context 'when "filter" parameter is none' do
-          before { visit current_path }
+        context 'when has not any messages' do
+          context 'when "filter" parameter is none' do
+            it 'should have greeting text' do
+              should have_selector('.empty-description', I18n.t('views.home.mentions.description_all'))
+            end
+          end
 
-          it { should have_link(
-            I18n.t('views.home.mentions.people_you_follow'),
-            mentions_path(filter: 'following')
-          ) }
-
-          it 'should have all replies', js: true do
-            expect(page).to have_selector("#message-#{reply_from_followed_user.id}")
-            expect(page).to have_selector("#message-#{reply_from_other.id}")
+          context 'when "filter" parameter is "following"' do
+            it 'should have greeting text' do
+              should have_selector('.empty-description', I18n.t('views.home.mentions.description_people_you_follow'))
+            end
           end
         end
 
-        context 'when "filter" parameter is "following"' do
-          before { visit mentions_path(filter: 'following') }
+        context 'when has some messages' do
+          let! (:followed_user) {
+            u = FactoryGirl.create(:user)
+            FactoryGirl.create(:follow, follower: user, followed: u)
+            u
+          }
+          let! (:reply_from_followed_user) { FactoryGirl.create(
+            :message_with_reply,
+            user: followed_user,
+            users_replied_to: [user]
+          ) }
+          let! (:reply_from_other) { FactoryGirl.create(
+            :message_with_reply,
+            users_replied_to: [user]
+          ) }
 
-          it { should have_link(I18n.t('views.home.mentions.all'), mentions_path) }
+          context 'when "filter" parameter is none' do
+            before { visit current_path }
 
-          it 'should have replies from followed users', js: true do
-            expect(page).to have_selector("#message-#{reply_from_followed_user.id}")
-            expect(page).not_to have_selector("#message-#{reply_from_other.id}")
+            it { should have_link(
+              I18n.t('views.home.mentions.people_you_follow'),
+              mentions_path(filter: 'following')
+            ) }
+
+            it 'should have all replies' do
+              expect(page).to have_selector("#message-#{reply_from_followed_user.id}")
+              expect(page).to have_selector("#message-#{reply_from_other.id}")
+            end
+          end
+
+          context 'when "filter" parameter is "following"' do
+            before { visit mentions_path(filter: 'following') }
+
+            it { should have_link(I18n.t('views.home.mentions.all'), mentions_path) }
+
+            it 'should have replies from followed users' do
+              expect(page).to have_selector("#message-#{reply_from_followed_user.id}")
+              expect(page).not_to have_selector("#message-#{reply_from_other.id}")
+            end
           end
         end
       end

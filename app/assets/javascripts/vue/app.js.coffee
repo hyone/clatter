@@ -5,6 +5,10 @@ TwitterApp.appVM = new Vue
     messages: TwitterApp.messages?.messages
     users: TwitterApp.users
 
+  computed:
+    hasMessages: ->
+      @messages.length > 0
+
   components:
     'alert': TwitterApp.AlertComponent
     'content-main-message-form': TwitterApp.ContentMainMessageFormComponent
@@ -33,7 +37,6 @@ TwitterApp.appVM = new Vue
 
     addMessage: (message) ->
       @messages.unshift(message)
-      @messages.pop()
 
     showAlert: (status, message, details) ->
       @$.alert.show(status, message, details)
