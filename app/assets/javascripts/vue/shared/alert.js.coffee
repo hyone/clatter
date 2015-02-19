@@ -20,6 +20,13 @@ window.TwitterApp.AlertComponent = Vue.extend
         when 'alert', 'error' then 'danger'
         else @status
 
+  watch:
+    'hasMessage': (value, oldValue) ->
+      if value and @className == 'success'
+        setTimeout =>
+          @close()
+        , 5000
+
   methods:
     show: (status, message, details) ->
       @status  = status

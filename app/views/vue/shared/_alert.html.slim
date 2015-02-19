@@ -1,14 +1,14 @@
 script type="text/x-template" id="alert-template"
   div.row
     div.col-xs-12.alert-panel
-      div class="alert alert-{{status}} alert-{{className}}" v-show='hasMessage'
+      div class="alert alert-{{status}} alert-{{className}}" v-if='hasMessage' v-transition="fade"
         / v-transition="slide-down"
         button type="button" class="close" aria-label="Close" v-on='click: onClickCloseButton'
           span aria-hidden="true" &times;
-        p v-if="!hasDetails"
+        p  v-if="!hasDetails"
           | {{message}}
         h4 v-if="hasDetails"
           | {{message}}
-        ul v-show="hasDetails"
+        ul v-if="hasDetails"
           li v-repeat="detail: details"
             | {{detail}}
