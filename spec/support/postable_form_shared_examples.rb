@@ -89,7 +89,7 @@ shared_examples 'a postable form' do |type = :modal|
       end
     end
 
-    def hit_key(ctrl: false, meta: false)
+    def hit_enter_key(ctrl: false, meta: false)
       page.execute_script <<-EOC
         var e = $.Event('keydown', { keyCode: 13, ctrlKey: true, metaKey: false });
         $('##{prefix}-message-form-text').trigger(e);
@@ -99,7 +99,7 @@ shared_examples 'a postable form' do |type = :modal|
     context 'when hit ctrl+enter' do
       include_examples 'new message creatable' do
         def submit
-          hit_key(ctrl: true, meta: false)
+          hit_enter_key(ctrl: true, meta: false)
         end
       end
     end
@@ -107,7 +107,7 @@ shared_examples 'a postable form' do |type = :modal|
     context 'when hit command+enter' do
       include_examples 'new message creatable' do
         def submit
-          hit_key(ctrl: false, meta: true)
+          hit_enter_key(ctrl: false, meta: true)
         end
       end
     end

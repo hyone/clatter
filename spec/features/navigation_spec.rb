@@ -18,10 +18,10 @@ describe 'Navigation', type: :feature, js: true do
     it { should have_link(I18n.t('views.navigation.users'), users_path) }
   end
 
-  describe 'Search' do
-    it { should have_selector('input#navigation-search-input') }
-    it { should have_selector('button#navigation-search-submit') }
-  end
+  # describe 'Search' do
+    # it { should have_selector('input#navigation-search-input') }
+    # it { should have_selector('button#navigation-search-submit') }
+  # end
 
   describe 'New Message', js: true  do
     before { click_button 'navigation-new-message' }

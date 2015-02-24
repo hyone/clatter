@@ -38,7 +38,12 @@ MessageForm = Vue.extend
           status: status,
           message: "#{I18n.t('views.alert.failed_create_message')}: #{error}"
 
+      $(@$el).on 'ajax:complete', (event, data, status, xhr) =>
+        $(event.target).find('button[type="submit"]').removeAttr('disabled')
+        false
+
       $(@$el).on 'ajax:before', (event, data, status, xhr) =>
+        $(event.target).find('button[type="submit"]').attr('disabled', 'disabled')
         @$$.textarea.blur()
 
     setupKeybinds: ->

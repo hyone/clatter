@@ -33,7 +33,7 @@ TwitterApp.MessageComponent = Vue.extend
       $(@$el).on 'ajax:error', (event, xhr, status, error) =>
         @$dispatch 'app.alert', event,
           status: status,
-          message: "#{I18n.t('views.alert.failed_create_message')}: #{error}"
+          message: "#{I18n.t('views.alert.failed_delete_message')}: #{error}"
 
     onClickReplyButton: (event) ->
       @$dispatch('message.on-click-reply-button', event, @message)

@@ -36,8 +36,8 @@ window.TwitterApp.AlertComponent = Vue.extend
     close: ->
       @status  = undefined
       @message = undefined
-      # Reseting 'details' property causes a trouble that this vm itself has been deleted (bug?)
-      # # @alert.details = undefined
+      # XXX: Reseting 'details' property causes a trouble that this vm itself has been deleted (bug?)
+      # # @details = undefined
 
     onClickCloseButton: ->
       @close()

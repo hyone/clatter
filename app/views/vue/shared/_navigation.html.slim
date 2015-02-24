@@ -33,15 +33,15 @@ script type="text/x-template" id="navigation-template"
               = t('views.navigation.users')
 
         ul.nav.navbar-nav.pull-right#navbar-right-block
-          /! serach form
-          li
-            form.navbar-form.navbar-left.navbar-form-search role="search"
-              div.form-group
-                div.input-group
-                  input.form-control.input-sm#navigation-search-input type="text" placeholder="Search"
-                  div.input-group-btn.
-                    button.btn.btn-default.input-sm#navigation-search-submit type="submit"
-                      i.glyphicon.glyphicon-search
+          / ! serach form
+          / li
+            / form.navbar-form.navbar-left.navbar-form-search role="search"
+              / div.form-group
+                / div.input-group
+                  / input.form-control.input-sm#navigation-search-input type="text" placeholder="Search"
+                  / div.input-group-btn.
+                    / button.btn.btn-default.input-sm#navigation-search-submit type="submit"
+                      / i.glyphicon.glyphicon-search
 
           /! user menu
           - if user_signed_in?
