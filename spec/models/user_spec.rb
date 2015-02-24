@@ -21,7 +21,7 @@ describe User, :type => :model do
         _hoge
         fuga_hoge
         fuga_hoge_hello
-      } }
+                            } }
       it 'should be valid' do
         screen_names.each do |screen_name|
           expect(subject).to allow_value(screen_name).for(:screen_name)
@@ -36,7 +36,7 @@ describe User, :type => :model do
         hoge.fuga
         hoge-fuga
         long_long_long_name
-      } }
+                            } }
       it 'should not be valid' do
         screen_names.each do |screen_name|
           expect(subject).not_to allow_value(screen_name).for(:screen_name)
@@ -63,70 +63,33 @@ describe User, :type => :model do
     it { should respond_to(:email) }
   end
 
-  describe '#messages' do
-    it { should respond_to(:messages) }
-  end
-
-  describe '#login' do
-    it { should respond_to(:login) }
-  end
-
   describe '#profile_image' do
     it { should respond_to(:profile_image) }
   end
 
 
-  describe '#favorite_relationships' do
-    it { should respond_to(:favorite_relationships) }
-    it { should have_many(:favorite_relationships) }
-  end
-
-  describe '#favorites' do
-    it { should respond_to(:favorites) }
-    it { should have_many(:favorites).through(:favorite_relationships) }
-  end
-
-
-  describe '#follow_relationships' do
-    it { should respond_to(:follow_relationships) }
-    it { should have_many(:follow_relationships) }
-
-    context 'with 2 followed_users' do
-      before { FactoryGirl.create_list(:follow, 2, follower: user) }
-
-      it 'should have 2 relationships' do
-        expect(user.follow_relationships.count).to eq(2)
-      end
-
-      # test for dependent: destroy
-      context 'when the user is destroyed' do
-        before { user.destroy }
-        its(:follow_relationships) { should be_empty }
-      end
-    end
-  end
-
-  describe '#reverse_follow_relationships' do
-    it { should respond_to(:reverse_follow_relationships) }
-    it { should have_many(:reverse_follow_relationships) }
-
-    context 'with 2 followers' do
-      before { FactoryGirl.create_list(:follow, 2, followed: user) }
-
-      it 'should have 2 reverse_follow_relationships' do
-        expect(user.reverse_follow_relationships.count).to eq(2)
-      end
-
-      # test for dependent: destroy
-      context 'when the user is destroyed' do
-        before { user.destroy }
-        its(:reverse_follow_relationships) { should be_empty }
-      end
+  describe 'Authenticatable' do
+    describe '#login' do
+      it { should respond_to(:login) }
     end
   end
 
 
-  describe 'about reply' do
+  describe 'MessageOwnable' do
+    describe '#messages' do
+      it { should respond_to(:messages) }
+    end
+
+    describe '#reverse_reply_relationships' do
+      it { should respond_to(:reverse_reply_relationships) }
+      it { should have_many(:reverse_reply_relationships) }
+    end
+
+    describe '#replies_received' do
+      it { should respond_to(:replies_received) }
+      it { should have_many(:replies_received).through(:reverse_reply_relationships) }
+    end
+
     context 'when the user have 2 replies' do
       let! (:message1) { FactoryGirl.create(:message, user: user) }
       let! (:message2) { FactoryGirl.create(:message, user: user) }
@@ -153,32 +116,68 @@ describe User, :type => :model do
         end
       end
     end
-    
   end 
 
 
-  describe '#followed_users' do
-    it { should respond_to(:followed_users) }
-    it { should have_many(:followed_users).through(:follow_relationships) }
-  end
+  describe 'Followable' do
+    describe '#follow_relationships' do
+      it { should respond_to(:follow_relationships) }
+      it { should have_many(:follow_relationships) }
 
-  describe '#followers' do
-    it { should respond_to(:followers) }
-    it { should have_many(:followers).through(:reverse_follow_relationships) }
-  end
+      context 'with 2 followed_users' do
+        before { FactoryGirl.create_list(:follow, 2, follower: user) }
 
-  describe '#follow!' do
-    it { should respond_to(:follow!) }
-  end
+        it 'should have 2 relationships' do
+          expect(user.follow_relationships.count).to eq(2)
+        end
 
-  describe '#unfollow!' do
-    it { should respond_to(:unfollow!) }
-  end
+        # test for dependent: destroy
+        context 'when the user is destroyed' do
+          before { user.destroy }
+          its(:follow_relationships) { should be_empty }
+        end
+      end
+    end
 
-  describe 'about follow' do
-    let (:other_user) { FactoryGirl.create(:user) }
+    describe '#reverse_follow_relationships' do
+      it { should respond_to(:reverse_follow_relationships) }
+      it { should have_many(:reverse_follow_relationships) }
+
+      context 'with 2 followers' do
+        before { FactoryGirl.create_list(:follow, 2, followed: user) }
+
+        it 'should have 2 reverse_follow_relationships' do
+          expect(user.reverse_follow_relationships.count).to eq(2)
+        end
+
+        # test for dependent: destroy
+        context 'when the user is destroyed' do
+          before { user.destroy }
+          its(:reverse_follow_relationships) { should be_empty }
+        end
+      end
+    end
+
+    describe '#followed_users' do
+      it { should respond_to(:followed_users) }
+      it { should have_many(:followed_users).through(:follow_relationships) }
+    end
+
+    describe '#followers' do
+      it { should respond_to(:followers) }
+      it { should have_many(:followers).through(:reverse_follow_relationships) }
+    end
+
+    describe '#follow!' do
+      it { should respond_to(:follow!) }
+    end
+
+    describe '#unfollow!' do
+      it { should respond_to(:unfollow!) }
+    end
 
     context 'when following' do
+      let (:other_user) { FactoryGirl.create(:user) }
       before {
         user.follow!(other_user)
       }
@@ -211,15 +210,16 @@ describe User, :type => :model do
     end
   end
 
-  # reply
 
-  describe '#reverse_reply_relationships' do
-    it { should respond_to(:reverse_reply_relationships) }
-    it { should have_many(:reverse_reply_relationships) }
-  end
+  describe 'Favoritable' do
+    describe '#favorite_relationships' do
+      it { should respond_to(:favorite_relationships) }
+      it { should have_many(:favorite_relationships) }
+    end
 
-  describe '#replies_received' do
-    it { should respond_to(:replies_received) }
-    it { should have_many(:replies_received).through(:reverse_reply_relationships) }
+    describe '#favorites' do
+      it { should respond_to(:favorites) }
+      it { should have_many(:favorites).through(:favorite_relationships) }
+    end
   end
 end
