@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150210123137) do
+ActiveRecord::Schema.define(version: 20150225101057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,17 @@ ActiveRecord::Schema.define(version: 20150210123137) do
   add_index "replies", ["to_message_id"], name: "index_replies_on_to_message_id", using: :btree
   add_index "replies", ["to_user_id"], name: "index_replies_on_to_user_id", using: :btree
 
+  create_table "retweets", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "message_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "retweets", ["message_id"], name: "index_retweets_on_message_id", using: :btree
+  add_index "retweets", ["user_id", "message_id"], name: "index_retweets_on_user_id_and_message_id", unique: true, using: :btree
+  add_index "retweets", ["user_id"], name: "index_retweets_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                              default: "", null: false
     t.string   "encrypted_password",                 default: "", null: false
@@ -105,4 +116,6 @@ ActiveRecord::Schema.define(version: 20150210123137) do
   add_foreign_key "replies", "messages", column: "to_message_id", name: "fk_replies_to_message_id", on_delete: :cascade
   add_foreign_key "replies", "messages", name: "fk_replies_message_id", on_delete: :cascade
   add_foreign_key "replies", "users", column: "to_user_id", name: "fk_replies_to_user_id", on_delete: :cascade
+  add_foreign_key "retweets", "messages", name: "fk_retweets_message_id", on_delete: :cascade
+  add_foreign_key "retweets", "users", name: "fk_retweets_user_id", on_delete: :cascade
 end

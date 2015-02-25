@@ -92,6 +92,14 @@ class Message < ActiveRecord::Base
   end
 
 
+  concerning :Retweetedable do
+    included do
+      has_many :retweet_relationships, class_name: 'Retweet', dependent: :destroy
+      has_many :retweeted_users, through: :retweet_relationships, source: :user
+    end
+  end
+
+
   concerning :Timelinable do
     class_methods do
       def timeline_of(user)

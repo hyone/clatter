@@ -82,12 +82,17 @@ describe User, :type => :model do
 
     describe '#reverse_reply_relationships' do
       it { should respond_to(:reverse_reply_relationships) }
-      it { should have_many(:reverse_reply_relationships) }
+      it { should have_many(:reverse_reply_relationships)
+                    .class_name('Reply')
+                    .with_foreign_key('to_user_id')
+                    .dependent(:destroy) }
     end
 
     describe '#replies_received' do
       it { should respond_to(:replies_received) }
-      it { should have_many(:replies_received).through(:reverse_reply_relationships) }
+      it { should have_many(:replies_received)
+                    .through(:reverse_reply_relationships)
+                    .source(:message) }
     end
 
     context 'when the user have 2 replies' do
@@ -122,7 +127,10 @@ describe User, :type => :model do
   describe 'Followable' do
     describe '#follow_relationships' do
       it { should respond_to(:follow_relationships) }
-      it { should have_many(:follow_relationships) }
+      it { should have_many(:follow_relationships)
+                    .class_name('Follow')
+                    .with_foreign_key('follower_id')
+                    .dependent(:destroy) }
 
       context 'with 2 followed_users' do
         before { FactoryGirl.create_list(:follow, 2, follower: user) }
@@ -141,7 +149,10 @@ describe User, :type => :model do
 
     describe '#reverse_follow_relationships' do
       it { should respond_to(:reverse_follow_relationships) }
-      it { should have_many(:reverse_follow_relationships) }
+      it { should have_many(:reverse_follow_relationships)
+                    .class_name('Follow')
+                    .with_foreign_key('followed_id')
+                    .dependent(:destroy) }
 
       context 'with 2 followers' do
         before { FactoryGirl.create_list(:follow, 2, followed: user) }
@@ -160,12 +171,16 @@ describe User, :type => :model do
 
     describe '#followed_users' do
       it { should respond_to(:followed_users) }
-      it { should have_many(:followed_users).through(:follow_relationships) }
+      it { should have_many(:followed_users)
+                    .through(:follow_relationships)
+                    .source(:followed) }
     end
 
     describe '#followers' do
       it { should respond_to(:followers) }
-      it { should have_many(:followers).through(:reverse_follow_relationships) }
+      it { should have_many(:followers)
+                    .through(:reverse_follow_relationships)
+                    .source(:follower) }
     end
 
     describe '#followed_users_newer' do
@@ -252,12 +267,33 @@ describe User, :type => :model do
   describe 'Favoritable' do
     describe '#favorite_relationships' do
       it { should respond_to(:favorite_relationships) }
-      it { should have_many(:favorite_relationships) }
+      it { should have_many(:favorite_relationships)
+                    .class_name('Favorite')
+                    .dependent(:destroy) }
     end
 
     describe '#favorites' do
       it { should respond_to(:favorites) }
-      it { should have_many(:favorites).through(:favorite_relationships) }
+      it { should have_many(:favorites)
+                    .through(:favorite_relationships)
+                    .source(:message) }
+    end
+  end
+
+
+  describe 'Retweetable' do
+    describe '#retweet_relationships' do
+      it { should respond_to(:retweet_relationships) }
+      it { should have_many(:retweet_relationships)
+                    .class_name('Retweet')
+                    .dependent(:destroy) }
+    end
+
+    describe '#retweets' do
+      it { should respond_to(:retweets) }
+      it { should have_many(:retweets)
+                    .through(:retweet_relationships)
+                    .source(:message) }
     end
   end
 end

@@ -132,12 +132,16 @@ describe Message, :type => :model do
   describe 'Favoritedable' do
     describe '#favorite_relationships' do
       it { should respond_to(:favorite_relationships) }
-      it { should have_many(:favorite_relationships) }
+      it { should have_many(:favorite_relationships)
+                    .class_name('Favorite')
+                    .dependent(:destroy) }
     end
 
     describe '#favorited_users' do
       it { should respond_to(:favorited_users) }
-      it { should have_many(:favorited_users).through(:favorite_relationships) }
+      it { should have_many(:favorited_users)
+                    .through(:favorite_relationships)
+                    .source(:user) }
     end
 
     describe '#favorited_by' do
@@ -157,6 +161,23 @@ describe Message, :type => :model do
         let! (:favorite) { FactoryGirl.create(:favorite, message: message) }
         it { should be_nil }
       end
+    end
+  end
+
+
+  describe 'Retweetedable' do
+    describe '#retweet_relationships' do
+      it { should respond_to(:retweet_relationships) }
+      it { should have_many(:retweet_relationships)
+                    .class_name('Retweet')
+                    .dependent(:destroy) }
+    end
+
+    describe '#retweeted_users' do
+      it { should respond_to(:retweeted_users) }
+      it { should have_many(:retweeted_users)
+                    .through(:retweet_relationships)
+                    .source(:user) }
     end
   end
 

@@ -147,4 +147,11 @@ class User < ActiveRecord::Base
       has_many :favorites, through: :favorite_relationships, source: :message
     end
   end
+
+  concerning :Retweetable do
+    included do
+      has_many :retweet_relationships, class_name: 'Retweet', dependent: :destroy
+      has_many :retweets, through: :retweet_relationships, source: :message
+    end
+  end
 end

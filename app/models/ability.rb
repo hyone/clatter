@@ -21,6 +21,9 @@ class Ability
 
       # Reply
       can [:create, :destroy], Reply, user: user
+
+      # Retweet
+      can [:create, :destroy], Retweet, user: user
     end
   end
 end
