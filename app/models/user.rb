@@ -119,6 +119,14 @@ class User < ActiveRecord::Base
       has_many :followers, through: :reverse_follow_relationships, source: :follower
     end
 
+    def followed_users_newer
+      followed_users.merge(Follow.order(created_at: :desc))
+    end
+
+    def followers_newer
+      followers.merge(Follow.order(created_at: :desc))
+    end
+
     def following?(other_user)
       follow_relationships.find_by(followed_id: other_user.id)
     end

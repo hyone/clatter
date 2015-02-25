@@ -28,11 +28,15 @@ class UsersController < ApplicationController
   end
 
   def followers
-    @followers = @user.followers.page(params[:page]).per(USER_PAGE_SIZE)
+    @followers = @user.followers_newer
+                   .page(params[:page])
+                   .per(USER_PAGE_SIZE)
   end
 
   def following
-    @followed_users = @user.followed_users.page(params[:page]).per(USER_PAGE_SIZE)
+    @followed_users = @user.followed_users_newer
+                        .page(params[:page])
+                        .per(USER_PAGE_SIZE)
   end
 
   def with_replies

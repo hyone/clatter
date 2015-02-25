@@ -168,6 +168,44 @@ describe User, :type => :model do
       it { should have_many(:followers).through(:reverse_follow_relationships) }
     end
 
+    describe '#followed_users_newer' do
+      it { should respond_to(:followed_users_newer) }
+
+      context 'with 3 followed_users' do
+        let! (:follow1) { FactoryGirl.create(:follow, follower: user, created_at: 5.hours.ago) }
+        let! (:follow2) { FactoryGirl.create(:follow, follower: user, created_at: 8.hours.ago) }
+        let! (:follow3) { FactoryGirl.create(:follow, follower: user, created_at: 3.hours.ago) }
+        before { FactoryGirl.create(:follow) } # non-user follow
+
+        it 'should have the same set as #followed_users' do
+          expect(user.followed_users_newer.sort).to eq(user.followed_users.sort)
+        end
+
+        it "should order 'follows.created_at desc'" do
+          expect(user.followed_users_newer).to eq([follow3, follow1, follow2].map(&:followed))
+        end
+      end
+    end
+
+    describe '#followers_newer' do
+      it { should respond_to(:followers_newer) }
+
+      context 'with 3 followers' do
+        let! (:follow1) { FactoryGirl.create(:follow, followed: user, created_at: 5.hours.ago) }
+        let! (:follow2) { FactoryGirl.create(:follow, followed: user, created_at: 8.hours.ago) }
+        let! (:follow3) { FactoryGirl.create(:follow, followed: user, created_at: 3.hours.ago) }
+        before { FactoryGirl.create(:follow) } # non-user follow
+
+        it 'should have the same set as #followers' do
+          expect(user.followers_newer.sort).to eq(user.followers.sort)
+        end
+
+        it "should order 'follows.created_at desc'" do
+          expect(user.followers_newer).to eq([follow3, follow1, follow2].map(&:follower))
+        end
+      end
+    end
+
     describe '#follow!' do
       it { should respond_to(:follow!) }
     end
