@@ -97,6 +97,10 @@ class Message < ActiveRecord::Base
       has_many :retweet_relationships, class_name: 'Retweet', dependent: :destroy
       has_many :retweeted_users, through: :retweet_relationships, source: :user
     end
+
+    def retweeted_by(user)
+      retweet_relationships.find_by(user: user)
+    end
   end
 
 

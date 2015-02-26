@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   resources :favorites,       only: [:create, :destroy]
   resources :follows,         only: [:create, :destroy]
   resources :messages,        only: [:create, :destroy]
+  resources :retweets,        only: [:create, :destroy]
 
   resource :errors, only: [] do
     get :bad_request

@@ -19,6 +19,7 @@ def gen_users
 end
 
 def gen_messages
+  # main users messages
   users = User.order(created_at: :desc).limit(5).push(MAIN_USER)
   users.each do |user|
     50.times { |n|
@@ -34,6 +35,11 @@ def gen_messages
       end
     }
   end
+
+  # other users messages
+  User.all.each { |user|
+    FactoryGirl.create_list(:message, 10, user: user)
+  }
 end
 
 def gen_follows
@@ -53,8 +59,30 @@ def gen_favorites
   200.times { FactoryGirl.create(:favorite, user: random_user, message: random_message) }
 end
 
+def gen_retweets
+  30.times {
+    m = random_message
+    FactoryGirl.create(
+      :retweet,
+      user: MAIN_USER,
+      message: m,
+      created_at: m.created_at + rand(Time.now - m.created_at),
+    )
+  }
+  200.times {
+    m = random_message
+    FactoryGirl.create(
+      :retweet,
+      user: random_user,
+      message: m,
+      created_at: m.created_at + rand(Time.now - m.created_at),
+    )
+  }
+end
+
 
 gen_users
 gen_messages
 gen_follows
 gen_favorites
+gen_retweets

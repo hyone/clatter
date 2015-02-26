@@ -152,7 +152,7 @@ describe Message, :type => :model do
 
       context 'when favorited by the user' do
         let! (:favorite) { FactoryGirl.create(:favorite, user: user, message: message) }
-        it 'should return the favorite object' do
+        it 'should return the Favorite object' do
           should eq(favorite)
         end
       end
@@ -178,6 +178,25 @@ describe Message, :type => :model do
       it { should have_many(:retweeted_users)
                     .through(:retweet_relationships)
                     .source(:user) }
+    end
+
+    describe '#retweeted_by' do
+      subject { message.retweeted_by(user) }
+
+      let (:message) { FactoryGirl.create(:message) }
+      let (:user)    { FactoryGirl.create(:user) }
+
+      context 'when retweeted by the user' do
+        let! (:retweet) { FactoryGirl.create(:retweet, user: user, message: message) }
+        it 'should return the Retweet object' do
+          should eq(retweet)
+        end
+      end
+
+      context 'when not retweeted by the user' do
+        let! (:retweet) { FactoryGirl.create(:retweet, message: message) }
+        it { should be_nil }
+      end
     end
   end
 
