@@ -179,41 +179,72 @@ class Message < ActiveRecord::Base
 
 
   concerning :Timelinable do
+    include Message::Retweetedable
+
     class_methods do
       def timeline_of(user)
         users    = User.arel_table
         messages = Message.arel_table
+        retweets = Retweet.arel_table
         replies  = Reply.arel_table
-        follows  = Follow.arel_table
 
-        # collect messages from followed users and the user himself
-        Message.where(
-          messages[:user_id].in(
-            self.union(
-              # followed users
-              users.project(:followed_id).
-              join(follows).on(
-                users[:id].eq(follows[:follower_id])
-              ).
-              where(users[:id].eq(user.id)),
-              # the user
-              users.project(:id).where(users[:id].eq(user.id))
-            ).arel
-          )
-        ).
-        # and then, filter above by
-        # - non-reply messages
-        # - replies to the user
-        # - messages of the user himself
-        includes(:reply_relationships).where(
-          replies[:id].eq(nil).or(
-            replies[:to_user_id].eq(user.id).or(
-              messages[:user_id].eq(user.id)
+        self.union(
+          # meeesages that is
+          # - from the user or his followed users
+          # - non replies or replies only to the user
+          self.arel_messages_from_self_and_followed_users_of(user)
+            .project(*MESSAGE_COLUMNS)
+            .join(replies, Arel::Nodes::OuterJoin)
+            .on(replies[:message_id].eq(messages[:id]))
+            .where(
+              replies[:id].eq(nil).or(
+                messages[:user_id].eq(user.id).or(
+                  replies[:to_user_id].eq(user.id)
+                )
+              )
+            ),
+          self.arel_others_retweets_from_self_and_followed_users_of(user)
+            .project(*RETWEET_COLUMNS)
+            .join(users).on(users[:id].eq(retweets[:user_id]))
+        ).order('order_datetime desc')
+      end
+
+      def arel_messages_from_self_and_followed_users_of(user)
+        messages = Message.arel_table
+        messages.where( messages[:user_id].in(
+          User.self_and_followed_users_ids_of(user).arel
+        ) )
+      end
+
+      # retweets that is
+      # - retweet by the user and their followd users
+      # - only retweeted messages of other user's (non self and non followed users) posting
+      # - when message has multiple retweets, include only the first retweet
+      def arel_others_retweets_from_self_and_followed_users_of(user)
+        messages = Message.arel_table
+        retweets = Retweet.arel_table
+
+        # retweets and messages join condition
+        join_cond = retweets[:message_id].eq(messages[:id])
+
+        # collect retweet ids
+        retweet_ids = \
+          retweets
+            .project(retweets[:id].minimum)
+            .join(messages).on(join_cond)
+            .where(
+              retweets[:user_id].in(User.self_and_followed_users_ids_of(user).arel)
+              .and(
+                messages[:user_id].not_in(User.self_and_followed_users_ids_of(user).arel)
+              )
             )
-          )
-        ).references(:reply_relationships).
-        newer()
+            .group(retweets[:message_id])
+
+        # return messages of that retweet ids
+        messages
+          .join(retweets).on(join_cond)
+          .where(retweets[:id].in(retweet_ids))
       end
     end
-  end 
+  end
 end

@@ -138,6 +138,33 @@ class User < ActiveRecord::Base
     def unfollow!(other_user)
       follow_relationships.find_by(followed_id: other_user.id).destroy!
     end
+
+
+    class_methods do
+      def self_and_followed_users_ids_of(user)
+        follows = Follow.arel_table
+        self.union(
+          arel_followed_users_of(user).project(follows[:followed_id].as('id')),
+          arel_self_of(user).project(:id)
+        )
+      end
+
+      def arel_followed_users_of(user)
+        users   = User.arel_table
+        follows = Follow.arel_table
+
+        users.join(follows).on(
+          users[:id].eq(follows[:follower_id])
+        ).where(
+          users[:id].eq(user.id)
+        )
+      end
+
+      def arel_self_of(user)
+        users = User.arel_table
+        users.where(users[:id].eq(user.id))
+      end
+    end
   end
 
 

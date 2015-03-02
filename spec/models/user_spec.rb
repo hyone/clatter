@@ -261,6 +261,30 @@ describe User, :type => :model do
         end
       end
     end
+
+    describe '::self_and_followed_users_ids_of' do
+      subject { User.self_and_followed_users_ids_of(user).pluck('id') }
+
+      context 'with 2 followed_users' do
+        let! (:follow1) { FactoryGirl.create(:follow, follower: user) }
+        let! (:follow2) { FactoryGirl.create(:follow, follower: user) }
+
+        it 'should include followed user ids' do
+          expect(subject).to include(follow1.followed.id)
+          expect(subject).to include(follow2.followed.id)
+        end
+
+        it 'should include the user id' do
+          should include(user.id)
+        end
+      end
+
+      context 'with no followed users' do
+        it 'should include the user id' do
+          should include(user.id)
+        end
+      end
+    end
   end
 
 
