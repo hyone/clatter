@@ -8,7 +8,10 @@ class HomeController < ApplicationController
       @user    = current_user
       @message = @user.messages.build
       @page    = params[:page] || 1
-      @feeds   = @user.timeline.page(@page).per(MESSAGE_PAGE_SIZE)
+      @feeds   = @user
+                   .timeline
+                   .preload_for_views
+                   .page(@page).per(MESSAGE_PAGE_SIZE)
     end
   end
 
@@ -21,6 +24,9 @@ class HomeController < ApplicationController
   def mentions
     @user  = current_user
     @page  = params[:page] || 1
-    @feeds = @user.mentions(filter: params[:filter]).page(@page).per(MESSAGE_PAGE_SIZE)
+    @feeds = @user
+               .mentions(filter: params[:filter])
+               .preload_for_views
+               .page(@page).per(MESSAGE_PAGE_SIZE)
   end
 end

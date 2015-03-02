@@ -11,6 +11,12 @@ class Message < ActiveRecord::Base
     order(created_at: :desc)
   }
 
+  @@preload_relations_for_view = [:user]
+
+  scope :preload_for_views, -> {
+    includes(*@@preload_relations_for_view)
+  }
+
 
   concerning :Repliable do
     included do
@@ -27,6 +33,8 @@ class Message < ActiveRecord::Base
 
       # virtual field to set the id of message replied to
       attr_accessor :message_id_replied_to
+
+      @@preload_relations_for_view << :users_replied_to
     end
 
     def parent
@@ -84,6 +92,8 @@ class Message < ActiveRecord::Base
     included do
       has_many :favorite_relationships, class_name: 'Favorite', dependent: :destroy
       has_many :favorited_users, through: :favorite_relationships, source: :user
+
+      @@preload_relations_for_view << :favorite_relationships
     end
 
     def favorited_by(user)
@@ -101,6 +111,8 @@ class Message < ActiveRecord::Base
     included do
       has_many :retweet_relationships, class_name: 'Retweet', dependent: :destroy
       has_many :retweet_users, through: :retweet_relationships, source: :user
+
+      @@preload_relations_for_view << :retweet_relationships
     end
 
     def retweeted?

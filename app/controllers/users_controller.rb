@@ -15,13 +15,16 @@ class UsersController < ApplicationController
     @page = params[:page] || 1
     @messages = Message
                   .with_retweets_without_replies_of(@user)
+                  .preload_for_views
                   .page(@page)
                   .per(MESSAGE_PAGE_SIZE)
   end
 
   def favorites
     @page = params[:page] || 1
-    @messages = @user.favorites
+    @messages = @user
+                  .favorites
+                  .preload_for_views
                   .newer
                   .page(@page)
                   .per(MESSAGE_PAGE_SIZE)
@@ -42,6 +45,7 @@ class UsersController < ApplicationController
   def with_replies
     @messages = Message
                   .with_retweets_of(@user)
+                  .preload_for_views
                   .page(@page)
                   .per(MESSAGE_PAGE_SIZE)
     render 'show'
