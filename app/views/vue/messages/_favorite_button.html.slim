@@ -7,7 +7,7 @@ script type="text/x-template" id="favorite-button-template"
         'v-if' => '!isFavorited') do |f|
       = hidden_field_tag 'favorite[message_id]', '{{message.id}}'
       button class='btn btn-link' id='favorite-message-{{message.id}}' type='submit' v-class="
-        disabled: canFavorite
+        disabled: !canFavorite
       "
         b.fa.fa-star
         span.favorites-count v-if="hasFavorites" = "{{ message.favorited_count }}"
@@ -17,7 +17,7 @@ script type="text/x-template" id="favorite-button-template"
                remote: true,
                'v-if' => 'isFavorited') do |f|
       button class='btn btn-link' id='unfavorite-message-{{message.id}}' type='submit' v-class="
-        disabled: canFavorite
+        disabled: !canFavorite
       "
         b.fa.fa-star
         span.favorites-count v-if="hasFavorites" = "{{ message.favorited_count }}"

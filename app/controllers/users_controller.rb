@@ -13,8 +13,8 @@ class UsersController < ApplicationController
 
   def show
     @page = params[:page] || 1
-    @messages = @user.messages_without_replies
-                  .newer
+    @messages = Message
+                  .with_retweets_without_replies_of(@user)
                   .page(@page)
                   .per(MESSAGE_PAGE_SIZE)
   end
@@ -40,7 +40,10 @@ class UsersController < ApplicationController
   end
 
   def with_replies
-    @messages = @user.messages.newer.page(params[:page]).per(MESSAGE_PAGE_SIZE)
+    @messages = Message
+                  .with_retweets_of(@user)
+                  .page(@page)
+                  .per(MESSAGE_PAGE_SIZE)
     render 'show'
   end
 

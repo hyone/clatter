@@ -152,8 +152,8 @@ describe Message, :type => :model do
 
       context 'when favorited by the user' do
         let! (:favorite) { FactoryGirl.create(:favorite, user: user, message: message) }
-        it 'should return the Favorite object' do
-          should eq(favorite)
+        it 'should return the Favorite id' do
+          should eq(favorite.id)
         end
       end
 
@@ -173,11 +173,25 @@ describe Message, :type => :model do
                     .dependent(:destroy) }
     end
 
-    describe '#retweeted_users' do
-      it { should respond_to(:retweeted_users) }
-      it { should have_many(:retweeted_users)
+    describe '#retweet_users' do
+      it { should respond_to(:retweet_users) }
+      it { should have_many(:retweet_users)
                     .through(:retweet_relationships)
                     .source(:user) }
+    end
+
+    describe 'retweeted?' do
+      let! (:message) { FactoryGirl.create(:message) }
+      subject { message.retweeted? }
+
+      context 'when have retweeted' do
+        let! (:retweet) { FactoryGirl.create(:retweet, message: message) }
+        it { should be_truthy }
+      end
+
+      context 'when have not retweeted' do
+        it { should be_falsy }
+      end
     end
 
     describe '#retweeted_by' do
@@ -188,14 +202,59 @@ describe Message, :type => :model do
 
       context 'when retweeted by the user' do
         let! (:retweet) { FactoryGirl.create(:retweet, user: user, message: message) }
-        it 'should return the Retweet object' do
-          should eq(retweet)
+        it 'should return the Retweet id' do
+          should eq(retweet.id)
         end
       end
 
       context 'when not retweeted by the user' do
         let! (:retweet) { FactoryGirl.create(:retweet, message: message) }
         it { should be_nil }
+      end
+    end
+
+
+    shared_examples 'setup_messages' do
+      let  (:user) { FactoryGirl.create(:user) }
+      let! (:message) { FactoryGirl.create(:message, user: user) }
+      let! (:reply) { FactoryGirl.create(:message_with_reply, user: user) }
+      let! (:retweet1) { FactoryGirl.create(:retweet, user: user) }
+      let! (:retweet2) { FactoryGirl.create(:retweet, user: user) }
+    end
+
+    describe '::with_retweets_of' do
+      include_examples 'setup_messages'
+      subject { Message.with_retweets_of(user) }
+
+      it 'should include the user message' do
+        expect(subject).to include(message)
+      end
+
+      it 'should not include the reply the user makes' do
+        expect(subject).to include(reply)
+      end
+
+      it 'should include both retweets' do
+        expect(subject).to include(retweet1.message)
+        expect(subject).to include(retweet2.message)
+      end
+    end
+
+    describe '::with_retweets_without_replies_of' do
+      include_examples 'setup_messages'
+      subject { Message.with_retweets_without_replies_of(user) }
+
+      it 'should include the user message' do
+        expect(subject).to include(message)
+      end
+
+      it 'should not include the reply the user makes' do
+        expect(subject).not_to include(reply)
+      end
+
+      it 'should include both retweets' do
+        expect(subject).to include(retweet1.message)
+        expect(subject).to include(retweet2.message)
       end
     end
   end

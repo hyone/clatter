@@ -5,6 +5,30 @@
   list-style-type: none;
 
   .message-head {
+    .message-context {
+      color: $app-text-light;
+      font-size: 12px;
+      /* margin-left: 10px; */
+
+      > b.fa-retweet {
+        margin-right: 10px;
+        padding: 1px;
+        border-radius: 3px;
+        background-color: #77b255;
+        color: #fff;
+      }
+
+      a {
+        color: $app-text-light;
+        text-decoration: none;
+
+        &:hover {
+          color: $app-text-light;
+          text-decoration: underline;
+        }
+      }
+    }
+
     a {
       text-decoration: none;
 
@@ -20,7 +44,7 @@
 
       .message-owner-name {
         clear: both;
-        color: $text-color;
+        color: $app-text;
         font-weight: bold;
       }
 
@@ -32,7 +56,7 @@
 
       &:hover {
         .message-owner-name {
-          color: $app-active;
+          color: $app-text;
           text-decoration: underline;
         }
 
@@ -102,14 +126,6 @@
     > button {
       &:hover {
         color: $app-active;
-      }
-    }
-  }
-
-  .retweet-button-item {
-    > a, > button {
-      &:hover {
-        color: #5c913b;
       }
     }
   }

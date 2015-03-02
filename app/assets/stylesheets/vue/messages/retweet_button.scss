@@ -1,0 +1,19 @@
+@import "variables";
+
+$app-retweet-active : #5c913b;
+
+
+form.retweet-button,
+form.unretweet-button {
+  > button {
+    &:hover {
+      color: $app-retweet-active;
+    }
+  }
+}
+
+form.unretweet-button {
+  > button {
+    color: $app-retweet-active;
+  }
+}

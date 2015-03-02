@@ -6,6 +6,7 @@ TwitterApp.MessageComponent = Vue.extend
 
   components:
     'favorite-button': TwitterApp.FavoriteButtonComponent
+    'retweet-button':  TwitterApp.RetweetButtonComponent
 
   data: ->
     message: undefined
@@ -18,6 +19,7 @@ TwitterApp.MessageComponent = Vue.extend
 
   compiled: ->
     @setupAjaxEventListeners()
+    # @$log 'message'
 
   methods:
     setupAjaxEventListeners: ->

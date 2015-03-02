@@ -1,23 +1,23 @@
-TwitterApp.FavoriteButtonComponent = Vue.extend
-  template: '#favorite-button-template'
+TwitterApp.RetweetButtonComponent = Vue.extend
+  template: '#retweet-button-template'
   replace: true
 
   data: ->
     message: undefined
 
   computed:
-    isFavorited: ->
-      !!@message.favorited?.id
-    hasFavorites: ->
-      @message.favorited_count > 0
-    canFavorite: ->
-      @message.permissions.favorite
+    isRetweeted: ->
+      !!@message.retweeted?.id
+    hasRetweets: ->
+      @message.retweeted_count > 0
+    canRetweet: ->
+      @message.permissions.retweet
 
   compiled: ->
     @setupAjaxEventListeners()
 
   ready: ->
-    # @$log @message.favorited
+    # @$log @message.retweeted
 
   methods:
     setupAjaxEventListeners: ->
@@ -25,10 +25,8 @@ TwitterApp.FavoriteButtonComponent = Vue.extend
         unless data.response.status == 'success'
           @$dispatch 'app.alert', event, data.response
           return false
-        json = data.results.favorite
-        # console.log json
+        json = data.results.retweet
         @updateButtonStatus(json)
-        @updateUserStat(json)
         false
 
       $(@$el).on 'ajax:complete', (event, data, status, xhr) =>
@@ -41,15 +39,9 @@ TwitterApp.FavoriteButtonComponent = Vue.extend
       $(@$el).on 'ajax:error', (event, xhr, status, error) =>
         @$dispatch 'app.alert', event,
           status: status,
-          message: "#{I18n.t('views.alert.failed_favorite_message')}: #{error}"
+          message: "#{I18n.t('views.alert.failed_retweet_message')}: #{error}"
         false
 
     updateButtonStatus: (data) ->
-       @message.favorited.id    = data.message.favorited.id
-       @message.favorited_count = data.message.favorited_count
-
-    updateUserStat: (data) ->
-      if TwitterApp.profileUser and
-         TwitterApp.currentUser and
-         TwitterApp.profileUser.id == TwitterApp.currentUser.id
-        @$dispatch('favorite.update-stats', event, favorites: data.user.favorites_count)
+       @message.retweeted.id    = data.message.retweeted.id
+       @message.retweeted_count = data.message.retweeted_count
