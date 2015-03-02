@@ -10,11 +10,11 @@ class Ability
     else
       can :read, :all
 
-      # Message
-      can [:create, :destroy], Message, user: user
-
       # Follow
       can [:create, :destroy], Follow, follower: user
+
+      # Message
+      can [:create, :destroy], Message, user: user
 
       # Favorite
       can [:create, :destroy], Favorite, user: user

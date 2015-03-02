@@ -103,6 +103,7 @@ describe 'Users pages', type: :feature do
         context 'in messages list', js: true do
           let! (:messages) { FactoryGirl.create_list(:message, 10, user: user) }
           let! (:reply) { FactoryGirl.create(:message_with_reply, user: user) }
+
           before {
             stub_const('UsersController::MESSAGE_PAGE_SIZE', 20)
             visit current_path
