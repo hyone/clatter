@@ -8,12 +8,12 @@ describe 'Favorites pages' do
 
   shared_examples 'json favorites stats' do
     it 'should include count of user favorites' do
-      expect(json_response['results']['favorite']['user']['favorites_count']).to eq(user.favorites.count)
+      expect(json_response['results']['favorite']['user']['favorites_count']).to eq(user.favorites_count)
     end
 
     it 'should include count of message favorited' do
       expect(json_response['results']['favorite']['message']['favorited_count']).to eq(
-        message.favorite_relationships.count
+        message.favorited_count
       )
     end
   end

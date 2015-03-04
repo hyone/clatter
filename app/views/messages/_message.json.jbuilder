@@ -29,5 +29,5 @@ json.retweeted do
   end
 end
 
-json.favorited_count message.favorite_relationships.count
-json.retweeted_count message.retweet_relationships.count
+json.favorited_count message.favorited_count
+json.retweeted_count message.retweeted_count

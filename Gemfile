@@ -32,6 +32,7 @@ gem 'kaminari-bootstrap'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'responders', '~> 2.0'
+gem 'counter_culture', '~> 0.1.30'
 
 
 group :doc do
@@ -73,4 +74,5 @@ group :test do
   gem 'database_cleaner'
   gem 'coveralls', require: false
   gem 'simplecov', require: false
+  gem 'rake_shared_context'
 end

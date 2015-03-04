@@ -4,4 +4,7 @@ class Favorite < ActiveRecord::Base
 
   validates :user,    presence: true
   validates :message, presence: true
+
+  counter_culture :message, column_name: 'favorited_count'
+  counter_culture :user, column_name: 'favorites_count'
 end

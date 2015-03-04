@@ -25,8 +25,9 @@ TwitterApp.RetweetButtonComponent = Vue.extend
         unless data.response.status == 'success'
           @$dispatch 'app.alert', event, data.response
           return false
+        inc  = if data.response.request_method is "DELETE" then -1 else 1
         json = data.results.retweet
-        @updateButtonStatus(json)
+        @updateButtonStatus(json, inc)
         false
 
       $(@$el).on 'ajax:complete', (event, data, status, xhr) =>
@@ -42,6 +43,6 @@ TwitterApp.RetweetButtonComponent = Vue.extend
           message: "#{I18n.t('views.alert.failed_retweet_message')}: #{error}"
         false
 
-    updateButtonStatus: (data) ->
-       @message.retweeted.id    = data.message.retweeted.id
-       @message.retweeted_count = data.message.retweeted_count
+    updateButtonStatus: (data, inc) ->
+       @message.retweeted.id     = data.message.retweeted.id
+       @message.retweeted_count += inc

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225101057) do
+ActiveRecord::Schema.define(version: 20150303131731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,10 +51,12 @@ ActiveRecord::Schema.define(version: 20150225101057) do
   add_index "follows", ["follower_id"], name: "index_follows_on_follower_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
-    t.string   "text",       null: false
-    t.integer  "user_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "text",                        null: false
+    t.integer  "user_id",                     null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "favorited_count", default: 0, null: false
+    t.integer  "retweeted_count", default: 0, null: false
   end
 
   add_index "messages", ["user_id", "created_at"], name: "index_messages_on_user_id_and_created_at", using: :btree
@@ -101,6 +103,10 @@ ActiveRecord::Schema.define(version: 20150225101057) do
     t.string   "description",            limit: 160
     t.string   "url"
     t.string   "profile_image"
+    t.integer  "messages_count",                     default: 0,  null: false
+    t.integer  "following_count",                    default: 0,  null: false
+    t.integer  "followers_count",                    default: 0,  null: false
+    t.integer  "favorites_count",                    default: 0,  null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

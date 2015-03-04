@@ -18,10 +18,10 @@ TwitterApp.ContentNavigationComponent = Vue.extend
       @$interpolate(url) is location.pathname
 
     updateStats: ({messages, following, followers, favorites}) ->
-      @user.messages_count  = messages  if messages?
-      @user.following_count = following if following?
-      @user.followers_count = followers if followers?
-      @user.favorites_count = favorites if favorites?
+      @user.messages_count  += messages  if messages?
+      @user.following_count += following if following?
+      @user.followers_count += followers if followers?
+      @user.favorites_count += favorites if favorites?
 
     onUpdateStats: (event, args) ->
       @updateStats(args)

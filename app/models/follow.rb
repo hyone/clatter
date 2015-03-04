@@ -4,4 +4,7 @@ class Follow < ActiveRecord::Base
 
   validates :follower, presence: true
   validates :followed, presence: true
+
+  counter_culture :followed, column_name: 'followers_count'
+  counter_culture :follower, column_name: 'following_count'
 end

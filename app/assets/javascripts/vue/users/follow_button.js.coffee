@@ -33,8 +33,9 @@ TwitterApp.FollowButtonComponent = Vue.extend
           return false
 
         json = data.results.follow
+        inc  = if data.response.request_method is "DELETE" then -1 else 1
         @updateButtonStatus(json)
-        @updateUserStat(json)
+        @updateUserStat(json, inc)
 
       $(@$el).on 'ajax:error', (event, xhr, status, error) =>
         @$dispatch 'app.alert', event,
@@ -53,12 +54,11 @@ TwitterApp.FollowButtonComponent = Vue.extend
           @user.follow.id = data.id
         when 'unfollow'
           @user.follow.id = null
-      @$log 'user'
 
-    updateUserStat: (data) ->
+    updateUserStat: (data, inc) ->
       return unless TwitterApp.profileUser
       switch TwitterApp.profileUser.id
         when data.follower.id
-          @$dispatch('follow.update-stats', event, following: data.follower.following_count)
+          @$dispatch('follow.update-stats', event, following: inc)
         when data.followed_user.id
-          @$dispatch('follow.update-stats', event, followers: data.followed_user.followers_count)
+          @$dispatch('follow.update-stats', event, followers: inc)

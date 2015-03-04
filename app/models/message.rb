@@ -6,6 +6,8 @@ class Message < ActiveRecord::Base
     presence: true,
     length: { maximum: 140 }
 
+  counter_culture :user, column_name: 'messages_count'
+
 
   scope :newer, ->() {
     order(created_at: :desc)

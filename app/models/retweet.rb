@@ -4,4 +4,6 @@ class Retweet < ActiveRecord::Base
 
   validates :user,    presence: true
   validates :message, presence: true
+
+  counter_culture :message, column_name: 'retweeted_count'
 end

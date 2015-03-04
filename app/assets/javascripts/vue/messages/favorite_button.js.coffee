@@ -16,9 +16,6 @@ TwitterApp.FavoriteButtonComponent = Vue.extend
   compiled: ->
     @setupAjaxEventListeners()
 
-  ready: ->
-    # @$log @message.favorited
-
   methods:
     setupAjaxEventListeners: ->
       $(@$el).on 'ajax:success', (event, data, status, xhr) =>
@@ -26,9 +23,9 @@ TwitterApp.FavoriteButtonComponent = Vue.extend
           @$dispatch 'app.alert', event, data.response
           return false
         json = data.results.favorite
-        # console.log json
-        @updateButtonStatus(json)
-        @updateUserStat(json)
+        inc  = if data.response.request_method is "DELETE" then -1 else 1
+        @updateButtonStatus(json, inc)
+        @updateUserStat(json, inc)
         false
 
       $(@$el).on 'ajax:complete', (event, data, status, xhr) =>
@@ -44,12 +41,12 @@ TwitterApp.FavoriteButtonComponent = Vue.extend
           message: "#{I18n.t('views.alert.failed_favorite_message')}: #{error}"
         false
 
-    updateButtonStatus: (data) ->
+    updateButtonStatus: (data, inc) ->
        @message.favorited.id    = data.message.favorited.id
-       @message.favorited_count = data.message.favorited_count
+       @message.favorited_count += inc
 
-    updateUserStat: (data) ->
+    updateUserStat: (data, inc) ->
       if TwitterApp.profileUser and
          TwitterApp.currentUser and
          TwitterApp.profileUser.id == TwitterApp.currentUser.id
-        @$dispatch('favorite.update-stats', event, favorites: data.user.favorites_count)
+        @$dispatch('favorite.update-stats', event, favorites: inc)

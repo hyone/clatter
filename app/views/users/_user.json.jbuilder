@@ -7,14 +7,14 @@ json.profile_image_url_normal user.profile_image.normal.url
 json.profile_image_url_small  user.profile_image.small.url
 
 if stats
-  json.messages_count user.messages.count
-  json.favorites_count user.favorites.count
-  json.following_count user.followed_users.count
-  json.followers_count user.followers.count
+  json.messages_count  user.messages_count
+  json.favorites_count user.favorites_count
+  json.following_count user.following_count
+  json.followers_count user.followers_count
 end
 
 if follow
   json.follow do
-    json.id current_user ? current_user.follow_relationships.find_by(followed: user.id).try(:id) : nil
+    json.id current_user ? current_user.following?(user).try(:id) : nil
   end
 end
