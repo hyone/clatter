@@ -6,6 +6,10 @@ json.profile_image_url        user.profile_image.normal.url
 json.profile_image_url_normal user.profile_image.normal.url
 json.profile_image_url_small  user.profile_image.small.url
 
+json.permissions do
+  json.follow can?(:create, Follow.new(follower: current_user, followed: user))
+end
+
 if stats
   json.messages_count  user.messages_count
   json.favorites_count user.favorites_count

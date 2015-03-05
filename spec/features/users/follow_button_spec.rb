@@ -10,12 +10,8 @@ describe 'Follow button', type: :feature, js: true do
   before { visit user_path(other_user) }
 
   context 'as guest' do
-    context 'when click follow button' do
-      before { click_on I18n.t('views.navigation.follow') }
-
-      it 'redirect to the sign in page' do
-        expect(current_path).to eq(new_user_session_path)
-      end
+    it 'follow button should be disabled' do
+      expect(page).to have_selector("#follow-#{other_user.screen_name}.disabled")
     end
   end
 

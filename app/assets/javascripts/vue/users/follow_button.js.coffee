@@ -7,24 +7,26 @@ TwitterApp.FollowButtonComponent = Vue.extend
     user: undefined
 
   computed:
-    isRequireLoginButton: -> @selectButton() == 1
-    isEditProfileButton:  -> @selectButton() == 2
-    isFollowButton:       -> @selectButton() == 3
-    isUnfollowButton:     -> @selectButton() == 4
+    isEditProfileButton:  -> @selectButton() == 1
+    isFollowButton:       -> @selectButton() == 2
+    isUnfollowButton:     -> @selectButton() == 3
+    canFollow: ->
+      @user.permissions.follow
 
   compiled: ->
     @setupAjaxEventListeners()
 
   methods:
+
     selectButton: ->
       # Not login
-      unless TwitterApp.currentUser                 then 1
+      unless TwitterApp.currentUser                 then 2
       # Current user page
-      else if @user.id == TwitterApp.currentUser.id then 2
+      else if @user.id == TwitterApp.currentUser.id then 1
       # have not followed (follow button)
-      else if !@user.follow.id                      then 3
+      else if !@user.follow.id                      then 2
       # have followed (unfollow button)
-      else 4
+      else 3
 
     setupAjaxEventListeners: ->
       $(@$el).on 'ajax:success', (event, data, status, xhr) =>
