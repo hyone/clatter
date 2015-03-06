@@ -14,9 +14,9 @@ script type="text/x-template" id="message-template"
         span.message-owner-name
           | {{message.user.name}}
         span.message-info
-          | @{{message.user.screen_name}} - {{message.created_at_human}}
+          | @{{message.user.screen_name}} - {{{dateFromNow}}}
     div.message-body
-      | {{{message.html_text}}}
+      | {{{textHtml}}}
     div.message-foot v-if="showFoot"
       ul.list-inline
         li.open-reply-to-button-item

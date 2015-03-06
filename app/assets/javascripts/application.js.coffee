@@ -15,6 +15,9 @@
 #= require bootstrap-sass-official/assets/javascripts/bootstrap-sprockets
 #= require i18n
 #= require i18n/translations
+#= require moment
+#= require moment/locale/ja
+#= require util
 #= require vue
 #= require vue/transitions/fade
 #= require vue/shared/alert
@@ -29,3 +32,5 @@
 #= require vue/users/content_navigation
 #= require vue/users/user_panel
 #= require vue/app
+
+

@@ -28,10 +28,17 @@ TwitterApp.appVM = new Vue
     'navigation.click-new-message-button': 'onClickNewMessageButton'
     'app.alert': 'onAlert'
 
+  created: ->
+    @initMoment()
+
   ready: ->
     window.rendered = true
 
   methods:
+    initMoment: ->
+      lang = $('html').prop('lang')
+      moment.locale(lang)
+
     isActiveMenu: (url) ->
       @$interpolate(url) is location.pathname
 

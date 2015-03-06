@@ -1,7 +1,4 @@
 json.extract! message, :id, :text, :created_at
-json.html_text message_to_html(message)
-
-json.created_at_human time_ago_in_words(message.created_at)
 
 json.user do
   json.partial! message.user
@@ -12,6 +9,10 @@ json.permissions do
   json.destroy  can?(:destroy, message)
   json.retweet  can?(:create, Retweet.new(user: current_user, message: message))
   json.favorite can?(:create, Favorite.new(user: current_user, message: message))
+end
+
+json.reply_users do
+  json.array! message.users_replied_to, partial: 'users/user', as: :user
 end
 
 json.favorited do
