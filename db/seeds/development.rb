@@ -36,6 +36,15 @@ def gen_messages
     }
   end
 
+  # message including URLs
+  10.times { |n|
+    FactoryGirl.create(
+      :message,
+      user: MAIN_USER,
+      text: "Hello, #{ (1..3).to_a.sample.times.map { Faker::Internet.url }.join(' and ') }"
+    )
+  }
+
   # other users messages
   User.all.each { |user|
     FactoryGirl.create_list(:message, 10, user: user)

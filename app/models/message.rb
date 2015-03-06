@@ -200,7 +200,7 @@ class Message < ActiveRecord::Base
         self.union(
           # meeesages that is
           # - from the user or his followed users
-          # - non replies or replies only to the user
+          # - non replies or replies to the user
           self.arel_messages_from_self_and_followed_users_of(user)
             .project(*MESSAGE_COLUMNS)
             .join(replies, Arel::Nodes::OuterJoin)
@@ -237,7 +237,7 @@ class Message < ActiveRecord::Base
         join_cond = retweets[:message_id].eq(messages[:id])
 
         # collect retweet ids
-        retweet_ids = \
+        retweet_ids =
           retweets
             .project(retweets[:id].minimum)
             .join(messages).on(join_cond)

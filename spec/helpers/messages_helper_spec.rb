@@ -46,4 +46,58 @@ describe MessagesHelper, type: :helper do
       end
     end
   end
+
+  describe '#replace_url_to_link' do
+    subject { replace_url_to_link(text) }
+
+    context 'with text including urls' do
+      let (:url1) { URI('http://hoge.fuga.com/') }
+      let (:url2) { URI('https://wwww.example.com/') }
+      let (:text) { "hello #{url1} and #{url2}" }
+
+      it 'should replace each URL to a link' do
+        [url1, url2].each do |u|
+          expect(subject).to include(%Q|<a href="#{u}">#{u.host}#{u.path}</a>|)
+        end
+      end
+    end
+
+    context 'with long URL' do
+      let (:url1) { URI('https://wwww.example.com/hoge/fuga/foofoo.txt') }
+      let (:text) { "hello #{url1}" }
+     
+      it 'should truncate link text' do
+        expect(subject).to match(%Q|<a href="#{url1}">[^<]*\.\.\.</a>|)
+      end
+    end
+
+    context 'with invalid URL' do
+      let (:url) { 'www.example.com' }
+      let (:text) { "hello #{url}" }
+
+      it 'should not replace URL to link' do
+        expect(subject).to eq(text)
+      end
+    end
+
+    context 'with other protocols than http (https)' do
+      let (:url) { 'ssh://www.example.com/' }
+      let (:text) { "hello #{url}" }
+
+      it 'should not replace URL to link' do
+        expect(subject).to eq(text)
+      end
+    end
+  end
+
+  describe '#message_to_html' do
+    let (:message) { FactoryGirl.create(:message) }
+
+    it 'should call :replace_reply_at_to_user_link and :replace_url_to_link' do
+      [:replace_reply_at_to_user_link, :replace_url_to_link].each do |method|
+        expect(self).to receive(method)
+      end
+      message_to_html(message)
+    end
+  end
 end
