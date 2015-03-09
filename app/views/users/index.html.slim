@@ -1,6 +1,6 @@
 - provide(:title, 'All Users')
 
-- provide(:page_type, 'user-page')
+- provide(:page_type, 'users')
 
 
 div.content-head
@@ -9,8 +9,8 @@ div.content-head
 div.content-body
   div.row
     div.col.col-xs-12
-      div.row.users
-        div.col-xs-12.users-panel
+      div.row
+        div.col-xs-12.users-tile-panel
           ul.row
             javascript:
               TwitterApp.users = #{raw render(template: 'users/index', formats: [:json], locals: { users: @users, follow: true })};

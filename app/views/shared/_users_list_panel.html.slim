@@ -1,0 +1,29 @@
+/ [variables]
+/ - users : users list
+/ - description : description is displayed when messages is empty
+/
+/ [content]
+/ users list panel head content
+
+- description ||= nil
+
+
+div.col-xs-12
+  div.users-list-panel
+    div.col-inner
+      div.users-list-panel-head
+        = yield if block_given?
+      javascript:
+        TwitterApp.users = #{raw render(template: 'users/index', formats: [:json], locals: { users: users, follow: true })};
+      ul
+        li v-repeat="user: users" v-component="user"
+        li.user v-if="!hasUsers"
+          div.user-body
+            - if description
+              div.empty-description
+                span.fa.fa-twitter.fa-lg
+                = description
+
+  div.col-xs-12
+    div.pager-panel
+      = paginate users

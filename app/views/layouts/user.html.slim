@@ -1,8 +1,6 @@
-- provide(:page_type, 'user-page')
-
+- provide(:page_type, 'users')
 
 - content_for :header do
-
   div.header-head
 
   div.header-body
@@ -17,7 +15,6 @@
 
 
 - content_for :content do
-
   div.content-head
 
   div.content-body
@@ -27,5 +24,6 @@
 
   javascript:
     TwitterApp.profileUser = #{raw render(template: 'users/_user', formats: [:json], locals: { user: @user, stats: true, follow: true })};
+
 
 = render template: 'layouts/application'

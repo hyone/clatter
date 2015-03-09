@@ -1,0 +1,70 @@
+- provide(:page_type, 'search')
+
+
+javascript:
+  window.TwitterApp.search = #{ raw @search.to_json };
+
+div.content-head
+
+div.content-body
+  div.row
+    div.col.col-xs-4.col-lg-3.content-left
+        div.row
+          div.col-xs-12
+            div.menu-panel
+              a.list-group-item#search-menu-mode-messages href="{{ parametersWith({'q[mode]': ''}) }}" v-class="
+                active: search.mode === 'messages'
+              "
+                span.fa.fa-fw.fa-check v-if="search.mode === 'messages'"
+                span.fa.fa-fw v-if="search.mode !== 'messages'"
+                = t('views.home.search.menu.messages')
+              a.list-group-item#search-menu-mode-users href="{{ parametersWith({'q[mode]': 'users'}) }}" v-class="
+                active: search.mode === 'users'
+              "
+                span.fa.fa-fw.fa-check v-if="search.mode === 'users'"
+                span.fa.fa-fw v-if="search.mode !== 'users'"
+                = t('views.home.search.menu.users')
+
+          div.col-xs-12 v-if="currentUser"
+            div.menu-panel
+              a.list-group-item#search-menu-range-all href="{{ parametersWith({'q[range]': ''}) }}" v-class="
+                active: search.range === 'all'
+              "
+                span.fa.fa-fw.fa-check v-if="search.range === 'all'"
+                span.fa.fa-fw v-if="search.range !== 'all'"
+                = t('views.home.search.menu.all_people')
+              a.list-group-item#search-menu-range-followed-users href="{{ parametersWith({'q[range]': 'followed_users'}) }}" v-class="
+                active: search.range === 'followed_users'
+              "
+                span.fa.fa-fw.fa-check v-if="search.range === 'followed_users'"
+                span.fa.fa-fw v-if="search.range !== 'followed_users'"
+                = t('views.home.search.menu.followed_users')
+
+          div.hidden-lg
+            div.col-xs-12
+              = render 'shared/footer_panel'
+
+    div.col.col-xs-8.col-lg-6.content-main
+      div.row
+        - if @search[:mode] == 'users'
+          = render layout: 'shared/users_list_panel', locals: { \
+              users: @feeds, \
+              page:  @page, \
+              description: t('views.home.search.description_html', mode: @search[:mode], word: @search[:text]), \
+            } do
+            h2.users-list-panel-title = t('views.home.search.title_html', word: @search[:text])
+        - else
+          = render layout: 'shared/messages_list_panel', locals: { \
+              messages: @feeds, \
+              page: @page, \
+              description: t('views.home.search.description_html', mode: @search[:mode], word: @search[:text]), \
+            } do
+            h2.messages-list-panel-title = t('views.home.search.title_html', word: @search[:text])
+
+    div.visible-lg-block
+      div.col.col-lg-3
+        div.row
+          div.col-xs-12
+            = render 'shared/footer_panel'
+
+div.content-foot

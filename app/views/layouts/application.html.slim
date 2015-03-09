@@ -34,10 +34,11 @@ html lang="#{I18n.locale}"
     = render 'vue/users/follow_button'
     = render 'vue/users/user_actions_button'
     = render 'vue/users/user_panel'
+    = render 'vue/users/user'
     - if user_signed_in?
       = render 'vue/messages/form', prefix: 'modal'
 
-    div v-component="navigation" v-ref="navigation"
+    div v-component="navigation" v-ref="navigation" v-with="search: search"
 
     div v-component="alert" v-ref="alert"
 

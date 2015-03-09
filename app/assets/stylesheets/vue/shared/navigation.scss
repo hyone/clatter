@@ -45,6 +45,10 @@ $app-navigation-bg: #fff;
         border-color: $app-separator-active;
         background-color: $app-bg-active-light;
       }
+
+      input[type=text] {
+        width: 190px;
+      }
     }
 
     & > li {

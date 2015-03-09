@@ -73,6 +73,14 @@ en:
         people_you_follow: People you follow
         description_all: Find mentions about you here.
         description_people_you_follow: Find mentions from people you follow. Start a conversation with your friends!
+      search:
+        title_html: "Results for <strong>%{word}</strong>"
+        description_html: "No %{mode} results for <strong>%{word}</strong>"
+        menu:
+          messages: Messages
+          users: People
+          all_people: All people
+          followed_users: People you followers
 
     users:
       user:

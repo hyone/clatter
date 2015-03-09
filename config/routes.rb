@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/about',         to: 'home#about'
   get '/mentions',      to: 'home#mentions'
   get '/notifications', to: 'home#notifications'
+  get '/search',        to: 'home#search'
 
   # devise_for :users, skip: [:sessions, :registrations], path: :u, controllers: {
   devise_for :users, skip: [:sessions, :registrations], controllers: {

@@ -33,15 +33,21 @@ script type="text/x-template" id="navigation-template"
               = t('views.navigation.users')
 
         ul.nav.navbar-nav.pull-right#navbar-right-block
-          / ! serach form
-          / li
-            / form.navbar-form.navbar-left.navbar-form-search role="search"
-              / div.form-group
-                / div.input-group
-                  / input.form-control.input-sm#navigation-search-input type="text" placeholder="Search"
-                  / div.input-group-btn.
-                    / button.btn.btn-default.input-sm#navigation-search-submit type="submit"
-                      / i.glyphicon.glyphicon-search
+          /! serach form
+          li
+            = form_tag(search_path,
+                       class: 'navbar-form navbar-left navbar-form-search',
+                       method: 'GET',
+                       role: 'search') do |f|
+              div.form-group
+                div.input-group
+                  input type="hidden" name='q[mode]' value="{{ search.mode }}"
+                  input type="text"   name="q[text]" class="form-control input-sm" id="navigation-search-input" placeholder="Search" v-model="search.text"
+                  div.input-group-btn
+                    button.btn.btn-default.input-sm#navigation-search-submit type="submit" v-class='
+                      disabled: !search.text
+                    '
+                      i.glyphicon.glyphicon-search
 
           /! user menu
           - if user_signed_in?

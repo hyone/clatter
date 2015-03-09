@@ -1,0 +1,16 @@
+script type="text/x-template" id="user-template"
+  li.user.user-data.clearfix id="user-{{user.id}}" data-user-id="{{user.id}}" data-screen-name="{{user.screen_name}}"
+    div.user-head
+      div.user-buttons
+        div v-component="user-actions-button" v-with="user : user"
+        div v-component="follow-button" v-with="user : user"
+      a href="#{ bindable_path('user', '{{user.screen_name}}') }"
+        span.user-icon
+          img v-attr="src: user.profile_image_url_small"
+        span.user-owner-name
+          | {{user.name}}
+        span.user-info
+          | @{{user.screen_name}}
+    div.user-body
+      | {{user.description}}
+    div.user-foot

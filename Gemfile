@@ -34,6 +34,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'responders', '~> 2.0'
 gem 'counter_culture', '~> 0.1.30'
+gem 'ransack'
 
 
 group :doc do

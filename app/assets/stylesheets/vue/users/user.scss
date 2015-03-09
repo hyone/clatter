@@ -1,0 +1,68 @@
+@import "variables";
+
+
+.user {
+  list-style-type: none;
+
+  .user-head {
+    .user-buttons {
+      float: right;
+      position: relative;
+    }
+
+    a {
+      text-decoration: none;
+
+      .user-icon {
+        float: left;
+        margin-top: 5px;
+        margin-right: 10px;
+
+        img {
+          border-radius: 3px;
+        }
+      }
+
+      .user-owner-name {
+        clear: both;
+        color: $app-text;
+        font-weight: bold;
+      }
+
+      .user-info {
+        margin: 0 5px;
+        font-size: 80%;
+        color: $app-text-lighter;
+      }
+
+      &:hover {
+        .user-owner-name {
+          color: $app-text;
+          text-decoration: underline;
+        }
+
+        .user-info {
+          color: $app-text-lighter;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .user-body {
+    .empty-description {
+      padding: 10px 15px;
+      text-align: center;
+      font-size: 12px;
+      color: $app-text-light;
+
+      > .fa {
+        display: block;
+        padding-bottom: 10px;
+      }
+    }
+  }
+
+  .user-foot {
+  }
+}

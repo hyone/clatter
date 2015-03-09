@@ -187,8 +187,21 @@ class Message < ActiveRecord::Base
   end
 
 
+  concerning :UserFollowable do
+    class_methods do
+      def arel_messages_from_self_and_followed_users_of(user)
+        messages = Message.arel_table
+        messages.where( messages[:user_id].in(
+          User.self_and_followed_users_ids_of(user).arel
+        ) )
+      end
+    end
+  end
+
+
   concerning :Timelinable do
     include Message::Retweetedable
+    include Message::UserFollowable
 
     class_methods do
       def timeline_of(user)
@@ -216,13 +229,6 @@ class Message < ActiveRecord::Base
             .project(*RETWEET_COLUMNS)
             .join(users).on(users[:id].eq(retweets[:user_id]))
         ).order('order_datetime desc')
-      end
-
-      def arel_messages_from_self_and_followed_users_of(user)
-        messages = Message.arel_table
-        messages.where( messages[:user_id].in(
-          User.self_and_followed_users_ids_of(user).arel
-        ) )
       end
 
       # retweets that is
@@ -253,6 +259,25 @@ class Message < ActiveRecord::Base
         messages
           .join(retweets).on(join_cond)
           .where(retweets[:id].in(retweet_ids))
+      end
+    end
+  end
+
+
+  concerning :Searchable do
+    include Message::UserFollowable
+
+    included do
+      scope :from_self_and_followed_users, -> (user) {
+        self.execute(
+          self.arel_messages_from_self_and_followed_users_of(user).project('messages.*')
+        )
+      }
+    end
+
+    class_methods do
+      def ransackable_scopes(auth_object = nil)
+        %i[from_self_and_followed_users]
       end
     end
   end

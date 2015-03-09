@@ -2,7 +2,7 @@
 @import "mixins";
 
 
-.user-page {
+.users {
 
   // header
   // ----------------------------------------------
@@ -20,7 +20,7 @@
     }
   }
 
-  // profile block
+  // profile panel
   // ----------------------------------------------
 
   .content-left {
@@ -36,11 +36,11 @@
   }
 
 
-  // messages list block
+  // messages list panel
   // ----------------------------------------------
 
-  .messages-panel {
-    .messages-panel-head {
+  .messages-list-panel {
+    .messages-list-panel-head {
       padding: 10px 15px;
       font-size: 18px;
 
@@ -84,7 +84,7 @@
 }
 
 
-.users-panel {
+.users-tile-panel {
   > ul {
     padding-left: 10px;
   }

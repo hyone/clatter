@@ -1,0 +1,30 @@
+@import "variables";
+
+.search {
+  .menu-panel {
+    .list-group-item {
+      .fa {
+        color: $app-active;
+      }
+    }
+  }
+
+  div.users-list-panel {
+    div.users-list-panel-head {
+      padding: 10px;
+
+      .users-list-panel-title {
+        margin: 0;
+        color: $app-text-lighter;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 300;
+      }
+    }
+  }
+
+  .messages-list-panel-title,
+  .users-list-panel-title {
+    text-align: center;
+  }
+}

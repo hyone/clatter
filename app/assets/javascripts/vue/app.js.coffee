@@ -4,10 +4,21 @@ TwitterApp.appVM = new Vue
   data:
     messages: TwitterApp.messages?.messages
     users: TwitterApp.users
+    search: TwitterApp.search || {}
+    uri: URI(location.href)
 
   computed:
     hasMessages: ->
       @messages.length > 0
+
+    hasUsers: ->
+      @users.length > 0
+
+    searchKeywords: ->
+      @search.text?.split(/\s+/)
+
+    currentUser: ->
+      TwitterApp.currentUser
 
   components:
     'alert': TwitterApp.AlertComponent
@@ -16,6 +27,7 @@ TwitterApp.appVM = new Vue
     'message': TwitterApp.MessageComponent
     'modal-dialog': TwitterApp.ModalDialogComponent
     'navigation': TwitterApp.NavigationComponent
+    'user': TwitterApp.UserComponent
     'user-panel': TwitterApp.UserPanelComponent
 
   events:
@@ -48,6 +60,8 @@ TwitterApp.appVM = new Vue
     showAlert: (status, message, details) ->
       @$.alert.show(status, message, details)
 
+    parametersWith: (params) ->
+      @uri.clone().setQuery(params).toString()
 
     onClickNewMessageButton: (args...) ->
       @$.modalDialog.onOpenNew(args...)

@@ -13,7 +13,7 @@ div.row
 
   div.col.col-sm-8.col-lg-6.content-main
     div.row
-      = render layout: 'shared/messages_panel', locals: { messages: @messages, page: @page } do
+      = render layout: 'shared/messages_list_panel', locals: { messages: @messages, page: @page } do
         ul.list-inline
           li
             - if request.path_info == user_path(@user)

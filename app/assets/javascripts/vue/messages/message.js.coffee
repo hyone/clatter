@@ -1,11 +1,8 @@
-URI_REGEXP = /https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
-
-
 TwitterApp.MessageComponent = Vue.extend
   template: '#message-template'
   replace: true
 
-  paramAttributes: ['show-foot', 'prefix']
+  paramAttributes: ['show-foot', 'prefix', 'keywords']
 
   components:
     'favorite-button': TwitterApp.FavoriteButtonComponent
@@ -13,6 +10,7 @@ TwitterApp.MessageComponent = Vue.extend
 
   data: ->
     message: undefined
+    keywords: undefined
     showFoot: true
     prefix: 'message'
 
@@ -47,23 +45,12 @@ TwitterApp.MessageComponent = Vue.extend
           message: "#{I18n.t('views.alert.failed_delete_message')}: #{error}"
 
     messageToHtml: (text) ->
-      ret = @makeUrlToLink(text)
-      ret = @makeAtReplyToLink(ret)
+      ret = TwitterApp.util.urlToLink(text)
+      ret = TwitterApp.util.atReplyToLink(ret, @message.reply_users)
+      if @keywords
+        for keyword in @keywords
+          ret = TwitterApp.util.keywordToBold(ret, keyword)
       ret
-
-    makeUrlToLink: (text) ->
-      text.replace URI_REGEXP, (m) ->
-        url  = TwitterApp.util.uri(m)
-        text = "#{url.hostname}#{if url.pathname is '/' then '' else url.pathname }"
-        "<a href='#{url}' title='#{url}'>#{ TwitterApp.util.truncate(text, 25) }</a>"
-
-    makeAtReplyToLink: (text) ->
-      for user in @message.reply_users
-        atName = "@#{user.screen_name}"
-        text = text.replace new RegExp("#{atName}\\b", 'g'), (m) ->
-          "<a href='/u/#{user.screen_name}'>#{atName}</a>"
-      text
-
 
     onClickReplyButton: (event) ->
       @$dispatch('message.on-click-reply-button', event, @message)

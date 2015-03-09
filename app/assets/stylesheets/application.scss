@@ -28,6 +28,7 @@ $fa-font-path: "font-awesome-sass/assets/fonts/font-awesome/";
 @import "home/guest_home";
 @import "home/user_home";
 @import "home/notifications";
+@import "home/search";
 @import "users/sessions";
 @import "users/users";
 @import "vue/shared/alert";
@@ -41,6 +42,7 @@ $fa-font-path: "font-awesome-sass/assets/fonts/font-awesome/";
 @import "vue/users/follow_button";
 @import "vue/users/user_actions_button";
 @import "vue/users/user_panel";
+@import "vue/users/user";
 
 
 // --------------------------------------------------------------------------------
@@ -149,6 +151,77 @@ body {
 
 .bordered {
   border-top: 1px solid $app-separator;
+}
+
+
+.notifications,
+.search {
+  .menu-panel {
+    @extend .list-group;
+    margin-bottom: 10px;
+
+    .list-group-item {
+      border-color: $app-separator;
+      color: $app-text-light;
+      background-color: $app-body-bg;
+      padding: 8px 12px;
+      line-height: 14px;
+
+      &:hover {
+        color: $app-active;
+        background-color: $app-bg-active-light;
+      }
+
+      &.active {
+        color: $app-text;
+        font-weight: bold;
+      }
+
+      &.active:hover {
+        color: $app-active;
+        border-color: $app-separator;
+      }
+
+      &:first-child {
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+      }
+      &:last-child {
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+    }
+  }
+
+  div.messages-list-panel {
+    div.messages-list-panel-head {
+      padding: 10px;
+
+      .messages-list-panel-title {
+        margin: 0;
+        color: $app-text-lighter;
+        font-size: 22px;
+        font-weight: 300;
+      }
+
+      ul.list-inline {
+        // list-inline だと .messages-list-panel-head の padding の通りにならず、
+        // ここで調整しないと揃わなかった。
+        padding-left: 5px;
+        margin-bottom: 0;
+
+        li {
+          padding: 0;
+          padding-right: 5px;
+
+          a {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+
 }
 
 
@@ -273,13 +346,36 @@ div.footer-panel {
 // messages list block
 // ----------------------------------------------
 
-.messages-panel {
+.messages-list-panel {
   > .col-inner {
     @extend .list-panel;
   }
 
-  div.messages-panel-head {
+  .messages-list-panel-head {
     border-bottom: 1px solid $app-separator;
     margin: 0;
+  }
+}
+
+
+// users list block
+// ----------------------------------------------
+
+.users-list-panel {
+  > .col-inner {
+    @extend .list-panel;
+  }
+
+  .users-list-panel-head {
+    padding: 10px;
+    border-bottom: 1px solid $app-separator;
+    margin: 0;
+
+    .users-list-panel-title {
+      margin: 0;
+      color: $app-text-lighter;
+      font-size: 22px;
+      font-weight: 300;
+    }
   }
 }

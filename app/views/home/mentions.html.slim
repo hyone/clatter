@@ -29,12 +29,12 @@ div.content-body
         - description = params[:filter].blank? ? \
             t('views.home.mentions.description_all') : \
             t('views.home.mentions.description_people_you_follow')
-        = render layout: 'shared/messages_panel', locals: { \
+        = render layout: 'shared/messages_list_panel', locals: { \
             messages: @feeds, \
             page: @page, \
             description: description \
           } do
-          h2.messages-panel-head-title = t('views.home.mentions.title')
+          h2.messages-list-panel-title = t('views.home.mentions.title')
           ul.list-inline
             li
               - if params[:filter].blank?

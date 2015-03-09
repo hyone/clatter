@@ -16,7 +16,7 @@ script type="text/x-template" id="message-template"
         span.message-info
           | @{{message.user.screen_name}} - {{{dateFromNow}}}
     div.message-body
-      | {{{textHtml}}}
+      | {{{* textHtml}}}
     div.message-foot v-if="showFoot"
       ul.list-inline
         li.open-reply-to-button-item

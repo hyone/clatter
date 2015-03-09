@@ -1,105 +1,14 @@
-@import "bootstrap-sass-official/assets/stylesheets/bootstrap/mixins";
-@import "bootstrap-sass-official/assets/stylesheets/bootstrap/forms";
-@import "bootstrap-sass-official/assets/stylesheets/bootstrap/list-group";
-@import "bootstrap-sass-official/assets/stylesheets/bootstrap/panels";
 @import "variables";
-@import "mixins";
 
 
 .notifications {
-
   .menu-panel {
-    @extend .list-group;
-    margin-bottom: 10px;
-
     .list-group-item {
-      border-color: $app-separator;
-      color: $app-text-light;
-      background-color: $app-body-bg;
-      padding: 8px 12px;
-      line-height: 14px;
-
-      &:hover {
-        color: $app-active;
-        background-color: $app-bg-active-light;
-      }
-
-      &.active {
-        color: $app-text;
-        font-weight: bold;
-      }
-
-      &.active:hover {
-        color: $app-active;
-        border-color: $app-separator;
-      }
-
-      // icon
       .fa {
         margin-right: 0;
         float: right;
       }
-
-      &:first-child {
-        border-top-right-radius: 10px;
-        border-top-left-radius: 10px;
-      }
-      &:last-child {
-        border-bottom-right-radius: 10px;
-        border-bottom-left-radius: 10px;
-      }
     }
   }
-
-  //  messages panel
-  // ----------------------------------------------
-
-  div.messages-panel {
-    div.messages-panel-head {
-      padding: 10px;
-
-      // notifications
-      .messages-panel-head-title {
-        margin: 0;
-        color: $app-text-lighter;
-        font-size: 22px;
-        font-weight: 300;
-      }
-
-      ul.list-inline {
-        // list-inline だと .messages-panel-head の padding の通りにならず、
-        // ここで調整しないと揃わなかった。
-        padding-left: 5px;
-        margin-bottom: 0;
-
-        li {
-          padding: 0;
-          padding-right: 5px;
-
-          a {
-            font-size: 14px;
-          }
-        }
-      }
-    }
-
-    ul li.message {
-      .message-head {
-        .message-icon {
-          img {
-            width: 48px;
-            height: 48px;
-          }
-        }
-      }
-
-      .message-foot {
-        ul li {
-          padding-left: 0px;
-        }
-      }
-    }
-  }
-
 }
 

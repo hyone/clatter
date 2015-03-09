@@ -1,7 +1,7 @@
 follow ||= false
 stats  ||= false
 
-json.extract! user, :id, :screen_name, :name, :url, :created_at
+json.extract! user, :id, :screen_name, :name, :description, :url, :created_at
 json.profile_image_url        user.profile_image.normal.url
 json.profile_image_url_normal user.profile_image.normal.url
 json.profile_image_url_small  user.profile_image.small.url

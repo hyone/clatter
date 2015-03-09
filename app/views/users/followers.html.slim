@@ -9,7 +9,7 @@ div.row
 
   div.col.col-sm-8.col-lg-9.content-main
     div.row
-      div.col-xs-12.users-panel
+      div.col-xs-12.users-tile-panel
         ul.row
           javascript:
             TwitterApp.users = #{raw render(template: 'users/index', formats: [:json], locals: { users: @followers, follow: true })};

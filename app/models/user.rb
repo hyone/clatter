@@ -149,6 +149,11 @@ class User < ActiveRecord::Base
         )
       end
 
+      def self_and_followed_users_of(user)
+        users = User.arel_table
+        User.where(users[:id].in(self_and_followed_users_ids_of(user).arel))
+      end
+
       def arel_followed_users_of(user)
         users   = User.arel_table
         follows = Follow.arel_table
@@ -175,10 +180,20 @@ class User < ActiveRecord::Base
     end
   end
 
+
   concerning :Retweetable do
     included do
       has_many :retweet_relationships, class_name: 'Retweet', dependent: :destroy
       has_many :retweets, through: :retweet_relationships, source: :message
+    end
+  end
+
+
+  concerning :Searchable do
+    class_methods do
+      def ransackable_attributes(auth_object = nil)
+        %w{ screen_name name description }
+      end
     end
   end
 end
