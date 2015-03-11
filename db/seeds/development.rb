@@ -41,7 +41,7 @@ def gen_messages
     FactoryGirl.create(
       :message,
       user: MAIN_USER,
-      text: "Hello, #{ (1..3).to_a.sample.times.map { Faker::Internet.url }.join(' and ') }"
+      text: "Hello, #{ rand(1..3).times.map { Faker::Internet.url }.join(' and ') }"
     )
   }
 

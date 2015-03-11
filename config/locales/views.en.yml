@@ -38,7 +38,7 @@ en:
       signout: Sign out
       signin: Sign in
       unfollow: Unfollow
-      users: Users
+      users: People
 
     modal_dialog:
       compose_new_message: Compose New Message
@@ -86,7 +86,7 @@ en:
       user:
         message_to: 'Message to @%{screen_name}'
       index:
-        title: All Users
+        title: All People
       signup:
         title: Sign up
       signin:
