@@ -1,6 +1,19 @@
 require 'rails_helper'
 
 
+shared_examples 'setup followed users messages' do
+  let! (:user)      { FactoryGirl.create(:user) }
+  let! (:followed1) { FactoryGirl.create(:follow, follower: user).followed }
+  let! (:followed2) { FactoryGirl.create(:follow, follower: user).followed }
+  let! (:other)     { FactoryGirl.create(:user) }
+  # messages
+  let! (:message_user)      { FactoryGirl.create(:message, user: user) }
+  let! (:message_followed1) { FactoryGirl.create(:message, user: followed1) }
+  let! (:message_followed2) { FactoryGirl.create(:message, user: followed2) }
+  let! (:message_other)     { FactoryGirl.create(:message, user: other) }
+end
+
+
 describe Message, :type => :model do
   let (:message) { FactoryGirl.create(:message) }
   subject { message }
@@ -27,12 +40,16 @@ describe Message, :type => :model do
 
 
   describe 'Repliable' do
+    shared_examples 'setup replies' do
+      let! (:reply1) { FactoryGirl.create(:reply, message: message) }
+      let! (:reply2) { FactoryGirl.create(:reply, message: message) }
+    end
+
     describe '#reply_relationships' do
       it { should respond_to(:reply_relationships) }
 
       context 'when the message has replied 2 users' do
-        let! (:reply1) { FactoryGirl.create(:reply, message: message) } 
-        let! (:reply2) { FactoryGirl.create(:reply, message: message) }
+        include_examples 'setup replies'
 
         it 'should have 2 reply_relationships' do
           expect(message.reply_relationships.count).to eq(2)
@@ -44,8 +61,7 @@ describe Message, :type => :model do
       it { should respond_to(:users_replied_to) }
 
       context 'when the message has replied to 2 users' do
-        let! (:reply1) { FactoryGirl.create(:reply, message: message) } 
-        let! (:reply2) { FactoryGirl.create(:reply, message: message) }
+        include_examples 'setup replies'
 
         it 'should have 2 users_replied_to' do
           expect(message.users_replied_to.count).to eq(2)
@@ -214,7 +230,7 @@ describe Message, :type => :model do
     end
 
 
-    shared_examples 'setup_messages' do
+    shared_examples 'setup retweets' do
       let  (:user) { FactoryGirl.create(:user) }
       let! (:message) { FactoryGirl.create(:message, user: user) }
       let! (:reply) { FactoryGirl.create(:message_with_reply, user: user) }
@@ -223,7 +239,7 @@ describe Message, :type => :model do
     end
 
     describe '::with_retweets_of' do
-      include_examples 'setup_messages'
+      include_examples 'setup retweets'
       subject { Message.with_retweets_of(user) }
 
       it 'should include the user message' do
@@ -241,7 +257,7 @@ describe Message, :type => :model do
     end
 
     describe '::with_retweets_without_replies_of' do
-      include_examples 'setup_messages'
+      include_examples 'setup retweets'
       subject { Message.with_retweets_without_replies_of(user) }
 
       it 'should include the user message' do
@@ -262,20 +278,13 @@ describe Message, :type => :model do
 
   describe 'Timelinable' do
     describe '::timeline_of' do
+      include_examples 'setup followed users messages'
+
       subject { Message.timeline_of(user) }
-
-      let! (:user)     { FactoryGirl.create(:user) }
-      let! (:followed) { FactoryGirl.create(:follow, follower: user).followed }
-      let! (:other)    { FactoryGirl.create(:user) }
-
-      # messages
-      let! (:message_user)     { FactoryGirl.create(:message, user: user) }
-      let! (:message_followed) { FactoryGirl.create(:message, user: followed) }
-      let! (:message_other)    { FactoryGirl.create(:message, user: other) }
 
       context 'about messages' do
         let! (:message_user_reply_to_followed) {
-          FactoryGirl.create(:message_with_reply, user: user, users_replied_to: [followed])
+          FactoryGirl.create(:message_with_reply, user: user, users_replied_to: [followed1])
         }
         let! (:message_user_reply_to_other) {
           FactoryGirl.create(:message_with_reply, user: user, users_replied_to: [other])
@@ -292,7 +301,7 @@ describe Message, :type => :model do
         end
 
         it "should include followed user's message" do
-          should include(message_followed)
+          should include(message_followed1)
         end
 
         it "should not include other's message" do
@@ -302,10 +311,10 @@ describe Message, :type => :model do
 
       context 'about replies' do
         let! (:message_followed_reply_to_user) {
-          FactoryGirl.create(:message_with_reply, user: followed, users_replied_to: [user])
+          FactoryGirl.create(:message_with_reply, user: followed1, users_replied_to: [user])
         }
         let! (:message_followed_reply_to_other) {
-          FactoryGirl.create(:message_with_reply, user: followed, users_replied_to: [other])
+          FactoryGirl.create(:message_with_reply, user: followed1, users_replied_to: [other])
         }
         let! (:message_other_reply_to_user) {
           FactoryGirl.create(:message_with_reply, user: other, users_replied_to: [user])
@@ -330,7 +339,7 @@ describe Message, :type => :model do
           FactoryGirl.create(:retweet, user: user)
         }
         let! (:retweet_by_followed) {
-          FactoryGirl.create(:retweet, user: followed)
+          FactoryGirl.create(:retweet, user: followed1)
         }
         let! (:retweet_by_other) {
           FactoryGirl.create(:retweet, user: other)
@@ -350,7 +359,7 @@ describe Message, :type => :model do
 
         context "when retweet followed user's message" do
           let! (:retweet) { FactoryGirl.create(
-            :retweet, user: user, message: message_followed
+            :retweet, user: user, message: message_followed1
           ) }
 
           it "retweet_id of result record should be empty" do
@@ -373,6 +382,28 @@ describe Message, :type => :model do
             expect(m.retweet_id).to eq(retweet_by_followed.id)
           end
         end
+      end
+    end
+  end
+
+
+  describe 'Searchable' do
+    describe '::from_self_and_followed_users' do
+      include_examples 'setup followed users messages'
+
+      subject { Message.from_self_and_followed_users(user) }
+
+      it "should include user's messages" do
+        should include(message_user)
+      end
+
+      it "should include followed user's messages" do
+        should include(message_followed1)
+        should include(message_followed2)
+      end
+
+      it "should not include other user's messages" do
+        should_not include(message_other)
       end
     end
   end

@@ -262,26 +262,63 @@ describe User, :type => :model do
       end
     end
 
+
+    shared_examples 'setup followed users' do
+      let! (:followed1) { FactoryGirl.create(:follow, follower: user).followed }
+      let! (:followed2) { FactoryGirl.create(:follow, follower: user).followed }
+      let! (:other) { FactoryGirl.create(:user) }
+    end
+
     describe '::self_and_followed_users_ids_of' do
       subject { User.self_and_followed_users_ids_of(user).pluck('id') }
 
       context 'with 2 followed_users' do
-        let! (:follow1) { FactoryGirl.create(:follow, follower: user) }
-        let! (:follow2) { FactoryGirl.create(:follow, follower: user) }
+        include_examples 'setup followed users'
 
         it 'should include followed user ids' do
-          expect(subject).to include(follow1.followed.id)
-          expect(subject).to include(follow2.followed.id)
+          expect(subject).to include(followed1.id)
+          expect(subject).to include(followed2.id)
         end
 
         it 'should include the user id' do
           should include(user.id)
+        end
+
+        it 'should not include the other user id' do
+          should_not include(other.id)
         end
       end
 
       context 'with no followed users' do
-        it 'should include the user id' do
-          should include(user.id)
+        it 'should include only the user id' do
+          should contain_exactly(user.id)
+        end
+      end
+    end
+
+    describe '::self_and_followed_users_of' do
+      subject { User.self_and_followed_users_of(user) }
+
+      context 'with 2 followed_users' do
+        include_examples 'setup followed users'
+
+        it 'should include followed users' do
+          expect(subject).to include(followed1)
+          expect(subject).to include(followed2)
+        end
+
+        it 'should include the user' do
+          should include(user)
+        end
+
+        it 'should not include other users' do
+          should_not include(other)
+        end
+      end
+
+      context 'with no followed users' do
+        it 'should include only the user' do
+          should contain_exactly(user)
         end
       end
     end

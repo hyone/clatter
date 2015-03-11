@@ -23,9 +23,9 @@ describe 'Home Page', type: :feature, js: true do
 
       context 'in profile panel' do
         before {
-          3.times { FactoryGirl.create(:message, user: user) }
-          4.times { FactoryGirl.create(:follow, follower: user) }
-          5.times { FactoryGirl.create(:follow, followed: user) }
+          FactoryGirl.create_list(:message, 3, user: user)
+          FactoryGirl.create_list(:follow, 4, follower: user)
+          FactoryGirl.create_list(:follow, 5, followed: user)
           visit current_path
         }
 
@@ -119,7 +119,7 @@ describe 'Home Page', type: :feature, js: true do
         visit mentions_path
       }
 
-      its(:status_code) { should == 200 }
+      its(:status_code) { should eq(200) }
 
       describe 'content' do
         it { should have_link(I18n.t('views.menu_panel.mentions'), mentions_path) }
@@ -180,6 +180,167 @@ describe 'Home Page', type: :feature, js: true do
           end
         end
       end
+    end
+  end
+
+
+  describe 'GET /search' do
+    before { visit search_path }
+
+    def search(keyword)
+      visit current_path
+      fill_in  'navigation-search-input', with: keyword
+      click_on 'navigation-search-submit'
+    end
+
+    shared_examples 'no results' do
+      let (:keyword) { 'no-match-keywords' }
+      before {
+        search keyword
+        click_on 'search-menu-mode-users' if mode == 'users'
+      }
+
+      it 'should display no result message' do
+        expect(page).to have_selector(
+          '.empty-description',
+          I18n.t('views.home.search.description_html', mode: mode, word: keyword)
+        )
+      end
+    end
+
+    # type = :normal
+    #   modal message form
+    # type = :foldable
+    #   foldable message form
+    shared_examples 'searchable' do |type = :guest|
+      if type == :user
+        let (:user) { FactoryGirl.create(:user) }
+        before { signin user }
+      end
+
+      before { visit search_path }
+
+      context 'in menu' do
+        it { should have_selector('#search-menu-mode-messages') }
+        it { should have_selector('#search-menu-mode-users') }
+
+        case type
+        when :guest
+          it { should_not have_selector('#search-menu-range-all', visible: false) }
+          it { should_not have_selector('#search-menu-range-followed-users', visible: false) }
+        when :user
+          it { should have_selector('#search-menu-range-all') }
+          it { should have_selector('#search-menu-range-followed-users') }
+        end
+      end
+
+      context 'in messages search' do
+        context 'with matched results' do
+          let! (:message_match1)  { FactoryGirl.create(:message, text: 'keyword 1') }
+          let! (:message_match2)  { FactoryGirl.create(:message, text: 'some keyword 2') }
+          let! (:message_nomatch) { FactoryGirl.create(:message, text: 'other text') }
+
+          before { search 'keyword' }
+
+          it 'should display only matched messages' do
+            expect(page).to have_selector("#message-#{message_match1.id}").and \
+                            have_selector("#message-#{message_match2.id}")
+            expect(page).not_to have_selector("#message-#{message_nomatch.id}", visible: false)
+          end
+
+          if type == :user
+            context "when click 'People You follow' menu" do
+              let! (:message_followed_match) {
+                FactoryGirl.create(
+                  :message,
+                  text: 'hoge keyword',
+                  user: FactoryGirl.create(:follow, follower: user).followed
+                )
+              }
+              let! (:message_followed_nomatch) {
+                FactoryGirl.create(
+                  :message,
+                  text: 'other text',
+                  user: FactoryGirl.create(:follow, follower: user).followed
+                )
+              }
+
+              before { click_on 'search-menu-range-followed-users' }
+
+              it 'should display only matched messages from followed users' do
+                expect(page).to have_selector("#message-#{message_followed_match.id}")
+                expect(page).not_to have_selector("#message-#{message_match1.id}", visible: false)
+                expect(page).not_to have_selector("#message-#{message_followed_nomatch.id}", visible: false)
+              end
+            end
+          end
+        end
+
+        context 'with no result' do
+          include_examples 'no results' do
+            let (:mode) { 'messages' }
+          end
+        end
+      end
+
+      context 'in users search' do
+        context 'with matched results' do
+          let! (:user_match1)  { FactoryGirl.create(:user, screen_name: 'a_keyword_user') }
+          let! (:user_match2)  { FactoryGirl.create(:user, name: 'keyword2 user') }
+          let! (:user_match3)  { FactoryGirl.create(:user, description: 'hoge fuga keyword-description') }
+          let! (:user_nomatch) { FactoryGirl.create(:user, screen_name: 'no_match_user') }
+
+          before {
+            search 'keyword'
+            click_on 'search-menu-mode-users'
+          }
+
+          it 'should display only matched users' do
+            expect(page).to have_selector("#user-#{user_match1.id}").and \
+                            have_selector("#user-#{user_match2.id}").and \
+                            have_selector("#user-#{user_match3.id}")
+            expect(page).not_to have_selector("#user-#{user_nomatch.id}", visible: false)
+          end
+
+          if type == :user
+            context "when click 'People You follow' menu" do
+              let! (:user_followed_match) {
+                u = FactoryGirl.create(:user, screen_name: 'a_keyword3_user')
+                FactoryGirl.create(:follow, follower: user, followed: u).followed
+              }
+              let! (:user_followed_nomatch) {
+                u = FactoryGirl.create(:user, screen_name: 'no_match_user2')
+                FactoryGirl.create(:follow, follower: user, followed: u).followed
+              }
+
+              before { click_on 'search-menu-range-followed-users' }
+
+              it 'should display only matched users in followed users' do
+                expect(page).to have_selector("#user-#{user_followed_match.id}")
+                expect(page).not_to have_selector("#user-#{user_match1.id}", visible: false)
+                expect(page).not_to have_selector("#user-#{user_match2.id}", visible: false)
+                expect(page).not_to have_selector("#user-#{user_match3.id}", visible: false)
+                expect(page).not_to have_selector("#user-#{user_followed_nomatch.id}", visible: false)
+              end
+            end
+          end
+        end
+
+        context 'with no result' do
+          include_examples 'no results' do
+            let (:mode) { 'users' }
+          end
+        end
+      end
+    end
+
+
+    context 'as guest' do
+      include_examples 'searchable', :guest
+    end
+
+    context 'as user' do
+      include_examples 'searchable', :user
     end
   end
 end
