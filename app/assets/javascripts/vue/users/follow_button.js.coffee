@@ -1,4 +1,4 @@
-TwitterApp.FollowButtonComponent = Vue.extend
+Clatter.FollowButtonComponent = Vue.extend
   template: '#follow-button-template'
 
   replace: true
@@ -20,9 +20,9 @@ TwitterApp.FollowButtonComponent = Vue.extend
 
     selectButton: ->
       # Not login
-      unless TwitterApp.currentUser                 then 2
+      unless Clatter.currentUser                 then 2
       # Current user page
-      else if @user.id == TwitterApp.currentUser.id then 1
+      else if @user.id == Clatter.currentUser.id then 1
       # have not followed (follow button)
       else if !@user.follow.id                      then 2
       # have followed (unfollow button)
@@ -58,8 +58,8 @@ TwitterApp.FollowButtonComponent = Vue.extend
           @user.follow.id = null
 
     updateUserStat: (data, inc) ->
-      return unless TwitterApp.profileUser
-      switch TwitterApp.profileUser.id
+      return unless Clatter.profileUser
+      switch Clatter.profileUser.id
         when data.follower.id
           @$dispatch('follow.update-stats', event, following: inc)
         when data.followed_user.id

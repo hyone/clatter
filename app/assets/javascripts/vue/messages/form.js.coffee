@@ -60,7 +60,7 @@ MessageForm = Vue.extend
       @text = ''
 
 
-TwitterApp.ContentMainMessageFormComponent = MessageForm.extend
+Clatter.ContentMainMessageFormComponent = MessageForm.extend
   template: '#content-main-message-form-template'
   replace: true
 
@@ -87,7 +87,7 @@ TwitterApp.ContentMainMessageFormComponent = MessageForm.extend
       @open()
 
 
-TwitterApp.ModalMessageFormComponent = MessageForm.extend
+Clatter.ModalMessageFormComponent = MessageForm.extend
   template: '#modal-message-form-template'
   replace: true
 

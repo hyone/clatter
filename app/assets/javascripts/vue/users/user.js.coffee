@@ -1,10 +1,10 @@
-TwitterApp.UserComponent = Vue.extend
+Clatter.UserComponent = Vue.extend
   template: '#user-template'
   replace: true
 
   components:
-    'follow-button': TwitterApp.FollowButtonComponent
-    'user-actions-button': TwitterApp.UserActionsButtonComponent
+    'follow-button': Clatter.FollowButtonComponent
+    'user-actions-button': Clatter.UserActionsButtonComponent
 
   data: ->
     user: {}

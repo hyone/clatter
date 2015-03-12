@@ -8,21 +8,21 @@ describe ApplicationHelper, type: :helper do
 
     context 'with "home"' do
       let (:text) { 'home' }
-      it { should eq('home | TwitterApp') }
+      it { should eq("home | #{ I18n.t('views.generic.base_title') }") }
     end
 
     context 'with ""' do
       let (:text) { '' }
-      it { should eq('TwitterApp') }
+      it { should eq(I18n.t('views.generic.base_title')) }
     end
 
     context 'with nil' do
       let (:text) { nil }
-      it { should eq('TwitterApp') }
+      it { should eq(I18n.t('views.generic.base_title')) }
     end
 
     context 'with arguments' do
-      it { expect(page_title).to eq('TwitterApp') }
+      it { expect(page_title).to eq(I18n.t('views.generic.base_title')) }
     end
   end
 

@@ -17,7 +17,7 @@ html lang="#{I18n.locale}"
 
     /! must evaluate at init
     javascript:
-      window.TwitterApp = {
+      window.Clatter = {
         currentUser: #{current_user ? render(template: 'users/_user', formats: [:json], locals: { user: current_user }).html_safe : "null"}
       };
 

@@ -1,10 +1,10 @@
-TwitterApp.appVM = new Vue
+Clatter.appVM = new Vue
   el: '#app'
 
   data:
-    messages: TwitterApp.messages?.messages
-    users: TwitterApp.users
-    search: TwitterApp.search || {}
+    messages: Clatter.messages?.messages
+    users: Clatter.users
+    search: Clatter.search || {}
     uri: URI(location.href)
 
   computed:
@@ -18,17 +18,17 @@ TwitterApp.appVM = new Vue
       @search.text?.split(/\s+/)
 
     currentUser: ->
-      TwitterApp.currentUser
+      Clatter.currentUser
 
   components:
-    'alert': TwitterApp.AlertComponent
-    'content-main-message-form': TwitterApp.ContentMainMessageFormComponent
-    'content-navigation': TwitterApp.ContentNavigationComponent
-    'message': TwitterApp.MessageComponent
-    'modal-dialog': TwitterApp.ModalDialogComponent
-    'navigation': TwitterApp.NavigationComponent
-    'user': TwitterApp.UserComponent
-    'user-panel': TwitterApp.UserPanelComponent
+    'alert': Clatter.AlertComponent
+    'content-main-message-form': Clatter.ContentMainMessageFormComponent
+    'content-navigation': Clatter.ContentNavigationComponent
+    'message': Clatter.MessageComponent
+    'modal-dialog': Clatter.ModalDialogComponent
+    'navigation': Clatter.NavigationComponent
+    'user': Clatter.UserComponent
+    'user-panel': Clatter.UserPanelComponent
 
   events:
     'favorite.update-stats': 'onUpdateStats'
@@ -76,10 +76,10 @@ TwitterApp.appVM = new Vue
       false
 
     onMessageCreated: (event, message) ->
-      if TwitterApp.profileUser and
-         TwitterApp.currentUser and
-         TwitterApp.profileUser.id == TwitterApp.currentUser.id and
-         TwitterApp.messages?.page == 1
+      if Clatter.profileUser and
+         Clatter.currentUser and
+         Clatter.profileUser.id == Clatter.currentUser.id and
+         Clatter.messages?.page == 1
         @addMessage(message)
         # @showAlert('success', 'Message Created!')
       @$.contentMainMessageForm?.close()

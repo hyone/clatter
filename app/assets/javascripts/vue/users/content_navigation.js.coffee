@@ -1,13 +1,13 @@
-TwitterApp.ContentNavigationComponent = Vue.extend
+Clatter.ContentNavigationComponent = Vue.extend
   template: '#content-navigation-template'
   replace: true
 
   components:
-    'follow-button': TwitterApp.FollowButtonComponent
-    'user-actions-button': TwitterApp.UserActionsButtonComponent
+    'follow-button': Clatter.FollowButtonComponent
+    'user-actions-button': Clatter.UserActionsButtonComponent
 
   data: ->
-    user: TwitterApp.profileUser
+    user: Clatter.profileUser
 
   events:
     'favorite.update-stats': 'onUpdateStats'

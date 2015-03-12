@@ -1,4 +1,4 @@
-TwitterApp.UserActionsButtonComponent = Vue.extend
+Clatter.UserActionsButtonComponent = Vue.extend
   template: '#user-actions-button-template'
   replace: true
 
@@ -7,7 +7,7 @@ TwitterApp.UserActionsButtonComponent = Vue.extend
 
   computed:
     canActions: ->
-      !!TwitterApp.currentUser
+      !!Clatter.currentUser
 
     replyToUserText: ->
       I18n.t('views.users.user.message_to', { screen_name: @user.screen_name })

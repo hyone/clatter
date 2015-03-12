@@ -1,4 +1,4 @@
-TwitterApp.RetweetButtonComponent = Vue.extend
+Clatter.RetweetButtonComponent = Vue.extend
   template: '#retweet-button-template'
   replace: true
 

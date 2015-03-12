@@ -12,7 +12,7 @@ div.row
       div.col-xs-12.users-tile-panel
         ul.row
           javascript:
-            TwitterApp.users = #{raw render(template: 'users/index', formats: [:json], locals: { users: @followed_users, follow: true })};
+            Clatter.users = #{raw render(template: 'users/index', formats: [:json], locals: { users: @followed_users, follow: true })};
           li v-repeat="user: users" v-component="user-panel"
 
       div.col-xs-12.pager-panel

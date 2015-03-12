@@ -9,7 +9,7 @@
 
 
 javascript:
-  TwitterApp.messages = #{raw render(template: 'messages/index', formats: [:json], locals: { messages: messages, page: page })};
+  Clatter.messages = #{raw render(template: 'messages/index', formats: [:json], locals: { messages: messages, page: page })};
 
 div.col-xs-12
   div.messages-list-panel

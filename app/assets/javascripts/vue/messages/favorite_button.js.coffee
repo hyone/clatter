@@ -1,4 +1,4 @@
-TwitterApp.FavoriteButtonComponent = Vue.extend
+Clatter.FavoriteButtonComponent = Vue.extend
   template: '#favorite-button-template'
   replace: true
 
@@ -46,7 +46,7 @@ TwitterApp.FavoriteButtonComponent = Vue.extend
        @message.favorited_count += inc
 
     updateUserStat: (data, inc) ->
-      if TwitterApp.profileUser and
-         TwitterApp.currentUser and
-         TwitterApp.profileUser.id == TwitterApp.currentUser.id
+      if Clatter.profileUser and
+         Clatter.currentUser and
+         Clatter.profileUser.id == Clatter.currentUser.id
         @$dispatch('favorite.update-stats', event, favorites: inc)

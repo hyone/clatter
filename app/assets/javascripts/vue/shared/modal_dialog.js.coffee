@@ -1,4 +1,4 @@
-TwitterApp.ModalDialogComponent = Vue.extend
+Clatter.ModalDialogComponent = Vue.extend
   template: '#modal-dialog-template'
   replace: true
 
@@ -11,7 +11,7 @@ TwitterApp.ModalDialogComponent = Vue.extend
     params: {}
 
   components:
-    'modal-message-form': TwitterApp.ModalMessageFormComponent
+    'modal-message-form': Clatter.ModalMessageFormComponent
     message:
       template: """
         <div v-component="inner"
@@ -23,7 +23,7 @@ TwitterApp.ModalDialogComponent = Vue.extend
         </div>
       """
       components:
-        inner: TwitterApp.MessageComponent
+        inner: Clatter.MessageComponent
 
   compiled: ->
     @setupModalEventListeners()

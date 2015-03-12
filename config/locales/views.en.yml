@@ -4,7 +4,8 @@ en:
       please_sign_in: Please sign in.
       not_message_owner: You are not the owner of the message.
       not_favorite_owner: You are not the owner of the favorite.
-      appname: TwitterApp
+      appname: Clatter
+      base_title: Clatter
 
     errors:
       internet_server_error:
@@ -66,7 +67,7 @@ en:
       index:
         description: Your timeline is currently empty. Follow people and topics you find interesting to see their messages in your timeline. 
         signup_now: Sign up now!
-        welcome_message: Welcome to TwitterApp
+        welcome_message: "Welcome to %{appname}"
       mentions:
         title: Mentions
         all: All

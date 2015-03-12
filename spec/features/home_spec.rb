@@ -10,7 +10,9 @@ describe 'Home Page', type: :feature, js: true do
     it { should have_title(page_title) }
 
     context 'as guest' do
-      it { should have_content(I18n.t('views.home.index.welcome_message')) }
+      it { should have_content(
+        I18n.t('views.home.index.welcome_message', appname: I18n.t('views.generic.appname'))
+      ) }
       it { should have_link(I18n.t('views.home.index.signup_now'), new_user_registration_path) }
     end
 

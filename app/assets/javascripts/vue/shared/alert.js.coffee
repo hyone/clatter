@@ -1,4 +1,4 @@
-window.TwitterApp.AlertComponent = Vue.extend
+window.Clatter.AlertComponent = Vue.extend
   template: '#alert-template'
 
   replace: true

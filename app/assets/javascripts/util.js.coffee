@@ -1,4 +1,4 @@
-TwitterApp.util =
+Clatter.util =
   uri: (url) ->
     elem = document.createElement('a')
     elem.href = url
@@ -21,10 +21,10 @@ TwitterApp.util =
     /https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
 
   urlToLink: (text) ->
-    text.replace TwitterApp.util.URI_REGEXP, (m) ->
-      url  = TwitterApp.util.uri(m)
+    text.replace Clatter.util.URI_REGEXP, (m) ->
+      url  = Clatter.util.uri(m)
       text = "#{url.hostname}#{if url.pathname is '/' then '' else url.pathname }"
-      "<a href='#{url}' title='#{url}'>#{ TwitterApp.util.truncate(text, 25) }</a>"
+      "<a href='#{url}' title='#{url}'>#{ Clatter.util.truncate(text, 25) }</a>"
 
   atReplyToLink: (text, users) ->
     for user in users

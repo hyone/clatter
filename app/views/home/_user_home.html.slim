@@ -60,6 +60,6 @@ div.content-body
             / = render 'shared/footer_panel'
 
   javascript:
-    TwitterApp.profileUser = #{raw render(template: 'users/_user', formats: [:json], locals: { user: @user, stats: true, follow: true })};
+    Clatter.profileUser = #{raw render(template: 'users/_user', formats: [:json], locals: { user: @user, stats: true, follow: true })};
 
 div.content-foot

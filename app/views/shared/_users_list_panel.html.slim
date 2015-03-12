@@ -14,7 +14,7 @@ div.col-xs-12
       div.users-list-panel-head
         = yield if block_given?
       javascript:
-        TwitterApp.users = #{raw render(template: 'users/index', formats: [:json], locals: { users: users, follow: true })};
+        Clatter.users = #{raw render(template: 'users/index', formats: [:json], locals: { users: users, follow: true })};
       ul
         li v-repeat="user: users" v-component="user"
         li.user v-if="!hasUsers"

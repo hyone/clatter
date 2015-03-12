@@ -1,5 +1,5 @@
 {
-  "name": "hyone-twitter-app",
+  "name": "Clatter",
   "scripts": {
     "postdeploy": "bundle exec rake db:migrate"
   },

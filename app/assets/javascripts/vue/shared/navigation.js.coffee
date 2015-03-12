@@ -1,4 +1,4 @@
-window.TwitterApp.NavigationComponent = Vue.extend
+window.Clatter.NavigationComponent = Vue.extend
   template: '#navigation-template'
   replace: true
 

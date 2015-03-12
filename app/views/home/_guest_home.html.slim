@@ -5,7 +5,7 @@
 
   div.header-head
     div.container.centerize
-      h1 = t('views.home.index.welcome_message')
+      h1 = t('views.home.index.welcome_message', appname: t('views.generic.appname'))
       p
         a.btn.btn-default.btn-warning href="#{new_user_registration_path}"
           = t('views.home.index.signup_now')

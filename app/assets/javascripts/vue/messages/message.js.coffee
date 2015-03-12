@@ -1,12 +1,12 @@
-TwitterApp.MessageComponent = Vue.extend
+Clatter.MessageComponent = Vue.extend
   template: '#message-template'
   replace: true
 
   paramAttributes: ['show-foot', 'prefix', 'keywords']
 
   components:
-    'favorite-button': TwitterApp.FavoriteButtonComponent
-    'retweet-button':  TwitterApp.RetweetButtonComponent
+    'favorite-button': Clatter.FavoriteButtonComponent
+    'retweet-button':  Clatter.RetweetButtonComponent
 
   data: ->
     message: undefined
@@ -16,7 +16,7 @@ TwitterApp.MessageComponent = Vue.extend
 
   computed:
     canActions: ->
-      !!TwitterApp.currentUser
+      !!Clatter.currentUser
 
     dateFromNow: ->
       d = moment(@message.created_at)
@@ -45,11 +45,11 @@ TwitterApp.MessageComponent = Vue.extend
           message: "#{I18n.t('views.alert.failed_delete_message')}: #{error}"
 
     messageToHtml: (text) ->
-      ret = TwitterApp.util.urlToLink(text)
-      ret = TwitterApp.util.atReplyToLink(ret, @message.reply_users)
+      ret = Clatter.util.urlToLink(text)
+      ret = Clatter.util.atReplyToLink(ret, @message.reply_users)
       if @keywords
         for keyword in @keywords
-          ret = TwitterApp.util.keywordToBold(ret, keyword)
+          ret = Clatter.util.keywordToBold(ret, keyword)
       ret
 
     onClickReplyButton: (event) ->

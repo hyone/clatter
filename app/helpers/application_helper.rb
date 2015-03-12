@@ -1,6 +1,6 @@
 module ApplicationHelper
   def page_title(text = nil)
-    base = 'TwitterApp'
+    base = I18n.t('views.generic.base_title')
     return base if text.blank?
     [text, base].join(' | ')
   end
