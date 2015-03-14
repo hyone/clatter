@@ -1,6 +1,7 @@
 MessageForm = Vue.extend
   data: ->
     text: ''
+    parentId: undefined
     rows: 3
     display: 'block'
     LIMIT: 140
@@ -104,6 +105,7 @@ Clatter.ModalMessageFormComponent = MessageForm.extend
 
     onOpenMessageReply: (event, message) ->
       @setReplyText(message.user.screen_name)
+      @parentId = message.id
 
     onOpenUserReply: (event, screen_name) ->
       @setReplyText(screen_name)

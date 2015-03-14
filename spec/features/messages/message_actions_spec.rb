@@ -23,7 +23,7 @@ describe 'Message Actions', type: :feature, js: true do
         #   expect {
         #     click_on "reply-to-message-#{message.id}"
         #   }.to change {
-        #     page.find('#message-dialog').visible?
+        #     page.find('#message-dialog', visible: false).visible?
         #   }.from(false).to(true)
         # end
 
@@ -43,9 +43,32 @@ describe 'Message Actions', type: :feature, js: true do
           end
         end
 
-        describe 'textarea' do
-          it "should match '@screen_name'" do
+        describe 'form' do
+          it 'hidden field should have original message id' do
+            expect(find('#modal-message-form-parent-id', visible: false).value).to eq("#{message.id}")
+          end
+
+          it "textarea should have '@screen_name'" do
             expect(find('#modal-message-form-text').value).to match /@#{message.user.screen_name}/
+          end
+
+          context 'when submit' do
+            let (:text) { "@#{message.user.screen_name} Hello World!" }
+
+            it 'should create a reply to the message' do
+              expect {
+                fill_in "modal-message-form-text", with: text
+                click_button "modal-message-form-submit"
+                wait_for_ajax
+              }.to change {
+                Message.find_by(text: text, user: user)
+              }.from(nil)
+              .and change( Reply.where(
+                  to_message_id: message.id,
+                  to_user_id: message.user
+                ), :count )
+              .by(1)
+            end
           end
         end
       end

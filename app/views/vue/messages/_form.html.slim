@@ -10,6 +10,11 @@ script type="text/x-template" id="#{prefix}-message-form-template"
     = render 'shared/error_messages', object: f.object
 
     div.form-group
+      = f.hidden_field :message_id_replied_to,
+        id: "#{prefix}-message-form-parent-id",
+        'v-model' => 'parentId',
+        'v-if'    => 'parentId'
+
       = f.text_area :text,
           id: "#{prefix}-message-form-text",
           class: 'form-control message-text',
