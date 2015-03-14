@@ -1,0 +1,17 @@
+- provide(:title, t( \
+    'views.users.status.title', \
+    user: @user.name, \
+    appname: t('views.generic.appname'), \
+    message: @message.text \
+  ))
+
+javascript:
+  Clatter.messages = { messages: [#{raw render(template: 'messages/_message', formats: [:json], locals: { message: @message, detail: true })}] };
+ 
+div.row
+  div.col.col-sm-2.col-lg-3.content-left
+
+  div.col.col-sm-8.col-lg-6.content-main
+    div.row v-component="message-panel" v-with="message: messages[0]" v-ref="messagePanel"
+
+  div.col.col-sm-2.col-lg-3.content-right

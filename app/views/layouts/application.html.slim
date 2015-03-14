@@ -29,14 +29,17 @@ html lang="#{I18n.locale}"
     = render 'vue/shared/modal_dialog'
     = render 'vue/shared/navigation'
     = render 'vue/messages/favorite_button'
+    = render 'vue/messages/message_actions_button'
     = render 'vue/messages/retweet_button'
     = render 'vue/messages/message'
+    = render 'vue/messages/message_panel'
     = render 'vue/users/follow_button'
     = render 'vue/users/user_actions_button'
     = render 'vue/users/user_panel'
     = render 'vue/users/user'
     - if user_signed_in?
       = render 'vue/messages/form', prefix: 'modal'
+      = render 'vue/messages/form', prefix: 'content-main-'
 
     div v-component="navigation" v-ref="navigation" v-with="search: search"
 

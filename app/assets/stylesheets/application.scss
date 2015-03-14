@@ -39,6 +39,7 @@ $fa-font-path: "font-awesome-sass/assets/fonts/font-awesome/";
 @import "vue/messages/retweet_button";
 @import "vue/messages/form";
 @import "vue/messages/message";
+@import "vue/messages/message_panel";
 @import "vue/users/content_navigation";
 @import "vue/users/follow_button";
 @import "vue/users/user_actions_button";
@@ -150,81 +151,6 @@ body {
   @extend .panel;
 }
 
-.bordered {
-  border-top: 1px solid $app-separator;
-}
-
-
-.notifications,
-.search {
-  .menu-panel {
-    @extend .list-group;
-    margin-bottom: 10px;
-
-    .list-group-item {
-      border-color: $app-separator;
-      color: $app-text-light;
-      background-color: $app-body-bg;
-      padding: 8px 12px;
-      line-height: 14px;
-
-      &:hover {
-        color: $app-active;
-        background-color: $app-bg-active-light;
-      }
-
-      &.active {
-        color: $app-text;
-        font-weight: bold;
-      }
-
-      &.active:hover {
-        color: $app-active;
-        border-color: $app-separator;
-      }
-
-      &:first-child {
-        border-top-right-radius: 10px;
-        border-top-left-radius: 10px;
-      }
-      &:last-child {
-        border-bottom-right-radius: 10px;
-        border-bottom-left-radius: 10px;
-      }
-    }
-  }
-
-  div.messages-list-panel {
-    div.messages-list-panel-head {
-      padding: 10px;
-
-      .messages-list-panel-title {
-        margin: 0;
-        color: $app-text-lighter;
-        font-size: 22px;
-        font-weight: 300;
-      }
-
-      ul.list-inline {
-        // list-inline だと .messages-list-panel-head の padding の通りにならず、
-        // ここで調整しないと揃わなかった。
-        padding-left: 5px;
-        margin-bottom: 0;
-
-        li {
-          padding: 0;
-          padding-right: 5px;
-
-          a {
-            font-size: 14px;
-          }
-        }
-      }
-    }
-  }
-
-}
-
 
 // header
 // ----------------------------------------------
@@ -263,8 +189,6 @@ body {
 }
 
 
-
-
 // content panel
 // ----------------------------------------------
 
@@ -298,7 +222,7 @@ div.footer-panel {
 }
 
 
-// profile block
+// profile panel
 // ----------------------------------------------
 
 .content-left {
@@ -344,7 +268,7 @@ div.footer-panel {
 }
 
 
-// messages list block
+// messages list panel
 // ----------------------------------------------
 
 .messages-list-panel {
@@ -359,7 +283,7 @@ div.footer-panel {
 }
 
 
-// users list block
+// users list panel
 // ----------------------------------------------
 
 .users-list-panel {
@@ -380,3 +304,116 @@ div.footer-panel {
     }
   }
 }
+
+
+// messages form block
+// ----------------------------------------------
+
+div.message-form-block {
+  padding: 10px;
+  background-color: $app-bg-active;
+
+  .message-icon {
+    position: absolute;
+
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 3px;
+    }
+  }
+
+  form.message-form {
+    margin-left: 40px;
+
+    .message-submit {
+      display: none;
+    }
+  }
+}
+
+
+// --------------------------------------------------------------------------------------------
+// Notification, Search page
+// --------------------------------------------------------------------------------------------
+
+// menu panel
+// ----------------------------------------------
+
+.notifications,
+.search {
+  .menu-panel {
+    @extend .list-group;
+    margin-bottom: 10px;
+
+    .list-group-item {
+      border-color: $app-separator;
+      color: $app-text-light;
+      background-color: $app-body-bg;
+      padding: 8px 12px;
+      line-height: 14px;
+
+      &:hover {
+        color: $app-active;
+        background-color: $app-bg-active-light;
+      }
+
+      &.active {
+        color: $app-text;
+        font-weight: bold;
+      }
+
+      &.active:hover {
+        color: $app-active;
+        border-color: $app-separator;
+      }
+
+      &:first-child {
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+      }
+      &:last-child {
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+    }
+  }
+}
+
+
+// menu list panel
+// ----------------------------------------------
+
+.notifications,
+.search {
+  div.messages-list-panel {
+    div.messages-list-panel-head {
+      padding: 10px;
+
+      .messages-list-panel-title {
+        margin: 0;
+        color: $app-text-lighter;
+        font-size: 22px;
+        font-weight: 300;
+      }
+
+      ul.list-inline {
+        // list-inline だと .messages-list-panel-head の padding の通りにならず、
+        // ここで調整しないと揃わなかった。
+        padding-left: 5px;
+        margin-bottom: 0;
+
+        li {
+          padding: 0;
+          padding-right: 5px;
+
+          a {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
+
+

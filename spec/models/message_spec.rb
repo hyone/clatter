@@ -40,16 +40,15 @@ describe Message, :type => :model do
 
 
   describe 'Repliable' do
-    shared_examples 'setup replies' do
-      let! (:reply1) { FactoryGirl.create(:reply, message: message) }
-      let! (:reply2) { FactoryGirl.create(:reply, message: message) }
-    end
-
     describe '#reply_relationships' do
       it { should respond_to(:reply_relationships) }
+      it { should have_many(:reply_relationships)
+                    .class_name('Reply')
+                    .dependent(:destroy) }
 
       context 'when the message has replied 2 users' do
-        include_examples 'setup replies'
+        let! (:reply1) { FactoryGirl.create(:reply, message: message) }
+        let! (:reply2) { FactoryGirl.create(:reply, message: message) }
 
         it 'should have 2 reply_relationships' do
           expect(message.reply_relationships.count).to eq(2)
@@ -59,18 +58,24 @@ describe Message, :type => :model do
 
     describe '#users_replied_to' do
       it { should respond_to(:users_replied_to) }
+      it { should have_many(:users_replied_to)
+                    .through(:reply_relationships)
+                    .source(:to_user) }
+    end
 
-      context 'when the message has replied to 2 users' do
-        include_examples 'setup replies'
-
-        it 'should have 2 users_replied_to' do
-          expect(message.users_replied_to.count).to eq(2)
-        end
-      end 
+    describe '#parents' do
+      it { should respond_to(:parents) }
+      it { should have_many(:parents)
+                    .through(:reply_relationships)
+                    .source(:to_message) }
     end
 
     describe '#reverse_reply_relationships' do
       it { should respond_to(:reverse_reply_relationships) }
+      it { should have_many(:reverse_reply_relationships)
+                    .with_foreign_key('to_message_id')
+                    .class_name('Reply')
+                    .dependent(:destroy) }
 
       context 'when the message has received 2 replies' do
         let! (:reply1) { FactoryGirl.create(:reply, to_message: message) }
@@ -80,6 +85,13 @@ describe Message, :type => :model do
           expect(message.reverse_reply_relationships.count).to eq(2)
         end
       end
+    end
+
+    describe '#replies' do
+      it { should respond_to(:replies) }
+      it { should have_many(:replies)
+                    .through(:reverse_reply_relationships)
+                    .source(:message) }
     end
 
     describe '#message_id_replied_to' do
@@ -153,9 +165,9 @@ describe Message, :type => :model do
                     .dependent(:destroy) }
     end
 
-    describe '#favorited_users' do
-      it { should respond_to(:favorited_users) }
-      it { should have_many(:favorited_users)
+    describe '#favorite_users' do
+      it { should respond_to(:favorite_users) }
+      it { should have_many(:favorite_users)
                     .through(:favorite_relationships)
                     .source(:user) }
     end

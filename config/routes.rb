@@ -35,8 +35,10 @@ Rails.application.routes.draw do
       get :favorites
       get :following
       get :followers
+      get 'status/:message_id' => 'users#status', as: :status
     end
   end
+
   resources :authentications, only: [:index, :destroy]
   resources :favorites,       only: [:create, :destroy]
   resources :follows,         only: [:create, :destroy]

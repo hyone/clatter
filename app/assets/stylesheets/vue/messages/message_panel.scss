@@ -1,0 +1,149 @@
+@import "variables";
+@import "mixins";
+@import "vue/messages/message";
+@import "vue/users/user";
+
+
+$app-bg-relative-message: lighten($app-bg-active, 3.2%);
+
+.message-panel {
+  > .col-inner {
+    margin-bottom: 0;
+
+    > .message {
+      padding: 20px;
+
+      .message-head {
+        .user {
+          .user-head {
+            a {
+              .user-name {
+                padding: 2px;
+                font-size: 18px;
+              }
+
+              .user-screen-name {
+                display: block;
+                color: $app-text-lighter;
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+
+      .message-body {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        font-size: 28px;
+        line-height: 34px;
+        font-weight: 300;
+      }
+
+      .message-foot {
+        .message-action-list {
+          margin: 10px 0;
+        }
+
+        .message-stats {
+          border-top: 1px solid $app-separator;
+          border-bottom: 1px solid $app-separator;
+          margin: 10px 0;
+          padding: 0;
+
+          li {
+            float: left;
+            list-style-type: none;
+          }
+
+          .stats-label,
+          .stats-value {
+            display: block;
+          }
+
+          .stats-label {
+            display: block;
+            padding-top: 5px;
+            font-size: 10px;
+            color: $app-text-light;
+          }
+          .stats-value {
+            padding-bottom: 5px;
+            font-size: 18px;
+            font-weight: 500;
+          }
+
+          .retweets-count,
+          .favorites-count {
+            min-width: 72px;
+          }
+
+          .message-avator-list {
+            border-left: 1px solid $app-separator;
+            padding-top: 13px;
+            padding-bottom: 12px;
+            padding-left: 10px;
+
+            .message-avator {
+            }
+
+            .message-icon {
+              margin-right: 5px;
+
+              img {
+                width: 24px;
+                height: 24px;
+                border-radius: 3px;
+              }
+            }
+          }
+
+        }
+
+        .message-time {
+          color: $app-text-lighter;
+          font-size: 13px;
+        }
+      }
+    }
+
+    .message-form-block {
+      padding: 10px 30px;
+      background-color: $app-bg-active;
+      border-top: 1px solid $app-separator-active;
+      border-bottom: 1px solid $app-separator-active;
+    }
+
+    > ul.message-parents,
+    > ul.message-replies-to {
+      padding: 0;
+
+      > li {
+        padding: 10px 20px;
+        background-color: $app-bg-relative-message;
+      }
+    }
+
+    > ul.message-parents {
+      > li {
+        border-bottom: 1px solid $app-separator;
+
+        &:first-child {
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+        }
+      }
+    }
+
+    > ul.message-replies-to {
+      > li {
+        border-top: 1px solid $app-separator;
+
+        &:last-child {
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+        }
+      }
+    }
+  }
+}

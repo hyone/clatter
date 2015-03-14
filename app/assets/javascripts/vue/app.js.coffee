@@ -25,6 +25,7 @@ Clatter.appVM = new Vue
     'content-main-message-form': Clatter.ContentMainMessageFormComponent
     'content-navigation': Clatter.ContentNavigationComponent
     'message': Clatter.MessageComponent
+    'message-panel': Clatter.MessagePanelComponent
     'modal-dialog': Clatter.ModalDialogComponent
     'navigation': Clatter.NavigationComponent
     'user': Clatter.UserComponent
@@ -33,8 +34,8 @@ Clatter.appVM = new Vue
   events:
     'favorite.update-stats': 'onUpdateStats'
     'follow.update-stats': 'onUpdateStats'
-    'message.created': 'onMessageCreated'
-    'message.deleted': 'onMessageDeleted'
+    '_message.created': 'onMessageCreated'
+    '_message.deleted': 'onMessageDeleted'
     'message.on-click-reply-button': 'onClickReplyToMessageButton'
     'user-actions-button.click-user-reply-button': 'onClickReplyToUserButton'
     'navigation.click-new-message-button': 'onClickNewMessageButton'
@@ -82,12 +83,13 @@ Clatter.appVM = new Vue
          Clatter.messages?.page == 1
         @addMessage(message)
         # @showAlert('success', 'Message Created!')
-      @$.contentMainMessageForm?.close()
+      @$broadcast('message.created', event, message)
       false
 
     onMessageDeleted: (event, message) ->
       @messages.$remove(message)
       @showAlert('success', I18n.t('views.alert.success_delete_message'))
+      @$broadcast('message.deleted', event, message)
       false
 
     onUpdateStats: (event, args...) ->

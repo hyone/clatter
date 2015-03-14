@@ -12,16 +12,15 @@ script type="text/x-template" id="#{prefix}-message-form-template"
     div.form-group
       = f.hidden_field :message_id_replied_to,
         id: "#{prefix}-message-form-parent-id",
-        'v-model' => 'parentId',
-        'v-if'    => 'parentId'
+        'v-model' => 'parent.id',
+        'v-if'    => 'parent.id'
 
       = f.text_area :text,
           id: "#{prefix}-message-form-text",
           class: 'form-control message-text',
-          placeholder: t('views.message_form.new_message'),
           rows: 1,
           'v-model' => 'text',
-          'v-attr'  => 'rows: rows',
+          'v-attr'  => 'rows: rows, placeholder: placeholder',
           'v-on'    => 'focus: onFocus, blur: onBlur',
           'v-el'    => 'textarea'
 

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  layout 'user', except: [:index]
+  layout 'user', except: [:index, :status]
 
   before_action :set_user, except: [:index]
   before_action :require_user, only: [:followers, :following, :favorites]
@@ -13,9 +13,8 @@ class UsersController < ApplicationController
 
   def show
     @page = params[:page] || 1
-    @messages = Message
-                  .with_retweets_without_replies_of(@user)
-                  .preload_for_views
+    @messages = Message.with_retweets_without_replies_of(@user)
+                  .preload_for_views(user_signed_in?)
                   .page(@page)
                   .per(MESSAGE_PAGE_SIZE)
   end
@@ -24,7 +23,7 @@ class UsersController < ApplicationController
     @page = params[:page] || 1
     @messages = @user
                   .favorites
-                  .preload_for_views
+                  .preload_for_views(user_signed_in?)
                   .newer
                   .page(@page)
                   .per(MESSAGE_PAGE_SIZE)
@@ -45,11 +44,16 @@ class UsersController < ApplicationController
   def with_replies
     @messages = Message
                   .with_retweets_of(@user)
-                  .preload_for_views
+                  .preload_for_views(user_signed_in?)
                   .page(@page)
                   .per(MESSAGE_PAGE_SIZE)
     render 'show'
   end
+
+  def status
+    @message = @user.messages.find(params[:message_id])
+  end
+
 
   private
   def set_user

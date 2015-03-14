@@ -44,13 +44,13 @@ Clatter.ModalDialogComponent = Vue.extend
     setDefaultTitle: ->
       @title = I18n.t('views.modal_dialog.compose_new_message')
 
-    setReplyTitle: (screen_name) ->
-      @title = I18n.t('views.modal_dialog.reply_to', name: screen_name)
+    setReplyTitle: (text) ->
+      @title = I18n.t('views.modal_dialog.reply_to', name: text)
 
     setupModalEventListeners: ->
       $(@$el).on 'hidden.bs.modal', (event) =>
         @clearBody()
-        @$broadcast 'message-form.clear', event
+        @$broadcast 'message-form.reset', event
 
       $(@$el).on 'shown.bs.modal', (event) =>
         @$broadcast 'message-form.focus', event
@@ -68,19 +68,19 @@ Clatter.ModalDialogComponent = Vue.extend
         prefix: 'parent-message'
         showFoot: false
       @bodyView = 'message'
-      @setReplyTitle(message.user.screen_name)
+      @setReplyTitle Clatter.util.replyText(message, Clatter.currentUser)
       @open()
 
-    openUserReply: (screen_name) ->
-      @setReplyTitle(screen_name)
+    openUserReply: (user) ->
+      @setReplyTitle(user.screen_name)
       @open()
 
 
     onOpenNew: (event) -> @openNew()
 
-    onOpenUserReply: (event, screen_name) ->
-      @openUserReply(screen_name)
-      @$broadcast('modal-dialog.open-user-reply', event, screen_name)
+    onOpenUserReply: (event, user) ->
+      @openUserReply(user)
+      @$broadcast('modal-dialog.open-user-reply', event, user)
 
     onOpenMessageReply: (event, message) ->
       @openMessageReply(message)

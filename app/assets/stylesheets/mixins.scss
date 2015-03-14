@@ -10,12 +10,25 @@
   }
 }
 
+
+$panel-radius : 10px;
+
 .panel {
   border: 1px solid $app-separator;
-  border-radius: 10px;
+  border-radius: $panel-radius;
   background-color: $app-body-bg;
   margin-bottom: 10px;
   box-shadow: none;
+}
+
+.top-radius {
+  border-top-left-radius:  $panel-radius;
+  border-top-right-radius: $panel-radius;
+}
+
+.bottom-radius {
+  border-bottom-left-radius:  $panel-radius;
+  border-bottom-right-radius: $panel-radius;
 }
 
 .list-panel {

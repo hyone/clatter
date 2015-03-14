@@ -132,3 +132,9 @@ en:
       favorites:
         title: "Favorites Messages by %{user}"
         header_title: Favorites
+
+      status:
+        title: "%{user} on %{appname} \"%{message}\""
+        stats:
+          favorites: FAVORITES
+          retweets: RETWEETS

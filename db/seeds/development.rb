@@ -89,9 +89,56 @@ def gen_retweets
   }
 end
 
+def gen_conversations
+  companion = random_user
+  message   = FactoryGirl.create(
+    :message,
+    user: MAIN_USER,
+    text: 'CONVERSATION EXAMPLE',
+    created_at: 1.hours.ago
+  )
+  user      = MAIN_USER
+  companion = random_user
+  branch    = nil
+
+  10.times do |i|
+    message = FactoryGirl.create(
+      :message_with_reply,
+      user: user,
+      created_at: message.created_at + 5.minutes,
+      users_replied_to: [companion],
+      message_id_replied_to: message.id
+    )
+
+    # create a branch
+    if i == 5
+      m = message
+      people = [random_user, user, companion]
+
+      4.times do
+        user_br, *companions_br = people
+
+        m = FactoryGirl.create(
+          :message_with_reply,
+          user: user_br,
+          created_at: m.created_at + 1.minute,
+          users_replied_to: companions_br,
+          message_id_replied_to: m.id
+        )
+
+        people.rotate!
+      end
+    end
+
+    user, companion = companion, user
+  end
+
+end
+
 
 gen_users
 gen_messages
 gen_follows
 gen_favorites
 gen_retweets
+gen_conversations

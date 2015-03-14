@@ -8,36 +8,28 @@ script type="text/x-template" id="message-template"
         span
           = " #{ t('views.message_panel.retweeted') }"
 
-      a href="#{ bindable_path('user', '{{message.user.screen_name}}') }"
+      a.message-user href="#{ bindable_path('user', '{{message.user.screen_name}}') }"
         span.message-icon
           img v-attr="src: message.user.profile_image_url_small"
         span.message-owner-name
           | {{message.user.name}}
-        span.message-info
-          | @{{message.user.screen_name}} - {{{dateFromNow}}}
+        span.message-owner-screen-name
+          | @{{message.user.screen_name}}
+      span.time
+        a.message-time href="#{ bindable_path('status_user', '{{message.user.screen_name}}', '{{message.id}}') }"
+          | {{{dateFromNow}}}
     div.message-body
       | {{{* textHtml}}}
     div.message-foot v-if="showFoot"
       ul.list-inline
         li.open-reply-to-button-item
           button class="btn btn-link" id="reply-to-message-{{message.id}}" v-on="click: onClickReplyButton" v-class="
-            disabled: !canActions
+            disabled: !canReply
           "
             b.fa.fa-reply
         li.retweet-button-item
           div v-component="retweet-button" v-with="message: message"
         li.favorite-button-item
           div v-component="favorite-button" v-with="message: message"
-        li.message-actions-button-item v-show="message.permissions.destroy"
-          div.btn-group
-            button class="btn-link message-actions-button dropdown-toggle" id="message-actions-{{message.id}}" type="button" data-toggle="dropdown" ari-expanded="false"
-              b.fa.fa-ellipsis-h
-            ul.dropdown-menu role="menu"
-              li v-if="message.permissions.destroy"
-                = link_to t('views.message_panel.delete_message'),
-                    bindable_path('message', "{{message.id}}", format: [:json]).html_safe,
-                    method: 'delete',
-                    remote: true,
-                    id: "delete-message-{{message.id}}",
-                    class: "delete-message",
-                    data: { confirm: t('views.message_panel.confirm_delete_message') }
+        li.message-actions-button-item v-if="canActions"
+          div v-component="message-actions-button" v-with="message: message"

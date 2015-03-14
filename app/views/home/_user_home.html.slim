@@ -46,10 +46,10 @@ div.content-body
             page: @page, \
             description: t('views.home.index.description') \
           } do
-            span.message-icon
-              = image_tag @user.profile_image.small.url
-            = render 'vue/messages/form', message: @message, prefix: 'content-main-'
-            div v-component="content-main-message-form" v-ref='contentMainMessageForm'
+            div.message-form-block
+              span.message-icon
+                = image_tag @user.profile_image.small.url
+              div v-component="content-main-message-form" v-ref='contentMainMessageForm' placeholder="#{ t('views.message_form.new_message') }"
 
     div.visible-lg-block
       div.col.col-lg-3

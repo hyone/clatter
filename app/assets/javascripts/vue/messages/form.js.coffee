@@ -1,7 +1,11 @@
 MessageForm = Vue.extend
+  paramAttributes: ['placeholder', 'text']
+
   data: ->
+    textInit: ''
     text: ''
-    parentId: undefined
+    parent: {}
+    placeholder: ''
     rows: 3
     display: 'block'
     LIMIT: 140
@@ -10,9 +14,12 @@ MessageForm = Vue.extend
     countRest: ->
       @LIMIT - @text.length
 
+    isInitText: ->
+      Clatter.util.trim(@text) == Clatter.util.trim(@textInit)
+
     isPostable: ->
       cnt = @countRest
-      0 <= cnt and cnt < @LIMIT
+      !@isInitText and (0 <= cnt and cnt < @LIMIT)
 
     isNearLimit: ->
       @countRest < 10
@@ -23,13 +30,13 @@ MessageForm = Vue.extend
 
   events:
     'message-form.focus': 'focus'
-    'message-form.clear': 'clear'
+    'message-form.reset': 'reset'
 
   methods:
     setupAjaxEventListeners: ->
       $(@$el).on 'ajax:success', (event, data, status, xhr) =>
         if data.response.status is 'success'
-          @$dispatch 'message.created', event, data.results.message
+          @$dispatch '_message.created', event, data.results.message
         else
           @$dispatch 'app.alert', event, data.response
         @clear()
@@ -57,8 +64,20 @@ MessageForm = Vue.extend
     focus: ->
       @$$.textarea.focus()
 
+    reset: ->
+      @textInit = @text = ''
+
     clear: ->
       @text = ''
+
+    restoreText: ->
+      @text or= @textInit
+
+    onFocus: ->
+      @restoreText()
+
+    onBlur: ->
+      @clear() if @isInitText
 
 
 Clatter.ContentMainMessageFormComponent = MessageForm.extend
@@ -70,6 +89,12 @@ Clatter.ContentMainMessageFormComponent = MessageForm.extend
 
   events:
     'content-main-message-form:close': 'close'
+    'message.on-click-reply-button': 'onClickReplyButton'
+    'message.created': 'onMessageCreated'
+
+  computed:
+    isOpen:
+      @display == 'block'
 
   methods:
     open: ->
@@ -80,12 +105,21 @@ Clatter.ContentMainMessageFormComponent = MessageForm.extend
       @rows = 1
       @display = 'none'
 
+    onFocus: ->
+      @restoreText()
+      @open()
+
     onBlur: ->
+      @clear() if @isInitText
       if @countRest == 140
         @close()
 
-    onFocus: ->
+    onClickReplyButton: ->
       @open()
+      @focus()
+
+    onMessageCreated: ->
+      @close()
 
 
 Clatter.ModalMessageFormComponent = MessageForm.extend
@@ -97,15 +131,9 @@ Clatter.ModalMessageFormComponent = MessageForm.extend
     'modal-dialog.open-user-reply': 'onOpenUserReply'
 
   methods:
-    setReplyText: (screen_name) ->
-      @text = "@#{screen_name} "
-
-    onBlur: ->
-    onFocus: ->
-
     onOpenMessageReply: (event, message) ->
-      @setReplyText(message.user.screen_name)
-      @parentId = message.id
+      @textInit = @text = "#{ Clatter.util.replyText(message, Clatter.currentUser) } "
+      @parent = message
 
-    onOpenUserReply: (event, screen_name) ->
-      @setReplyText(screen_name)
+    onOpenUserReply: (event, user) ->
+      @textInit = @text = "@#{user.screen_name} "

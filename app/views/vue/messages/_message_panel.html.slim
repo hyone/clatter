@@ -1,0 +1,72 @@
+script type="text/x-template" id="message-panel-template"
+  div.message-panel.message-data.clearfix id="{{prefix}}-{{message.id}}" data-message-id="{{message.id}}" data-screen-name="{{message.user.screen_name}}" data-user-id="{{message.user_id}}" v-if="message"
+    div.col-inner.panel
+
+      ul.message-parents v-if="hasParents"
+        li v-repeat="message: message.parents" v-component="message" v-transition="fade"
+
+      div.message
+        div.message-head
+          div.user.user-data.clearfix id="user-{{message.user.id}}" data-user-id="{{message.user.id}}" data-screen-name="{{message.user.screen_name}}"
+            div.user-head
+              div.user-buttons v-if="!isOwner"
+                div v-component="user-actions-button" v-with="user : message.user"
+                div v-component="follow-button" v-with="user : message.user"
+              a href="#{ bindable_path('user', '{{message.user.screen_name}}') }"
+                span.user-icon
+                  img v-attr="src: message.user.profile_image_url_small"
+                span.user-name
+                  | {{message.user.name}}
+                span.user-screen-name
+                  | @{{message.user.screen_name}}
+            div.user-body
+            div.user-foot
+
+        div.message-body
+          | {{{* textHtml}}}
+
+        div.message-foot
+          ul.message-action-list.list-inline
+            li.open-reply-to-button-item
+              button class="btn btn-link" id="reply-to-message-{{message.id}}" v-on="click: onClickReplyButton" v-class="
+                disabled: !canReply
+              "
+                b.fa.fa-reply
+            li.retweet-button-item
+              div v-component="retweet-button" v-with="message: message"
+            li.favorite-button-item
+              div v-component="favorite-button" v-with="message: message"
+            li.message-actions-button-item v-if="isOwner"
+              div v-component="message-actions-button" v-with="message: message"
+
+          ul.message-stats.clearfix v-if="hasAvators"
+            li.retweets-count v-if="hasRetweets"
+              span.stats-label
+                | #{ t('views.users.status.stats.retweets') }
+              span.stats-value
+                | {{ message.retweeted_count }}
+            li.favorites-count v-if="hasFavorites"
+              span.stats-label
+                | #{ t('views.users.status.stats.favorites') }
+              span.stats-value
+                | {{ message.favorited_count }}
+            li.message-avator-list
+              a.message-avator v-repeat="user: avators" href="#{{ bindable_path('user', '{{user.screen_name}}') }}" title="{{ user.screen_name }}"
+                span.message-icon
+                  img v-attr="src: user.profile_image_url_small"
+
+          div.message-time
+            | {{date}}
+
+      div.message-form-block v-if="isLogedIn" v-class="bottom-radius: !hasReplies"
+        span.message-icon
+          img v-attr="src: message.user.profile_image_url_small"
+        div v-component="content-main-message-form" v-ref='contentMainMessageForm' v-with="
+          parent: message,
+          placeholder: formPlaceholder,
+          textInit: formText
+        "
+
+      ul.message-replies-to v-if="hasReplies"
+        li v-repeat="message: message.replies | orderBy 'created_at'" v-component="message" v-transition="fade"
+

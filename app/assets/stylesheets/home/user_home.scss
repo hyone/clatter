@@ -89,28 +89,10 @@
 
   div.messages-list-panel {
     div.messages-list-panel-head {
-      padding: 10px;
-      background-color: $app-bg-active;
-      border-bottom: 1px solid $app-separator-active;
-      border-top-left-radius:  10px;
-      border-top-right-radius: 10px;
-
-      .message-icon {
-        position: absolute;
-
-        img {
-          width: 32px;
-          height: 32px;
-          border-radius: 3px;
-        }
-      }
-
-      form.message-form {
-        margin-left: 40px;
-
-        .message-submit {
-          display: none;
-        }
+      div.message-form-block {
+        border-top-left-radius:  10px;
+        border-top-right-radius: 10px;
+        border-bottom: 1px solid $app-separator-active;
       }
     }
 

@@ -7,9 +7,9 @@ script type="text/x-template" id="user-template"
       a href="#{ bindable_path('user', '{{user.screen_name}}') }"
         span.user-icon
           img v-attr="src: user.profile_image_url_small"
-        span.user-owner-name
+        span.user-name
           | {{user.name}}
-        span.user-info
+        span.user-screen-name
           | @{{user.screen_name}}
     div.user-body
       | {{user.description}}

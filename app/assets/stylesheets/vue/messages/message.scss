@@ -29,7 +29,7 @@
       }
     }
 
-    a {
+    a.message-user {
       text-decoration: none;
 
       .message-icon {
@@ -48,21 +48,39 @@
         font-weight: bold;
       }
 
-      .message-info {
-        margin: 0 5px;
+      .message-owner-screen-name
+      {
+        margin: 0;
+        margin-left: 5px;
         font-size: 80%;
         color: $app-text-lighter;
       }
 
       &:hover {
         .message-owner-name {
-          color: $app-text;
+          color: $app-active;
           text-decoration: underline;
         }
 
-        .message-info {
+        .message-owner-screen-name {
           color: $app-text-lighter;
           text-decoration: none;
+        }
+      }
+    }
+
+    span.time {
+      &:before {
+        content: "\0020\00b7\0020";
+      }
+
+      a.message-time {
+        margin: 0;
+        font-size: 80%;
+        color: $app-text-lighter;
+
+        &:hover {
+          color: $app-active;
         }
       }
     }

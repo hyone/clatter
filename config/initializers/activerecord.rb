@@ -5,5 +5,16 @@ ActiveRecord::Base.send(:define_singleton_method, 'union', ->(*queries) {
 
 
 ActiveRecord::Base.send(:define_singleton_method, 'execute', ->(query) {
-  from(query.as(table_name))
+  sql = case
+        when query.is_a?(String)
+          query
+        when query.is_a?(Array)
+          sanitize_sql(query)
+        when query.respond_to?(:to_sql)
+          query.to_sql
+        else
+          raise TypeError.new('query must be String or have :to_sql method')
+        end
+
+  from "(#{ sql }) AS #{table_name}"
 })

@@ -1,7 +1,13 @@
+detail ||= false
+
 json.extract! message, :id, :text, :created_at
 
 json.user do
-  json.partial! message.user
+  if detail
+    json.partial! message.user, follow: true
+  else
+    json.partial! message.user
+  end
 end
 
 json.permissions do
@@ -32,3 +38,23 @@ end
 
 json.favorited_count message.favorited_count
 json.retweeted_count message.retweeted_count
+
+if detail
+  json.favorite_users do
+    json.array! message.favorite_users.limit(30), partial: 'users/user', as: :user
+  end
+
+  json.retweet_users do
+    json.array! message.retweet_users.limit(30), partial: 'users/user', as: :user
+  end
+
+  json.parents do
+    ancestors = Message.ancestors_of(message).preload_for_views(user_signed_in?)
+    json.array! ancestors, partial: 'messages/message', as: :message
+  end
+
+  json.replies do
+    descendants = Message.descendants_of(message).preload_for_views(user_signed_in?)
+    json.array! descendants, partial: 'messages/message', as: :message
+  end
+end

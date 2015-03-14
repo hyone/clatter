@@ -23,25 +23,25 @@
         }
       }
 
-      .user-owner-name {
+      .user-name {
         clear: both;
         color: $app-text;
         font-weight: bold;
       }
 
-      .user-info {
+      .user-screen-name {
         margin: 0 5px;
         font-size: 80%;
         color: $app-text-lighter;
       }
 
       &:hover {
-        .user-owner-name {
-          color: $app-text;
+        .user-name {
+          color: $app-active;
           text-decoration: underline;
         }
 
-        .user-info {
+        .user-screen-name {
           color: $app-text-lighter;
           text-decoration: none;
         }

@@ -8,15 +8,28 @@ class Message < ActiveRecord::Base
 
   counter_culture :user, column_name: 'messages_count'
 
-
   scope :newer, ->() {
     order(created_at: :desc)
   }
 
-  @@preload_relations_for_view = [:user]
+  # preloads
+  # ------------------------------
 
-  scope :preload_for_views, -> {
-    includes(*@@preload_relations_for_view)
+  @@preload_relations = {
+    always: [:user],
+    login_only: []
+  }
+
+  def self.preload_relations (login)
+    if login
+      (@@preload_relations[:always] + @@preload_relations[:login_only]).uniq
+    else
+      @@preload_relations[:always]
+    end
+  end
+
+  scope :preload_for_views, ->(login = false) {
+    includes *preload_relations(login)
   }
 
 
@@ -27,20 +40,22 @@ class Message < ActiveRecord::Base
       # reply relationships that the message send to
       has_many :reply_relationships, class_name: 'Reply', dependent: :destroy
       has_many :users_replied_to, through: :reply_relationships, source: :to_user
+      has_many :parents, through: :reply_relationships, source: :to_message
 
       # reply relationships that the message received from
       has_many :reverse_reply_relationships, foreign_key: 'to_message_id',
                                              class_name: 'Reply',
                                              dependent: :destroy
+      has_many :replies, through: :reverse_reply_relationships, source: :message
 
       # virtual field to set the id of message replied to
       attr_accessor :message_id_replied_to
 
-      @@preload_relations_for_view << :users_replied_to
+      @@preload_relations[:always] << :users_replied_to
     end
 
     def parent
-      reply_relationships.first.to_message
+      parents.first
     end
 
     def reply?
@@ -81,6 +96,51 @@ class Message < ActiveRecord::Base
         end
       end
 
+      def descendants_of(message, limit = 50)
+        sql = <<-EOC
+          WITH RECURSIVE rec (id, child, depth) AS (
+            SELECT messages.id, replies.message_id AS child, 1
+              FROM messages
+              INNER JOIN replies ON messages.id = replies.to_message_id
+              GROUP BY messages.id, replies.message_id
+              HAVING messages.id = :id
+            UNION ALL
+            SELECT m.id, r.message_id AS child, depth+1
+              FROM rec, messages AS m
+              INNER JOIN replies AS r ON m.id = r.to_message_id
+              GROUP BY m.id, r.message_id, depth+1, rec.child
+              HAVING m.id = rec.child
+          )
+          SELECT messages.*, rec.id as parent, rec.depth
+            FROM rec
+            INNER JOIN messages ON messages.id = rec.child
+            LIMIT :limit
+        EOC
+        self.execute [sql, id: message.id, limit: limit]
+      end
+
+      def ancestors_of(message, limit = 30)
+        sql = <<-EOC
+          WITH RECURSIVE rec (id, parent) AS (
+            SELECT messages.id, replies.to_message_id AS parent
+              FROM messages
+              INNER JOIN replies ON messages.id = replies.message_id
+              GROUP BY messages.id, replies.to_message_id
+              HAVING messages.id = :id
+            UNION ALL
+            SELECT m.id, r.to_message_id AS parent
+              FROM rec, messages AS m
+              INNER JOIN replies AS r ON m.id = r.message_id
+              GROUP BY m.id, r.to_message_id, rec.parent
+              HAVING m.id = rec.parent
+          )
+          SELECT messages.*, rec.id as child
+            FROM rec
+            INNER JOIN messages ON messages.id = rec.parent
+            LIMIT :limit
+        EOC
+        self.execute [sql, id: message.id, limit: limit]
+      end
     end
   end
 
@@ -88,9 +148,9 @@ class Message < ActiveRecord::Base
   concerning :Favoritedable do
     included do
       has_many :favorite_relationships, class_name: 'Favorite', dependent: :destroy
-      has_many :favorited_users, through: :favorite_relationships, source: :user
+      has_many :favorite_users, through: :favorite_relationships, source: :user
 
-      @@preload_relations_for_view << :favorite_relationships
+      @@preload_relations[:login_only] << :favorite_relationships
     end
 
     def favorited_by(user)
@@ -109,7 +169,7 @@ class Message < ActiveRecord::Base
       has_many :retweet_relationships, class_name: 'Retweet', dependent: :destroy
       has_many :retweet_users, through: :retweet_relationships, source: :user
 
-      @@preload_relations_for_view << :retweet_relationships
+      @@preload_relations[:login_only] << :retweet_relationships
     end
 
     def retweeted?
