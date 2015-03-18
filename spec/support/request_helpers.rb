@@ -5,6 +5,10 @@ module RequestHelpers
     login_as user, scope: :user
   end
 
+  def signout
+    logout(:user)
+  end
+
   def click_signin_button
     click_button I18n.t('views.users.form.signin')
   end

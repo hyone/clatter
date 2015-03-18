@@ -1,24 +1,26 @@
-require 'rails_helper'
 
-
-describe 'Favorite buttons', type: :feature, js: true do
+# a shared context requires conditions below:
+# - path: method return path in which we test message, it is passed user and message
+#
+shared_examples 'a favoritable button' do |content_navigation: false|
   let! (:user) { FactoryGirl.create(:user) }
   let! (:message) { FactoryGirl.create(:message, user: user) }
 
   subject { page }
 
-  before { visit user_path(user) }
+  before { visit path(message) }
 
-  describe 'as guest' do
+  context 'as guest', js: true do
+    before { signout }
     it 'favorite button should be disabled' do
       expect(page).to have_selector("#favorite-message-#{message.id}.disabled")
     end
   end
 
-  describe 'as user' do
+  context 'as user', js: true do
     before {
       signin user
-      visit current_path
+      visit path(message)
     }
 
     context 'when message is not favorited' do
@@ -35,9 +37,11 @@ describe 'Favorite buttons', type: :feature, js: true do
         expect(page).not_to have_selector("#message-#{message.id} .favorites-count", visible: false)
       end
 
-      context 'in content navigation' do
-        it 'should have 0 favorites' do
-          expect(page).to have_selector('.content-navigation-favorites .nav-value', 0)
+      if content_navigation
+        context 'in content navigation' do
+          it 'should have 0 favorites' do
+            expect(page).to have_selector('.content-navigation-favorites .nav-value', 0)
+          end
         end
       end
 
@@ -69,10 +73,12 @@ describe 'Favorite buttons', type: :feature, js: true do
           expect(page).to have_selector("#message-#{message.id} .favorites-count", 1)
         end
 
-        context 'in content navigation' do
-          it 'should have 1 favorites' do
-            click_favorite_button(message)
-            expect(page).to have_selector('.content-navigation-favorites .nav-value', 1)
+        if content_navigation
+          context 'in content navigation' do
+            it 'should have 1 favorites' do
+              click_favorite_button(message)
+              expect(page).to have_selector('.content-navigation-favorites .nav-value', 1)
+            end
           end
         end
       end
@@ -81,7 +87,7 @@ describe 'Favorite buttons', type: :feature, js: true do
     context 'when message is favorited' do
       before {
         FactoryGirl.create(:favorite, user: user, message: message)
-        visit current_path
+        visit path(message)
       }
 
       it 'unfavorite button should be displayed' do
@@ -97,9 +103,11 @@ describe 'Favorite buttons', type: :feature, js: true do
         expect(page).to have_selector("#message-#{message.id} .favorites-count", 1)
       end
 
-      context 'in content navigation' do
-        it 'should have 1 favorites' do
-          expect(page).to have_selector('.content-navigation-favorites .nav-value', 1)
+      if content_navigation
+        context 'in content navigation' do
+          it 'should have 1 favorites' do
+            expect(page).to have_selector('.content-navigation-favorites .nav-value', 1)
+          end
         end
       end
 
@@ -131,13 +139,16 @@ describe 'Favorite buttons', type: :feature, js: true do
           expect(page).not_to have_selector("#message-#{message.id} .favorites-count", visible: false)
         end
 
-        context 'in content navigation' do
-          it 'should have 0 favorites' do
-            click_unfavorite_button(message)
-            expect(page).to have_selector('.content-navigation-favorites .nav-value', 0)
+        if content_navigation
+          context 'in content navigation' do
+            it 'should have 0 favorites' do
+              click_unfavorite_button(message)
+              expect(page).to have_selector('.content-navigation-favorites .nav-value', 0)
+            end
           end
         end
       end
     end
   end
 end
+

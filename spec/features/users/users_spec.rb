@@ -283,4 +283,18 @@ describe 'Users pages', type: :feature do
       end
     end
   end
+
+
+  describe 'GET /u/:screen_name/status/:status_id', js: true do
+    let (:user) { FactoryGirl.create(:user) }
+    let (:message) { FactoryGirl.create(:message, user: user) }
+
+    before { visit status_user_path(user, message.id) }
+
+    describe 'content' do
+      it {
+        p current_path
+      }
+    end
+  end
 end

@@ -1,24 +1,27 @@
-require 'rails_helper'
 
-describe 'Retweet buttons', type: :feature, js: true do
+# a shared context requires conditions below:
+# - path: method return path in which we test message, it is passed user and message
+#
+shared_examples 'a retweetable button' do
   let! (:user) { FactoryGirl.create(:user) }
   let! (:other_user) { FactoryGirl.create(:user) }
   let! (:message) { FactoryGirl.create(:message, user: other_user) }
 
   subject { page }
 
-  before { visit user_path(other_user) }
+  before { visit path(message) }
 
-  describe 'as guest' do
+  context 'as guest' do
+    before { signout }
     it 'retweet button should be disabled' do
       expect(page).to have_selector("#retweet-message-#{message.id}.disabled")
     end
   end
 
-  describe 'as user' do
+  context 'as user' do
     before {
       signin user
-      visit current_path
+      visit path(message)
     }
 
     context "in other's user page" do
@@ -69,7 +72,7 @@ describe 'Retweet buttons', type: :feature, js: true do
       context 'when message is retweeted' do
         before {
           FactoryGirl.create(:retweet, user: user, message: message)
-          visit current_path
+          visit path(message)
         }
 
         it 'unretweet button should be displayed' do
@@ -117,14 +120,13 @@ describe 'Retweet buttons', type: :feature, js: true do
     end
 
     context 'in own user page' do
-      let! (:message_own) { FactoryGirl.create(:message, user: user) }
-      before {
-        visit user_path(user)
-      }
+      let! (:message) { FactoryGirl.create(:message, user: user) }
+      before { visit path(message) }
 
       it 'retweet button should be disabled' do
-        expect(page).to have_selector("#retweet-message-#{message_own.id}.disabled")
+        expect(page).to have_selector("#retweet-message-#{message.id}.disabled")
       end
     end
   end
 end
+

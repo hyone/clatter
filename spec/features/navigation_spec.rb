@@ -53,7 +53,7 @@ describe 'Navigation', type: :feature, js: true do
       expect(page.find('#message-dialog')).to be_visible
     end
 
-    include_examples 'a postable form' do
+    include_examples 'a new postable form' do
       let (:prefix) { 'modal' }
     end
   end
