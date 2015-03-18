@@ -17,6 +17,7 @@
 #= require i18n/translations
 #= require moment
 #= require moment/locale/ja
+#= require moment-timezone
 #= require underscore
 #= require uri.js/src/URI
 #= require util

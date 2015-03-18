@@ -49,8 +49,12 @@ Clatter.appVM = new Vue
 
   methods:
     initMoment: ->
+      # lang
       lang = $('html').prop('lang')
       moment.locale(lang)
+      # timezone
+      timezone = $('html').data('timezone')
+      moment.tz.setDefault(timezone)
 
     isActiveMenu: (url) ->
       @$interpolate(url) is location.pathname
