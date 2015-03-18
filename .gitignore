@@ -16,6 +16,7 @@
 /tmp
 
 coverage/
+public/assets/
 public/javascripts/translations.js
 public/uploads/
 vendor/assets/bower.json

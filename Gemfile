@@ -65,6 +65,7 @@ group :development do
   gem 'spring-commands-rspec'
   gem 'guard-rspec'
   gem 'terminal-notifier-guard'
+  gem 'coffee-rails-source-maps'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
 end
