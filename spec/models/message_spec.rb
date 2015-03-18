@@ -74,8 +74,7 @@ describe Message, :type => :model do
       it { should respond_to(:reverse_reply_relationships) }
       it { should have_many(:reverse_reply_relationships)
                     .with_foreign_key('to_message_id')
-                    .class_name('Reply')
-                    .dependent(:destroy) }
+                    .class_name('Reply') }
 
       context 'when the message has received 2 replies' do
         let! (:reply1) { FactoryGirl.create(:reply, to_message: message) }

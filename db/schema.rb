@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303131731) do
+ActiveRecord::Schema.define(version: 20150316130659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 20150303131731) do
   add_foreign_key "follows", "users", column: "followed_id", name: "fk_relationships_followed_id", on_delete: :cascade
   add_foreign_key "follows", "users", column: "follower_id", name: "fk_relationships_follower_id", on_delete: :cascade
   add_foreign_key "messages", "users", name: "fk_messages_user_id", on_delete: :cascade
-  add_foreign_key "replies", "messages", column: "to_message_id", name: "fk_replies_to_message_id", on_delete: :cascade
+  add_foreign_key "replies", "messages", column: "to_message_id", name: "fk_replies_to_message_id", on_delete: :nullify
   add_foreign_key "replies", "messages", name: "fk_replies_message_id", on_delete: :cascade
   add_foreign_key "replies", "users", column: "to_user_id", name: "fk_replies_to_user_id", on_delete: :cascade
   add_foreign_key "retweets", "messages", name: "fk_retweets_message_id", on_delete: :cascade

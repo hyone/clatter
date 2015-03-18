@@ -44,8 +44,7 @@ class Message < ActiveRecord::Base
 
       # reply relationships that the message received from
       has_many :reverse_reply_relationships, foreign_key: 'to_message_id',
-                                             class_name: 'Reply',
-                                             dependent: :destroy
+                                             class_name: 'Reply'
       has_many :replies, through: :reverse_reply_relationships, source: :message
 
       # virtual field to set the id of message replied to
