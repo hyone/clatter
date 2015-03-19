@@ -2,6 +2,7 @@ MAIN_USER = FactoryGirl.create(
   :user,
   screen_name: 'sample',
   name: 'sample'
+  password: 'password'
 )
 
 

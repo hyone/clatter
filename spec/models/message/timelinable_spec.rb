@@ -3,7 +3,7 @@ require 'rails_helper'
 
 describe Message::Timelinable, type: :model do
   describe '::timeline_of' do
-    include_examples 'setup followed users messages'
+    include_context 'messages of followed users'
 
     subject { Message.timeline_of(user) }
 

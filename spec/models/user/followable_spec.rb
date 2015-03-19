@@ -143,7 +143,7 @@ describe User::Followable, type: :model do
   end
 
 
-  shared_examples 'setup followed users' do
+  shared_context 'followed users' do
     let! (:followed1) { FactoryGirl.create(:follow, follower: user).followed }
     let! (:followed2) { FactoryGirl.create(:follow, follower: user).followed }
     let! (:other) { FactoryGirl.create(:user) }
@@ -153,7 +153,7 @@ describe User::Followable, type: :model do
     subject { User.self_and_followed_users_ids_of(user).pluck('id') }
 
     context 'with 2 followed_users' do
-      include_examples 'setup followed users'
+      include_context 'followed users'
 
       it 'should include followed user ids' do
         expect(subject).to include(followed1.id)
@@ -180,7 +180,7 @@ describe User::Followable, type: :model do
     subject { User.self_and_followed_users_of(user) }
 
     context 'with 2 followed_users' do
-      include_examples 'setup followed users'
+      include_context 'followed users'
 
       it 'should include followed users' do
         expect(subject).to include(followed1)

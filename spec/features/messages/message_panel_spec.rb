@@ -13,12 +13,11 @@ describe 'Message Panel', type: :feature, js: true do
     status_user_path(message.user, message)
   end
 
-  describe 'message block' do
-    include_examples 'a message text'
+  describe 'message text block' do
+    include_examples 'a message textable block'
 
     it { should have_content(message.created_at.strftime('%_I:%M %p - %_d %b %Y')) }
   end
-
 
   describe 'message actions block' do
     describe 'reply button' do
@@ -54,7 +53,7 @@ describe 'Message Panel', type: :feature, js: true do
     end
 
     describe 'actions button' do
-      include_examples 'a actionable button'
+      include_examples 'a message actionable button'
 
       # don't work...
       # it 'should redirect to root' do
@@ -118,7 +117,7 @@ describe 'Message Panel', type: :feature, js: true do
     end
 
     context 'with conversation' do
-      include_examples 'setup conversations'
+      include_context 'a conversation'
       before { visit status_user_path(conversation30.user, conversation30) }
 
       it 'should have all parent messages' do

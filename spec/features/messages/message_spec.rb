@@ -26,9 +26,11 @@ describe 'Message Block', type: :feature, js: true do
     end
   end
 
-  it_behaves_like 'a message text' do
-    def path(message)
-      with_replies_user_path(message.user)
+  describe 'message text block' do
+    include_examples 'a message textable block' do
+      def path(message)
+        with_replies_user_path(message.user)
+      end
     end
   end
 
@@ -47,7 +49,7 @@ describe 'Message Block', type: :feature, js: true do
       include_examples 'a favoritable button', content_navigation: true
     end
     describe 'actions button' do
-      include_examples 'a actionable button'
+      include_examples 'a message actionable button'
     end
   end
 end

@@ -3,7 +3,7 @@
 # - path: method return path in which we test message, it is passed user and message
 # - user
 #
-shared_examples 'a message text' do
+shared_examples 'a message textable block' do
   let! (:message) {
     FactoryGirl.create(:message, user: user)
   }
@@ -76,42 +76,6 @@ shared_examples 'a message text' do
       it 'should not become link' do
         should_not have_link(message_id, reply.text)
       end
-    end
-  end
-end
-
-
-shared_examples 'a message actions button' do
-  it 'should have reply button' do
-    expect(page).to have_selector("#reply-to-message-#{message.id}")
-  end
-
-  it 'should have retweet button' do
-    expect(page).to have_selector("#retweet-message-#{message.id}")
-  end
-
-  it 'should have favorite button' do
-    expect(page).to have_selector("#favorite-message-#{message.id}")
-  end
-
-  context 'as non message owner' do
-    let! (:non_owner) { FactoryGirl.create(:user) }
-    before {
-      sigin non_owner
-      visit current_path
-    }
-    it 'should not have favorite button' do
-      expect(page).not_to have_selector("#message-actions-#{message.id}", visible: false)
-    end
-  end
-
-  context 'as message owner' do
-    before {
-      sigin message.user
-      visit current_path
-    }
-    it 'should have favorite button' do
-      expect(page).to have_selector("#message-actions-#{message.id}")
     end
   end
 end

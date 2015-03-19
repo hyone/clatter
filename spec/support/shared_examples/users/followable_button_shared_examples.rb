@@ -1,15 +1,20 @@
-require 'rails_helper'
 
-
-describe 'Follow button', type: :feature, js: true do
+# a shared context requires conditions below:
+# - path: method return path in which we test message, it is passed user and message
+#
+# arguments:
+# - content_navigation: whether or not check following/followers count change in content navigation
+shared_examples 'a followable button' do |content_navigation: false|
   let! (:user) { FactoryGirl.create(:user) }
   let! (:other_user) { FactoryGirl.create(:user) }
 
   subject { page }
 
-  before { visit user_path(other_user) }
-
   context 'as guest' do
+    before {
+      signout
+      visit path(other_user)
+    }
     it 'follow button should be disabled' do
       expect(page).to have_selector("#follow-#{other_user.screen_name}.disabled")
     end
@@ -18,7 +23,7 @@ describe 'Follow button', type: :feature, js: true do
   context 'as user' do
     before {
       signin user
-      visit current_path
+      visit path(other_user)
     }
 
     context 'about follow button' do
@@ -27,9 +32,11 @@ describe 'Follow button', type: :feature, js: true do
         expect(page).not_to have_selector('.unfollow-button')
       end
 
-      context 'in content navigation' do
-        it 'should be 0 followers' do
-          expect(page).to have_selector('.content-navigation-followers .nav-value', 0)
+      if content_navigation
+        context 'in content navigation' do
+          it 'should be 0 followers' do
+            expect(page).to have_selector('.content-navigation-followers .nav-value', 0)
+          end
         end
       end
 
@@ -56,10 +63,12 @@ describe 'Follow button', type: :feature, js: true do
           expect(page).not_to have_selector('.follow-button', visible: false)
         end
 
-        context 'in content navigation' do
-          it 'should be 1 followers' do
-            click_follow_button(other_user)
-            expect(page).to have_selector('.content-navigation-followers .nav-value', 1)
+        if content_navigation
+          context 'in content navigation' do
+            it 'should be 1 followers' do
+              click_follow_button(other_user)
+              expect(page).to have_selector('.content-navigation-followers .nav-value', 1)
+            end
           end
         end
       end
@@ -76,9 +85,11 @@ describe 'Follow button', type: :feature, js: true do
         expect(page).not_to have_selector('.follow-button', visible: false)
       end
 
-      context 'in content navigation' do
-        it 'should be 1 followers' do
-         expect(page).to have_selector('.content-navigation-followers .nav-value', 1)
+      if content_navigation
+        context 'in content navigation' do
+          it 'should be 1 followers' do
+            expect(page).to have_selector('.content-navigation-followers .nav-value', 1)
+          end
         end
       end
 
@@ -105,13 +116,16 @@ describe 'Follow button', type: :feature, js: true do
           }.to(nil)
         end
 
-        context 'in content navigation' do
-          it 'should be 0 followers' do
-            click_unfollow_button(other_user)
-            expect(page).to have_selector('.content-navigation-followers .nav-value', 0)
+        if content_navigation
+          context 'in content navigation' do
+            it 'should be 0 followers' do
+              click_unfollow_button(other_user)
+              expect(page).to have_selector('.content-navigation-followers .nav-value', 0)
+            end
           end
         end
       end
     end
   end
 end
+

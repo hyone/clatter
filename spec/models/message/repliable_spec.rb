@@ -101,9 +101,7 @@ describe Message::Repliable, type: :model do
   describe '::descendants_of' do
     subject { Message.descendants_of(message) }
 
-    include_examples 'setup conversations' do
-      let! (:user) { FactoryGirl.create(:user) }
-    end
+    include_context 'a conversation'
 
     context 'with root of conversation' do
       let (:message) { conversation00 }
@@ -140,9 +138,7 @@ describe Message::Repliable, type: :model do
   describe '::ancestors_of' do
     subject { Message.ancestors_of(message) }
 
-    include_examples 'setup conversations' do
-      let! (:user) { FactoryGirl.create(:user) }
-    end
+    include_context 'a conversation'
 
     context 'with root of conversation' do
       let (:message) { conversation00 }

@@ -2,6 +2,8 @@
 # a shared context requires conditions below:
 # - path: method return path in which we test message, it is passed user and message
 #
+# arguments:
+# - content_navigation: whether or not check favorites count change in content navigation
 shared_examples 'a favoritable button' do |content_navigation: false|
   let! (:user) { FactoryGirl.create(:user) }
   let! (:message) { FactoryGirl.create(:message, user: user) }

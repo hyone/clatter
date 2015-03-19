@@ -2,7 +2,7 @@
 # a shared context requires conditions below:
 # - path: method return path in which we test message, it is passed user and message
 #
-shared_examples 'a actionable button' do
+shared_examples 'a message actionable button' do
   let! (:user) { FactoryGirl.create(:user) }
 
   subject { page }
