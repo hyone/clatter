@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe Reply, :type => :model do
+describe Reply, type: :model do
   let (:user) { FactoryGirl.create(:user) }
   let (:message) { FactoryGirl.create(:message, user: user) }
   let (:user_replied_to) { FactoryGirl.create(:user) }

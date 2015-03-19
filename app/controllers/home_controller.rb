@@ -10,8 +10,9 @@ class HomeController < ApplicationController
       @page    = params[:page] || 1
       @feeds   = @user
                    .timeline
-                   .preload_for_views
-                   .page(@page).per(MESSAGE_PAGE_SIZE)
+                   .preload_for_views(user_signed_in?)
+                   .page(@page)
+                   .per(MESSAGE_PAGE_SIZE)
     end
   end
 
@@ -26,30 +27,28 @@ class HomeController < ApplicationController
     @page  = params[:page] || 1
     @feeds = @user
                .mentions(filter: params[:filter])
-               .preload_for_views
-               .page(@page).per(MESSAGE_PAGE_SIZE)
-  end
-
-  def search
-    @page = params[:page] || 1
-
-    @feeds = case @search[:mode]
-             when 'users'
-               @q.result
-                 .page(@page)
-                 .per(MESSAGE_PAGE_SIZE)
-             else
-               @q.result
-                 .preload_for_views
-                 .page(@page)
-                 .per(MESSAGE_PAGE_SIZE)
-             end
+               .preload_for_views(user_signed_in?)
+               .page(@page)
+               .per(MESSAGE_PAGE_SIZE)
   end
 
 
   concerning :Searchable do
     included do
       before_action :init_search, only: [:search]
+
+      def search
+        @page  = params[:page] || 1
+        @feeds = @q.result
+        .page(@page)
+        .per(MESSAGE_PAGE_SIZE)
+
+        case @search[:mode]
+        when 'messages'
+          @feeds = @feeds.preload_for_views(user_signed_in?)
+        end
+      end
+
 
       def init_search
         p = search_params
@@ -75,27 +74,27 @@ class HomeController < ApplicationController
       def create_messages_search
         @search[:params][:text_cont_all] = @search[:text].split
 
-        case @search[:range]
-        when 'followed_users'
-          Message
-            .from_self_and_followed_users(current_user)
-            .search(@search[:params])
-        else
-          Message.search(@search[:params])
-        end
+        target =
+          case @search[:range]
+          when 'followed_users'
+            Message.from_self_and_followed_users(current_user)
+          else
+            Message
+          end
+        target.search(@search[:params])
       end
 
       def create_users_search
         @search[:params][:screen_name_or_name_or_description_cont_all] = @search[:text].split
 
-        case @search[:range]
-        when 'followed_users'
-          User
-            .self_and_followed_users_of(current_user)
-            .search(@search[:params])
-        else
-          User.search(@search[:params])
-        end
+        target =
+          case @search[:range]
+          when 'followed_users'
+            User.self_and_followed_users_of(current_user)
+          else
+            User
+          end
+        target.search(@search[:params])
       end
 
       def search_params

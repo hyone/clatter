@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe Message::Retweetedable, :type => :model do
+describe Message::Retweetedable, type: :model do
   let (:message) { FactoryGirl.create(:message) }
   subject { message }
 

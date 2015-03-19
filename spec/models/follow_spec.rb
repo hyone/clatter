@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe Follow, :type => :model do
+describe Follow, type: :model do
   let (:follower) { FactoryGirl.create(:user) }
   let (:followed) { FactoryGirl.create(:user) }
   let (:follow) { follower.follow_relationships.build(followed_id: followed.id) }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Authentication, :type => :model do
+describe Authentication, type: :model do
   let (:authentication) { FactoryGirl.create(:authentication) }
 
   subject { authentication }

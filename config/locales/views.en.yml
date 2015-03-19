@@ -52,7 +52,7 @@ en:
     footer_panel:
       about: About
       home: Home
-      copyright_html: "&copy; 2014 %{appname}"
+      copyright_html: "&copy; 2015 %{appname}"
 
     menu_panel:
       notifications: Notifications
@@ -109,7 +109,7 @@ en:
         profile: Profile
         signin: Sign in
         signup: Sign up
-        signup_link_text: Sign up with Email »
+        signup_link_text: Sign up with Email 損
         update: Update
       edit:
         title: Setting

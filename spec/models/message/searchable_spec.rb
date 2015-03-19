@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe Message::Searchable, :type => :model do
+describe Message::Searchable, type: :model do
   describe '::from_self_and_followed_users' do
     include_examples 'setup followed users messages'
 

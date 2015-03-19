@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe Message::Timelinable, :type => :model do
+describe Message::Timelinable, type: :model do
   describe '::timeline_of' do
     include_examples 'setup followed users messages'
 

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe Message::Favoritedable, :type => :model do
+describe Message::Favoritedable, type: :model do
   let (:message) { FactoryGirl.create(:message) }
   subject { message }
 

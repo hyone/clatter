@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe UsersHelper, :type => :helper do
+describe UsersHelper, type: :helper do
   describe '#provider_name' do
     subject { provider_name(provider) }
 

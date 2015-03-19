@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe Message::Repliable, :type => :model do
+describe Message::Repliable, type: :model do
   let (:message) { FactoryGirl.create(:message) }
   subject { message }
 
