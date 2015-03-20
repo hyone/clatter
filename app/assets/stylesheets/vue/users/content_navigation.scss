@@ -23,12 +23,15 @@ ul.content-navigation {
       border-bottom: 5px solid transparent;
     }
 
-    > a,
-    > a:hover,
-    > &.active {
+    > a:hover {
       border-bottom-color: $app-active;
       background-color: transparent;
     }
+  }
+
+  > li.active > a {
+    border-bottom-color: $app-active;
+    background-color: transparent;
   }
 
   li.content-navigation-buttons {
