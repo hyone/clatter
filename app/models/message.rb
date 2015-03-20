@@ -33,7 +33,7 @@ class Message < ActiveRecord::Base
   }
 
 
-  concerning :Repliable do
+  concerning :Replyable do
     included do
       after_save :extract_reply_relationships
 

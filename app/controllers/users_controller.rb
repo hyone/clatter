@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :set_user, except: [:index]
   before_action :require_user, only: [:followers, :following, :favorites]
 
-  USER_PAGE_SIZE = 20
+  USER_PAGE_SIZE    = 24
   MESSAGE_PAGE_SIZE = 30
 
   def index

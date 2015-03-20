@@ -181,7 +181,7 @@ end
 # - let(:prefix)  { 'prefix' }
 # - let(:message) { ... }
 #
-shared_examples 'a repliable form' do |type = :modal|
+shared_examples 'a replyable form' do |type = :modal|
   context 'when focus on textarea', js: true do
     before { focus_textarea }
 
@@ -238,7 +238,7 @@ end
 # - let(:message) { ... }     # message.user must be different person from the logined user
 # - let(:reply)   { ... }     # must be reply of message
 #
-shared_examples 'a multi repliable form' do
+shared_examples 'a multi replyable form' do
   before { focus_textarea }
 
   it 'text should include @screen_name of all reply users except logined user', js: true do

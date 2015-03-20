@@ -21,7 +21,7 @@ describe 'Message Form', type: :feature, js: true do
       let! (:message) { FactoryGirl.create(:message) }
       before { visit status_user_path(message.user, message.id) }
 
-      include_examples 'a repliable form', :foldable do
+      include_examples 'a replyable form', :foldable do
         let (:prefix) { 'content-main' }
       end
     end
@@ -35,7 +35,7 @@ describe 'Message Form', type: :feature, js: true do
       ) }
       before { visit status_user_path(reply.user, reply.id) }
 
-      include_examples 'a multi repliable form', :foldable do
+      include_examples 'a multi replyable form', :foldable do
         let (:prefix) { 'content-main' }
       end
     end

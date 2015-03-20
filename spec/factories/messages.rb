@@ -4,7 +4,7 @@ FactoryGirl.define do
     text { Faker::Lorem.sentence(3) }
     created_at { rand(0..240).hours.ago }
 
-    trait :repliable do 
+    trait :replyable do
       transient do
         reply_count 1
         users_replied_to nil
@@ -34,6 +34,6 @@ FactoryGirl.define do
     #
     # specify the users and the message which is replied to
     # > FactoryGirl.create(:message_with_reply, users_replied_to: [User.find(1)], message_id_replied_to: 135)
-    factory :message_with_reply, traits: [:repliable]
+    factory :message_with_reply, traits: [:replyable]
   end
 end

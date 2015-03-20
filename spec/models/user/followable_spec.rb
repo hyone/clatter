@@ -143,12 +143,6 @@ describe User::Followable, type: :model do
   end
 
 
-  shared_context 'followed users' do
-    let! (:followed1) { FactoryGirl.create(:follow, follower: user).followed }
-    let! (:followed2) { FactoryGirl.create(:follow, follower: user).followed }
-    let! (:other) { FactoryGirl.create(:user) }
-  end
-
   describe '::self_and_followed_users_ids_of' do
     subject { User.self_and_followed_users_ids_of(user).pluck('id') }
 

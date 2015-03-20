@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 
-describe Message::Repliable, type: :model do
+describe Message::Replyable, type: :model do
   let (:message) { FactoryGirl.create(:message) }
   subject { message }
 
   describe '#reply_relationships' do
     it { should respond_to(:reply_relationships) }
     it { should have_many(:reply_relationships)
-         .class_name('Reply')
-         .dependent(:destroy) }
+                .class_name('Reply')
+                .dependent(:destroy) }
 
     context 'when the message has replied 2 users' do
       let! (:reply1) { FactoryGirl.create(:reply, message: message) }
@@ -25,23 +25,23 @@ describe Message::Repliable, type: :model do
   describe '#users_replied_to' do
     it { should respond_to(:users_replied_to) }
     it { should have_many(:users_replied_to)
-         .through(:reply_relationships)
-         .source(:to_user) }
+                .through(:reply_relationships)
+                .source(:to_user) }
   end
 
   describe '#parents' do
     it { should respond_to(:parents) }
     it { should have_many(:parents)
-         .through(:reply_relationships)
-         .source(:to_message) }
+                .through(:reply_relationships)
+                .source(:to_message) }
   end
 
 
   describe '#reverse_reply_relationships' do
     it { should respond_to(:reverse_reply_relationships) }
     it { should have_many(:reverse_reply_relationships)
-         .with_foreign_key('to_message_id')
-         .class_name('Reply') }
+                .with_foreign_key('to_message_id')
+                .class_name('Reply') }
 
     context 'when the message has received 2 replies' do
       let! (:reply1) { FactoryGirl.create(:reply, to_message: message) }
@@ -56,8 +56,8 @@ describe Message::Repliable, type: :model do
   describe '#replies' do
     it { should respond_to(:replies) }
     it { should have_many(:replies)
-         .through(:reverse_reply_relationships)
-         .source(:message) }
+                .through(:reverse_reply_relationships)
+                .source(:message) }
   end
 
 
@@ -103,6 +103,8 @@ describe Message::Repliable, type: :model do
 
     include_context 'a conversation'
 
+    it { expect(Message).to respond_to(:descendants_of) }
+
     context 'with root of conversation' do
       let (:message) { conversation00 }
       it 'should have all descendants messages' do
@@ -135,10 +137,13 @@ describe Message::Repliable, type: :model do
     end
   end
 
+
   describe '::ancestors_of' do
     subject { Message.ancestors_of(message) }
 
     include_context 'a conversation'
+
+    it { expect(Message).to respond_to(:ancestors_of) }
 
     context 'with root of conversation' do
       let (:message) { conversation00 }
