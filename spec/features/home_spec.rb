@@ -37,7 +37,7 @@ describe 'Home Page', type: :feature, js: true do
         # messages
         it "should have messages link with its count" do
           expect(page).to have_link(
-            I18n.t('views.users.show.navigation.messages'),
+            I18n.t('views.home.index.profile.messages'),
             href: user_path(user)
           )
           expect(page).to have_selector '.home-profile-messages-count', user.messages.count
@@ -46,7 +46,7 @@ describe 'Home Page', type: :feature, js: true do
         # following
         it "should have following link with its count" do
           expect(page).to have_link(
-            I18n.t('views.users.show.navigation.following'),
+            I18n.t('views.home.index.profile.following'),
             href: following_user_path(user)
           )
           expect(page).to have_selector '.home-profile-following', user.followed_users.count
@@ -55,7 +55,7 @@ describe 'Home Page', type: :feature, js: true do
         # followers
         it "should have followers link with its count" do
           expect(page).to have_link(
-            I18n.t('views.users.show.navigation.followers'),
+            I18n.t('views.home.index.profile.followers'),
             href: followers_user_path(user)
           )
           expect(page).to have_selector '.home-profile-followers', user.followers.count
@@ -72,7 +72,7 @@ describe 'Home Page', type: :feature, js: true do
           }
 
           it 'should not have greeting text' do
-            should_not have_selector('.empty-description', I18n.t('views.home.index.description'))
+            should_not have_selector('.empty-description', I18n.t('views.home.index.empty_description'))
           end
 
           context 'in pagination' do
@@ -88,7 +88,7 @@ describe 'Home Page', type: :feature, js: true do
 
         context 'when has not any messages' do
           it 'should have greeting text' do
-            should have_selector('.empty-description', I18n.t('views.home.index.description'))
+            should have_selector('.empty-description', I18n.t('views.home.index.empty_description'))
           end
         end
       end
@@ -205,7 +205,7 @@ describe 'Home Page', type: :feature, js: true do
       it 'should display no result message' do
         expect(page).to have_selector(
           '.empty-description',
-          I18n.t('views.home.search.description_html', mode: mode, word: keyword)
+          I18n.t('views.home.search.empty_description_html', mode: mode, word: keyword)
         )
       end
     end

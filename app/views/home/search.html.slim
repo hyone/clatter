@@ -50,14 +50,14 @@ div.content-body
           = render layout: 'shared/users_list_panel', locals: { \
               users: @feeds, \
               page:  @page, \
-              description: t('views.home.search.description_html', mode: @search[:mode], word: @search[:text]), \
+              description: t('views.home.search.empty_description_html', mode: @search[:mode], word: @search[:text]), \
             } do
             h2.users-list-panel-title = t('views.home.search.title_html', word: @search[:text])
         - else
           = render layout: 'shared/messages_list_panel', locals: { \
               messages: @feeds, \
               page: @page, \
-              description: t('views.home.search.description_html', mode: @search[:mode], word: @search[:text]), \
+              description: t('views.home.search.empty_description_html', mode: @search[:mode], word: @search[:text]), \
             } do
             h2.messages-list-panel-title = t('views.home.search.title_html', word: @search[:text])
 

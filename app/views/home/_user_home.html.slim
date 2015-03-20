@@ -22,15 +22,15 @@ div.content-body
                   ul.list-inline
                     li.home-profile-messages-count
                       = link_to @user do
-                        span.nav-label = t('views.users.show.navigation.messages')
+                        span.nav-label = t('views.home.index.profile.messages')
                         span.nav-value #{@user.messages.count}
                     li.home-profile-following
                       = link_to following_user_path(@user)
-                        span.nav-label = t('views.users.show.navigation.following')
+                        span.nav-label = t('views.home.index.profile.following')
                         span.nav-value #{@user.followed_users.count}
                     li.home-profile-followers
                       = link_to followers_user_path(@user)
-                        span.nav-label = t('views.users.show.navigation.followers')
+                        span.nav-label = t('views.home.index.profile.followers')
                         span.nav-value #{@user.followers.count}
 
           div.hidden-lg
@@ -44,7 +44,7 @@ div.content-body
         = render layout: 'shared/messages_list_panel', locals: { \
             messages: @feeds, \
             page: @page, \
-            description: t('views.home.index.description') \
+            description: t('views.home.index.empty_description') \
           } do
             div.message-form-block
               span.message-icon

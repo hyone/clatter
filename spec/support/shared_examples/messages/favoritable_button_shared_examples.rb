@@ -28,7 +28,7 @@ shared_examples 'a favoritable button' do |content_navigation: false|
     context 'when message is not favorited' do
       it 'favorite button should be displayed' do
         expect(page).to have_selector("#message-#{message.id} .favorite-button")
-        expect(page).not_to have_selector("#message-#{message.id} .unfavorite-button", visible: false)
+        expect(find("#message-#{message.id} .unfavorite-button", visible: false)).not_to be_visible
       end
 
       it 'favorite button should be enabled' do
@@ -67,7 +67,7 @@ shared_examples 'a favoritable button' do |content_navigation: false|
         it "'favorite' button changes to 'unfavorite' button" do
           click_favorite_button(message)
           expect(page).to have_selector("#message-#{message.id} .unfavorite-button")
-          expect(page).not_to have_selector("#message-#{message.id} .favorite-button", visible: false)
+          expect(find("#message-#{message.id} .favorite-button", visible: false)).not_to be_visible
         end
 
         it 'should display 1 favorites count' do
@@ -94,7 +94,7 @@ shared_examples 'a favoritable button' do |content_navigation: false|
 
       it 'unfavorite button should be displayed' do
         expect(page).to have_selector("#message-#{message.id} .unfavorite-button")
-        expect(page).not_to have_selector("#message-#{message.id} .favorite-button", visible: false)
+        expect(find("#message-#{message.id} .favorite-button", visible: false)).not_to be_visible
       end
 
       it 'unfavorite button should be enabled' do
@@ -133,7 +133,7 @@ shared_examples 'a favoritable button' do |content_navigation: false|
         it "'unfavorite' button changes to 'favorite' button" do
           click_unfavorite_button(message)
           expect(page).to have_selector("#message-#{message.id} .favorite-button")
-          expect(page).not_to have_selector("#message-#{message.id} .unfavorite-button", visible: false)
+          expect(find("#message-#{message.id} .unfavorite-button", visible: false)).not_to be_visible
         end
 
         it 'should not display favorites count' do

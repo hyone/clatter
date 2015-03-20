@@ -38,3 +38,8 @@
 #= require vue/users/user_panel
 #= require vue/users/user
 #= require vue/app
+
+
+# initialize tooltips
+$ ->
+  $('[data-toggle="tooltip"]').tooltip(delay: { "show": 1000, "hide": 100 })

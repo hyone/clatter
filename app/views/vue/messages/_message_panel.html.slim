@@ -28,7 +28,7 @@ script type="text/x-template" id="message-panel-template"
         div.message-foot
           ul.message-action-list.list-inline
             li.open-reply-to-button-item
-              button class="btn btn-link" id="reply-to-message-{{message.id}}" v-on="click: onClickReplyButton" v-class="
+              button class="btn btn-link" id="reply-to-message-{{message.id}}" data-toggle="tooltip" title="#{ t('views.message.reply') }" v-on="click: onClickReplyButton" v-class="
                 disabled: !canReply
               "
                 b.fa.fa-reply

@@ -4,9 +4,9 @@ script type="text/x-template" id="retweet-button-template"
         class: 'retweet-button',
         format: 'json',
         remote: true,
-        'v-if' => '!isRetweeted') do |f|
+        'v-show' => '!isRetweeted') do |f|
       = hidden_field_tag 'retweet[message_id]', '{{message.id}}'
-      button class='btn btn-link' id='retweet-message-{{message.id}}' type='submit' v-class="
+      button class='btn btn-link' id='retweet-message-{{message.id}}' type='submit' data-toggle="tooltip" title="#{ t('views.message.retweet') }" v-class="
         disabled: !canRetweet
       "
         b.fa.fa-retweet
@@ -15,8 +15,8 @@ script type="text/x-template" id="retweet-button-template"
                method: :delete,
                class: 'unretweet-button',
                remote: true,
-               'v-if' => 'isRetweeted') do |f|
-      button class='btn btn-link' id='unretweet-message-{{message.id}}' type='submit' v-class="
+               'v-show' => 'isRetweeted') do |f|
+      button class='btn btn-link' id='unretweet-message-{{message.id}}' type='submit' data-toggle="tooltip" title="#{ t('views.message.unretweet') }" v-class="
         disabled: !canRetweet
       "
         b.fa.fa-retweet

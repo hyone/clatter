@@ -27,8 +27,8 @@ div.content-body
     div.col.col-xs-8.col-lg-6.content-main
       div.row
         - description = params[:filter].blank? ? \
-            t('views.home.mentions.description_all') : \
-            t('views.home.mentions.description_people_you_follow')
+            t('views.home.mentions.empty_description_all') : \
+            t('views.home.mentions.empty_description_people_you_follow')
         = render layout: 'shared/messages_list_panel', locals: { \
             messages: @feeds, \
             page: @page, \
@@ -40,14 +40,16 @@ div.content-body
               - if params[:filter].blank?
                 = t('views.home.mentions.all')
               - else
-                = link_to t('views.home.mentions.all'), mentions_path
+                a href="#{ mentions_path }" data-toggle="tooltip" title="#{ t('views.home.mentions.description_all') }"
+                  | #{ t('views.home.mentions.all') }
             li 
               | /
             li
               - if params[:filter] == 'following'
                 = t('views.home.mentions.people_you_follow')
               - else
-                = link_to t('views.home.mentions.people_you_follow'), mentions_path(filter: 'following')
+                a href="#{ mentions_path(filter: 'following') }" data-toggle="tooltip" title="#{ t('views.home.mentions.description_people_you_follow') }"
+                  | #{ t('views.home.mentions.people_you_follow') }
 
 
     div.visible-lg-block

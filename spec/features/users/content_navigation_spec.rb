@@ -13,19 +13,19 @@ describe 'Content Navigation Panel', type: :feature, js: true do
 
   # messages
   it "should have messages link with its count" do
-    expect(page).to have_link(I18n.t('views.users.show.navigation.messages'), href: user_path(user))
+    expect(page).to have_link(I18n.t('views.content_navigation.messages'), href: user_path(user))
     expect(page).to have_selector '.content-navigation-messages', user.messages.count
   end
 
   # following
   it "should have following link with its count" do
-    expect(page).to have_link(I18n.t('views.users.show.navigation.following'), href: following_user_path(user))
+    expect(page).to have_link(I18n.t('views.content_navigation.following'), href: following_user_path(user))
     expect(page).to have_selector '.content-navigation-following', user.followed_users.count
   end
 
   # followers
   it "should have followers link with its count" do
-    expect(page).to have_link(I18n.t('views.users.show.navigation.followers'), href: followers_user_path(user))
+    expect(page).to have_link(I18n.t('views.content_navigation.followers'), href: followers_user_path(user))
     expect(page).to have_selector '.content-navigation-followers', user.followers.count
   end
 

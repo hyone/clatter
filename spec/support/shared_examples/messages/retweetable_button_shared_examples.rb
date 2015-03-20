@@ -28,7 +28,7 @@ shared_examples 'a retweetable button' do
       context 'when message is not retweeted' do
         it 'retweet button should be displayed' do
           expect(page).to have_selector("#message-#{message.id} .retweet-button")
-          expect(page).not_to have_selector("#message-#{message.id} .unretweet-button", visible: false)
+          expect(find("#message-#{message.id} .unretweet-button", visible: false)).not_to be_visible
         end
 
         it 'retweet button should be enabled' do
@@ -59,7 +59,7 @@ shared_examples 'a retweetable button' do
           it "'retweet' button changes to 'unretweet' button" do
             click_retweet_button(message)
             expect(page).to have_selector("#message-#{message.id} .unretweet-button")
-            expect(page).not_to have_selector("#message-#{message.id} .retweet-button", visible: false)
+            expect(find("#message-#{message.id} .retweet-button", visible: false)).not_to be_visible
           end
 
           it 'should disply 1 retweets count' do
@@ -77,7 +77,7 @@ shared_examples 'a retweetable button' do
 
         it 'unretweet button should be displayed' do
           expect(page).to have_selector("#message-#{message.id} .unretweet-button")
-          expect(page).not_to have_selector("#message-#{message.id} .retweet-button", visible: false)
+          expect(find("#message-#{message.id} .retweet-button", visible: false)).not_to be_visible
         end
 
         it 'unretweet button should be enabled' do
@@ -108,7 +108,7 @@ shared_examples 'a retweetable button' do
           it "'unretweet' button change to 'retweet' button" do
             click_unretweet_button(message)
             expect(page).to have_selector("#message-#{message.id} .retweet-button")
-            expect(page).not_to have_selector("#message-#{message.id} .unretweet-button", visible: false)
+            expect(find("#message-#{message.id} .unretweet-button", visible: false)).not_to be_visible
           end
 
           it 'should not display retweets count' do

@@ -1,11 +1,97 @@
 en:
   views:
+
     generic:
       please_sign_in: Please sign in.
       not_message_owner: You are not the owner of the message.
       not_favorite_owner: You are not the owner of the favorite.
       appname: Clatter
       base_title: Clatter
+
+    # ----------------------------------------------------------------------------------------------
+    # Widgets
+    # ----------------------------------------------------------------------------------------------
+
+    alert:
+      success_create_message: Message created!
+      failed_create_message: Failed to create message
+      success_delete_message: Your message has been deleted.
+      failed_delete_message: Failed to delete message
+      failed_follow_message: "Failed to folllow %{user}"
+      failed_favorite_message: Failed to mark message as favorite
+
+    navigation:
+      home: Home
+      new_message: Message
+      notifications: Notifications
+      profile_and_settings: Profile and settings
+      profile: Profile
+      settings: Settings
+      signout: Sign out
+      signin: Sign in
+      users: People
+
+    content_navigation:
+      messages: MESSAGES
+      messages_title: "%{count} Messages"
+      following: FOLLOWING
+      following_title: "%{count} Following"
+      followers: FOLLOWERS
+      followers_title: "%{count} Followers"
+      favorites: FAVORITES
+      favorites_title: "%{count} Favorites"
+
+    footer_panel:
+      about: About
+      home: Home
+      copyright_html: "&copy; 2015 %{appname}"
+
+    menu_panel:
+      notifications: Notifications
+      mentions: Mentions
+
+    # Message widgets
+    # -----------------------------------------------
+
+    message:
+      reply: Reply
+      retweet: Retweet
+      unretweet: Undo retweet
+      favorite: Favorite
+      unfavorite: Undo favorite
+      actions: More
+      retweeted: retweeted
+
+    message_form:
+      new_message: What's happening?
+      submit: Post
+
+    message_actions_button:
+      delete_message: Delete Message
+      confirm_delete_message: Are you sure you want to delete this message?
+
+    modal_dialog:
+      close: Close
+      compose_new_message: Compose New Message
+      reply_to: "Reply to %{name}"
+
+    # User widgets
+    # -----------------------------------------------
+
+    follow_button:
+      edit_profile: Edit Profile
+      follow: Follow
+      following: Following
+      unfollow: Unfollow
+
+    user_actions_button:
+      title: "More user actions"
+      message_to: 'Message to @%{screen_name}'
+
+
+    # ----------------------------------------------------------------------------------------------
+    # Pages
+    # ----------------------------------------------------------------------------------------------
 
     errors:
       internet_server_error:
@@ -18,65 +104,27 @@ en:
         title: Bad Request
         message: Bad Request
 
-    alert:
-      success_create_message: Message created!
-      failed_create_message: Failed to create message
-      success_delete_message: Your message has been deleted.
-      failed_delete_message: Failed to delete message
-      failed_follow_message: "Failed to folllow %{user}"
-      failed_favorite_message: Failed to mark message as favorite
-
-    navigation:
-      close: Close
-      edit_profile: Edit Profile
-      follow: Follow
-      following: Following
-      home: Home
-      new_message: Message
-      notifications: Notifications
-      profile: Profile
-      settings: Settings
-      signout: Sign out
-      signin: Sign in
-      unfollow: Unfollow
-      users: People
-
-    modal_dialog:
-      compose_new_message: Compose New Message
-      reply_to: "Reply to %{name}"
-
-    message_form:
-      new_message: What's happening?
-      submit: Post
-
-    footer_panel:
-      about: About
-      home: Home
-      copyright_html: "&copy; 2015 %{appname}"
-
-    menu_panel:
-      notifications: Notifications
-      mentions: Mentions
-
-    message_panel:
-      retweeted: retweeted
-      delete_message: Delete Message
-      confirm_delete_message: Are you sure you want to delete this message?
-
     home:
       index:
-        description: Your timeline is currently empty. Follow people and topics you find interesting to see their messages in your timeline. 
+        empty_description: Your timeline is currently empty. Follow people and topics you find interesting to see their messages in your timeline. 
         signup_now: Sign up now!
         welcome_message: "Welcome to %{appname}"
+        profile:
+          messages: MESSAGES
+          following: FOLLOWING
+          followers: FOLLOWERS
+          favorites: FAVORITES
       mentions:
         title: Mentions
         all: All
         people_you_follow: People you follow
-        description_all: Find mentions about you here.
-        description_people_you_follow: Find mentions from people you follow. Start a conversation with your friends!
+        description_all: Show all interactions and mentions
+        description_people_you_follow: Show only interactions and mentions from people you follow
+        empty_description_all: Find mentions about you here.
+        empty_description_people_you_follow: Find mentions from people you follow. Start a conversation with your friends!
       search:
         title_html: "Results for <strong>%{word}</strong>"
-        description_html: "No %{mode} results for <strong>%{word}</strong>"
+        empty_description_html: "No %{mode} results for <strong>%{word}</strong>"
         menu:
           messages: Messages
           users: People
@@ -84,14 +132,15 @@ en:
           followed_users: People you followers
 
     users:
-      user:
-        message_to: 'Message to @%{screen_name}'
       index:
         title: All People
       signup:
         title: Sign up
       signin:
         title: Sign in
+      edit:
+        title: Setting
+
       form:
         basic_information: Basic Information
         connected_account: Connected Account
@@ -111,15 +160,8 @@ en:
         signup: Sign up
         signup_link_text: Sign up with Email 損
         update: Update
-      edit:
-        title: Setting
 
       show:
-        navigation:
-          messages: MESSAGES
-          following: FOLLOWING
-          followers: FOLLOWERS
-          favorites: FAVORITES
         messages: Messages
         messages_and_replies: Messages & replies
 

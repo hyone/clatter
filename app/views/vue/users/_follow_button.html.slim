@@ -10,7 +10,7 @@ script type="text/x-template" id="follow-button-template"
         disabled: !canFollow
       "
         b.fa.fa-user
-        = t('views.navigation.follow')
+        = t('views.follow_button.follow')
 
     = form_tag(bindable_path('follow', '{{user.follow.id}}', format: 'json'),
                method: :delete,
@@ -21,9 +21,9 @@ script type="text/x-template" id="follow-button-template"
         disabled: !canFollow
       "
         span.following
-          = t('views.navigation.following')
+          = t('views.follow_button.following')
         span.unfollow
-          = t('views.navigation.unfollow')
+          = t('views.follow_button.unfollow')
 
     = form_tag(edit_user_registration_path,
                method: :get,
@@ -31,4 +31,4 @@ script type="text/x-template" id="follow-button-template"
                'v-if' => 'isEditProfileButton') do
       button class='btn btn-default' type='submit'
         b.fa.fa-user
-        = t('views.navigation.edit_profile')
+        = t('views.follow_button.edit_profile')

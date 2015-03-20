@@ -6,7 +6,7 @@ script type="text/x-template" id="message-template"
         a href="#{ bindable_path('user', '{{message.retweeted.user.screen_name}}') }"
           | {{message.retweeted.user.screen_name}}
         span
-          = " #{ t('views.message_panel.retweeted') }"
+          = " #{ t('views.message.retweeted') }"
 
       a.message-user href="#{ bindable_path('user', '{{message.user.screen_name}}') }"
         span.message-icon
@@ -16,14 +16,14 @@ script type="text/x-template" id="message-template"
         span.message-owner-screen-name
           | @{{message.user.screen_name}}
       span.time
-        a.message-time href="#{ bindable_path('status_user', '{{message.user.screen_name}}', '{{message.id}}') }"
+        a.message-time href="#{ bindable_path('status_user', '{{message.user.screen_name}}', '{{message.id}}') }" data-toggle="tooltip" title="{{date}}"
           | {{{dateFromNow}}}
     div.message-body
       | {{{* textHtml}}}
     div.message-foot v-if="showFoot"
       ul.list-inline
         li.open-reply-to-button-item
-          button class="btn btn-link" id="reply-to-message-{{message.id}}" v-on="click: onClickReplyButton" v-class="
+          button class="btn btn-link" id="reply-to-message-{{message.id}}" data-toggle="tooltip" title="#{ t('views.message.reply') }" v-on="click: onClickReplyButton" v-class="
             disabled: !canReply
           "
             b.fa.fa-reply

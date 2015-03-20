@@ -1,5 +1,5 @@
 script type="text/x-template" id="user-actions-button-template"
-  div.btn-group
+  div.btn-group data-toggle="tooltip" title="#{ t('views.user_actions_button.title') }"
     button.btn.btn-link.user-actions-button.dropdown-toggle id="user-actions-{{user.screen_name}}" type="button" data-toggle="dropdown" ari-expanded="false" v-if="canActions"
       b.fa.fa-lg.fa-cog
     ul.dropdown-menu role="menu" v-if="canActions"
@@ -7,6 +7,7 @@ script type="text/x-template" id="user-actions-button-template"
         a href="#" id="reply-to-{{user.screen_name}}" class="open-reply-to" v-text="replyToUserText" v-on='
           click: onClickReplyToUserButton
         '
+          | #{ t('views.user_actions_button.message_to', screen_name: '{{ user.screen_name }}') }
       / li
         / a href="#" Another action
       / li.divider

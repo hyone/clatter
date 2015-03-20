@@ -51,7 +51,7 @@ script type="text/x-template" id="navigation-template"
 
           /! user menu
           - if user_signed_in?
-            li.dropdown#navbar-user
+            li.dropdown#navbar-user data-toggle="tooltip" data-placement="bottom" title="#{ t('views.navigation.profile_and_settings') }"
               a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                 = image_tag current_user.profile_image.small.url, class: 'user-thumb'
               ul.dropdown-menu.pull-right
@@ -78,7 +78,7 @@ script type="text/x-template" id="navigation-template"
 
           /! message button
           - if user_signed_in?
-            li
+            li data-toggle="tooltip" data-placement="bottom" title="#{ t('views.navigation.new_message') }"
               button.btn.btn-primary.btn-sm.navbar-btn#navigation-new-message v-on='click: onClickNewMessageButton'
                 b.fa.fa-2x.fa-pencil-square-o
                 / b.fa.fa-lg.fa-pencil

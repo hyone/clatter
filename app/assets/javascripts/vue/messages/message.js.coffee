@@ -22,9 +22,13 @@ Clatter.MessageComponent = Vue.extend
     canActions: ->
       Clatter.currentUser and Clatter.currentUser.id == @message.user.id
 
+    date: ->
+      d = moment(@message.created_at)
+      d.format('h:mm A - D MMM YYYY')
+
     dateFromNow: ->
       d = moment(@message.created_at)
-      """<span title="#{d.format('h:mm A - D MMM YYYY')}">#{d.fromNow()}</span>"""
+      d.fromNow()
 
     textHtml: ->
       Clatter.util.messageToHtml(@message, @keywords)
