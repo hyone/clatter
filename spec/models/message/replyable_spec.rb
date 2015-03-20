@@ -94,7 +94,52 @@ describe Message::Replyable, type: :model do
 
 
   describe '::mentions_of' do
+    include_context 'messages of followed users'
+
+    let! (:reply_followed1) { FactoryGirl.create(
+      :message_with_reply,
+      user: followed1,
+      users_replied_to: [user]
+    ) }
+    let! (:reply_followed2) { FactoryGirl.create(
+      :message_with_reply,
+      user: followed2,
+      users_replied_to: [user]
+    ) }
+    let! (:reply_other) { FactoryGirl.create(
+      :message_with_reply,
+      user: other,
+      users_replied_to: [user]
+    ) }
+
     it { expect(Message).to respond_to(:mentions_of) }
+
+    context 'without filter' do
+      subject { Message.mentions_of(user) }
+
+      it 'should have all messages mentioned from anyone' do
+        should contain_exactly(reply_followed1, reply_followed2, reply_other)
+      end
+
+      it 'should not have messages other than mentioned one' do
+        should_not include(message_followed1, message_followed2, message_other)
+      end
+    end
+
+    context 'with filter = :following' do
+      subject { Message.mentions_of(user, filter: :following) }
+
+      it 'should have only messages mentioned from followed users' do
+        should contain_exactly(reply_followed1, reply_followed2)
+      end
+
+      it 'should not have messages other than one mentioned from followed users' do
+        should_not include(
+          message_followed1, message_followed2, message_other,
+          reply_other
+        )
+      end
+    end
   end
 
 

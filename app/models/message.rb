@@ -82,7 +82,7 @@ class Message < ActiveRecord::Base
 
     class_methods do
       def mentions_of(user, filter: nil)
-        case filter
+        case filter.to_s
         when 'following'
           joins(:reply_relationships).where(
             replies: { to_user_id: user.id },
