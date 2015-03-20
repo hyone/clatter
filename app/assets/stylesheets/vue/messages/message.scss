@@ -116,34 +116,34 @@
       }
     }
   }
-}
 
+  .message-foot {
+    margin-top: 5px;
+    margin-left: 62px;
 
-.message-foot {
-  margin-top: 5px;
-
-  a, button {
-    color: $app-text-lighter;
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-  > ul.list-inline {
-    > li {
-      padding-right: 20px;
-
-      button {
-        margin: 0;
-        padding: 0;
+    a, button {
+      color: $app-text-lighter;
+      &:hover {
+        text-decoration: none;
       }
     }
-  }
 
-  .open-reply-to-button-item {
-    > button {
-      &:hover {
-        color: $app-active;
+    > ul.list-inline {
+      > li {
+        padding-right: 20px;
+
+        button {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+
+    .open-reply-to-button-item {
+      > button {
+        &:hover {
+          color: $app-active;
+        }
       }
     }
   }

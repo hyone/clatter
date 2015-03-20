@@ -41,6 +41,8 @@ $app-bg-relative-message: lighten($app-bg-active, 3.2%);
       }
 
       .message-foot {
+        margin-left: 0px;
+
         .message-action-list {
           margin: 10px 0;
         }
