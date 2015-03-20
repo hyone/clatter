@@ -1,7 +1,7 @@
 MAIN_USER = FactoryGirl.create(
   :user,
   screen_name: 'sample',
-  name: 'sample'
+  name: 'sample',
   password: 'password'
 )
 
@@ -98,8 +98,8 @@ def gen_conversations
     text: 'CONVERSATION EXAMPLE',
     created_at: 1.hours.ago
   )
-  user      = MAIN_USER
-  companion = random_user
+  user      = random_user
+  companion = MAIN_USER
   branch    = nil
 
   10.times do |i|
