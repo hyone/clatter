@@ -87,8 +87,8 @@ $ heroku restart
 
 In addition to packages required on installation:
 
-- docker
-- fig
+- docker (For PostgreSQL container)
+- docker-compose
 - terminal-notifier (Optional)
 
 
