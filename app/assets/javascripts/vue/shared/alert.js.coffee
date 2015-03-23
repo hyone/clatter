@@ -10,6 +10,9 @@ window.Clatter.AlertComponent = Vue.extend
     message: undefined
     details: []
 
+  events:
+    'app.alert': 'onAlert'
+
   computed:
     hasMessage: -> !!@status and !!@message
     hasDetails: -> @details?.length > 0
@@ -41,3 +44,6 @@ window.Clatter.AlertComponent = Vue.extend
 
     onClickCloseButton: ->
       @close()
+
+    onAlert: (event, data) ->
+      @show(data.status, data.message, data.details)

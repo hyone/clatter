@@ -25,6 +25,13 @@ Clatter.ModalDialogComponent = Vue.extend
       components:
         inner: Clatter.MessageComponent
 
+  events:
+    'user.click-reply-button': 'onOpenReplyUser'
+    'message.click-new-button': 'onOpenNewMessage'
+    'message.click-reply-button': 'onOpenReplyMessage'
+    'app.alert': 'hide'
+
+
   compiled: ->
     @setupModalEventListeners()
 
@@ -72,16 +79,16 @@ Clatter.ModalDialogComponent = Vue.extend
       @open()
 
     openUserReply: (user) ->
-      @setReplyTitle(user.screen_name)
+      @setReplyTitle("@#{ user.screen_name }")
       @open()
 
 
-    onOpenNew: (event) -> @openNew()
+    onOpenNewMessage: (event) -> @openNew()
 
-    onOpenUserReply: (event, user) ->
+    onOpenReplyUser: (event, user) ->
       @openUserReply(user)
       @$broadcast('modal-dialog.open-user-reply', event, user)
 
-    onOpenMessageReply: (event, message) ->
+    onOpenReplyMessage: (event, message) ->
       @openMessageReply(message)
       @$broadcast('modal-dialog.open-message-reply', event, message)

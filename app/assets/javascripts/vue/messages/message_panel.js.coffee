@@ -54,7 +54,7 @@ Clatter.MessagePanelComponent = Vue.extend
 
   methods:
     onClickReplyButton: (event) ->
-      @$broadcast('message.on-click-reply-button', event, @message)
+      @$broadcast('message-panel.click-reply-button', event, @message)
 
     onMessageCreated: (event, message) ->
       @message.replies.push(message)

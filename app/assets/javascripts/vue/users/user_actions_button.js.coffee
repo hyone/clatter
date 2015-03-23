@@ -14,4 +14,4 @@ Clatter.UserActionsButtonComponent = Vue.extend
 
   methods:
     onClickReplyToUserButton: (event) ->
-      @$dispatch('user-actions-button.click-user-reply-button', event, @user)
+      @$dispatch('_user.click-reply-button', event, @user)

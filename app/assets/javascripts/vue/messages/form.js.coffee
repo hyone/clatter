@@ -38,11 +38,11 @@ MessageForm = Vue.extend
         if data.response.status is 'success'
           @$dispatch '_message.created', event, data.results.message
         else
-          @$dispatch 'app.alert', event, data.response
+          @$dispatch '_app.alert', event, data.response
         @clear()
 
       $(@$el).on 'ajax:error', (event, xhr, status, error) =>
-        @$dispatch 'app.alert', event,
+        @$dispatch '_app.alert', event,
           status: status,
           message: "#{I18n.t('views.alert.failed_create_message')}: #{error}"
 
@@ -88,8 +88,7 @@ Clatter.ContentMainMessageFormComponent = MessageForm.extend
     @close()
 
   events:
-    'content-main-message-form:close': 'close'
-    'message.on-click-reply-button': 'onClickReplyButton'
+    'message-panel.click-reply-button': 'onClickReplyButton'
     'message.created': 'onMessageCreated'
 
   computed:

@@ -31,7 +31,7 @@ Clatter.FollowButtonComponent = Vue.extend
     setupAjaxEventListeners: ->
       $(@$el).on 'ajax:success', (event, data, status, xhr) =>
         unless data.response.status == 'success'
-          @$dispatch 'app.alert', event, data.response
+          @$dispatch '_app.alert', event, data.response
           return false
 
         json = data.results.follow
@@ -40,9 +40,9 @@ Clatter.FollowButtonComponent = Vue.extend
         @updateUserStat(json, inc)
 
       $(@$el).on 'ajax:error', (event, xhr, status, error) =>
-        @$dispatch 'app.alert', event,
+        @$dispatch '_app.alert', event,
           status: status
-          message: "#{I18n.t('views.alert.failed_follow', user: @user.screen_name)}: #{error}"
+          message: "#{I18n.t('views.alert.failed_follow_user', user: @user.screen_name)}: #{error}"
 
       $(@$el).on 'ajax:complete', (event, data, status, xhr) =>
         $(event.target).find('button[type="submit"]').removeAttr('disabled')
@@ -51,16 +51,13 @@ Clatter.FollowButtonComponent = Vue.extend
         $(event.target).find('button[type="submit"]').attr('disabled', 'disabled')
 
     updateButtonStatus: (data) ->
-      switch data.status
-        when 'follow'
-          @user.follow.id = data.id
-        when 'unfollow'
-          @user.follow.id = null
+      @user.follow.id = switch data.status
+        when 'follow'   then data.id
+        when 'unfollow' then null
 
     updateUserStat: (data, inc) ->
       return unless Clatter.profileUser
-      switch Clatter.profileUser.id
-        when data.follower.id
-          @$dispatch('follow.update-stats', event, following: inc)
-        when data.followed_user.id
-          @$dispatch('follow.update-stats', event, followers: inc)
+      options = switch Clatter.profileUser.id
+        when data.follower.id      then { following: inc }
+        when data.followed_user.id then { followers: inc }
+      @$dispatch('_app.update-stats', event, options)

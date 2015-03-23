@@ -10,8 +10,7 @@ Clatter.ContentNavigationComponent = Vue.extend
     user: Clatter.profileUser
 
   events:
-    'favorite.update-stats': 'onUpdateStats'
-    'follow.update-stats': 'onUpdateStats'
+    'app.update-stats': 'onUpdateStats'
 
   methods:
     isActiveMenu: (url) ->
@@ -25,4 +24,3 @@ Clatter.ContentNavigationComponent = Vue.extend
 
     onUpdateStats: (event, args) ->
       @updateStats(args)
-      false

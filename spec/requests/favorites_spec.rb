@@ -44,7 +44,7 @@ describe 'Favorites pages' do
         it 'should create Favorite record' do
           expect { xhr_post_favorites }.to change {
             Favorite.find_by(user: user, message: message)
-          }.from(nil)
+          }.from(nil).to(be_a Favorite)
         end
 
         describe 'json response' do
@@ -72,7 +72,7 @@ describe 'Favorites pages' do
         it 'should not create Favorite record' do
           expect { xhr_post_favorites }.not_to change {
             Favorite.find_by(user: user, message: message)
-          }
+          }.from(nil)
         end
 
         describe 'json response' do

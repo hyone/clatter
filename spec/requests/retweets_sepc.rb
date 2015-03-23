@@ -31,7 +31,7 @@ describe 'Retweets pages' do
         it 'should create Retweet record' do
           expect { xhr_post_retweets }.to change {
             Retweet.find_by(user: user, message: message)
-          }.from(nil)
+          }.from(nil).to(be_a Retweet)
         end
 
         describe 'json response' do
@@ -57,7 +57,7 @@ describe 'Retweets pages' do
         it 'should not create Retweet record' do
           expect { xhr_post_retweets }.not_to change {
             Retweet.find_by(user: user, message: message)
-          }
+          }.from(nil)
         end
 
         describe 'json response' do

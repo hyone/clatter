@@ -35,4 +35,4 @@ Clatter.MessageComponent = Vue.extend
 
   methods:
     onClickReplyButton: (event) ->
-      @$dispatch('message.on-click-reply-button', event, @message)
+      @$dispatch('_message.click-reply-button', event, @message)

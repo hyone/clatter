@@ -20,7 +20,7 @@ Clatter.FavoriteButtonComponent = Vue.extend
     setupAjaxEventListeners: ->
       $(@$el).on 'ajax:success', (event, data, status, xhr) =>
         unless data.response.status == 'success'
-          @$dispatch 'app.alert', event, data.response
+          @$dispatch '_app.alert', event, data.response
           return false
         json = data.results.favorite
         inc  = if data.response.request_method is "DELETE" then -1 else 1
@@ -36,7 +36,7 @@ Clatter.FavoriteButtonComponent = Vue.extend
         $(event.target).find('button[type="submit"]').attr('disabled', 'disabled')
 
       $(@$el).on 'ajax:error', (event, xhr, status, error) =>
-        @$dispatch 'app.alert', event,
+        @$dispatch '_app.alert', event,
           status: status,
           message: "#{I18n.t('views.alert.failed_favorite_message')}: #{error}"
         false
@@ -49,4 +49,4 @@ Clatter.FavoriteButtonComponent = Vue.extend
       if Clatter.profileUser and
          Clatter.currentUser and
          Clatter.profileUser.id == Clatter.currentUser.id
-        @$dispatch('favorite.update-stats', event, favorites: inc)
+        @$dispatch('_app.update-stats', event, favorites: inc)

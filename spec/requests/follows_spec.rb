@@ -56,7 +56,9 @@ describe 'Follows page', type: :request do
 
       context 'with valid parameters' do
         it 'should create Follow record' do
-          expect { xhr_post_follows }.to change(follower.follow_relationships, :count).by(1)
+          expect { xhr_post_follows }.to change {
+            Follow.find_by(follower: follower, followed: followed_user)
+          }.from(nil).to(be_a Follow)
         end
 
         describe 'json response' do
@@ -80,7 +82,9 @@ describe 'Follows page', type: :request do
         end
 
         it 'should not create Message record' do
-          expect { xhr_post_follows }.not_to change(follower.follow_relationships, :count)
+          expect { xhr_post_follows }.not_to change {
+            Follow.find_by(follower: follower, followed: followed_user)
+          }.from(nil)
         end
 
         describe 'json response' do
@@ -100,7 +104,6 @@ describe 'Follows page', type: :request do
       xhr :delete, follow_path(follow, format: 'json')
     end
 
-
     context 'as guest' do
       it 'should respond with 401' do
         xhr_delete_follow(follow)
@@ -108,7 +111,9 @@ describe 'Follows page', type: :request do
       end
 
       it 'should not delete Follow record' do
-        expect { xhr_delete_follow(follow) }.not_to change(Follow, :count)
+        expect { xhr_delete_follow(follow) }.not_to change {
+          Follow.exists?(follow.id)
+        }.from(true)
       end
     end
 
@@ -121,7 +126,9 @@ describe 'Follows page', type: :request do
       end
 
       it 'should not delete Follow record' do
-        expect { xhr_delete_follow(follow) }.not_to change(Follow, :count)
+        expect { xhr_delete_follow(follow) }.not_to change {
+          Follow.exists?(follow.id)
+        }.from(true)
       end
     end
 
@@ -135,7 +142,9 @@ describe 'Follows page', type: :request do
 
       context 'with valid parameters' do
         it 'should delete Follow record' do
-          expect { xhr_delete_follow(follow) }.to change(follower.follow_relationships, :count).by(-1)
+          expect { xhr_delete_follow(follow) }.to change {
+            Follow.exists?(follow.id)
+          }.from(true).to(false)
         end
 
         describe 'json response' do

@@ -10,5 +10,5 @@ window.Clatter.NavigationComponent = Vue.extend
       @$interpolate(url) is location.pathname
 
     onClickNewMessageButton: (args...) ->
-      @$dispatch('navigation.click-new-message-button', args...)
+      @$dispatch('_navigation.click-new-message-button', args...)
       false

@@ -23,7 +23,7 @@ Clatter.RetweetButtonComponent = Vue.extend
     setupAjaxEventListeners: ->
       $(@$el).on 'ajax:success', (event, data, status, xhr) =>
         unless data.response.status == 'success'
-          @$dispatch 'app.alert', event, data.response
+          @$dispatch '_app.alert', event, data.response
           return false
         inc  = if data.response.request_method is "DELETE" then -1 else 1
         json = data.results.retweet
@@ -38,7 +38,7 @@ Clatter.RetweetButtonComponent = Vue.extend
         $(event.target).find('button[type="submit"]').attr('disabled', 'disabled')
 
       $(@$el).on 'ajax:error', (event, xhr, status, error) =>
-        @$dispatch 'app.alert', event,
+        @$dispatch '_app.alert', event,
           status: status,
           message: "#{I18n.t('views.alert.failed_retweet_message')}: #{error}"
         false

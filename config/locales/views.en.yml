@@ -17,7 +17,7 @@ en:
       failed_create_message: Failed to create message
       success_delete_message: Your message has been deleted.
       failed_delete_message: Failed to delete message
-      failed_follow_message: "Failed to folllow %{user}"
+      failed_follow_user: "Failed to folllow %{user}"
       failed_favorite_message: Failed to mark message as favorite
 
     navigation:

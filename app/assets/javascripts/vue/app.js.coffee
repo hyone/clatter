@@ -32,14 +32,13 @@ Clatter.appVM = new Vue
     'user-panel': Clatter.UserPanelComponent
 
   events:
-    'favorite.update-stats': 'onUpdateStats'
-    'follow.update-stats': 'onUpdateStats'
+    '_app.update-stats': 'onUpdateStats'
     '_message.created': 'onMessageCreated'
     '_message.deleted': 'onMessageDeleted'
-    'message.on-click-reply-button': 'onClickReplyToMessageButton'
-    'user-actions-button.click-user-reply-button': 'onClickReplyToUserButton'
-    'navigation.click-new-message-button': 'onClickNewMessageButton'
-    'app.alert': 'onAlert'
+    '_message.click-reply-button': 'onClickReplyToMessageButton'
+    '_navigation.click-new-message-button': 'onClickNewMessageButton'
+    '_user.click-reply-button': 'onClickReplyToUserButton'
+    '_app.alert': 'onAlert'
 
   created: ->
     @initMoment()
@@ -69,15 +68,19 @@ Clatter.appVM = new Vue
       @uri.clone().setQuery(params).toString()
 
     onClickNewMessageButton: (args...) ->
-      @$.modalDialog.onOpenNew(args...)
+      @$broadcast('message.click-new-button', args...)
       false
 
     onClickReplyToUserButton: (args...) ->
-      @$.modalDialog.onOpenUserReply(args...)
+      @$broadcast('user.click-reply-button', args...)
       false
 
     onClickReplyToMessageButton: (args...) ->
-      @$.modalDialog.onOpenMessageReply(args...)
+      @$broadcast('message.click-reply-button', args...)
+      false
+
+    onUpdateStats: (args...) ->
+      @$broadcast('app.update-stats', args...)
       false
 
     onMessageCreated: (event, message) ->
@@ -96,11 +99,6 @@ Clatter.appVM = new Vue
       @$broadcast('message.deleted', event, message)
       false
 
-    onUpdateStats: (event, args...) ->
-      @$.contentNavigation?.updateStats(args...)
-      false
-
-    onAlert: (event, data) ->
-      @showAlert(data.status, data.message, data.details)
-      @$.modalDialog.hide()
+    onAlert: (args...) ->
+      @$broadcast('app.alert', args...)
       false

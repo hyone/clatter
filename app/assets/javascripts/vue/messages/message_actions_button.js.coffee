@@ -12,7 +12,7 @@ Clatter.MessageActionsButtonComponent = Vue.extend
     setupAjaxEventListeners: ->
       $(@$el).on 'ajax:success', (event, data, status, xhr) =>
         if data.response.status isnt 'success'
-          @$dispatch 'app.alert', event, data.response
+          @$dispatch '_app.alert', event, data.response
           return
 
         t = $(event.target)
@@ -20,6 +20,6 @@ Clatter.MessageActionsButtonComponent = Vue.extend
           @$dispatch('_message.deleted', event, @message)
 
       $(@$el).on 'ajax:error', (event, xhr, status, error) =>
-        @$dispatch 'app.alert', event,
+        @$dispatch '_app.alert', event,
           status: status,
           message: "#{I18n.t('views.alert.failed_delete_message')}: #{error}"
