@@ -40,31 +40,57 @@ shared_examples 'a retweetable button' do
         end
 
         context 'when click retweet button' do
-          def click_retweet_button(message)
-            click_on "retweet-message-#{message.id}"
-            wait_for_ajax
+          before { click_on "retweet-message-#{message.id}" }
+
+          it 'should display confirm dialog' do
+            expect(page.find('#confirm-dialog')).to be_visible
           end
 
-          it 'should retweet the message' do
-            expect {
-              click_retweet_button(message)
-            }.to change {
-              Retweet.find_by(
-                user: user,
-                message: message
-              )
-            }.from(nil).to(be_a Retweet)
+          context 'when click cancel button' do
+            it 'should not retweet the message' do
+              expect {
+                click_on "cancel-action-button"
+              }.not_to change {
+                Retweet.find_by(
+                  user: user,
+                  message: message
+                )
+              }.from(nil)
+            end
+
+            it 'should dismiss confirm dialog' do
+              click_on "cancel-action-button"
+              expect(page.find('#confirm-dialog', visible: false)).not_to be_visible
+            end
           end
 
-          it "'retweet' button changes to 'unretweet' button" do
-            click_retweet_button(message)
-            expect(page).to have_selector("#message-#{message.id} .unretweet-button")
-            expect(find("#message-#{message.id} .retweet-button", visible: false)).not_to be_visible
-          end
+          context 'when click ok button' do
+            def click_ok_button
+              click_on "ok-action-button"
+              wait_for_ajax
+            end
 
-          it 'should disply 1 retweets count' do
-            click_retweet_button(message)
-            expect(page).to have_selector("#message-#{message.id} .retweets-count", 1)
+            it 'should retweet the message' do
+              expect {
+                click_ok_button
+              }.to change {
+                Retweet.find_by(
+                  user: user,
+                  message: message
+                )
+              }.from(nil).to(be_a Retweet)
+            end
+
+            it "'retweet' button changes to 'unretweet' button" do
+              click_ok_button
+              expect(page).to have_selector("#message-#{message.id} .unretweet-button")
+              expect(find("#message-#{message.id} .retweet-button", visible: false)).not_to be_visible
+            end
+
+            it 'should disply 1 retweets count' do
+              click_ok_button
+              expect(page).to have_selector("#message-#{message.id} .retweets-count", 1)
+            end
           end
         end
       end
@@ -129,4 +155,3 @@ shared_examples 'a retweetable button' do
     end
   end
 end
-

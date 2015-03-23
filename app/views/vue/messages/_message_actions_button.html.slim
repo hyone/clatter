@@ -4,10 +4,5 @@ script type="text/x-template" id="message-actions-button-template"
       b.fa.fa-ellipsis-h
     ul.dropdown-menu role="menu"
       li v-if="message.permissions.destroy"
-        = link_to t('views.message_actions_button.delete_message'),
-            bindable_path('message', "{{message.id}}", format: [:json]).html_safe,
-            method: 'delete',
-            remote: true,
-            id: "delete-message-{{message.id}}",
-            class: "delete-message",
-            data: { confirm: t('views.message_actions_button.confirm_delete_message') }
+        a.delete-message id="delete-message-{{message.id}}" href="#{ bindable_path('message', "{{message.id}}", format: [:json]).html_safe }" data-method="delete" data-remote="true" data-confirm="#{ t('views.message.confirm_delete') }"
+          | #{ t('views.message.delete_menu') }

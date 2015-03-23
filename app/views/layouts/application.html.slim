@@ -26,7 +26,6 @@ html lang="#{I18n.locale}" data-timezone="#{Rails.application.config.time_zone}"
 
     /! vue components templates
     = render 'vue/shared/alert'
-    = render 'vue/shared/modal_dialog'
     = render 'vue/shared/navigation'
     = render 'vue/messages/favorite_button'
     = render 'vue/messages/message_actions_button'
@@ -38,6 +37,8 @@ html lang="#{I18n.locale}" data-timezone="#{Rails.application.config.time_zone}"
     = render 'vue/users/user_panel'
     = render 'vue/users/user'
     - if user_signed_in?
+      = render 'vue/shared/modal_dialog'
+      = render 'vue/shared/confirm_dialog'
       = render 'vue/messages/form', prefix: 'modal'
       = render 'vue/messages/form', prefix: 'content-main-'
 
@@ -51,7 +52,8 @@ html lang="#{I18n.locale}" data-timezone="#{Rails.application.config.time_zone}"
         div v-component="alert" v-ref="alert" status="#{key}" message="#{value}"
 
     - if user_signed_in?
-      div v-component="modal-dialog" v-ref="modalDialog" foot-view="modal-message-form"
+      div v-component="confirm-dialog" v-ref="confirmDialog"
+      div v-component="modal-dialog"   v-ref="modalDialog" foot-view="modal-message-form"
 
     div.header
       = yield(:header)

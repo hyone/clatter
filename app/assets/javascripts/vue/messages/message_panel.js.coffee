@@ -52,6 +52,15 @@ Clatter.MessagePanelComponent = Vue.extend
     textHtml: ->
       Clatter.util.messageToHtml(@message, @keywords)
 
+    messageJSON: ->
+      # cut some redundant fields
+      JSON.stringify @message, (key, value) ->
+        switch key
+          when 'favorite_users', 'retweet_users', 'parents', 'replies', 'reply_users'
+            undefined
+          else
+            value
+
   methods:
     onClickReplyButton: (event) ->
       @$broadcast('message-panel.click-reply-button', event, @message)

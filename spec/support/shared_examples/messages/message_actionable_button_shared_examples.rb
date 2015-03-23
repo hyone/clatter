@@ -51,18 +51,49 @@ shared_examples 'a message actionable button' do
         end
 
         context 'and then click the menu' do
-          it 'should delete the message' do
-            expect {
-              click_link "delete-message-#{message.id}"
-              wait_for_ajax
-            }.to change(Message, :count).by(-1)
+          before { click_on "delete-message-#{message.id}" }
+
+          it 'should display confirm dialog' do
+            expect(page.find('#confirm-dialog')).to be_visible
           end
 
-          it {
-            click_link "delete-message-#{message.id}"
-            wait_for_ajax
-            expect(page).to have_alert(:success, I18n.t('views.alert.success_delete_message'))
-          }
+          context 'when click cancel button' do
+            it 'should not delete the message' do
+              expect {
+                click_on "cancel-action-button"
+              }.not_to change {
+                Message.exists?(message.id)
+              }.from(true)
+            end
+
+            it 'should dismiss confirm dialog' do
+              click_on "cancel-action-button"
+              expect(page.find('#confirm-dialog', visible: false)).not_to be_visible
+            end
+          end
+
+          context 'when click ok button' do
+            it 'should delete the message' do
+              expect {
+                click_on "ok-action-button"
+                wait_for_ajax
+              }.to change {
+                Message.exists?(message.id)
+              }.from(true).to(false)
+            end
+
+            it {
+              click_on "ok-action-button"
+              wait_for_ajax
+              expect(page).to have_alert(:success, I18n.t('views.alert.success_delete_message'))
+            }
+
+            it 'should dismiss confirm dialog' do
+              click_on "ok-action-button"
+              wait_for_ajax
+              expect(page.find('#confirm-dialog', visible: false)).not_to be_visible
+            end
+          end
         end
       end
     end

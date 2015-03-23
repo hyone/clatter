@@ -6,7 +6,7 @@ script type="text/x-template" id="retweet-button-template"
         remote: true,
         'v-show' => '!isRetweeted') do |f|
       = hidden_field_tag 'retweet[message_id]', '{{message.id}}'
-      button class='btn btn-link' id='retweet-message-{{message.id}}' type='submit' data-toggle="tooltip" title="#{ t('views.message.retweet') }" v-class="
+      button class='btn btn-link' id='retweet-message-{{message.id}}' type='submit' data-toggle="tooltip" title="#{ t('views.message.retweet') }" data-confirm="#{ t('views.message.confirm_retweet') }" v-class="
         disabled: !canRetweet
       "
         b.fa.fa-retweet

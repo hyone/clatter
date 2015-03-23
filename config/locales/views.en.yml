@@ -61,14 +61,13 @@ en:
       unfavorite: Undo favorite
       actions: More
       retweeted: retweeted
+      confirm_delete: Are you sure you want to delete this message?
+      confirm_retweet: Retweet this to your followers?
+      delete_menu: Delete Message
 
     message_form:
       new_message: What's happening?
       submit: Post
-
-    message_actions_button:
-      delete_message: Delete Message
-      confirm_delete_message: Are you sure you want to delete this message?
 
     modal_dialog:
       close: Close

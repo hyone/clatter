@@ -1,14 +1,14 @@
 @import "variables";
 
 
-#message-dialog {
+.modal {
   // width of modal dialog
   & > .modal-dialog > div.container {
     max-width: 560px;
   }
 
-  div.modal-head {
-    border-bottom-color: $app-separator-active;
+  div.modal-header {
+    /* border-bottom-color: $app-separator-active; */
     padding: 10px;
 
     h4 {
@@ -19,14 +19,26 @@
   }
 
   div.modal-body {
-    border-top: 1px solid $app-separator;
   }
 
-  div.modal-foot {
-    background-color: $app-bg-active;
+  div.modal-footer {
     border-bottom-left-radius:  5px;
     border-bottom-right-radius: 5px;
-    padding: 10px;
   }
 }
 
+
+#message-dialog {
+  // width of modal dialog
+  & > .modal-dialog > div.container {
+    max-width: 560px;
+  }
+
+  div.modal-body {
+    border-top: 1px solid $app-separator;
+  }
+
+  div.modal-footer {
+    background-color: $app-bg-active;
+  }
+}

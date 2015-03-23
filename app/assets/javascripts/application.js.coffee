@@ -32,6 +32,7 @@
 #= require vue/users/follow_button
 #= require vue/users/user_actions_button
 #= require vue/messages/message_panel
+#= require vue/shared/confirm_dialog
 #= require vue/shared/modal_dialog
 #= require vue/shared/navigation
 #= require vue/users/content_navigation

@@ -1,7 +1,7 @@
 script type="text/x-template" id="message-template"
-  li.message.message-data.clearfix id="{{prefix}}-{{message.id}}" data-message-id="{{message.id}}" data-screen-name="{{message.user.screen_name}}" data-user-id="{{message.user_id}}"
+  li.message.message-data.clearfix id="{{prefix}}-{{message.id}}" data-message-id="{{message.id}}" data-message="{{messageJSON}}"
     div.message-head
-      div.message-context v-if="message.retweeted.user"
+      div.message-context v-if="message.retweeted && message.retweeted.user"
         b.fa.fa-retweet
         a href="#{ bindable_path('user', '{{message.retweeted.user.screen_name}}') }"
           | {{message.retweeted.user.screen_name}}
