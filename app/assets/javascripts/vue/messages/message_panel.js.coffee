@@ -37,6 +37,7 @@ Clatter.MessagePanelComponent = Vue.extend
       _.chain @message.favorite_users
        .union @message.retweet_users
        .sortBy (m) -> m.created_at
+       .uniq true, (m) -> m.id
        .take(10)
        .value()
 
