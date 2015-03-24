@@ -5,7 +5,7 @@ $app-favorite-active : #ffac33;
 
 form.favorite-button,
 form.unfavorite-button {
-  > button {
+  > button.btn.btn-link {
     &:hover {
       color: $app-favorite-active;
     }
@@ -13,7 +13,7 @@ form.unfavorite-button {
 }
 
 form.unfavorite-button {
-  > button {
+  > button.btn.btn-link {
     color: $app-favorite-active;
   }
 }
