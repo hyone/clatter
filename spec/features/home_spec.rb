@@ -40,7 +40,10 @@ describe 'Home Page', type: :feature, js: true do
             I18n.t('views.home.index.profile.messages'),
             href: user_path(user)
           )
-          expect(page).to have_selector '.home-profile-messages-count', user.messages.count
+          expect(page).to have_selector(
+            '.home-profile-messages-count',
+            text: user.messages.count
+          )
         end
 
         # following
@@ -49,7 +52,10 @@ describe 'Home Page', type: :feature, js: true do
             I18n.t('views.home.index.profile.following'),
             href: following_user_path(user)
           )
-          expect(page).to have_selector '.home-profile-following', user.followed_users.count
+          expect(page).to have_selector(
+            '.home-profile-following',
+            text: user.followed_users.count
+          )
         end
 
         # followers
@@ -58,7 +64,10 @@ describe 'Home Page', type: :feature, js: true do
             I18n.t('views.home.index.profile.followers'),
             href: followers_user_path(user)
           )
-          expect(page).to have_selector '.home-profile-followers', user.followers.count
+          expect(page).to have_selector(
+            '.home-profile-followers',
+            text: user.followers.count
+          )
         end
       end
 
@@ -72,7 +81,7 @@ describe 'Home Page', type: :feature, js: true do
           }
 
           it 'should not have greeting text' do
-            should_not have_selector('.empty-description', I18n.t('views.home.index.empty_description'))
+            should_not have_selector('.empty-description', text: I18n.t('views.home.index.empty_description'))
           end
 
           context 'in pagination' do
@@ -88,7 +97,7 @@ describe 'Home Page', type: :feature, js: true do
 
         context 'when has not any messages' do
           it 'should have greeting text' do
-            should have_selector('.empty-description', I18n.t('views.home.index.empty_description'))
+            should have_selector('.empty-description', text: I18n.t('views.home.index.empty_description'))
           end
         end
       end
@@ -129,13 +138,21 @@ describe 'Home Page', type: :feature, js: true do
         context 'when has not any messages' do
           context 'when "filter" parameter is none' do
             it 'should have greeting text' do
-              should have_selector('.empty-description', I18n.t('views.home.mentions.description_all'))
+              should have_selector(
+                '.empty-description',
+                text: I18n.t('views.home.mentions.empty_description_all')
+              )
             end
           end
 
           context 'when "filter" parameter is "following"' do
+            before { visit mentions_path(filter: 'following') }
+
             it 'should have greeting text' do
-              should have_selector('.empty-description', I18n.t('views.home.mentions.description_people_you_follow'))
+              should have_selector(
+                '.empty-description',
+                text: I18n.t('views.home.mentions.empty_description_people_you_follow')
+              )
             end
           end
         end

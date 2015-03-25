@@ -42,7 +42,7 @@ shared_examples 'a favoritable button' do |content_navigation: false|
       if content_navigation
         context 'in content navigation' do
           it 'should have 0 favorites' do
-            expect(page).to have_selector('.content-navigation-favorites .nav-value', 0)
+            expect(page).to have_selector('.content-navigation-favorites .nav-value', text: 0)
           end
         end
       end
@@ -72,14 +72,14 @@ shared_examples 'a favoritable button' do |content_navigation: false|
 
         it 'should display 1 favorites count' do
           click_favorite_button(message)
-          expect(page).to have_selector("#message-#{message.id} .favorites-count", 1)
+          expect(page).to have_selector("#message-#{message.id} .favorites-count", text: 1)
         end
 
         if content_navigation
           context 'in content navigation' do
             it 'should have 1 favorites' do
               click_favorite_button(message)
-              expect(page).to have_selector('.content-navigation-favorites .nav-value', 1)
+              expect(page).to have_selector('.content-navigation-favorites .nav-value', text: 1)
             end
           end
         end

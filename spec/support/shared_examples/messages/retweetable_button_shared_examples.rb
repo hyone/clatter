@@ -89,7 +89,7 @@ shared_examples 'a retweetable button' do
 
             it 'should disply 1 retweets count' do
               click_ok_button
-              expect(page).to have_selector("#message-#{message.id} .retweets-count", 1)
+              expect(page).to have_selector("#message-#{message.id} .retweets-count", text: 1)
             end
           end
         end
@@ -111,7 +111,7 @@ shared_examples 'a retweetable button' do
         end
 
         it 'should disply 1 retweets count' do
-          expect(page).to have_selector("#message-#{message.id} .retweets-count", 1)
+          expect(page).to have_selector("#message-#{message.id} .retweets-count", text: 1)
         end
 
         context 'when click unretweet button' do

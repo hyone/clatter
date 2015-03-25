@@ -68,7 +68,7 @@ describe 'Message Panel', type: :feature, js: true do
     # - let(:message)  { ... }
     # - let(:favorite) { ... }
     shared_examples 'a message favorable' do
-      it { should have_selector('.favorites-count', message.favorited_count) }
+      it { should have_selector('.favorites-count', text: message.reload.favorited_count) }
 
       it 'should have avator link' do
         should have_xpath("//a[@href='#{user_path(favorite.user)}']")
@@ -80,7 +80,7 @@ describe 'Message Panel', type: :feature, js: true do
     # - let(:message) { ... }
     # - let(:retweet) { ... }
     shared_examples 'a message retweetable' do
-      it { should have_selector('.retweets-count', message.retweeted_count) }
+      it { should have_selector('.retweets-count', text: message.reload.retweeted_count) }
 
       it 'should have avator link' do
         should have_xpath("//a[@href='#{user_path(retweet.user)}']")
