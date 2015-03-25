@@ -13,6 +13,7 @@
 #= require jquery
 #= require jquery-ujs
 #= require bootstrap-sass-official/assets/javascripts/bootstrap-sprockets
+#= require find-and-replace-dom-text
 #= require i18n
 #= require i18n/translations
 #= require moment

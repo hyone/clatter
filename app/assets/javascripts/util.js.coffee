@@ -31,7 +31,10 @@ class Clatter.util
 
   @keywordToBold: (text, keyword = null) ->
     return text unless keyword
-    text.replace new RegExp(keyword, 'gi'), (m) -> "<strong>#{m}</strong>"
+    m = findAndReplaceDOMText $("<div>#{text}</div>").get(0),
+      find: new RegExp(keyword, 'gi')
+      wrap: 'strong'
+    m.node.innerHTML
 
   @URI_REGEXP:
     /https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b(?:[-a-zA-Z0-9@:%_\+.~#?&//=]*)/g

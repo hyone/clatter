@@ -32,6 +32,28 @@ describe 'Message Block', type: :feature, js: true do
         with_replies_user_path(message.user)
       end
     end
+
+    context 'when keyword is highlighted' do
+      let! (:message1) { FactoryGirl.create(:message, text: 'hello World 1') }
+      let! (:compliment) { FactoryGirl.create(:user, screen_name: 'world') }
+      let! (:message2) { FactoryGirl.create(:message_with_reply, users_replied_to: [compliment] ) }
+      let (:keyword) { 'worl' }
+      before { visit search_path('q[text]' => keyword) }
+
+      it 'should highlight (replace) text' do
+        expect(page).to have_selector(
+          "#message-#{message1.id} .message-body strong",
+          text: keyword.camelcase
+        )
+      end
+
+      it 'should highlight only text node and not url in link' do
+        expect(page).to have_selector(
+          "#message-#{message2.id} .message-body a[href='#{user_path(compliment)}'] strong",
+          text: keyword
+        )
+      end
+    end
   end
 
   describe 'message actions block' do
