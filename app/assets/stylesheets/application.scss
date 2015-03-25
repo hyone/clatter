@@ -23,8 +23,8 @@ $fa-font-path: "font-awesome-sass/assets/fonts/font-awesome/";
 
 @import "variables";
 @import "mixins";
+@import "buttons";
 @import "dropdown";
-
 @import "errors";
 @import "home/guest_home";
 @import "home/user_home";

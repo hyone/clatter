@@ -9,6 +9,10 @@ form.message-form {
     textarea.message-text {
       border: 1px solid $app-separator-active;
       @include placeholder-color($app-active);
+
+      &:focus {
+        box-shadow: none;
+      }
     }
   }
 

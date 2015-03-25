@@ -1,0 +1,15 @@
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap/variables";
+@import "variables";
+
+
+.btn:focus {
+  outline: 0;
+  /* box-shadow: 0 0 0 1px #fff, 0 0 0 3px rgba(0, 132, 180, 0.5); */
+  box-shadow: 0 0 0 1px #fff, 0 0 0 3px lighten($app-active, 15%);
+  border-color: #fff;
+  background-color: #fff;
+}
+
+.btn-primary:focus {
+  background-color: $btn-primary-bg;
+}
