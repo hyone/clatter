@@ -90,13 +90,15 @@
   div.messages-list-panel {
     div.messages-list-panel-head {
       div.message-form-block {
-        border-top-left-radius:  10px;
-        border-top-right-radius: 10px;
-        border-bottom: 1px solid $app-separator-active;
+        @extend .top-radius;
       }
     }
 
-    ul li.message {
+    ul > li.message {
+      &:first-child {
+        border-top: 1px solid $app-separator-active;
+      }
+
       .message-head {
         .message-icon {
           img {

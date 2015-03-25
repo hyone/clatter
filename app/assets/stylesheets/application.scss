@@ -277,8 +277,22 @@ div.footer-panel {
   }
 
   .messages-list-panel-head {
-    border-bottom: 1px solid $app-separator;
-    margin: 0;
+    @extend .list-panel-head;
+  }
+
+  .message {
+    cursor: pointer;
+
+    &:hover {
+      border-color: $app-separator-active;
+      /* border-bottom-width: 2px; */
+      /* margin-bottom: -2px !important; */
+      margin-bottom: 0px !important;
+
+      + .message {
+        border-top: 0px;
+      }
+    }
   }
 }
 
@@ -289,12 +303,12 @@ div.footer-panel {
 .users-list-panel {
   > .col-inner {
     @extend .list-panel;
+    border-width: 0px;
   }
 
   .users-list-panel-head {
+    @extend .list-panel-head;
     padding: 10px;
-    border-bottom: 1px solid $app-separator;
-    margin: 0;
 
     .users-list-panel-title {
       margin: 0;

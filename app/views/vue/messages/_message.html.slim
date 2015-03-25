@@ -1,5 +1,5 @@
 script type="text/x-template" id="message-template"
-  li.message.message-data.clearfix id="{{prefix}}-{{message.id}}" data-message-id="{{message.id}}" data-message="{{messageJSON}}"
+  li.message.message-data.clearfix id="{{prefix}}-{{message.id}}" data-message-id="{{message.id}}" data-message="{{messageJSON}}" v-on="click: onClick"
     div.message-head
       div.message-context v-if="message.retweeted && message.retweeted.user"
         b.fa.fa-retweet

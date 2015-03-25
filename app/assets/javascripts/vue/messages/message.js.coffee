@@ -2,7 +2,7 @@ Clatter.MessageComponent = Vue.extend
   template: '#message-template'
   replace: true
 
-  paramAttributes: ['show-foot', 'prefix', 'keywords']
+  paramAttributes: [ 'prefix', 'show-foot', 'keywords', 'data-action']
 
   components:
     'favorite-button': Clatter.FavoriteButtonComponent
@@ -10,10 +10,11 @@ Clatter.MessageComponent = Vue.extend
     'message-actions-button':  Clatter.MessageActionsButtonComponent
 
   data: ->
+    prefix: 'message'
     message: undefined
     keywords: undefined
     showFoot: true
-    prefix: 'message'
+    action: undefined
 
   computed:
     canReply: ->
@@ -45,3 +46,22 @@ Clatter.MessageComponent = Vue.extend
   methods:
     onClickReplyButton: (event) ->
       @$dispatch('_message.click-reply-button', event, @message)
+
+    onClick: (event) ->
+      if @isClickable(event.target)
+        return false
+
+      switch @action
+        when 'status'
+          location.href = "/u/#{@message.user.screen_name}/status/#{@message.id}"
+        else
+          false
+
+    isClickable: (elem) ->
+      tagName = $(elem).get(0).tagName
+      tagName is 'A' or \
+      tagName is 'BUTTON' or \
+      $(elem).closest('a').size() > 0 or \
+      $(event.target).closest('button').size() > 0
+
+

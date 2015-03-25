@@ -17,7 +17,7 @@ div.col-xs-12
       div.messages-list-panel-head
         = yield if block_given?
       ul
-        li v-repeat="message: messages" v-component="message" v-transition="fade" v-with="keywords: searchKeywords"
+        li v-repeat="message: messages" v-component="message" v-transition="fade" v-with="keywords: searchKeywords" data-action="status"
         li.message v-if="!hasMessages"
           div.message-body
             - if description

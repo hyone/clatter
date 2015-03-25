@@ -35,21 +35,31 @@ $panel-radius : 10px;
   @extend .panel;
 
   padding: 0;
-  border-bottom: 0px;
+  border-width: 0px;
+
+  > .list-panel-head {
+    @extend .top-radius;
+    border: 1px solid $app-separator;
+    border-bottom-width: 0px;
+    margin: 0;
+  }
 
   > ul {
     margin: 0;
     padding: 0;
 
     > li {
+      border: 1px solid $app-separator;
       margin: 0;
+      margin-bottom: -1px !important;
       padding: 10px;
-      border-bottom: 1px solid $app-separator;
       list-style-type: none;
 
       &:last-child {
-        border-bottom-width: 0;
+        @extend .bottom-radius;
+        margin-bottom: 0px !important;
       }
     }
   }
 }
+
