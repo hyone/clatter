@@ -49,7 +49,7 @@ div.content-body
             div.message-form-block
               span.message-icon
                 = image_tag @user.profile_image.small.url
-              div v-component="content-main-message-form" v-ref='contentMainMessageForm' placeholder="#{ t('views.message_form.new_message') }"
+              div v-component="content-main-message-form" v-ref='contentMainMessageForm' data-placeholder="#{ t('views.message_form.new_message') }"
 
     div.visible-lg-block
       div.col.col-lg-3

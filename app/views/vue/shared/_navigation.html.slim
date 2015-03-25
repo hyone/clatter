@@ -42,7 +42,7 @@ script type="text/x-template" id="navigation-template"
               div.form-group
                 div.input-group
                   input type="hidden" name='q[mode]' value="{{ search.mode }}"
-                  input type="text"   name="q[text]" class="form-control input-sm" id="navigation-search-input" placeholder="Search" v-model="search.text"
+                  input type="text"   name="q[text]" class="form-control input-sm" id="navigation-search-input" placeholder="#{ t('views.navigation.search') }" v-model="search.text"
                   div.input-group-btn
                     button.btn.btn-default.input-sm#navigation-search-submit type="submit" v-class='
                       disabled: !search.text

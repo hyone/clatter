@@ -2,7 +2,7 @@ Clatter.MessageComponent = Vue.extend
   template: '#message-template'
   replace: true
 
-  paramAttributes: [ 'prefix', 'show-foot', 'keywords', 'data-action']
+  paramAttributes: [ 'data-prefix-id', 'data-show-foot', 'data-keywords', 'data-action']
 
   components:
     'favorite-button': Clatter.FavoriteButtonComponent
@@ -10,8 +10,8 @@ Clatter.MessageComponent = Vue.extend
     'message-actions-button':  Clatter.MessageActionsButtonComponent
 
   data: ->
-    prefix: 'message'
     message: undefined
+    prefixId: 'message'
     keywords: undefined
     showFoot: true
     action: undefined

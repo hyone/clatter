@@ -2,7 +2,7 @@ Clatter.ModalDialogComponent = Vue.extend
   template: '#modal-dialog-template'
   replace: true
 
-  paramAttributes: ['foot-view', 'body-view']
+  paramAttributes: ['data-foot-view', 'data-body-view']
 
   data: ->
     title: ''
@@ -17,7 +17,7 @@ Clatter.ModalDialogComponent = Vue.extend
         <div v-component="inner"
              v-with="
               message:  params.message,
-              prefix:   params.prefix,
+              prefixId:   params.prefixId,
               showFoot: params.showFoot
             ">
         </div>
@@ -72,7 +72,7 @@ Clatter.ModalDialogComponent = Vue.extend
     openMessageReply: (message) ->
       @params =
         message: message
-        prefix: 'parent-message'
+        prefixId: 'parent-message'
         showFoot: false
       @bodyView = 'message'
       @setReplyTitle Clatter.util.replyText(message, Clatter.currentUser)

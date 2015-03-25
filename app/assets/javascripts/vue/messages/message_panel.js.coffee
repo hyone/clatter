@@ -14,7 +14,7 @@ Clatter.MessagePanelComponent = Vue.extend
     'message.deleted': 'onMessageDeleted'
 
   data: ->
-    prefix: 'message'
+    prefixId: 'message'
     message: {}
 
   computed:

@@ -1,5 +1,5 @@
 script type="text/x-template" id="message-panel-template"
-  div.message-panel.message-data.clearfix id="{{prefix}}-{{message.id}}" data-message-id="{{message.id}}" data-message="{{messageJSON}}" v-if="message"
+  div.message-panel.message-data.clearfix id="{{prefixId}}-{{message.id}}" data-message-id="{{message.id}}" data-message="{{messageJSON}}" v-if="message"
     div.col-inner.panel
 
       ul.message-parents v-if="hasParents"

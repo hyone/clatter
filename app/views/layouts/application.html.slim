@@ -49,11 +49,11 @@ html lang="#{I18n.locale}" data-timezone="#{Rails.application.config.time_zone}"
     /! alert block
     - unless flash.empty?
       - flash.each do |key, value|
-        div v-component="alert" v-ref="alert" status="#{key}" message="#{value}"
+        div v-component="alert" v-ref="alert" data-status="#{key}" data-message="#{value}"
 
     - if user_signed_in?
       div v-component="confirm-dialog" v-ref="confirmDialog"
-      div v-component="modal-dialog"   v-ref="modalDialog" foot-view="modal-message-form"
+      div v-component="modal-dialog"   v-ref="modalDialog" data-foot-view="modal-message-form"
 
     div.header
       = yield(:header)

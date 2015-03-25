@@ -1,5 +1,5 @@
 MessageForm = Vue.extend
-  paramAttributes: ['placeholder', 'text']
+  paramAttributes: ['data-placeholder', 'data-text']
 
   data: ->
     textInit: ''
