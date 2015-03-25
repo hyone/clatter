@@ -10,7 +10,7 @@ script type="text/x-template" id="favorite-button-template"
         disabled: !canFavorite
       "
         b.fa.fa-star
-        span.favorites-count v-if="hasFavorites" = "{{ message.favorited_count }}"
+        span.favorites-count v-if="showCount && hasFavorites" = "{{ message.favorited_count }}"
     = form_tag(bindable_path('favorite', '{{message.favorited.id}}', format: 'json'),
                method: :delete,
                class: 'unfavorite-button',
@@ -20,4 +20,4 @@ script type="text/x-template" id="favorite-button-template"
         disabled: !canFavorite
       "
         b.fa.fa-star
-        span.favorites-count v-if="hasFavorites" = "{{ message.favorited_count }}"
+        span.favorites-count v-if="showCount && hasFavorites" = "{{ message.favorited_count }}"

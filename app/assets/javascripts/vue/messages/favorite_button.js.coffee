@@ -2,8 +2,11 @@ Clatter.FavoriteButtonComponent = Vue.extend
   template: '#favorite-button-template'
   replace: true
 
+  paramAttributes: ['data-show-count']
+
   data: ->
     message: undefined
+    showCount: true
 
   computed:
     isFavorited: ->

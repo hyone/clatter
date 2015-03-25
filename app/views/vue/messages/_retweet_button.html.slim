@@ -10,7 +10,7 @@ script type="text/x-template" id="retweet-button-template"
         disabled: !canRetweet
       "
         b.fa.fa-retweet
-        span.retweets-count v-if="hasRetweets" = "{{ message.retweeted_count }}"
+        span.retweets-count v-if="showCount && hasRetweets" = "{{ message.retweeted_count }}"
     = form_tag(bindable_path('retweet', '{{message.retweeted.id}}', format: 'json'),
                method: :delete,
                class: 'unretweet-button',
@@ -20,4 +20,4 @@ script type="text/x-template" id="retweet-button-template"
         disabled: !canRetweet
       "
         b.fa.fa-retweet
-        span.retweets-count v-if="hasRetweets" = "{{ message.retweeted_count }}"
+        span.retweets-count v-if="showCount && hasRetweets" = "{{ message.retweeted_count }}"

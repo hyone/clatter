@@ -33,9 +33,9 @@ script type="text/x-template" id="message-panel-template"
               "
                 b.fa.fa-reply
             li.retweet-button-item
-              div v-component="retweet-button" v-with="message: message"
+              div v-component="retweet-button" v-with="message: message" data-show-count=""
             li.favorite-button-item
-              div v-component="favorite-button" v-with="message: message"
+              div v-component="favorite-button" v-with="message: message" data-show-count=""
             li.message-actions-button-item v-if="isOwner"
               div v-component="message-actions-button" v-with="message: message"
 
