@@ -1,3 +1,5 @@
+- provide(:page_type, 'status')
+
 - provide(:title, t( \
     'views.users.status.title', \
     user: @user.name, \
@@ -12,6 +14,12 @@ div.row
   div.col.col-sm-2.col-lg-3.content-left
 
   div.col.col-sm-8.col-lg-6.content-main
-    div.row v-component="message-panel" v-with="message: messages[0]" v-ref="messagePanel"
+    div.row
+      div.col.col-xs-12
+        div v-component="message-panel" v-with="message: messages[0]" v-ref="messagePanel"
+
+      div.col.col-xs-12
+        = render 'shared/footer_panel'
+
 
   div.col.col-sm-2.col-lg-3.content-right

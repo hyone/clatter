@@ -26,6 +26,7 @@ $fa-font-path: "font-awesome-sass/assets/fonts/font-awesome/";
 @import "buttons";
 @import "dropdown";
 @import "errors";
+@import "status";
 @import "home/guest_home";
 @import "home/user_home";
 @import "home/notifications";
@@ -211,8 +212,12 @@ div.footer-panel {
     font-size: 12px;
     line-height: 18px;
 
-    ul.list-inline {
-      margin-bottom: 0px;
+    > p {
+      margin-bottom: 0;
+    }
+
+    > ul.list-inline {
+      margin-bottom: 0;
     }
 
     a {
