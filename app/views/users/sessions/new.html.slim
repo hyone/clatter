@@ -1,36 +1,42 @@
-div.session
+div.content-head
+
+div.content-body
   div.row
-    div.col-sm-12
-      h1 = t('views.users.signin.title')
+    div.col.col-xs-offset-1.col-xs-10
+      div.session-panel
+        div.col-inner
+          div.form-block
+            h2 = t('views.users.signin.title')
 
-      = form_for(resource, as: resource_name,
-                           url: session_path(resource_name),
-                           html: {  role: 'form' }) do |f|
-        div.form-group
-          = f.label :login, class: 'sr-only'
-          = f.text_field :login, autofocus: true,
-                                  class: 'form-control',
-                                  placeholder: t('views.users.form.email_or_name',
-                                    {email: t_user('email'), name: t_user('screen_name') })
-
-        div.form-group
-          = f.label :password, class: 'sr-only'
-          = f.password_field :password, autocomplete: "off",
+            = form_for(resource, as: resource_name,
+                                 url: session_path(resource_name),
+                                 html: { role: 'form' }) do |f|
+              div.form-group
+                = f.label :login, class: 'sr-only'
+                = f.text_field :login, autofocus: true,
                                         class: 'form-control',
-                                        placeholder: t_user('password')
+                                        placeholder: t('views.users.form.email_or_name',
+                                          {email: t_user('email'), name: t_user('screen_name') })
 
-        - if devise_mapping.rememberable?
-          div.form-group
-            div.checkbox
-              = f.label(:remember_me) do
-                = f.check_box(:remember_me)
-                = t('devise.sessions.new.remember_me')
+              div.form-group
+                = f.label :password, class: 'sr-only'
+                = f.password_field :password, autocomplete: "off",
+                                              class: 'form-control',
+                                              placeholder: t_user('password')
 
-        div.form-group
-          = f.submit 'Sign in', class: 'btn btn-primary'
-          - if devise_mapping.recoverable?
-            span.form-additional-info
-              = link_to t('views.users.form.forget_your_password'), new_password_path(resource_name)
+              - if devise_mapping.rememberable?
+                div.form-group
+                  div.checkbox
+                    = f.label(:remember_me) do
+                      = f.check_box(:remember_me)
+                      = t('devise.sessions.new.remember_me')
 
-  = render 'users/shared/omniauth_logins.html.slim', title: 'Sign in with :'
-  = render 'users/shared/signup'
+              div.form-group
+                = f.submit 'Sign in', class: 'btn btn-primary'
+                - if devise_mapping.recoverable?
+                  span.form-additional-info
+                    = link_to t('views.users.form.forget_your_password'), new_password_path(resource_name)
+
+          = render 'users/shared/omniauth_logins.html.slim', title: 'Sign in with :'
+
+          = render 'users/shared/signup'

@@ -26,6 +26,7 @@ $fa-font-path: "font-awesome-sass/assets/fonts/font-awesome/";
 @import "buttons";
 @import "dropdown";
 @import "errors";
+@import "settings";
 @import "status";
 @import "home/guest_home";
 @import "home/user_home";
@@ -120,7 +121,7 @@ body {
 
 
 #navigation {
-  .container {
+  > .container {
     @extend .fixed-container;
   }
 }
@@ -134,13 +135,13 @@ body {
 .main {
   padding: 0;
 
+  > .container {
+    @extend .fixed-container;
+  }
+
   h1 {
     margin-top: 15px;
     margin-bottom: 15px;
-  }
-
-  .container {
-    @extend .fixed-container;
   }
 }
 
@@ -273,6 +274,136 @@ div.footer-panel {
 }
 
 
+// profile panel (home, setting)
+// ----------------------------------------------
+
+div.home-profile-panel {
+  div.home-profile-panel-head {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    height: 95px;
+    background-color: $app-active;
+
+    div.home-profile-image {
+      border-radius: 5px;
+      width: 80px;
+      height: 80px;
+      margin-left: 10px;
+      margin-right:10px;
+      margin-top: 60px;
+      padding: 4px;
+      float: left;
+      background-color: $app-body-bg;
+
+      img {
+        width: 72px;
+        height: 72px;
+        border-radius: 3px;
+      }
+    }
+
+  }
+
+  div.home-profile-panel-main {
+    padding-top: 5px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    p.home-profile-name {
+      margin: 0;
+      font-size: 125%;
+      font-weight: bold;
+      a, a:visited, a:hover {
+        color: $app-text;
+      }
+    }
+
+    .home-profile-screen-name {
+      margin: 0;
+      color: $app-text-light;
+      font-size: 82.5%;
+      a {
+        color: $app-text-light;
+      }
+    }
+
+    ul.list-inline {
+      margin-top: 15px;
+      margin-bottom: 0px;
+      > li {
+        padding-right: 13px;
+
+        a {
+          > span.nav-label,
+          > span.nav-value {
+            display: block;
+          }
+
+          > span.nav-label {
+            font-size: 75%;
+            color: $app-text-lighter;
+          }
+          > span.nav-value {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// menu panel
+// ----------------------------------------------
+
+.menu-panel {
+  @extend .list-group;
+  margin-bottom: 10px;
+
+  .list-group-item {
+    border-color: $app-separator;
+    color: $app-text-light;
+    background-color: $app-body-bg;
+    padding: 8px 12px;
+    line-height: 14px;
+
+    &:hover {
+      color: $app-active;
+      background-color: $app-bg-active-light;
+    }
+
+    &.active {
+      color: $app-text;
+      font-weight: bold;
+    }
+
+    &.active:hover {
+      color: $app-active;
+      border-color: $app-separator;
+    }
+
+    &:first-child {
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+    }
+    &:last-child {
+      border-bottom-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+
+
+    // right arrow icon
+    .fa-chevron-right {
+      margin-right: 0;
+      float: right;
+    }
+  }
+}
+
+
+
+
 // messages list panel
 // ----------------------------------------------
 
@@ -356,51 +487,7 @@ div.message-form-block {
 // Notification, Search page
 // --------------------------------------------------------------------------------------------
 
-// menu panel
-// ----------------------------------------------
-
-.notifications,
-.search {
-  .menu-panel {
-    @extend .list-group;
-    margin-bottom: 10px;
-
-    .list-group-item {
-      border-color: $app-separator;
-      color: $app-text-light;
-      background-color: $app-body-bg;
-      padding: 8px 12px;
-      line-height: 14px;
-
-      &:hover {
-        color: $app-active;
-        background-color: $app-bg-active-light;
-      }
-
-      &.active {
-        color: $app-text;
-        font-weight: bold;
-      }
-
-      &.active:hover {
-        color: $app-active;
-        border-color: $app-separator;
-      }
-
-      &:first-child {
-        border-top-right-radius: 10px;
-        border-top-left-radius: 10px;
-      }
-      &:last-child {
-        border-bottom-right-radius: 10px;
-        border-bottom-left-radius: 10px;
-      }
-    }
-  }
-}
-
-
-// menu list panel
+// messages list panel
 // ----------------------------------------------
 
 .notifications,
@@ -411,7 +498,7 @@ div.message-form-block {
 
       .messages-list-panel-title {
         margin: 0;
-        color: $app-text-lighter;
+        color: $app-text-light;
         font-size: 22px;
         font-weight: 300;
       }
@@ -434,5 +521,3 @@ div.message-form-block {
     }
   }
 }
-
-

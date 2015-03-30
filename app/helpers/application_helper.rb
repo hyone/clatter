@@ -9,9 +9,20 @@ module ApplicationHelper
     "#{user.name} (@#{user.screen_name})"
   end
 
+  def provider_name(provider)
+    s = provider.to_s
+    case s
+    when 'google_oauth2' then 'google'
+    else s
+    end
+  end
+
+  def t_user(key)
+    I18n.t("activerecord.attributes.user.#{key}")
+  end
+
 
   # From https://github.com/tnantoka/miclo/
-
   def decode_bindings(encoded)
     space = '(\+|%20)'
     encoded

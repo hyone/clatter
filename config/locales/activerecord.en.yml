@@ -6,7 +6,7 @@ en:
         email: Email
         login: Login
         password: Password
-        password_confirmation: Password Confirmation
+        password_confirmation: Verify Password
         current_password: Current Password
         name: Full Name
         url: URL

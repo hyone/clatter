@@ -2,7 +2,6 @@ require 'rails_helper'
 
 
 describe ApplicationHelper, type: :helper do
-
   describe '#page_title' do
     subject { page_title(text) }
 
@@ -37,6 +36,26 @@ describe ApplicationHelper, type: :helper do
 
     context 'with nil' do
       it { expect { username_formatted(nil) }.to raise_error(Exception) }
+    end
+  end
+
+
+  describe '#provider_name' do
+    subject { provider_name(provider) }
+
+    context 'with "github"' do
+      let (:provider) { 'github' }
+      it { should == 'github' }
+    end
+
+    context 'with "google_oauth2"' do
+      let (:provider) { 'google_oauth2' }
+      it { should == 'google' }
+    end
+
+    context 'with "twitter"' do
+      let (:provider) { 'twitter' }
+      it { should == 'twitter' }
     end
   end
 

@@ -1,0 +1,40 @@
+- provide(:page_type, 'Settings')
+
+- provide(:title, page_title(t('views.settings.title')))
+
+
+- content_for :content do
+
+  div.content-head
+
+  div.content-body
+    div.row
+      div.col.col-xs-4.col-lg-3.content-left
+        div.row
+          div.col-xs-12
+            div.home-profile-panel
+              div.col-inner
+                div.home-profile-panel-head
+                  div.home-profile-image
+                    = link_to @user do
+                      = image_tag @user.profile_image.normal.url
+
+                div.home-profile-panel-main
+                  p.home-profile-name
+                    = link_to @user.name, @user
+                  p.home-profile-screen-name
+                    | @#{ link_to @user.screen_name, @user }
+
+          div.col-xs-12
+            = render 'menu_panel'
+
+          div.col-xs-12
+            = render 'shared/footer_panel'
+
+      div.col.col-xs-8.col-lg-6.content-main
+        = yield
+
+  div.content-foot
+
+
+= render template: 'layouts/application'

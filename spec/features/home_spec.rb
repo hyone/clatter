@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe 'Home Page', type: :feature, js: true do
+describe 'Home pages', type: :feature, js: true do
   subject { page }
 
   describe 'GET /' do

@@ -1,0 +1,79 @@
+div.row
+  div.col-xs-12
+    div.setting-panel
+      div.col-inner
+        div.setting-panel-head
+          h2.setting-panel-title = t('views.settings.account.title')
+          p.setting-panel-subtitle = t('views.settings.account.subtitle')
+        div.setting-panel-body
+          = form_for(@user, url: settings_account_path,
+                            html: { method: :put, class: 'form-horizontal' }) do |f|
+            = devise_error_messages!(@user)
+
+            - disabled = @user.encrypted_password.blank?
+
+            div.form-group
+              = f.label :screen_name, class: 'col-sm-3 control-label'
+              div.col-sm-9
+                = f.text_field :screen_name, class: "form-control",
+                                             disabled: disabled,
+                                             placeholder: t_user('screen_name')
+
+            div.form-group
+              = f.label :email, class: 'col-sm-3 control-label'
+              div.col-sm-9
+                = f.email_field :email, class: 'form-control',
+                                        disabled: disabled,
+                                        placeholder: t_user('email')
+
+            = render 'vue/shared/password_dialog'
+            div v-component="password-dialog"
+
+            div.form-group
+              div.col-sm-offset-3.col-sm-9
+                button.btn.btn-primary#settings-confirm-password-button type="button" class="#{ disabled ? 'disabled' : '' }" data-toggle="modal" data-target="#password-dialog"
+                  | #{ t('views.settings.form.submit') }
+
+                - if @user.encrypted_password.blank?
+                  p.additional-info
+                    | ( To change account information, 
+                    a href="#{ settings_password_path }"
+                      | a password is required
+                    |  )
+                    / = "( #{t('views.settings.account.oauth_disabled_disconnect')} )"
+
+            hr
+
+            h3 = t('views.settings.account.oauth')
+
+            - User.omniauth_providers.each do |provider|
+              div.form-group
+                div.col-sm-3.icon-label
+                  = image_tag "#{provider_name provider}_32.png", alt: provider.to_s.titleize
+
+                div.col-sm-9
+                  - if authentication = @user.authentications.find_by(provider: "#{provider}")
+                    a.btn.btn-default class="#{ authentication.deletable? ? '' : 'disabled' }" href="#{ authentication_path(authentication) }" data-confirm="You sure ?" data-method="delete"
+                        = text_disconnect_provider(provider)
+                    p
+                      = "#{t('views.settings.account.connected_account')}: "
+                      b
+                        - unless authentication.url.blank?
+                          = link_to authentication.account_name, authentication.url
+                        - else
+                          = authentication.account_name
+                    - unless authentication.deletable?
+                      p.additional-info
+                        = "( #{t('views.settings.account.oauth_disabled_disconnect')} )"
+                  - else
+                    a.btn.btn-default href="#{ user_omniauth_authorize_path(provider) }"
+                      = text_connect_provider(provider)
+
+            hr
+
+            h3 = t('views.settings.account.danger_zone')
+
+            div.form-group
+              div.col-sm-offset-3.col-sm-9
+                a.btn.btn-danger#deactivate_account href="#{ delete_user_registration_path(@user) }" data-method="delete" data-confirm="#{ t('views.settings.account.confirm_deactivate', user: @user.screen_name) }"
+                    = t('views.settings.account.deactivate')

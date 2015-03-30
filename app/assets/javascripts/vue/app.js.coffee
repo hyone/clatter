@@ -28,6 +28,7 @@ Clatter.appVM = new Vue
     'message-panel': Clatter.MessagePanelComponent
     'modal-dialog': Clatter.ModalDialogComponent
     'confirm-dialog': Clatter.ConfirmDialogComponent
+    'password-dialog': Clatter.PasswordDialogComponent
     'navigation': Clatter.NavigationComponent
     'user': Clatter.UserComponent
     'user-panel': Clatter.UserPanelComponent

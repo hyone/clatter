@@ -116,6 +116,11 @@ $app-bg-relative-message: lighten($app-bg-active, 3.2%);
       border-bottom: 1px solid $app-separator-active;
     }
 
+    .message-form-last {
+      @extend .bottom-radius;
+      border-bottom-color: $app-separator;
+    }
+
     > ul.message-parents,
     > ul.message-replies-to {
       padding: 0;

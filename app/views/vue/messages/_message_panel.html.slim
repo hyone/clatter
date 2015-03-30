@@ -58,7 +58,7 @@ script type="text/x-template" id="message-panel-template"
           div.message-time
             | {{date}}
 
-      div.message-form-block v-if="isLogedIn" v-class="bottom-radius: !hasReplies"
+      div.message-form-block v-if="isLogedIn" v-class="message-form-last: !hasReplies"
         span.message-icon
           img v-attr="src: message.user.profile_image_url_small"
         div v-component="content-main-message-form" v-ref='contentMainMessageForm' v-with="

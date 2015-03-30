@@ -9,6 +9,14 @@ Clatter.ConfirmDialogComponent = Vue.extend
     bodyView: undefined
     params: {}
     target: undefined
+    size: 'normal'
+
+  computed:
+    dialogSizeClass: ->
+      switch (@size)
+        when 'small' then 'modal-sm'
+        when 'large' then 'modal-lg'
+        else              ''
 
   components:
     message:
@@ -16,13 +24,17 @@ Clatter.ConfirmDialogComponent = Vue.extend
         <div v-component="inner"
              v-with="
               message:  params.message,
-              prefixId:   params.prefixId,
+              prefixId: params.prefixId,
               showFoot: params.showFoot
             ">
         </div>
       """
       components:
         inner: Clatter.MessageComponent
+    default:
+      template: """
+        <div class="confirmation-dialog-description">{{params.description}}</div>
+      """
 
   created: ->
     @overrideRailsAjax()
@@ -51,9 +63,12 @@ Clatter.ConfirmDialogComponent = Vue.extend
           link.attr('data-confirmed', null)
           return true
         @target = link
-        @title  = @target.attr('data-confirm')
         if message = @target.closest('.message-data').data('message')
-          @showMessage(message)
+          @title = @target.attr('data-confirm')
+          @showMessageView(message)
+        else
+          @title = I18n.t('views.modal_dialog.confirmation_default_title')
+          @showDefaultView(@target.attr('data-confirm'))
         @open()
         false
 
@@ -61,7 +76,14 @@ Clatter.ConfirmDialogComponent = Vue.extend
       $(@$el).on 'hidden.bs.modal', (event) =>
         @resetMessage()
 
-    showMessage: (message) ->
+    showDefaultView: (description) ->
+      @size = 'small'
+      @params =
+        description: description
+      @bodyView = 'default'
+
+    showMessageView: (message) ->
+      @size = 'normal'
       @params =
         message: message
         prefixId: 'parent-message'

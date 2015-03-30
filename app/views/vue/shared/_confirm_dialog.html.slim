@@ -1,18 +1,15 @@
 /! modal message form
 script type="text/x-template" id="confirm-dialog-template"
   div.modal#confirm-dialog tabindex="-1" role="dialog" aria-labelledby="ConfirmFormLabel" aria-hidden="true"
-    div.modal-dialog
-      div.container
-        div.row
-          div.col-xs-12
-            div.modal-content
-              div.modal-header
-                button type="button" class="close" data-dismiss="modal"
-                  span aria-hidden="true" &times;
-                  span.sr-only = t('views.modal_dialog.close')
-                h4 class="modal-title" id="confirmFormLabel" {{title}}
-              div.modal-body v-if="bodyView"
-                div v-component="{{bodyView}}" v-ref="bodyView" v-with="params: params"
-              div.modal-footer
-                button.btn.btn-default#cancel-action-button data-dismiss="modal" v-el="cancelButton" Cancel
-                button.btn.btn-primary#ok-action-button data-dismiss="modal" v-el="okButton" v-on="click: onClickOk" Ok
+    div.modal-dialog class="{{dialogSizeClass}}"
+      div.modal-content
+        div.modal-header
+          button type="button" class="close" data-dismiss="modal"
+            span aria-hidden="true" &times;
+            span.sr-only = t('views.modal_dialog.close')
+          h4 class="modal-title" id="confirmFormLabel" {{title}}
+        div.modal-body v-if="bodyView"
+          div v-component="{{bodyView}}" v-ref="bodyView" v-with="params: params"
+        div.modal-footer
+          button.btn.btn-default#cancel-action-button data-dismiss="modal" v-el="cancelButton" Cancel
+          button.btn.btn-primary#ok-action-button data-dismiss="modal" v-el="okButton" v-on="click: onClickOk" Ok

@@ -1,9 +1,9 @@
 require 'rails_helper'
 include Devise::Controllers::UrlHelpers
-include UsersHelper
+include ApplicationHelper
 
 
-describe 'Authentication pages', type: :feature do
+describe 'Registration pages', type: :feature do
 
   subject { page }
 
@@ -172,114 +172,6 @@ describe 'Authentication pages', type: :feature do
 
       it 'should create new User' do
         expect { click_signup_button }.to change(User, :count).by(1)
-      end
-    end
-  end
-
-
-  describe 'GET /settings' do
-    let (:user) { FactoryGirl.create(:user) }
-
-    context 'as guest', js: true do
-      before {
-        visit edit_user_registration_path
-      }
-
-      it 'redirect to signin page' do
-        expect(current_path).to eq(new_user_session_path)
-      end
-
-      it { should have_alert(:alert, I18n.t('devise.failure.unauthenticated')) }
-    end
-
-    context 'as authenticated user' do
-      before {
-        signin user
-        visit edit_user_registration_path
-      }
-
-      its(:status_code) { should == 200 }
-
-      describe 'content' do
-        it { should have_title(I18n.t('views.users.edit.title')) }
-        it { should have_content(I18n.t('views.users.edit.title')) }
-        it { should have_button(I18n.t('views.users.form.update')) }
-      end
-
-      # oauth
-      describe 'oauth links' do
-        let! (:provider) { 'developer' }
-        let! (:text_connect) { text_connect_provider(provider) }
-        let! (:text_disconnect) { text_disconnect_provider(provider) }
-
-        context 'when have not linked to <provider>' do
-          it { should have_link(text_connect, user_omniauth_authorize_path(provider)) }
-
-          context 'after clicking the link to connect twitter' do
-            before {
-              click_link text_connect_provider(provider)
-              # back to setting page
-              visit edit_user_registration_path
-            }
-
-            # have toggled the button to link
-            it { should_not have_link(text_connect, user_omniauth_authorize_path(provider)) }
-            it { should have_link(text_disconnect_provider(provider), authentication_path(
-              user.authentications.find_by(provider: provider)
-            )) }
-          end
-        end
-
-        context 'when have already linked to <provider>' do
-          let! (:authentication) {
-            FactoryGirl.create(:authentication, provider: provider, user: user)
-          }
-          before {
-            visit current_path
-          }
-
-          it { should_not have_link(text_connect, user_omniauth_authorize_path(provider)) }
-          it { should have_link(text_disconnect, authentication_path(authentication)) }
-
-          context 'and the user has not set password yet' do
-            let! (:user) {
-              o = FactoryGirl.build(:user, password: nil, password_confirmation: nil)
-              o.save(validation: nil); o
-            }
-            before {
-              # replace the user with one without password
-              authentication.user = user
-              signin user
-              visit edit_user_registration_path
-            }
-
-            it 'should have disabled link "Disconnect <provider>"' do
-              should have_selector('.setting-oauth a.disabled', text: text_disconnect_provider(provider))
-            end
-          end
-
-          context 'after clicking the link to connect <provider>' do
-            before {
-              click_link text_disconnect
-              visit edit_user_registration_path
-            }
-
-            it { should have_link(text_connect, user_omniauth_authorize_path(provider)) }
-            it { should_not have_link(text_disconnect, authentication_path(authentication)) }
-          end
-        end
-      end
-
-      describe 'user deletion' do
-        it { should have_link(I18n.t('views.users.form.delete_my_account'), registration_path(user)) }
-
-        context 'when click user delete button' do
-          it 'should delete user account' do
-            expect { click_on 'delete-user-acount' }.to change {
-              User.exists?(user.id)
-            }.to(false)
-          end
-        end
       end
     end
   end

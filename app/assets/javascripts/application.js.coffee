@@ -35,6 +35,7 @@
 #= require vue/messages/message_panel
 #= require vue/shared/confirm_dialog
 #= require vue/shared/modal_dialog
+#= require vue/shared/password_dialog
 #= require vue/shared/navigation
 #= require vue/users/content_navigation
 #= require vue/users/user_panel

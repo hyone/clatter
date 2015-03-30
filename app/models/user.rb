@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
 
     class_methods do
       def find_first_by_auth_conditions(warden_conditions)
-        conditions = warden_conditions.dup
+        conditions = warden_conditions.dup.to_h
         if login = conditions.delete(:login)
           where(conditions).where(["lower(screen_name) = :value OR lower(email) = :value", {
             value: login.downcase

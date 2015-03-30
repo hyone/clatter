@@ -1,0 +1,49 @@
+div.row
+  div.col-xs-12
+    div.setting-panel
+      div.col-inner
+        div.setting-panel-head
+          h2.setting-panel-title = t('views.settings.profile.title')
+          p.setting-panel-subtitle = t('views.settings.profile.subtitle')
+
+        div.setting-panel-body
+          = form_for(@user, url: settings_profile_path,
+                            html: { method: :put, class: 'form-horizontal' }) do |f|
+            = devise_error_messages!(@user)
+
+            div.form-group
+              = f.label :name, class: 'col-sm-3 control-label'
+              div.col-sm-9
+                = f.text_field :name,  class: 'form-control', placeholder: t_user('name')
+
+            div.form-group
+              = f.label :url, class: 'col-sm-3 control-label'
+              div.col-sm-9
+                = f.text_field :url, class: 'form-control', placeholder: t_user('url')
+
+            div.form-group
+              = f.label :description, class: 'col-sm-3 control-label'
+              div.col-sm-9
+                = f.text_area :description,
+                    class: 'form-control',
+                    rows: 3,
+                    placeholder: t('activerecord.attributes.user.description')
+
+            div.form-group
+              = f.label :profile_image, class: 'col-sm-3 control-label'
+              div.col-sm-9
+                - if @user.profile_image?
+                  div.profile_image
+                    = image_tag @user.profile_image.url, class: 'thumbnail'
+                = f.file_field :profile_image, class: 'form-control'
+                = f.hidden_field :profile_image_cache
+
+                - if @user.profile_image?
+                  div.checkbox
+                    = f.label(:remove_profile_image) do
+                      = f.check_box :remove_profile_image
+                      = t_user('remove_profile_image')
+
+            div.form-group
+              div.col-sm-offset-3.col-sm-9
+                = f.submit t('views.settings.form.submit'), class: 'btn btn-primary'

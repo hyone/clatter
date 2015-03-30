@@ -21,26 +21,50 @@
   .form-additional-info {
     margin-left: 1em;
   }
+}
 
+.session-panel {
+  > .col-inner {
+    padding: 0 80px;
 
-  .setting-oauth {
-    /* border: 1px solid $gray-light; */
-    /* border-radius: $alert-border-radius; */
-    margin-top: 20px;
-
-    li {
-      margin-top: 10px;
+    > hr {
+      margin: 15px -80px;
     }
-  }
 
-  .setting-danger-zone {
-    @extend .alert;
-    @extend .alert-danger;
-
-    margin-top: 20px;
+    h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
 
     h3 {
-      border-color: darken($btn-danger-bg, 20%);
+      margin-bottom: 10px;
+      color: $app-text-light;
+      font-size: 20px;
+      font-weight: normal;
+    }
+
+    .form-block {
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+
+    .omniauth-logins-block,
+    .signup-link-block {
+      margin: 0 -80px;
+      padding: 20px 80px;
+      border-top: 1px solid $app-separator;
+      color: $app-text-light;
+    }
+
+    .omniauth-logins-block {
+    }
+    .signup-link-block {
+      @extend .bottom-radius;
+    }
+
+
+    .form-additional-info {
+      margin-left: 1em;
     }
   }
 }

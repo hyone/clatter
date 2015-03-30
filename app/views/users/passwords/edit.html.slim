@@ -1,22 +1,28 @@
-h2 Change your password
+div.content-head
 
-= form_for(resource, as: resource_name,
-                     url: password_path(resource_name),
-                     html: { method: :put }) do |f|
-  = devise_error_messages!
-  = f.hidden_field :reset_password_token
+div.content-body
+  div.row
+    div.col.col-xs-offset-1.col-xs-10
+      div.session-panel
+        div.col-inner
+          div.form-block
+            h2 Change your password
 
-  div
-    = f.label :password, "New password"
-    br /
-    = f.password_field :password, autofocus: true, autocomplete: "off"
+            = form_for(resource, as: resource_name,
+                                 url: password_path(resource_name),
+                                 html: { method: :put }) do |f|
+              = devise_error_messages!(resource)
+              = f.hidden_field :reset_password_token
 
-  div
-    = f.label :password_confirmation, "Confirm new password"
-    br /
-    = f.password_field :password_confirmation, autocomplete: "off"
+              div.form-group
+                = f.label :password, "New password", class: 'sr-only'
+                = f.password_field :password, class: 'form-control', autofocus: true, autocomplete: "off", placeholder: 'New password'
 
-  div
-    = f.submit "Change my password"
+              div.form-group
+                = f.label :password_confirmation, "Confirm new password", class: 'sr-only'
+                = f.password_field :password_confirmation, class: 'form-control', autocomplete: "off", placeholder: 'Confirm new password'
 
-= render "users/shared/links"
+              div.form-group
+                = f.submit "Change my password", class: 'btn btn-primary'
+
+            = render "users/shared/links"

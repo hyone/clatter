@@ -1,0 +1,68 @@
+// Place all the styles related to the settings controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.setting-panel {
+  > .col-inner {
+    .setting-panel-head {
+      padding: 12px;
+      border-bottom: 1px solid $app-separator;
+
+      .setting-panel-title {
+        margin: 0;
+        color: $app-text-light;
+        font-size: 22px;
+        font-weight: 300;
+      }
+
+      .setting-panel-subtitle {
+        margin-top: 3px;
+        margin-bottom: 0;
+        color: $app-text-lighter;
+      }
+    }
+
+    .setting-panel-body {
+      padding: 12px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+
+      > form {
+        .control-label {
+          font-weight: normal;
+        }
+
+        > hr {
+          margin: 20px -10px;
+        }
+
+        > h3 {
+          padding: 0;
+          font-weight: normal;
+          font-size: 20px;
+          line-height: 22px;
+          color: $app-text-light;
+        }
+
+        .form-group:last-child {
+          margin-bottom: 0;
+        }
+
+        .control-label {
+          /* font-size: 13px; */
+        }
+
+        .icon-label {
+          text-align: right;
+        }
+
+        .form-additional-info {
+          margin-top: 5px;
+          margin-bottom: 5px;
+          font-size: 12px;
+        }
+      }
+
+    }
+  }
+}

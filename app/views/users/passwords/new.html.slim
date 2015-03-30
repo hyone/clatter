@@ -1,16 +1,23 @@
-div.session
-  h2 Forgot your password?
+div.content-head
 
-  = form_for(resource, as: resource_name,
-                       url: password_path(resource_name),
-                       html: { method: :post }) do |f|
-    = devise_error_messages!
+div.content-body
+  div.row
+    div.col.col-xs-offset-1.col-xs-10
+      div.session-panel
+        div.col-inner
+          div.form-block
+            h2 Forgot your password?
 
-    div.form-group
-      = f.label :email, class: 'sr-only'
-      = f.email_field :email, class: 'form-control', placeholder: 'Email'
+            = form_for(resource, as: resource_name,
+                                 url: password_path(resource_name),
+                                 html: { method: :post }) do |f|
+              = devise_error_messages!(resource)
 
-    div.form-group
-      = f.submit 'Send me reset password instructions', class: 'btn btn-primary'
+              div.form-group
+                = f.label :email, class: 'sr-only'
+                = f.email_field :email, class: 'form-control', placeholder: 'Email'
 
-  = render "users/shared/links"
+              div.form-group
+                = f.submit 'Send me reset password instructions', class: 'btn btn-primary'
+
+            = render "users/shared/links"

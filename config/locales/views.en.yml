@@ -2,9 +2,6 @@ en:
   views:
 
     generic:
-      please_sign_in: Please sign in.
-      not_message_owner: You are not the owner of the message.
-      not_favorite_owner: You are not the owner of the favorite.
       appname: Clatter
       base_title: Clatter
 
@@ -13,12 +10,13 @@ en:
     # ----------------------------------------------------------------------------------------------
 
     alert:
-      success_create_message: Message created!
+      please_sign_in: Please sign in.
       failed_create_message: Failed to create message
-      success_delete_message: Your message has been deleted.
       failed_delete_message: Failed to delete message
       failed_follow_user: "Failed to folllow %{user}"
       failed_favorite_message: Failed to mark message as favorite
+      success_create_message: Message created!
+      success_delete_message: Your message has been deleted.
 
     navigation:
       home: Home
@@ -74,6 +72,7 @@ en:
       close: Close
       compose_new_message: Compose New Message
       reply_to: "Reply to %{name}"
+      confirmation_default_title: Confirmation
 
     # User widgets
     # -----------------------------------------------
@@ -131,6 +130,35 @@ en:
           all_people: All people
           followed_users: People you followers
 
+    settings:
+      title: Settings
+      menu:
+        account: Account
+        password: Password
+        profile: Profile
+      account:
+        title: Account
+        subtitle: Change your basic account and language settings.
+        confirm_deactivate: "Are you sure deactive @%{user} ?"
+        confirm_password_title: Save account changes
+        confirm_password_description: Re-enter your password to save changes to your account.
+        connect_with: Connect with
+        connected_account: Connected Account
+        danger_zone: Danger Zone
+        deactivate: Deactivate My Account
+        disconnect_provider: "Disconnect %{provider}"
+        oauth: OAuth
+        oauth_disabled_disconnect: To disconnect, connecting with other services or registering a password is required.
+      password:
+        title: Password
+        subtitle: Change your password or recover your current one.
+      profile:
+        title: Profile
+      form:
+        password: Password
+        submit: Save Changes
+        cancel: Cancel
+
     users:
       index:
         title: All People
@@ -143,18 +171,11 @@ en:
 
       form:
         basic_information: Basic Information
-        connected_account: Connected Account
-        connect_with: Connect with
-        danger_zone: Danger Zone
-        delete_my_account: Delete My Account
-        disconnect_provider: "Disconnect %{provider}"
         email_or_name: "%{email} or %{name}"
         forget_your_password: Forgot your password?
         leave_blank_if_not_change: leave blank if you don't want to change it
         need_current_password: we need your current password when password changes
         new_visitor_question: New visitor?
-        oauth: OAuth
-        oauth_disabled_disconnect: Connecting with other services or registering a password is required.
         profile: Profile
         signin: Sign in
         signup: Sign up
