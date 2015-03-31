@@ -30,6 +30,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 
   private
+
   def get_omniauth
     @omniauth = request.env['omniauth.auth']
     if Rails.env.development?
@@ -43,11 +44,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       uid: omniauth['uid']
     )
 
-    if authentication
+    case
+    when authentication
       flash[:notice] = t('devise.omniauth_callbacks.success', kind: omniauth['provider'])
       sign_in authentication.user
       redirect_to get_and_reset_return_url
-    elsif current_user
+    when current_user
       current_user.apply_omniauth(omniauth).save!
       flash[:notice] = t('devise.omniauth_callbacks.success', kind: omniauth['provider'])
       redirect_to get_and_reset_return_url

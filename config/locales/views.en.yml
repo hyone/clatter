@@ -49,6 +49,12 @@ en:
       notifications: Notifications
       mentions: Mentions
 
+    modal_dialog:
+      close: Close
+      compose_new_message: Compose New Message
+      confirmation_default_title: Confirmation
+      reply_to: "Reply to %{name}"
+
     # Message widgets
     # -----------------------------------------------
 
@@ -67,12 +73,6 @@ en:
     message_form:
       new_message: What's happening?
       submit: Post
-
-    modal_dialog:
-      close: Close
-      compose_new_message: Compose New Message
-      reply_to: "Reply to %{name}"
-      confirmation_default_title: Confirmation
 
     # User widgets
     # -----------------------------------------------
@@ -179,7 +179,7 @@ en:
         profile: Profile
         signin: Sign in
         signup: Sign up
-        signup_link_text: Sign up with Email 損
+        signup_link_text: Sign up with Email »
         update: Update
 
       show:
