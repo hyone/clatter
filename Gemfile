@@ -25,6 +25,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 
 # others
+gem 'annotate'
 gem 'factory_girl_rails'
 gem 'faker'
 gem 'friendly_id'
