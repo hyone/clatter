@@ -21,6 +21,7 @@
 #= require moment-timezone
 #= require underscore
 #= require uri.js/src/URI
+#= require locale
 #= require util
 #= require vue
 #= require vue/transitions/fade

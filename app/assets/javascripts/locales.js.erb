@@ -1,0 +1,7 @@
+// From https://github.com/hakunin/fulcrum/commit/5943efc856cb46a4d846712f720dd2c4e9d779b5
+<%
+  # first we need to force init translations or there wouldn't be any
+  I18n.backend.send(:init_translations)
+%>;
+I18n.translations = <%= I18n.backend.send(:translations).to_json.html_safe %>;
+I18n.fallbacks = true;
