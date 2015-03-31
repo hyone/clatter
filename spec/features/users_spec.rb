@@ -5,14 +5,10 @@ describe 'Users pages', type: :feature do
   subject { page }
 
   describe 'GET /u' do
-    before(:all) {
-      50.times { FactoryGirl.create(:user) }
+    before {
+      FactoryGirl.create_list(:user, UsersController::USER_PAGE_SIZE+1)
+      visit users_path
     }
-    after(:all) {
-      User.delete_all
-    }
-
-    before { visit users_path }
 
     describe 'content' do
       it { should have_title(I18n.t('views.users.index.title')) }
@@ -26,7 +22,6 @@ describe 'Users pages', type: :feature do
           end
         end
       end
-
     end
   end
 
@@ -54,7 +49,7 @@ describe 'Users pages', type: :feature do
         context 'in pagination' do
           before {
             stub_const('UsersController::MESSAGE_PAGE_SIZE', 10)
-            FactoryGirl.create_list(:message, HomeController::MESSAGE_PAGE_SIZE+1, user: user)
+            FactoryGirl.create_list(:message, UsersController::MESSAGE_PAGE_SIZE+1, user: user)
             visit current_path
           }
 

@@ -100,6 +100,8 @@ RSpec.configure do |config|
 
   # database_cleaner
 
+  DatabaseCleaner = DatabaseRewinder
+
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end

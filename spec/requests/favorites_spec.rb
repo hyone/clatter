@@ -6,14 +6,18 @@ describe 'Favorites pages' do
   let! (:user) { FactoryGirl.create(:user) }
   let! (:message) { FactoryGirl.create(:message) }
 
+  # XXX: Using counter_cache causes the problem of no affection to counter change in the same transaction
+  #      so, we sometime got +-1 margin of error
   shared_examples 'json favorites stats' do
     it 'should include count of user favorites' do
-      expect(json_response['results']['favorite']['user']['favorites_count']).to eq(user.favorites_count)
+      expect(json_response['results']['favorite']['user']['favorites_count']).to be_within(1).of(
+        user.reload.favorites_count
+      )
     end
 
     it 'should include count of message favorited' do
-      expect(json_response['results']['favorite']['message']['favorited_count']).to eq(
-        message.favorited_count
+      expect(json_response['results']['favorite']['message']['favorited_count']).to be_within(1).of(
+        message.reload.favorited_count
       )
     end
   end

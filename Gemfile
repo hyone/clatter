@@ -76,7 +76,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', require: false
   gem 'poltergeist'
-  gem 'database_cleaner'
+  gem 'database_rewinder'
   gem 'coveralls', require: false
   gem 'simplecov', require: false
   gem 'rake_shared_context'
