@@ -69,6 +69,7 @@ group :development do
   gem 'coffee-rails-source-maps'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
+  gem 'view_source_map'
 end
 
 group :test do
