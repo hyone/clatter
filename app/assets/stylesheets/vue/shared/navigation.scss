@@ -48,6 +48,14 @@ $app-navigation-bg: #fff;
 
       input[type=text] {
         width: 190px;
+        box-shadow: none;
+
+        border-top-left-radius:   4px;
+        border-bottom-left-radius: 4px;
+
+        &:focus {
+          background-color: $app-body-bg;
+        }
       }
     }
 

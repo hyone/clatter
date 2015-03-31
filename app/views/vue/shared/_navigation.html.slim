@@ -43,10 +43,10 @@ script type="text/x-template" id="navigation-template"
                 div.input-group
                   input type="hidden" name='q[mode]' value="{{ search.mode }}"
                   input type="text"   name="q[text]" class="form-control input-sm" id="navigation-search-input" placeholder="#{ t('views.navigation.search') }" v-model="search.text"
+                  / use dummy text input to disable enter key submit when search text is empty.
+                  / see also: http://qiita.com/mimoe/items/89b317be5e38bfbc44ee
+                  input type="text" name="dummy" style="display:none;"
                   div.input-group-btn
-                    / use dummy text input to disable enter key submit when search text is empty.
-                    / see also: http://qiita.com/mimoe/items/89b317be5e38bfbc44ee
-                    input type="text" name="dummy" style="display:none;"
                     button.btn.btn-default.input-sm#navigation-search-submit type="{{ search.text ? 'submit' : 'button' }}" v-class='
                       disabled: !search.text
                     '
