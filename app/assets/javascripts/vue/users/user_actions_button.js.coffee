@@ -10,7 +10,7 @@ Clatter.UserActionsButtonComponent = Vue.extend
       !!Clatter.currentUser
 
     replyToUserText: ->
-      I18n.t('views.users.user.message_to', { screen_name: @user.screen_name })
+      I18n.t('views.user_actions_button.message_to', { screen_name: @user.screen_name })
 
   methods:
     onClickReplyToUserButton: (event) ->
