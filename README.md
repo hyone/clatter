@@ -41,6 +41,19 @@ $ git push heroku master
 $ heroku run rake db:migrate
 ```
 
+## Configuration
+
+### Using AWS S3 as image storage
+
+To use AWS S3 service instead of local file system (default) to store images, you must set *ENVIRONMENT VARIABLES* like below:
+
+    AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY
+    AWS_REGION
+    AWS_S3_BUCKET_NAME
+
+and then, restart server.
+
 ### Using OAuth services to register and login a user
 
 This application is able to use Twitter, Github and Google as OAuth authentication services.
