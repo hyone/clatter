@@ -3,6 +3,7 @@ class SettingsController < Devise::RegistrationsController
 
   before_action :require_user
   before_action :set_user
+  before_action :get_resource
 
   def account
   end
@@ -14,49 +15,44 @@ class SettingsController < Devise::RegistrationsController
   end
 
   def update_with_password
-    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
-    if update_resource(resource, params_require_password)
-      flash[:notice] = t('devise.registrations.updated')
-      redirect_to :back
-    else
-      render params[:section]
-    end
+    update_process { update_resource(resource, params_require_password) }
   end
 
   def update_without_password
-    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
-    if resource.update_without_password(params_without_password)
-      flash[:notice] = t('devise.registrations.updated')
-      redirect_to :back
-    else
-      render params[:section]
-    end
+    update_process { resource.update_without_password(params_without_password) }
   end
 
   def update_password
-    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     _params = params_change_password
     # validations
     [:password, :password_confirmation].each do |field|
-      if _params[field].blank?
-        resource.errors.add(field, :blank)
-      end
+      resource.errors.add(field, :blank) if _params[field].blank?
     end
 
-    if resource.errors.empty? and update_resource(resource, _params)
-      flash[:notice] = t('devise.registrations.updated')
-      redirect_to :back
-    else
-      render 'password'
-    end
+    update_process('password') {
+      resource.errors.empty? and update_resource(resource, _params)
+    }
   end
 
 
   private
+
+  def get_resource
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+  end
+
   def set_user
     @user = current_user
   end
 
+  def update_process(page = params[:section], &update)
+    if update.call
+      flash[:notice] = t('devise.registrations.updated')
+      redirect_to :back
+    else
+      render page
+    end
+  end
 
   # - when password is not supplied, we do not require current password
   # - when you have not current password (only oauth login) and try to add new password,

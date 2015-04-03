@@ -17,10 +17,6 @@ module ApplicationHelper
     end
   end
 
-  def t_user(key)
-    I18n.t("activerecord.attributes.user.#{key}")
-  end
-
 
   # From https://github.com/tnantoka/miclo/
   def decode_bindings(encoded)

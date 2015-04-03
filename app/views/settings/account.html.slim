@@ -17,14 +17,14 @@ div.row
               div.col-sm-9
                 = f.text_field :screen_name, class: "form-control",
                                              disabled: disabled,
-                                             placeholder: t_user('screen_name')
+                                             placeholder: t('activerecord.attributes.user.screen_name')
 
             div.form-group
               = f.label :email, class: 'col-sm-3 control-label'
               div.col-sm-9
                 = f.email_field :email, class: 'form-control',
                                         disabled: disabled,
-                                        placeholder: t_user('email')
+                                        placeholder: t('activerecord.attributes.user.email')
 
             = render 'vue/shared/password_dialog'
             div v-component="password-dialog"

@@ -17,24 +17,37 @@ div.content-body
 
               div.form-group
                 = f.label :name
-                = f.text_field :name, autofocus: true, class: 'form-control', placeholder: t_user('name')
+                = f.text_field :name,
+                    autofocus: true,
+                    class: 'form-control',
+                    placeholder: t('activerecord.attributes.user.name')
 
               div.form-group
                 = f.label :email
-                = f.email_field :email, class: 'form-control', placeholder: t_user('email')
+                = f.email_field :email,
+                    class: 'form-control',
+                    placeholder: t('activerecord.attributes.user.email')
 
               - if resource.password_required?
                 div.form-group
                   = f.label :password
-                  = f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: t_user('password')
+                  = f.password_field :password,
+                      autocomplete: "off",
+                      class: 'form-control',
+                      placeholder: t('activerecord.attributes.user.password')
 
                 div.form-group
                   = f.label :password_confirmation, class: 'sr-only'
-                  = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', placeholder: t_user('password_confirmation')
+                  = f.password_field :password_confirmation,
+                      autocomplete: "off",
+                      class: 'form-control',
+                      placeholder: t('activerecord.attributes.user.password_confirmation')
 
               div.form-group
                 = f.label :screen_name
-                = f.text_field :screen_name, class: 'form-control', placeholder: t_user('screen_name')
+                = f.text_field :screen_name,
+                    class: 'form-control',
+                    placeholder: t('activerecord.attributes.user.screen_name')
 
               div.form-group
                 = f.submit t('views.users.form.signup'), class: 'btn btn-primary'

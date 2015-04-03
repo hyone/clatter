@@ -47,8 +47,8 @@ describe 'Registration pages', type: :feature do
 
         context 'with email' do
           before {
-            fill_in t_user('login'),    with: user.email
-            fill_in t_user('password'), with: user.password
+            fill_in I18n.t('activerecord.attributes.user.login'),    with: user.email
+            fill_in I18n.t('activerecord.attributes.user.password'), with: user.password
             click_signin_button
           }
 
@@ -61,8 +61,8 @@ describe 'Registration pages', type: :feature do
 
         context 'with screen_name' do
           before {
-            fill_in t_user('login'),    with: user.email
-            fill_in t_user('password'), with: user.password
+            fill_in I18n.t('activerecord.attributes.user.login'),    with: user.email
+            fill_in I18n.t('activerecord.attributes.user.password'), with: user.password
             click_signin_button
           }
 
@@ -91,19 +91,19 @@ describe 'Registration pages', type: :feature do
           expect(current_path).to eq new_user_registration_path
         end
 
-        it { should have_field(t_user('name'), with: omniauth['info']['name']) }
+        it { should have_field(I18n.t('activerecord.attributes.user.name'), with: omniauth['info']['name']) }
 
         context 'after authenticated by an oauth service' do
           before {
             account = omniauth['info']['_account_name']
-            fill_in t_user('email'), with: "#{account}-twitter@example.com"
-            fill_in t_user('screen_name'), with: account
+            fill_in I18n.t('activerecord.attributes.user.email'),       with: "#{account}-developer@example.com"
+            fill_in I18n.t('activerecord.attributes.user.screen_name'), with: account
           }
 
           it 'should create both new user and its authentication' do
-            expect { click_signup_button }.to change {
-              [User.count, Authentication.count]
-            }.from([0, 0]).to([1, 1])
+            expect { click_signup_button }.to \
+              change(User, :count).from(0).to(1).and \
+              change(Authentication, :count).from(0).to(1)
           end
 
           context 'after signed up', js: true do
@@ -163,11 +163,11 @@ describe 'Registration pages', type: :feature do
       let (:user) { FactoryGirl.build(:user) }
 
       before {
-        fill_in t_user('email'), with: user.email
-        fill_in t_user('screen_name'), with: user.screen_name
-        fill_in t_user('name'), with: user.name
-        fill_in t_user('password'), with: user.password
-        fill_in t_user('password_confirmation'), with: user.password
+        fill_in I18n.t('activerecord.attributes.user.email'),                 with: user.email
+        fill_in I18n.t('activerecord.attributes.user.screen_name'),           with: user.screen_name
+        fill_in I18n.t('activerecord.attributes.user.name'),                  with: user.name
+        fill_in I18n.t('activerecord.attributes.user.password'),              with: user.password
+        fill_in I18n.t('activerecord.attributes.user.password_confirmation'), with: user.password
       }
 
       it 'should create new User' do

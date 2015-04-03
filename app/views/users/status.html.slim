@@ -7,8 +7,11 @@
     message: @message.text \
   ))
 
+/ At first assigning template results to a temporary variable,
+/ to avoid error that is caused from using 'render' inside Array literal with 'source_view_map' gem
 javascript:
-  Clatter.messages = { messages: [#{raw render(template: 'messages/_message', formats: [:json], locals: { message: @message, detail: true })}] };
+  m = #{raw render(template: 'messages/_message', formats: [:json], locals: { message: @message, detail: true })};
+  Clatter.messages = { messages: [m] };
  
 div.row
   div.col.col-sm-2.col-lg-3.content-left

@@ -208,17 +208,19 @@ class User < ActiveRecord::Base
 
 
   concerning :Favoritable do
+    include HasManyThrough
+
     included do
-      has_many :favorite_relationships, class_name: 'Favorite', dependent: :destroy
-      has_many :favorites, through: :favorite_relationships, source: :message
+      has_many_through 'favorite', source: :message
     end
   end
 
 
   concerning :Retweetable do
+    include HasManyThrough
+
     included do
-      has_many :retweet_relationships, class_name: 'Retweet', dependent: :destroy
-      has_many :retweets, through: :retweet_relationships, source: :message
+      has_many_through 'retweet', source: :message
     end
   end
 

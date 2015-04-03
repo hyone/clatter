@@ -17,7 +17,7 @@ module RequestHelpers
     click_button I18n.t('views.users.form.signup')
   end
 
-  def setup_omniauth(service = :twitter)
+  def setup_omniauth(service = 'developer')
     username = 'hoge'
 
     OmniAuth.config.test_mode = true

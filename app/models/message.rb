@@ -30,26 +30,6 @@ class Message < ActiveRecord::Base
     order(created_at: :desc)
   }
 
-  # preloads
-  # ------------------------------
-
-  @@preload_relations = {
-    always: [:user],
-    login_only: []
-  }
-
-  def self.preload_relations (login)
-    if login
-      (@@preload_relations[:always] + @@preload_relations[:login_only]).uniq
-    else
-      @@preload_relations[:always]
-    end
-  end
-
-  scope :preload_for_views, ->(login = false) {
-    includes *preload_relations(login)
-  }
-
 
   concerning :Replyable do
     included do
@@ -67,8 +47,6 @@ class Message < ActiveRecord::Base
 
       # virtual field to set the id of message replied to
       attr_accessor :message_id_replied_to
-
-      @@preload_relations[:always] << :users_replied_to
     end
 
     def parent
@@ -163,12 +141,12 @@ class Message < ActiveRecord::Base
 
 
   concerning :Favoritedable do
-    included do
-      has_many :favorite_relationships, class_name: 'Favorite', dependent: :destroy
-      has_many :favorite_users, through: :favorite_relationships, source: :user
+    include HasManyThrough
 
-      @@preload_relations[:login_only] << :favorite_relationships
+    included do
+      has_many_through 'favorite', source: :user, relationship: :favorite_users
     end
+
 
     def favorited_by(user)
       # NOTE:
@@ -182,12 +160,12 @@ class Message < ActiveRecord::Base
 
 
   concerning :Retweetedable do
-    included do
-      has_many :retweet_relationships, class_name: 'Retweet', dependent: :destroy
-      has_many :retweet_users, through: :retweet_relationships, source: :user
+    include HasManyThrough
 
-      @@preload_relations[:login_only] << :retweet_relationships
+    included do
+      has_many_through 'retweet', source: :user, relationship: :retweet_users
     end
+
 
     def retweeted?
       retweet_relationships.any?
@@ -197,6 +175,7 @@ class Message < ActiveRecord::Base
       retweet_relationships.map { |m| [m.user_id, m.id] }.assoc(user.id).try(:second)
       # retweet_relationships.find_by(user: user)
     end
+
 
     MESSAGE_COLUMNS = [
       'messages.*',

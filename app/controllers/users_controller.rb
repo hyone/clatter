@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  include MessagesHelper
+
   layout 'user', except: [:index, :status]
 
   before_action :set_user, except: [:index]
@@ -14,7 +16,7 @@ class UsersController < ApplicationController
   def show
     @page = params[:page] || 1
     @messages = Message.with_retweets_without_replies_of(@user)
-                  .preload_for_views(user_signed_in?)
+                  .includes(*preload_fields)
                   .page(@page)
                   .per(MESSAGE_PAGE_SIZE)
   end
@@ -23,7 +25,7 @@ class UsersController < ApplicationController
     @page = params[:page] || 1
     @messages = @user
                   .favorites
-                  .preload_for_views(user_signed_in?)
+                  .includes(*preload_fields)
                   .newer
                   .page(@page)
                   .per(MESSAGE_PAGE_SIZE)
@@ -44,7 +46,7 @@ class UsersController < ApplicationController
   def with_replies
     @messages = Message
                   .with_retweets_of(@user)
-                  .preload_for_views(user_signed_in?)
+                  .includes(*preload_fields)
                   .page(@page)
                   .per(MESSAGE_PAGE_SIZE)
     render 'show'

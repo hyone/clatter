@@ -49,12 +49,12 @@ if detail
   end
 
   json.parents do
-    ancestors = Message.ancestors_of(message).preload_for_views(user_signed_in?)
+    ancestors = Message.ancestors_of(message).includes(*preload_fields)
     json.array! ancestors, partial: 'messages/message', as: :message
   end
 
   json.replies do
-    descendants = Message.descendants_of(message).preload_for_views(user_signed_in?)
+    descendants = Message.descendants_of(message).includes(*preload_fields)
     json.array! descendants, partial: 'messages/message', as: :message
   end
 end

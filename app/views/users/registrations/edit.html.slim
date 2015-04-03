@@ -16,11 +16,13 @@ div.session
 
         div.form-group
           = f.label :screen_name
-          = f.text_field :screen_name, class: 'form-control', placeholder: t_user('screen_name')
+          = f.text_field :screen_name, class: 'form-control',
+                                       placeholder: t('activerecord.attributes.user.screen_name')
 
         div.form-group
           = f.label :email
-          = f.email_field :email, class: 'form-control', placeholder: t_user('email')
+          = f.email_field :email, class: 'form-control',
+                                  placeholder: t('activerecord.attributes.user.email')
 
         / - if devise_mapping.confirmable? && resource.pending_reconfirmation?
           / div Currently waiting confirmation for: #{resource.unconfirmed_email}
@@ -29,22 +31,26 @@ div.session
           = f.label :password
           span.help-block
             = t('views.users.form.leave_blank_if_not_change')
-          = f.password_field :password, autocomplete: 'off',
-                                        class: 'form-control',
-                                        placeholder: t_user('password')
+          = f.password_field :password,
+              autocomplete: 'off',
+              class: 'form-control',
+              placeholder: t('activerecord.attributes.user.password')
 
         div.form-group
           = f.label :password_confirmation, class: 'sr-only'
-          = f.password_field :password_confirmation, autocomplete: 'off',
-                                                     class: 'form-control',
-                                                     placeholder: t_user('password_confirmation')
+          = f.password_field :password_confirmation,
+              autocomplete: 'off',
+              class: 'form-control',
+              placeholder: t('activerecord.attributes.user.password_confirmation')
+
         div.form-group
           = f.label :current_password, class: 'sr-only'
           span.help-block
             = t('views.users.form.need_current_password')
-          = f.password_field :current_password, autocomplete: 'off',
-                                        class: 'form-control',
-                                        placeholder: t_user('current_password')
+          = f.password_field :current_password,
+              autocomplete: 'off',
+              class: 'form-control',
+              placeholder: t('activerecord.attributes.user.current_password')
 
     div.row
       div.col-sm-12
@@ -52,11 +58,11 @@ div.session
 
         div.form-group
           = f.label :name, class: 'sr-only'
-          = f.text_field :name,  class: 'form-control', placeholder: t_user('name')
+          = f.text_field :name,  class: 'form-control', placeholder: t('activerecord.attributes.user.name')
 
         div.form-group
           = f.label :url, class: 'sr-only'
-          = f.text_field :url, class: 'form-control', placeholder: t_user('url')
+          = f.text_field :url, class: 'form-control', placeholder: t('activerecord.attributes.user.url')
 
         div.form-group
           = f.label :description, class: 'sr-only'
@@ -77,7 +83,7 @@ div.session
             div.checkbox
               = f.label(:remove_profile_image) do
                 = f.check_box :remove_profile_image
-                = t_user('remove_profile_image')
+                = t('activerecord.attributes.user.remove_profile_image')
 
     div.row
       div.col-sm-12

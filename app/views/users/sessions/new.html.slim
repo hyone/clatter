@@ -13,16 +13,20 @@ div.content-body
                                  html: { role: 'form' }) do |f|
               div.form-group
                 = f.label :login, class: 'sr-only'
-                = f.text_field :login, autofocus: true,
-                                        class: 'form-control',
-                                        placeholder: t('views.users.form.email_or_name',
-                                          {email: t_user('email'), name: t_user('screen_name') })
+                = f.text_field :login,
+                    autofocus: true,
+                    class: 'form-control',
+                    placeholder: t('views.users.form.email_or_name', { \
+                      email: t('activerecord.attributes.user.email'), \
+                      name: t('activerecord.attributes.user.screen_name') \
+                    })
 
               div.form-group
                 = f.label :password, class: 'sr-only'
-                = f.password_field :password, autocomplete: "off",
-                                              class: 'form-control',
-                                              placeholder: t_user('password')
+                = f.password_field :password,
+                    autocomplete: "off",
+                    class: 'form-control',
+                    placeholder: t('activerecord.attributes.user.password')
 
               - if devise_mapping.rememberable?
                 div.form-group
