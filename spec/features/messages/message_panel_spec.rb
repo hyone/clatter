@@ -15,8 +15,6 @@ describe 'Message Panel', type: :feature, js: true do
 
   describe 'message text block' do
     include_examples 'a message textable block'
-
-    it { should have_content(message.created_at.strftime('%_I:%M %p - %_d %b %Y')) }
   end
 
   describe 'message actions block' do
@@ -106,6 +104,31 @@ describe 'Message Panel', type: :feature, js: true do
       before { visit status_user_path(message.user, message.id) }
       include_examples 'a message retweetable'
       include_examples 'a message favorable'
+    end
+  end
+
+
+  describe 'date block' do
+    shared_examples 'a time zonable date' do
+      let! (:message) { FactoryGirl.create(:message) }
+      let! (:login_user) { FactoryGirl.create(:user, time_zone: time_zone) }
+      before {
+        signin login_user
+        visit status_user_path(message.user, message)
+      }
+
+      it { should have_content(
+        message.created_at.in_time_zone(login_user.time_zone).strftime('%-l:%M %p - %-d %b %Y')
+      ) }
+    end
+
+    context 'with UTC' do
+      let (:time_zone) { 'UTC' }
+      include_examples 'a time zonable date'
+    end
+    context 'with Tokyo' do
+      let (:time_zone) { 'Tokyo' }
+      include_examples 'a time zonable date'
     end
   end
 

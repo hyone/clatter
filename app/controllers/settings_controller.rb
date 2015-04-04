@@ -83,7 +83,7 @@ class SettingsController < Devise::RegistrationsController
 
 
   PARAMS_REQUIRE_PASSWORD = [
-    :screen_name, :email, :password,
+    :screen_name, :email, :password, :time_zone,
     :current_password,
   ]
   PARAMS_WITHOUT_PASSWORD = [

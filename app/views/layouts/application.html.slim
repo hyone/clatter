@@ -1,6 +1,6 @@
 doctype html
 
-html lang="#{I18n.locale}" data-timezone="#{Rails.application.config.time_zone}"
+html lang="#{I18n.locale}" data-timezone="#{current_user ? current_user.time_zone : Rails.application.config.time_zone}"
   head
     meta charset="utf-8"
     meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"

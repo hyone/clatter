@@ -26,6 +26,13 @@ div.row
                                         disabled: disabled,
                                         placeholder: t('activerecord.attributes.user.email')
 
+            div.form-group
+              = f.label :time_zone, class: 'col-sm-3 control-label'
+              div.col-sm-9
+                = f.time_zone_select :time_zone, nil,
+                    { include_blank: true },
+                    { class: 'form-control' }
+
             = render 'vue/shared/password_dialog'
             div v-component="password-dialog"
 

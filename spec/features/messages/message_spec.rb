@@ -10,10 +10,6 @@ describe 'Message Block', type: :feature, js: true do
 
   before { visit user_path(user) }
 
-  it { should have_link(message.user.name, user_path(message.user)) }
-  it { should have_link("@#{message.user.screen_name}", user_path(message.user)) }
-  it { should have_link("2 hours ago", user_path(message.user)) }
-
   describe 'context block' do
     context 'when retweeted message' do
       let! (:retweet) { FactoryGirl.create(:retweet, user: user) }
@@ -22,6 +18,37 @@ describe 'Message Block', type: :feature, js: true do
       it 'should display retweet context message' do
         expect(page).to have_selector('.message-context', text: I18n.t('views.message.retweeted'))
         expect(page).to have_selector('.message-context', text: retweet.user.screen_name)
+      end
+    end
+  end
+
+  describe 'header block' do
+    it { should have_link(message.user.name, user_path(message.user)) }
+    it { should have_link("@#{message.user.screen_name}", user_path(message.user)) }
+
+    context 'about date' do
+      shared_examples 'a time zonable date title' do
+        let! (:message) { FactoryGirl.create(:message) }
+        let! (:login_user) { FactoryGirl.create(:user, time_zone: time_zone) }
+        before {
+          signin login_user
+          visit user_path(message.user)
+        }
+
+        it { expect(find('a.message-time')['data-original-title']).to eq(
+          message.created_at.in_time_zone(login_user.time_zone).strftime('%-l:%M %p - %-d %b %Y')
+        ) }
+      end
+
+      it { should have_link('2 hours ago', user_path(message.user)) }
+
+      context 'with UTC' do
+        let (:time_zone) { 'UTC' }
+        include_examples 'a time zonable date title'
+      end
+      context 'with Tokyo' do
+        let (:time_zone) { 'Tokyo' }
+        include_examples 'a time zonable date title'
       end
     end
   end
