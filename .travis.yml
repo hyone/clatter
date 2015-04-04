@@ -8,6 +8,8 @@ bundler_args: --without development --deployment
 cache: bundler
 
 before_script:
+  - echo 'Asia/Tokyo' | sudo tee /etc/timezone
+  - sudo dpkg-reconfigure --frontend noninteractive tzdata
   - npm install
   - bundle exec rake bower:install
   - cp config/database.travis.yml config/database.yml
