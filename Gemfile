@@ -55,6 +55,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'capybara'
+  gem 'rubocop', require: false
 end
 
 group :development do
