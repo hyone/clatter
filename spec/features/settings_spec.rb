@@ -1,33 +1,35 @@
 require 'rails_helper'
 include SettingsHelper
 
-
 describe 'Settings Page' do
-
   def submit
     click_on I18n.t('views.settings.form.submit')
   end
 
   subject { page }
 
-  let (:current_password) { 'password' }
-  let (:user) { FactoryGirl.create(
-    :user,
-    password: current_password,
-    password_confirmation: current_password
-  ) }
+  let(:current_password) { 'password' }
+  let(:user) do
+    FactoryGirl.create(
+      :user,
+      password: current_password,
+      password_confirmation: current_password
+    )
+  end
 
   describe 'GET /settings/account', js: true do
     context 'as guest' do
-      def path; settings_account_path end
+      def path
+        settings_account_path
+      end
       include_examples 'a user requirable page'
     end
 
     context 'as user' do
-      before {
+      before do
         signin user
         visit settings_account_path
-      }
+      end
 
       its(:status_code) { should == 200 }
 
@@ -40,14 +42,15 @@ describe 'Settings Page' do
 
       describe 'Form' do
         context 'when user has not set password yet' do
-          let! (:user) {
-            o = FactoryGirl.build(:user, password: nil, password_confirmation: nil)
-            o.save(validation: nil); o
-          }
-          before {
+          let!(:user) do
+            u = FactoryGirl.build(:user, password: nil, password_confirmation: nil)
+            u.save(validation: nil)
+            u
+          end
+          before do
             signin user
             visit settings_account_path
-          }
+          end
 
           it 'should disable input forms' do
             should have_selector('input.form-control[disabled=disabled]')
@@ -60,11 +63,11 @@ describe 'Settings Page' do
         end
 
         context "when click 'Save Changes' button" do
-          let! (:new_email) { 'changed@example.com' }
-          before {
+          let!(:new_email) { 'changed@example.com' }
+          before do
             fill_in 'user[email]', with: new_email
             click_on 'settings-confirm-password-button'
-          }
+          end
 
           it 'should display password dialog' do
             expect(page.find('#password-dialog')).to be_visible
@@ -72,9 +75,9 @@ describe 'Settings Page' do
 
           context 'and then click cancel button' do
             it 'should not modify settings' do
-              expect {
+              expect do
                 click_on 'settings-account-cancel-button'
-              }.not_to change {
+              end.not_to change {
                 user.reload.email
               }.from(user.email)
             end
@@ -87,27 +90,26 @@ describe 'Settings Page' do
 
           context 'and then submit password' do
             it 'should modify settings' do
-              expect {
+              expect do
                 fill_in 'user[current_password]', with: 'password'
                 click_on 'settings-account-submit-button'
-              }.to change {
+              end.to change {
                 user.reload.email
               }.from(user.email).to(new_email)
             end
           end
-
         end
       end
 
       # oauth
       describe 'OAuth' do
-        let! (:provider) { 'developer' }
-        let! (:text_connect) { text_connect_provider(provider) }
-        let! (:text_disconnect) { text_disconnect_provider(provider) }
+        let!(:provider) { 'developer' }
+        let!(:text_connect) { text_connect_provider(provider) }
+        let!(:text_disconnect) { text_disconnect_provider(provider) }
         before { setup_omniauth(provider) }
 
         # require:
-        # - let (:authentication) { ... }
+        # - let(:authentication) { ... }
         shared_examples 'an disconnectable provider link' do
           it { should_not have_link(text_connect, user_omniauth_authorize_path(provider)) }
           it { should have_link(text_disconnect_provider(provider), authentication_path(authentication)) }
@@ -122,37 +124,38 @@ describe 'Settings Page' do
           it { should have_link(text_connect, user_omniauth_authorize_path(provider)) }
 
           context 'after clicking the link to connect provider' do
-            before {
+            before do
               click_link text_connect_provider(provider)
               # back to setting page
               visit settings_account_path
-            }
+            end
 
             include_examples 'an disconnectable provider link' do
-              let (:authentication) { user.authentications.find_by(provider: provider) }
+              let(:authentication) { user.authentications.find_by(provider: provider) }
             end
           end
         end
 
         context 'when have already linked to provider' do
-          let! (:authentication) {
+          let!(:authentication) do
             FactoryGirl.create(:authentication, provider: provider, user: user)
-          }
+          end
           before { visit settings_account_path }
 
           include_examples 'an disconnectable provider link'
 
           context 'and then the user has not set password yet' do
-            let! (:user) {
-              o = FactoryGirl.build(:user, password: nil, password_confirmation: nil)
-              o.save(validation: nil); o
-            }
-            before {
+            let!(:user) do
+              u = FactoryGirl.build(:user, password: nil, password_confirmation: nil)
+              u.save(validation: nil)
+              u
+            end
+            before do
               # replace the user with one without password
               authentication.user = user
               signin user
               visit settings_account_path
-            }
+            end
 
             it 'should have disabled link "Disconnect provider"' do
               should have_selector('a.disabled', text: text_disconnect_provider(provider))
@@ -160,10 +163,10 @@ describe 'Settings Page' do
           end
 
           context 'after clicking the link to disconnect provider' do
-            before {
+            before do
               click_link text_disconnect
               visit settings_account_path
-            }
+            end
             include_examples 'an disconnectable provider link'
           end
         end
@@ -181,16 +184,16 @@ describe 'Settings Page' do
 
           context 'when click cancel button' do
             it 'should not delete user account' do
-              expect {
-                click_on "cancel-action-button"
+              expect do
+                click_on 'cancel-action-button'
                 wait_for_ajax
-              }.not_to change {
+              end.not_to change {
                 User.exists?(user.id)
               }.from(true)
             end
 
             it 'should dismiss confirm dialog' do
-              click_on "cancel-action-button"
+              click_on 'cancel-action-button'
               expect(page.find('#confirm-dialog', visible: false)).not_to be_visible
             end
           end
@@ -214,23 +217,25 @@ describe 'Settings Page' do
 
   describe 'GET /settings/password', js: true do
     context 'as guest' do
-      def path; settings_password_path end
+      def path
+        settings_password_path
+      end
       include_examples 'a user requirable page'
     end
 
     context 'as user' do
-      before {
+      before do
         signin user
         visit settings_password_path
-      }
+      end
 
-      let (:new_password) { 'new_password' }
+      let(:new_password) { 'new_password' }
 
       shared_examples 'a password is not changed' do
         it 'should not change password' do
-          expect {
+          expect do
             submit
-          }.not_to change {
+          end.not_to change {
             user.reload.encrypted_password
           }.from(user.encrypted_password)
         end
@@ -245,109 +250,110 @@ describe 'Settings Page' do
       its(:status_code) { should == 200 }
 
       context 'without current password' do
-        before {
+        before do
           fill_in 'user[password]', with: new_password
           fill_in 'user[password_confirmation]', with: new_password
-        }
+        end
 
         include_examples 'a password is not changed'
 
-        it {
+        it do
           submit
           expect(page).to have_alert(:error, error_message(user, :current_password, :blank))
-        }
+        end
       end
 
       context 'with invalid current password' do
-        before {
+        before do
           fill_in 'user[password]', with: new_password
           fill_in 'user[password_confirmation]', with: new_password
           fill_in 'user[current_password]', with: current_password + 'wrong'
-        }
+        end
 
         include_examples 'a password is not changed'
 
-        it {
+        it do
           submit
           expect(page).to have_alert(:error, error_message(user, :current_password, :invalid))
-        }
+        end
       end
 
       context 'without password and password confirmation' do
-        before {
+        before do
           fill_in 'user[current_password]', with: current_password
-        }
+        end
 
         include_examples 'a password is not changed'
 
-        it {
+        it do
           submit
           expect(page).to have_alert(:error, error_message(user, :password, :blank))
           expect(page).to have_alert(:error, error_message(user, :password_confirmation, :blank))
-        }
+        end
       end
 
-
       context 'with password and password confirmation do not match' do
-        before {
+        before do
           fill_in 'user[password]', with: new_password
           fill_in 'user[password_confirmation]', with: new_password  + 'wrong'
           fill_in 'user[current_password]', with: current_password
-        }
+        end
 
         include_examples 'a password is not changed'
 
-        it {
+        it do
           submit
           expect(page).to have_alert(:error, error_message(user, :password_confirmation, :confirmation, :password))
-        }
+        end
       end
 
       context 'with valid parameters' do
-        before {
+        before do
           fill_in 'user[password]', with: new_password
           fill_in 'user[password_confirmation]', with: new_password
           fill_in 'user[current_password]', with: current_password
-        }
+        end
 
         it 'should change password' do
-          expect {
+          expect do
             submit
-          }.to change {
+          end.to change {
             user.reload.encrypted_password
           }.from(user.encrypted_password)
         end
 
-        it {
+        it do
           submit
           should_not have_alert(:alert)
-        }
+        end
       end
     end
   end
 
   describe 'GET /settings/profile', js: true do
     context 'as guest' do
-      def path; settings_password_path end
+      def path
+        settings_password_path
+      end
       include_examples 'a user requirable page'
     end
 
     context 'as user' do
-      before {
+      before do
         signin user
         visit settings_profile_path
-      }
+      end
 
       context 'with valid parameters' do
-        let (:new_url) { 'http://wwww.example.com/' }
-        before {
+        let(:new_url) { 'http://wwww.example.com/' }
+        before do
           fill_in 'user[url]', with: new_url
-        }
+        end
 
         it 'should change password' do
-          expect {
+          expect do
             submit
-          }.to change {
+          end.to change {
             user.reload.url
           }.from(user.url).to(new_url)
         end

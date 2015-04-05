@@ -17,9 +17,8 @@
 
 require 'rails_helper'
 
-
 describe Favorite, type: :model do
-  let (:favorite) { FactoryGirl.create(:favorite) }
+  let(:favorite) { FactoryGirl.create(:favorite) }
 
   subject { favorite }
 

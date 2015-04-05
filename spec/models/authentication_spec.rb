@@ -19,7 +19,7 @@
 require 'rails_helper'
 
 describe Authentication, type: :model do
-  let (:authentication) { FactoryGirl.create(:authentication) }
+  let(:authentication) { FactoryGirl.create(:authentication) }
 
   subject { authentication }
 
@@ -47,7 +47,6 @@ describe Authentication, type: :model do
     it { should respond_to(:url) }
   end
 
-
   describe '#deletable' do
     subject { authentication.deletable? }
 
@@ -64,11 +63,13 @@ describe Authentication, type: :model do
       end
 
       context 'and has more than one authentication' do
-        before { FactoryGirl.create(
-          :authentication,
-          user: authentication.user,
-          provider: 'github'
-        ) }
+        before do
+          FactoryGirl.create(
+            :authentication,
+            user: authentication.user,
+            provider: 'github'
+          )
+        end
         it { should be_truthy }
       end
     end

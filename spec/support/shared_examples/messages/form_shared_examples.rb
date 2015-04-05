@@ -26,7 +26,6 @@ def blur_textarea
   page.find("\##{textarea_id}").trigger('blur')
 end
 
-
 shared_examples 'post button is disabled' do
   it 'post button should be disabled', js: true do
     expect(page).to have_selector("\##{submit_id}:disabled")
@@ -58,7 +57,6 @@ shared_examples 'textarea counter is danger color' do
   end
 end
 
-
 # a shared context requires conditions below:
 # - let(:prefix) { 'prefix' }
 #
@@ -68,16 +66,12 @@ end
 #   foldable message form
 
 shared_examples 'a new postable form' do |type = :modal|
-  if type == :foldable
-    include_examples 'form is folded'
-  end
+  include_examples 'form is folded' if type == :foldable
 
   context 'when focus on textarea', js: true do
     before { focus_textarea }
 
-    if type == :foldable
-      include_examples 'form is opened'
-    end
+    include_examples 'form is opened' if type == :foldable
 
     context 'with empty text' do
       include_examples 'post button is disabled'
@@ -106,20 +100,19 @@ shared_examples 'a new postable form' do |type = :modal|
         end
       end
 
-
       shared_examples 'new message creatable' do
         it 'should create a new message' do
-          expect {
+          expect do
             submit
             wait_for_ajax
-          }.to change(Message, :count).by(1)
+          end.to change(Message, :count).by(1)
         end
 
         describe 'textarea' do
-          before {
+          before do
             submit
             wait_for_ajax
-          }
+          end
 
           it 'content should be cleared' do
             expect(textarea_content).to be_empty
@@ -141,7 +134,7 @@ shared_examples 'a new postable form' do |type = :modal|
 
       def hit_enter_key(ctrl: false, meta: false)
         page.execute_script <<-EOC
-          var e = $.Event('keydown', { keyCode: 13, ctrlKey: true, metaKey: false });
+          var e = $.Event('keydown', { keyCode: 13, ctrlKey: #{ctrl}, metaKey: #{meta} });
           $('##{textarea_id}').trigger(e);
         EOC
       end
@@ -176,7 +169,6 @@ shared_examples 'a new postable form' do |type = :modal|
   end
 end
 
-
 # a shared context requires variables below:
 # - let(:prefix)  { 'prefix' }
 # - let(:message) { ... }
@@ -200,10 +192,10 @@ shared_examples 'a replyable form' do |type = :modal|
 
     context 'and then when modify content' do
       context 'with modifying only trailing spaces' do
-        before {
+        before do
           fill_in_textarea(textarea_content + '   ')
           focus_textarea
-        }
+        end
         include_examples 'post button is disabled'
 
         if type == :foldable
@@ -215,10 +207,10 @@ shared_examples 'a replyable form' do |type = :modal|
       end
 
       context 'with appending text' do
-        before {
+        before do
           fill_in_textarea textarea_content + 'hello!!'
           focus_textarea
-        }
+        end
         include_examples 'post button is enabled'
 
         if type == :foldable
@@ -232,7 +224,6 @@ shared_examples 'a replyable form' do |type = :modal|
   end
 end
 
-
 # a shared context requires variables below:
 # - let(:prefix)  { 'prefix' }
 # - let(:message) { ... }     # message.user must be different person from the logined user
@@ -244,6 +235,6 @@ shared_examples 'a multi replyable form' do
   it 'text should include @screen_name of all reply users except logined user', js: true do
     expect(textarea_content).to \
       include("@#{reply.user.screen_name}").and \
-      include("@#{message.user.screen_name}")
+        include("@#{message.user.screen_name}")
   end
 end

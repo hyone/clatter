@@ -1,10 +1,9 @@
 require 'rails_helper'
 include ApiHelpers
 
-
 describe 'Favorites pages' do
-  let! (:user) { FactoryGirl.create(:user) }
-  let! (:message) { FactoryGirl.create(:message) }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:message) { FactoryGirl.create(:message) }
 
   # XXX: Using counter_cache causes the problem of no affection to counter change in the same transaction
   #      so, we sometime got +-1 margin of error
@@ -22,7 +21,6 @@ describe 'Favorites pages' do
     end
   end
 
-
   describe 'POST /favorites' do
     def xhr_post_favorites
       xhr :post, favorites_path(format: 'json'), favorite: { message_id: message.id }
@@ -37,7 +35,6 @@ describe 'Favorites pages' do
 
     context 'as user' do
       before { signin user }
-
 
       context 'with valid parameters' do
         it 'should respond with 200' do
@@ -84,13 +81,11 @@ describe 'Favorites pages' do
           include_examples 'json error responsable'
         end
       end
-
     end
   end
 
-
   describe 'DELETE /favorites/:id' do
-    let! (:favorite) { FactoryGirl.create(:favorite, user: user, message: message) }
+    let!(:favorite) { FactoryGirl.create(:favorite, user: user, message: message) }
 
     def xhr_delete_favorite(m)
       xhr :delete, favorite_path(m, format: 'json')
@@ -104,7 +99,7 @@ describe 'Favorites pages' do
     end
 
     context 'as non owner' do
-      let (:other_user) { FactoryGirl.create(:user) }
+      let(:other_user) { FactoryGirl.create(:user) }
       before { signin other_user }
       it 'should response with 401' do
         xhr_delete_favorite(favorite)

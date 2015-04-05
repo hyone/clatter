@@ -1,11 +1,10 @@
 require 'rails_helper'
 
-
 describe 'User Panel', type: :feature, js: true do
-  let (:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:user) }
   before { visit user_path(user) }
 
-  def path(user)
+  def path(_user)
     users_path
   end
 

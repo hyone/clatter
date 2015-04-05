@@ -27,6 +27,6 @@ class Authentication < ActiveRecord::Base
   # be able to delete the authentication,
   # only when its user has the pasword or other authentications
   def deletable?
-    !user.encrypted_password.to_s.empty? or user.authentications.count > 1
+    !user.encrypted_password.to_s.empty? || user.authentications.count > 1
   end
 end

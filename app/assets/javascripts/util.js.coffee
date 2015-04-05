@@ -16,7 +16,7 @@ class Clatter.util
   @trim: (str) ->
     str.replace /(^\s+)|(\s+$)/g, ""
 
-  @users_reply_to: (message, currentUser = null) ->
+  @usersReplyTo: (message, currentUser = null) ->
     r = _.chain message.reply_users
          .union [message.user]
          .filter (m) -> m.id isnt currentUser?.id
@@ -24,7 +24,7 @@ class Clatter.util
     if r.length > 0 then r else [message.user]
 
   @replyText: (message, currentUser = null) ->
-    _.chain @users_reply_to(message, currentUser)
+    _.chain @usersReplyTo(message, currentUser)
      .pluck 'screen_name'
      .map (s) -> "@#{s}"
      .join ' '

@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 describe 'Home pages', type: :feature, js: true do
   subject { page }
 
@@ -10,32 +9,34 @@ describe 'Home pages', type: :feature, js: true do
     it { should have_title(page_title) }
 
     context 'as guest' do
-      it { should have_content(
-        I18n.t('views.home.index.welcome_message', appname: I18n.t('views.generic.appname'))
-      ) }
+      it do
+        should have_content(
+          I18n.t('views.home.index.welcome_message', appname: I18n.t('views.generic.appname'))
+        )
+      end
       it { should have_link(I18n.t('views.home.index.signup_now'), new_user_registration_path) }
     end
 
     context 'as user' do
-      let (:user) { FactoryGirl.create(:user) }
-      before {
+      let(:user) { FactoryGirl.create(:user) }
+      before do
         signin user
         visit current_path
-      }
+      end
 
       context 'in profile panel' do
-        before {
+        before do
           FactoryGirl.create_list(:message, 3, user: user)
           FactoryGirl.create_list(:follow, 4, follower: user)
           FactoryGirl.create_list(:follow, 5, followed: user)
           visit current_path
-        }
+        end
 
         it { should have_link(user.name, href: user_path(user)) }
         it { should have_link(user.screen_name, href: user_path(user)) }
 
         # messages
-        it "should have messages link with its count" do
+        it 'should have messages link with its count' do
           expect(page).to have_link(
             I18n.t('views.home.index.profile.messages'),
             href: user_path(user)
@@ -47,7 +48,7 @@ describe 'Home pages', type: :feature, js: true do
         end
 
         # following
-        it "should have following link with its count" do
+        it 'should have following link with its count' do
           expect(page).to have_link(
             I18n.t('views.home.index.profile.following'),
             href: following_user_path(user)
@@ -59,7 +60,7 @@ describe 'Home pages', type: :feature, js: true do
         end
 
         # followers
-        it "should have followers link with its count" do
+        it 'should have followers link with its count' do
           expect(page).to have_link(
             I18n.t('views.home.index.profile.followers'),
             href: followers_user_path(user)
@@ -73,12 +74,12 @@ describe 'Home pages', type: :feature, js: true do
 
       context 'in timeline panel' do
         context 'when has some messages' do
-          before {
-            (UsersController::MESSAGE_PAGE_SIZE + 1).times {
+          before do
+            (UsersController::MESSAGE_PAGE_SIZE + 1).times do
               FactoryGirl.create(:message, user: user)
-            }
+            end
             visit current_path
-          }
+          end
 
           it 'should not have greeting text' do
             should_not have_selector('.empty-description', text: I18n.t('views.home.index.empty_description'))
@@ -101,10 +102,8 @@ describe 'Home pages', type: :feature, js: true do
           end
         end
       end
-
     end
   end
-
 
   describe 'GET /about' do
     before { visit about_path }
@@ -112,7 +111,6 @@ describe 'Home pages', type: :feature, js: true do
     it { should have_title(page_title('About')) }
     it { should have_content('Home#about') }
   end
-
 
   describe 'GET /mentions' do
     before { visit mentions_path }
@@ -124,11 +122,11 @@ describe 'Home pages', type: :feature, js: true do
     end
 
     context 'as user' do
-      let (:user) { FactoryGirl.create(:user) }
-      before { 
+      let(:user) { FactoryGirl.create(:user) }
+      before do
         signin user
         visit mentions_path
-      }
+      end
 
       its(:status_code) { should eq(200) }
 
@@ -158,28 +156,34 @@ describe 'Home pages', type: :feature, js: true do
         end
 
         context 'when has some messages' do
-          let! (:followed_user) {
+          let!(:followed_user) do
             u = FactoryGirl.create(:user)
             FactoryGirl.create(:follow, follower: user, followed: u)
             u
-          }
-          let! (:reply_from_followed_user) { FactoryGirl.create(
-            :message_with_reply,
-            user: followed_user,
-            users_replied_to: [user]
-          ) }
-          let! (:reply_from_other) { FactoryGirl.create(
-            :message_with_reply,
-            users_replied_to: [user]
-          ) }
+          end
+          let!(:reply_from_followed_user) do
+            FactoryGirl.create(
+              :message_with_reply,
+              user: followed_user,
+              users_replied_to: [user]
+            )
+          end
+          let!(:reply_from_other) do
+            FactoryGirl.create(
+              :message_with_reply,
+              users_replied_to: [user]
+            )
+          end
 
           context 'when "filter" parameter is none' do
             before { visit current_path }
 
-            it { should have_link(
-              I18n.t('views.home.mentions.people_you_follow'),
-              mentions_path(filter: 'following')
-            ) }
+            it do
+              should have_link(
+                I18n.t('views.home.mentions.people_you_follow'),
+                mentions_path(filter: 'following')
+              )
+            end
 
             it 'should have all replies' do
               expect(page).to have_selector("#message-#{reply_from_followed_user.id}")
@@ -202,22 +206,21 @@ describe 'Home pages', type: :feature, js: true do
     end
   end
 
-
   describe 'GET /search' do
     before { visit search_path }
 
     def search(keyword)
       visit current_path
-      fill_in  'navigation-search-input', with: keyword
+      fill_in 'navigation-search-input', with: keyword
       click_on 'navigation-search-submit'
     end
 
     shared_examples 'no results' do
-      let (:keyword) { 'no-match-keywords' }
-      before {
+      let(:keyword) { 'no-match-keywords' }
+      before do
         search keyword
         click_on 'search-menu-mode-users' if mode == 'users'
-      }
+      end
 
       it 'should display no result message' do
         expect(page).to have_selector(
@@ -233,7 +236,7 @@ describe 'Home pages', type: :feature, js: true do
     #   foldable message form
     shared_examples 'searchable' do |type = :guest|
       if type == :user
-        let (:user) { FactoryGirl.create(:user) }
+        let(:user) { FactoryGirl.create(:user) }
         before { signin user }
       end
 
@@ -255,34 +258,35 @@ describe 'Home pages', type: :feature, js: true do
 
       context 'in messages search' do
         context 'with matched results' do
-          let! (:message_match1)  { FactoryGirl.create(:message, text: 'keyword 1') }
-          let! (:message_match2)  { FactoryGirl.create(:message, text: 'some keyword 2') }
-          let! (:message_nomatch) { FactoryGirl.create(:message, text: 'other text') }
+          let!(:message_match1)  { FactoryGirl.create(:message, text: 'keyword 1') }
+          let!(:message_match2)  { FactoryGirl.create(:message, text: 'some keyword 2') }
+          let!(:message_nomatch) { FactoryGirl.create(:message, text: 'other text') }
 
           before { search 'keyword' }
 
           it 'should display only matched messages' do
-            expect(page).to have_selector("#message-#{message_match1.id}").and \
-                            have_selector("#message-#{message_match2.id}")
+            expect(page).to \
+              have_selector("#message-#{message_match1.id}").and \
+                have_selector("#message-#{message_match2.id}")
             expect(page).not_to have_selector("#message-#{message_nomatch.id}", visible: false)
           end
 
           if type == :user
             context "when click 'People You follow' menu" do
-              let! (:message_followed_match) {
+              let!(:message_followed_match) do
                 FactoryGirl.create(
                   :message,
                   text: 'hoge keyword',
                   user: FactoryGirl.create(:follow, follower: user).followed
                 )
-              }
-              let! (:message_followed_nomatch) {
+              end
+              let!(:message_followed_nomatch) do
                 FactoryGirl.create(
                   :message,
                   text: 'other text',
                   user: FactoryGirl.create(:follow, follower: user).followed
                 )
-              }
+              end
 
               before { click_on 'search-menu-range-followed-users' }
 
@@ -297,40 +301,41 @@ describe 'Home pages', type: :feature, js: true do
 
         context 'with no result' do
           include_examples 'no results' do
-            let (:mode) { 'messages' }
+            let(:mode) { 'messages' }
           end
         end
       end
 
       context 'in users search' do
         context 'with matched results' do
-          let! (:user_match1)  { FactoryGirl.create(:user, screen_name: 'a_keyword_user') }
-          let! (:user_match2)  { FactoryGirl.create(:user, name: 'keyword2 user') }
-          let! (:user_match3)  { FactoryGirl.create(:user, description: 'hoge fuga keyword-description') }
-          let! (:user_nomatch) { FactoryGirl.create(:user, screen_name: 'no_match_user') }
+          let!(:user_match1)  { FactoryGirl.create(:user, screen_name: 'a_keyword_user') }
+          let!(:user_match2)  { FactoryGirl.create(:user, name: 'keyword2 user') }
+          let!(:user_match3)  { FactoryGirl.create(:user, description: 'hoge fuga keyword-description') }
+          let!(:user_nomatch) { FactoryGirl.create(:user, screen_name: 'no_match_user') }
 
-          before {
+          before do
             search 'keyword'
             click_on 'search-menu-mode-users'
-          }
+          end
 
           it 'should display only matched users' do
-            expect(page).to have_selector("#user-#{user_match1.id}").and \
-                            have_selector("#user-#{user_match2.id}").and \
-                            have_selector("#user-#{user_match3.id}")
+            expect(page).to \
+              have_selector("#user-#{user_match1.id}").and \
+                have_selector("#user-#{user_match2.id}").and \
+                  have_selector("#user-#{user_match3.id}")
             expect(page).not_to have_selector("#user-#{user_nomatch.id}", visible: false)
           end
 
           if type == :user
             context "when click 'People You follow' menu" do
-              let! (:user_followed_match) {
+              let!(:user_followed_match) do
                 u = FactoryGirl.create(:user, screen_name: 'a_keyword3_user')
                 FactoryGirl.create(:follow, follower: user, followed: u).followed
-              }
-              let! (:user_followed_nomatch) {
+              end
+              let!(:user_followed_nomatch) do
                 u = FactoryGirl.create(:user, screen_name: 'no_match_user2')
                 FactoryGirl.create(:follow, follower: user, followed: u).followed
-              }
+              end
 
               before { click_on 'search-menu-range-followed-users' }
 
@@ -347,12 +352,11 @@ describe 'Home pages', type: :feature, js: true do
 
         context 'with no result' do
           include_examples 'no results' do
-            let (:mode) { 'users' }
+            let(:mode) { 'users' }
           end
         end
       end
     end
-
 
     context 'as guest' do
       include_examples 'searchable', :guest

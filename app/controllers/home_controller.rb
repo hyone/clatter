@@ -7,16 +7,16 @@ class HomeController < ApplicationController
   MESSAGE_PAGE_SIZE = 30
 
   def index
-    if user_signed_in?
-      @user    = current_user
-      @message = @user.messages.build
-      @page    = params[:page] || 1
-      @feeds   = @user
-                   .timeline
-                   .includes(*preload_fields)
-                   .page(@page)
-                   .per(MESSAGE_PAGE_SIZE)
-    end
+    return unless user_signed_in?
+
+    @user    = current_user
+    @message = @user.messages.build
+    @page    = params[:page] || 1
+    @feeds   = @user
+               .timeline
+               .includes(*preload_fields)
+               .page(@page)
+               .per(MESSAGE_PAGE_SIZE)
   end
 
   def about
@@ -29,12 +29,11 @@ class HomeController < ApplicationController
     @user  = current_user
     @page  = params[:page] || 1
     @feeds = @user
-               .mentions(filter: params[:filter])
-               .includes(*preload_fields)
-               .page(@page)
-               .per(MESSAGE_PAGE_SIZE)
+             .mentions(filter: params[:filter])
+             .includes(*preload_fields)
+             .page(@page)
+             .per(MESSAGE_PAGE_SIZE)
   end
-
 
   concerning :Searchable do
     included do
@@ -42,9 +41,10 @@ class HomeController < ApplicationController
 
       def search
         @page  = params[:page] || 1
-        @feeds = @q.result
-        .page(@page)
-        .per(MESSAGE_PAGE_SIZE)
+        @feeds = @q
+                 .result
+                 .page(@page)
+                 .per(MESSAGE_PAGE_SIZE)
 
         case @search[:mode]
         when 'messages'
@@ -52,14 +52,13 @@ class HomeController < ApplicationController
         end
       end
 
-
       private
 
       def init_search
         p = search_params
 
         @search = { params: p }
-        @search[:text]  = p.fetch(:text, "")
+        @search[:text]  = p.fetch(:text, '')
         @search[:mode]  = case p[:mode]
                           when 'users' then p[:mode]
                           else 'messages'

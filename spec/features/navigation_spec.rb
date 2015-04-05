@@ -1,14 +1,13 @@
 require 'rails_helper'
 
-
 describe 'Navigation', type: :feature, js: true do
-  let (:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:user) }
   subject { page }
 
-  before {
+  before do
     signin user
     visit root_path
-  }
+  end
 
   describe 'Home' do
     it { should have_link(I18n.t('views.navigation.home'), root_path) }
@@ -54,7 +53,7 @@ describe 'Navigation', type: :feature, js: true do
     end
 
     include_examples 'a new postable form' do
-      let (:prefix) { 'modal' }
+      let(:prefix) { 'modal' }
     end
   end
 end

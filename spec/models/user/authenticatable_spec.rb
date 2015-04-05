@@ -1,8 +1,7 @@
 require 'rails_helper'
 
-
 describe User::Authenticatable, type: :model do
-  let (:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:user) }
   subject { user }
 
   describe '#login' do

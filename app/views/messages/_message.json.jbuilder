@@ -11,9 +11,9 @@ json.user do
 end
 
 json.permissions do
-  json.read     can?(:read, message)
-  json.destroy  can?(:destroy, message)
-  json.retweet  can?(:create, Retweet.new(user: current_user, message: message))
+  json.read can?(:read, message)
+  json.destroy can?(:destroy, message)
+  json.retweet can?(:create, Retweet.new(user: current_user, message: message))
   json.favorite can?(:create, Favorite.new(user: current_user, message: message))
 end
 

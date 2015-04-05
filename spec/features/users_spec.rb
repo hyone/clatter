@@ -1,14 +1,13 @@
 require 'rails_helper'
 
-
 describe 'Users pages', type: :feature do
   subject { page }
 
   describe 'GET /u' do
-    before {
-      FactoryGirl.create_list(:user, UsersController::USER_PAGE_SIZE+1)
+    before do
+      FactoryGirl.create_list(:user, UsersController::USER_PAGE_SIZE + 1)
       visit users_path
-    }
+    end
 
     describe 'content' do
       it { should have_title(I18n.t('views.users.index.title')) }
@@ -25,9 +24,8 @@ describe 'Users pages', type: :feature do
     end
   end
 
-
   describe 'GET /u/:screen_name' do
-    let (:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
     before { visit user_path(user) }
 
     describe 'url' do
@@ -40,37 +38,43 @@ describe 'Users pages', type: :feature do
     describe 'content' do
       describe 'messages panel' do
         context 'in header' do
-          it { should have_link(
-            I18n.t('views.users.show.messages_and_replies'),
-            with_replies_user_path(user)
-          ) }
+          it do
+            should have_link(
+              I18n.t('views.users.show.messages_and_replies'),
+              with_replies_user_path(user)
+            )
+          end
         end
 
         context 'in pagination' do
-          before {
+          before do
             stub_const('UsersController::MESSAGE_PAGE_SIZE', 10)
-            FactoryGirl.create_list(:message, UsersController::MESSAGE_PAGE_SIZE+1, user: user)
+            FactoryGirl.create_list(:message, UsersController::MESSAGE_PAGE_SIZE + 1, user: user)
             visit current_path
-          }
+          end
 
           it { should have_selector('ul.pagination') }
 
           it 'should list each feed in page 1', js: true do
-            user.messages_without_replies.newer.
-              page(1).per(UsersController::MESSAGE_PAGE_SIZE).each do |m|
-              expect(page).to have_message(m)
-            end
+            user
+              .messages_without_replies
+              .newer
+              .page(1)
+              .per(UsersController::MESSAGE_PAGE_SIZE)
+              .each do |m|
+                expect(page).to have_message(m)
+              end
           end
         end
 
         context 'in messages list', js: true do
-          let! (:messages) { FactoryGirl.create_list(:message, 10, user: user) }
-          let! (:reply) { FactoryGirl.create(:message_with_reply, user: user) }
+          let!(:messages) { FactoryGirl.create_list(:message, 10, user: user) }
+          let!(:reply) { FactoryGirl.create(:message_with_reply, user: user) }
 
-          before {
+          before do
             stub_const('UsersController::MESSAGE_PAGE_SIZE', 20)
             visit current_path
-          }
+          end
 
           it 'should not display reply' do
             should_not have_message(reply)
@@ -84,9 +88,8 @@ describe 'Users pages', type: :feature do
     end
   end
 
-
   describe 'GET /u/:screen_name/with_replies' do
-    let (:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
     before { visit with_replies_user_path(user) }
 
     describe 'content' do
@@ -96,12 +99,12 @@ describe 'Users pages', type: :feature do
         end
 
         context 'in messages list', js: true do
-          let! (:messages) { FactoryGirl.create_list(:message, 10, user: user) }
-          let! (:replies) { FactoryGirl.create_list(:message_with_reply, 10, user: user) }
-          before {
+          let!(:messages) { FactoryGirl.create_list(:message, 10, user: user) }
+          let!(:replies) { FactoryGirl.create_list(:message_with_reply, 10, user: user) }
+          before do
             stub_const('UsersController::MESSAGE_PAGE_SIZE', 20)
             visit current_path
-          }
+          end
 
           it 'should display both messages and replies' do
             messages.each { |m| expect(page).to have_message(m) }
@@ -112,10 +115,9 @@ describe 'Users pages', type: :feature do
     end
   end
 
-
   describe 'GET /u/:screen_name/favorites', js: true do
-    let (:user) { FactoryGirl.create(:user) }
-    let (:login_user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:login_user) { FactoryGirl.create(:user) }
 
     context 'as guest' do
       before { visit favorites_user_path(user) }
@@ -125,10 +127,10 @@ describe 'Users pages', type: :feature do
     end
 
     context 'as user' do
-      before {
+      before do
         signin login_user
         visit favorites_user_path(user)
-      }
+      end
 
       describe 'content' do
         it { should have_title(I18n.t('views.users.favorites.title', user: username_formatted(user))) }
@@ -139,12 +141,12 @@ describe 'Users pages', type: :feature do
           end
 
           context 'in message list' do
-            let! (:favorites) { FactoryGirl.create_list(:favorite, 3, user: user) }
-            let! (:other_favorites) { FactoryGirl.create_list(:favorite, 7) }
-            before {
+            let!(:favorites) { FactoryGirl.create_list(:favorite, 3, user: user) }
+            let!(:other_favorites) { FactoryGirl.create_list(:favorite, 7) }
+            before do
               stub_const('UsersController::MESSAGE_PAGE_SIZE', 10)
               visit current_path    # reload page
-            }
+            end
 
             it "should display own favorite's messages" do
               favorites.each { |f| expect(page).to have_message(f.message) }
@@ -159,10 +161,9 @@ describe 'Users pages', type: :feature do
     end
   end
 
-
   describe 'GET /u/:screen_name/following', js: true do
-    let (:user) { FactoryGirl.create(:user) }
-    let (:login_user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:login_user) { FactoryGirl.create(:user) }
 
     context 'as guest' do
       before { visit following_user_path(user) }
@@ -172,22 +173,22 @@ describe 'Users pages', type: :feature do
     end
 
     context 'as user' do
-      before {
+      before do
         signin login_user
         visit following_user_path(user)
-      }
+      end
 
       describe 'content' do
         context 'in users panel' do
-          let! (:followed_users) { FactoryGirl.create_list(:user, 10) }
-          let! (:other_user) { FactoryGirl.create(:user) }
-          before {
+          let!(:followed_users) { FactoryGirl.create_list(:user, 10) }
+          let!(:other_user) { FactoryGirl.create(:user) }
+          before do
             followed_users.each do |u|
               FactoryGirl.create(:follow, follower: user, followed: u)
             end
             stub_const('UsersController::MESSAGE_PAGE_SIZE', 10)
             visit current_path
-          }
+          end
 
           it 'should display people the user follow' do
             followed_users.each do |u|
@@ -203,10 +204,9 @@ describe 'Users pages', type: :feature do
     end
   end
 
-
   describe 'GET /u/:screen_name/followers', js: true do
-    let (:user) { FactoryGirl.create(:user) }
-    let (:login_user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:login_user) { FactoryGirl.create(:user) }
 
     context 'as guest' do
       before { visit followers_user_path(user) }
@@ -216,22 +216,22 @@ describe 'Users pages', type: :feature do
     end
 
     context 'as user' do
-      before {
+      before do
         signin login_user
         visit followers_user_path(user)
-      }
+      end
 
       describe 'content' do
         context 'in users panel' do
-          let! (:followers) { FactoryGirl.create_list(:user, 10) }
-          let! (:other_user) { FactoryGirl.create(:user) }
-          before {
+          let!(:followers) { FactoryGirl.create_list(:user, 10) }
+          let!(:other_user) { FactoryGirl.create(:user) }
+          before do
             followers.each do |u|
               FactoryGirl.create(:follow, follower: u, followed: user)
             end
             stub_const('UsersController::MESSAGE_PAGE_SIZE', 10)
             visit current_path
-          }
+          end
 
           it 'should display people follow the user' do
             followers.each do |u|
@@ -247,20 +247,23 @@ describe 'Users pages', type: :feature do
     end
   end
 
-
   describe 'GET /u/:screen_name/status/:status_id' do
-    let (:user) { FactoryGirl.create(:user) }
-    let (:message) { FactoryGirl.create(:message, user: user) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:message) { FactoryGirl.create(:message, user: user) }
 
     before { visit status_user_path(user, message.id) }
 
     describe 'content' do
-      it { should have_title(I18n.t(
-        'views.users.status.title',
-        user: user.name,
-        appname: I18n.t('views.generic.appname'),
-        message: message.text
-      )) }
+      it do
+        should have_title(
+          I18n.t(
+            'views.users.status.title',
+            user: user.name,
+            appname: I18n.t('views.generic.appname'),
+            message: message.text
+          )
+        )
+      end
     end
   end
 end

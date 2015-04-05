@@ -3,9 +3,9 @@
 # - path: method return path in which we test message, it is passed user and message
 #
 shared_examples 'a retweetable button' do
-  let! (:user) { FactoryGirl.create(:user) }
-  let! (:other_user) { FactoryGirl.create(:user) }
-  let! (:message) { FactoryGirl.create(:message, user: other_user) }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:other_user) { FactoryGirl.create(:user) }
+  let!(:message) { FactoryGirl.create(:message, user: other_user) }
 
   subject { page }
 
@@ -19,10 +19,10 @@ shared_examples 'a retweetable button' do
   end
 
   context 'as user' do
-    before {
+    before do
       signin user
       visit path(message)
-    }
+    end
 
     context "in other's user page" do
       context 'when message is not retweeted' do
@@ -48,9 +48,9 @@ shared_examples 'a retweetable button' do
 
           context 'when click cancel button' do
             it 'should not retweet the message' do
-              expect {
-                click_on "cancel-action-button"
-              }.not_to change {
+              expect do
+                click_on 'cancel-action-button'
+              end.not_to change {
                 Retweet.find_by(
                   user: user,
                   message: message
@@ -59,21 +59,21 @@ shared_examples 'a retweetable button' do
             end
 
             it 'should dismiss confirm dialog' do
-              click_on "cancel-action-button"
+              click_on 'cancel-action-button'
               expect(page.find('#confirm-dialog', visible: false)).not_to be_visible
             end
           end
 
           context 'when click ok button' do
             def click_ok_button
-              click_on "ok-action-button"
+              click_on 'ok-action-button'
               wait_for_ajax
             end
 
             it 'should retweet the message' do
-              expect {
+              expect do
                 click_ok_button
-              }.to change {
+              end.to change {
                 Retweet.find_by(
                   user: user,
                   message: message
@@ -96,10 +96,10 @@ shared_examples 'a retweetable button' do
       end
 
       context 'when message is retweeted' do
-        before {
+        before do
           FactoryGirl.create(:retweet, user: user, message: message)
           visit path(message)
-        }
+        end
 
         it 'unretweet button should be displayed' do
           expect(page).to have_selector("#message-#{message.id} .unretweet-button")
@@ -121,9 +121,9 @@ shared_examples 'a retweetable button' do
           end
 
           it 'should unretweet the message' do
-            expect {
+            expect do
               click_unretweet_button(message)
-            }.to change {
+            end.to change {
               Retweet.find_by(
                 user: user,
                 message: message
@@ -146,7 +146,7 @@ shared_examples 'a retweetable button' do
     end
 
     context 'in own user page' do
-      let! (:message) { FactoryGirl.create(:message, user: user) }
+      let!(:message) { FactoryGirl.create(:message, user: user) }
       before { visit path(message) }
 
       it 'retweet button should be disabled' do

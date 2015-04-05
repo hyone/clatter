@@ -1,10 +1,9 @@
 require 'rails_helper'
 include ActionView::Helpers::DateHelper
 
-
 describe 'Message Block', type: :feature, js: true do
-  let! (:user) { FactoryGirl.create(:user) }
-  let! (:message) { FactoryGirl.create(:message, user: user, created_at: 2.hours.ago) }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:message) { FactoryGirl.create(:message, user: user, created_at: 2.hours.ago) }
 
   subject { page }
 
@@ -12,7 +11,7 @@ describe 'Message Block', type: :feature, js: true do
 
   describe 'context block' do
     context 'when retweeted message' do
-      let! (:retweet) { FactoryGirl.create(:retweet, user: user) }
+      let!(:retweet) { FactoryGirl.create(:retweet, user: user) }
       before { visit current_path }
 
       it 'should display retweet context message' do
@@ -28,26 +27,28 @@ describe 'Message Block', type: :feature, js: true do
 
     context 'about date' do
       shared_examples 'a time zonable date title' do
-        let! (:message) { FactoryGirl.create(:message) }
-        let! (:login_user) { FactoryGirl.create(:user, time_zone: time_zone) }
-        before {
+        let!(:message) { FactoryGirl.create(:message) }
+        let!(:login_user) { FactoryGirl.create(:user, time_zone: time_zone) }
+        before do
           signin login_user
           visit user_path(message.user)
-        }
+        end
 
-        it { expect(find('a.message-time')['data-original-title']).to eq(
-          message.created_at.in_time_zone(login_user.time_zone).strftime('%-l:%M %p - %-d %b %Y')
-        ) }
+        it do
+          expect(find('a.message-time')['data-original-title']).to eq(
+            message.created_at.in_time_zone(login_user.time_zone).strftime('%-l:%M %p - %-d %b %Y')
+          )
+        end
       end
 
       it { should have_link('2 hours ago', user_path(message.user)) }
 
       context 'with UTC' do
-        let (:time_zone) { 'UTC' }
+        let(:time_zone) { 'UTC' }
         include_examples 'a time zonable date title'
       end
       context 'with Tokyo' do
-        let (:time_zone) { 'Tokyo' }
+        let(:time_zone) { 'Tokyo' }
         include_examples 'a time zonable date title'
       end
     end
@@ -61,10 +62,10 @@ describe 'Message Block', type: :feature, js: true do
     end
 
     context 'when keyword is highlighted' do
-      let! (:message1) { FactoryGirl.create(:message, text: 'hello World 1') }
-      let! (:compliment) { FactoryGirl.create(:user, screen_name: 'world') }
-      let! (:message2) { FactoryGirl.create(:message_with_reply, users_replied_to: [compliment] ) }
-      let (:keyword) { 'worl' }
+      let!(:message1) { FactoryGirl.create(:message, text: 'hello World 1') }
+      let!(:compliment) { FactoryGirl.create(:user, screen_name: 'world') }
+      let!(:message2) { FactoryGirl.create(:message_with_reply, users_replied_to: [compliment]) }
+      let(:keyword) { 'worl' }
       before { visit search_path('q[text]' => keyword) }
 
       it 'should highlight (replace) text' do

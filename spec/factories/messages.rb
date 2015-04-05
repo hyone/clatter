@@ -28,11 +28,11 @@ FactoryGirl.define do
         users_replied_to nil
       end
 
-      text {
+      text do
         users  = users_replied_to || create_list(:user, reply_count)
         prefix = users.map { |u| "@#{u.screen_name}" }.join(' ')
         "#{prefix} #{ Faker::Lorem.sentence(2) }"
-      }
+      end
 
       message_id_replied_to nil
     end

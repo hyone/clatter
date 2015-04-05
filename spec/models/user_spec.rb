@@ -35,9 +35,8 @@
 
 require 'rails_helper'
 
-
 describe User, type: :model do
-  let (:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:user) }
   subject { user }
 
   it 'original user should be valid' do
@@ -50,13 +49,15 @@ describe User, type: :model do
     it { should validate_length_of(:screen_name).is_at_most(15) }
 
     context 'when given proper screen_name' do
-      let (:screen_names) { %w[
-        a
-        a19
-        _hoge
-        fuga_hoge
-        fuga_hoge_hello
-      ] }
+      let(:screen_names) do
+        %w(
+          a
+          a19
+          _hoge
+          fuga_hoge
+          fuga_hoge_hello
+        )
+      end
       it 'should be valid' do
         screen_names.each do |screen_name|
           expect(subject).to allow_value(screen_name).for(:screen_name)
@@ -65,13 +66,15 @@ describe User, type: :model do
     end
 
     context 'when given wrong format screen_name' do
-      let (:screen_names) { %w[
-        1abc
-        _234
-        hoge.fuga
-        hoge-fuga
-        long_long_long_name
-      ] }
+      let(:screen_names) do
+        %w(
+          1abc
+          _234
+          hoge.fuga
+          hoge-fuga
+          long_long_long_name
+        )
+      end
       it 'should not be valid' do
         screen_names.each do |screen_name|
           expect(subject).not_to allow_value(screen_name).for(:screen_name)

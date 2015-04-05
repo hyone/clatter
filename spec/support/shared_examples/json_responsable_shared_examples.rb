@@ -5,7 +5,6 @@ shared_examples 'json success responsable' do
   end
 end
 
-
 shared_examples 'json error responsable' do
   it "should include status 'error'" do
     expect(json_response['response']['status']).to eq('error')

@@ -20,11 +20,11 @@ FactoryGirl.define do
     user
     message
 
-    initialize_with {
+    initialize_with do
       Favorite.where(
         user: user,
         message: message
       ).first_or_create
-    }
+    end
   end
 end

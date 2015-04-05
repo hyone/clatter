@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 describe Message::Timelinable, type: :model do
   describe '::timeline_of' do
     include_context 'messages of followed users'
@@ -8,12 +7,12 @@ describe Message::Timelinable, type: :model do
     subject { Message.timeline_of(user) }
 
     context 'about messages' do
-      let! (:message_user_reply_to_followed) {
+      let!(:message_user_reply_to_followed) do
         FactoryGirl.create(:message_with_reply, user: user, users_replied_to: [followed1])
-      }
-      let! (:message_user_reply_to_other) {
+      end
+      let!(:message_user_reply_to_other) do
         FactoryGirl.create(:message_with_reply, user: user, users_replied_to: [other])
-      }
+      end
 
       it "should include all the user's messages" do
         expect(subject).to include(
@@ -33,15 +32,15 @@ describe Message::Timelinable, type: :model do
     end
 
     context 'about replies' do
-      let! (:message_followed_reply_to_user) {
+      let!(:message_followed_reply_to_user) do
         FactoryGirl.create(:message_with_reply, user: followed1, users_replied_to: [user])
-      }
-      let! (:message_followed_reply_to_other) {
+      end
+      let!(:message_followed_reply_to_other) do
         FactoryGirl.create(:message_with_reply, user: followed1, users_replied_to: [other])
-      }
-      let! (:message_other_reply_to_user) {
+      end
+      let!(:message_other_reply_to_user) do
         FactoryGirl.create(:message_with_reply, user: other, users_replied_to: [user])
-      }
+      end
 
       it "should include followed user's reply to the user" do
         should include(message_followed_reply_to_user)
@@ -51,28 +50,27 @@ describe Message::Timelinable, type: :model do
         should_not include(message_other_reply_to_user)
       end
 
-      it "should not include any reply to other than the user" do
+      it 'should not include any reply to other than the user' do
         should_not include(message_followed_reply_to_other)
       end
     end
 
-
     context 'about retweeted messages' do
-      let! (:retweet_by_user) {
+      let!(:retweet_by_user) do
         FactoryGirl.create(:retweet, user: user)
-      }
-      let! (:retweet_by_followed) {
+      end
+      let!(:retweet_by_followed) do
         FactoryGirl.create(:retweet, user: followed1)
-      }
-      let! (:retweet_by_other) {
+      end
+      let!(:retweet_by_other) do
         FactoryGirl.create(:retweet, user: other)
-      }
+      end
 
-      it "should include message the user retweet" do
+      it 'should include message the user retweet' do
         should include(retweet_by_user.message)
       end
 
-      it "should include message followed users retweet" do
+      it 'should include message followed users retweet' do
         should include(retweet_by_followed.message)
       end
 
@@ -81,26 +79,30 @@ describe Message::Timelinable, type: :model do
       end
 
       context "when retweet followed user's message" do
-        let! (:retweet) { FactoryGirl.create(
-          :retweet, user: user, message: message_followed1
-        ) }
+        let!(:retweet) do
+          FactoryGirl.create(
+            :retweet, user: user, message: message_followed1
+          )
+        end
 
-        it "retweet_id of result record should be empty" do
+        it 'retweet_id of result record should be empty' do
           m = subject.find(retweet.message.id)
           expect(m.retweet_id).to be_nil
         end
       end
 
       context 'when the message is retweeted by multiple followed users (or the user)' do
-        let! (:retweet) { FactoryGirl.create(
-          :retweet, user: user , message: retweet_by_followed.message
-        ) }
+        let!(:retweet) do
+          FactoryGirl.create(
+            :retweet, user: user, message: retweet_by_followed.message
+          )
+        end
 
-        it "the message do not include twice" do
+        it 'the message do not include twice' do
           expect(subject.where(id: retweet.message.id).size).to eq(1)
         end
 
-        it "retweet_id of result record should be the original retweeter id" do
+        it 'retweet_id of result record should be the original retweeter id' do
           m = subject.find(retweet.message.id)
           expect(m.retweet_id).to eq(retweet_by_followed.id)
         end
@@ -108,5 +110,3 @@ describe Message::Timelinable, type: :model do
     end
   end
 end
-
-

@@ -14,4 +14,3 @@ if @status == :success
     end
   end
 end
-

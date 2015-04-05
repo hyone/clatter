@@ -15,8 +15,8 @@ class RetweetsController < ApplicationController
     @status = :success
   end
 
-
   private
+
   def retweet_params
     params.require(:retweet).permit(:message_id)
   end

@@ -3,15 +3,15 @@
 # - path: method return path in which we test message, it is passed user and message
 #
 shared_examples 'a user actionable button' do
-  let (:user) { FactoryGirl.create(:user) }
-  let (:other_user) { FactoryGirl.create(:user) }
-  let (:button_id) { "user-actions-#{user.screen_name}" }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:other_user) { FactoryGirl.create(:user) }
+  let(:button_id) { "user-actions-#{user.screen_name}" }
 
   context 'as guest', js: true do
-    before {
+    before do
       signout
       visit path(user)
-    }
+    end
 
     it 'should not be shown' do
       expect(page).not_to have_selector("\##{button_id}", visible: false)
@@ -19,10 +19,10 @@ shared_examples 'a user actionable button' do
   end
 
   context 'as user', js: true do
-    before {
+    before do
       signin other_user
       visit path(user)
-    }
+    end
 
     it 'should be shown' do
       expect(page).to have_selector("\##{button_id}")
@@ -40,7 +40,9 @@ shared_examples 'a user actionable button' do
 
         describe 'textarea' do
           it "should match '@screen_name'" do
-            expect(find('#modal-message-form-text').value).to match /@#{user.screen_name}/
+            expect(find('#modal-message-form-text').value).to match(
+              /#{ Regexp.escape "@#{user.screen_name}" }/
+            )
           end
         end
       end

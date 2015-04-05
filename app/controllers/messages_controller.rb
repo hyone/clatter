@@ -16,6 +16,7 @@ class MessagesController < ApplicationController
   end
 
   private
+
   def message_params
     params.require(:message).permit(:text, :message_id_replied_to)
   end

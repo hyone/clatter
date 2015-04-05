@@ -1,10 +1,9 @@
 require 'rails_helper'
 include ApiHelpers
 
-
 describe 'Retweets pages' do
-  let! (:user) { FactoryGirl.create(:user) }
-  let! (:message) { FactoryGirl.create(:message) }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:message) { FactoryGirl.create(:message) }
 
   describe 'POST /retweets' do
     def xhr_post_retweets
@@ -20,7 +19,6 @@ describe 'Retweets pages' do
 
     context 'as user' do
       before { signin user }
-
 
       context 'with valid parameters' do
         it 'should respond with 200' do
@@ -67,7 +65,7 @@ describe 'Retweets pages' do
       end
 
       context "with user's own message" do
-        let! (:message) { FactoryGirl.create(:message, user: user) }
+        let!(:message) { FactoryGirl.create(:message, user: user) }
 
         it 'should respond with 401' do
           xhr_post_retweets
@@ -77,9 +75,8 @@ describe 'Retweets pages' do
     end
   end
 
-
   describe 'DELETE /retweets/:id' do
-    let! (:retweet) { FactoryGirl.create(:retweet, user: user, message: message) }
+    let!(:retweet) { FactoryGirl.create(:retweet, user: user, message: message) }
 
     def xhr_delete_retweet(m)
       xhr :delete, retweet_path(m, format: 'json')
@@ -93,7 +90,7 @@ describe 'Retweets pages' do
     end
 
     context 'as non owner' do
-      let (:other_user) { FactoryGirl.create(:user) }
+      let(:other_user) { FactoryGirl.create(:user) }
       before { signin other_user }
       it 'should response with 401' do
         xhr_delete_retweet(retweet)
@@ -137,4 +134,3 @@ describe 'Retweets pages' do
     end
   end
 end
-

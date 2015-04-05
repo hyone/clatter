@@ -1,0 +1,41 @@
+AllCops:
+  RunRailsCops: true
+  Exclude:
+    - 'bin/*'
+    - 'db/schema.rb'
+    - 'vendor/**/*'
+    - '.*/**/*'
+
+Lint/Eval:
+  Exclude:
+    - 'spec/support/shared_contexts/conversation_shared_context.rb'
+
+Metrics/AbcSize:
+  Enabled: false
+
+# Configuration parameters: CountComments.
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+Style/BlockComments:
+  Exclude:
+    - 'spec/spec_helper.rb'
+
+Style/Documentation:
+  Enabled: false
+
+Style/LambdaCall:
+  Enabled: false
+
+Style/PredicateName:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Exclude:
+    - 'Guardfile'
+
+Style/SingleSpaceBeforeFirstArg:
+  Enabled: false
