@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 describe 'counter_culture:fix_counts' do
   include_context 'rake'
 

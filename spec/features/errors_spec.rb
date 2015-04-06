@@ -1,8 +1,7 @@
 require 'rails_helper'
 
-
 describe 'Authentication pages', type: :feature do
-  let (:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:user) }
 
   subject { page }
 
@@ -16,14 +15,14 @@ describe 'Authentication pages', type: :feature do
   end
 
   describe '500 internet server error' do
-    before {
+    before do
       allow_any_instance_of(UsersController).to receive(:show).and_raise('some error')
       visit user_path(user)
-    }
+    end
 
     describe 'content' do
       it { should have_title(I18n.t('views.errors.internet_server_error.title')) }
-      it { should have_content(I18n.t('views.errors.internet_server_error.message')) } 
+      it { should have_content(I18n.t('views.errors.internet_server_error.message')) }
     end
   end
 end

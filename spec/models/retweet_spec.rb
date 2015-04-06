@@ -17,9 +17,8 @@
 
 require 'rails_helper'
 
-
 describe Retweet, type: :model do
-  let (:retweet) { FactoryGirl.create(:retweet) }
+  let(:retweet) { FactoryGirl.create(:retweet) }
 
   subject { retweet }
 

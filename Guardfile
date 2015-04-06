@@ -12,38 +12,41 @@
 
 require 'active_support/inflector'
 
-
 guard :rspec, cmd: 'spring rspec' do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
-  watch('spec/spec_helper.rb')  { "spec" }
+  watch('spec/spec_helper.rb')  { 'spec' }
 
   watch(%r{^app/(.+)\.rb$}) { |m| "spec/#{m[1]}_spec.rb" }
 
   # model
-  watch(%r{^app/models/(.+)\.rb$}) { |m| [
-    "spec/models/#{m[1]}_spec.rb",
-    "spec/features/#{m[1].pluralize}_spec.rb"
-  ] }
+  watch(%r{^app/models/(.+)\.rb$}) do |m|
+    [
+      "spec/models/#{m[1]}_spec.rb",
+      "spec/features/#{m[1].pluralize}_spec.rb"
+    ]
+  end
 
   # controllers
-  watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| [
-    "spec/routing/#{m[1]}_routing_spec.rb",
-    "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb",
-    "spec/acceptance/#{m[1]}_spec.rb",
-    "spec/features/#{m[1]}_spec.rb"
-  ] }
+  watch(%r{^app/controllers/(.+)_(controller)\.rb$})  do |m|
+    [
+      "spec/routing/#{m[1]}_routing_spec.rb",
+      "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb",
+      "spec/acceptance/#{m[1]}_spec.rb",
+      "spec/features/#{m[1]}_spec.rb"
+    ]
+  end
 
   # views
-  watch(%r{^app/views/(.+)(\.erb|\.haml|\.slim)$}) { |m|
+  watch(%r{^app/views/(.+)(\.erb|\.haml|\.slim)$}) do |m|
     "spec/views/#{m[1]}#{m[2]}_spec.rb"
-  }
-  watch(%r{^app/views/(.+?)/(.+)(\.erb|\.haml|\.slim)}) { |m|
+  end
+  watch(%r{^app/views/(.+?)/(.+)(\.erb|\.haml|\.slim)}) do |m|
     "spec/features/#{m[1]}_spec.rb"
-  }
-  watch(%r{^app/views/layouts/(.+)(\.erb|\.haml|\.slim)$/}) { |m|
+  end
+  watch(%r{^app/views/layouts/(.+)(\.erb|\.haml|\.slim)$/}) do
     'spec/features'
-  }
+  end
 
   # other files
   watch(%r{^spec/support/(.+)\.rb$})                  { 'spec' }
@@ -55,5 +58,4 @@ guard :rspec, cmd: 'spring rspec' do
   watch('config/environment.rb') { 'spec' }
   watch(%r{^config/environments/.+\.rb$}) { 'spec' }
   watch(%r{^config/initializers/.+\.rb$}) { 'spec' }
-
 end

@@ -15,23 +15,21 @@ class ErrorsController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound,   with: :not_found
   rescue_from ActionController::RoutingError, with: :not_found
 
-
   def error
-    raise env['action_dispatch.exception']
+    fail env['action_dispatch.exception']
   end
 
-
   def bad_request(exception = nil)
-    message = exception.try(:message) || t("views.errors.bad_request.title")
+    message = exception.try(:message) || t('views.errors.bad_request.title')
     respond_error_to 'bad_request', 400, [message]
   end
 
   def unauthorized(exception = nil)
-    message = exception.try(:message) || t("views.errors.unauthorized.title")
+    message = exception.try(:message) || t('views.errors.unauthorized.title')
     respond_error_to 'unauthorized', 401, [message]
   end
 
-  def not_found(exception = nil)
+  def not_found(_exception = nil)
     respond_error_to 'not_found', 404, ['404 not found']
   end
 
@@ -42,19 +40,18 @@ class ErrorsController < ActionController::Base
     respond_error_to 'internet_server_error', 500, [exception.message, exception.class.name]
   end
 
-
   private
 
   def respond_error_to(action, status, message)
     respond_to do |format|
-      format.json {
+      format.json do
         render 'shared/_response',
                locals: { status: :error, messages: [message] },
                status: status
-      }
-      format.html {
+      end
+      format.html do
         render "errors/#{action}", locals: { message: message }, status: status
-      }
+      end
     end
   end
 end

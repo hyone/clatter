@@ -1,4 +1,3 @@
-
 Rails.application.routes.draw do
   root to: 'home#index'
 
@@ -15,22 +14,22 @@ Rails.application.routes.draw do
   }
   devise_scope :user do
     # signin and signout
-    get    '/login'    => 'devise/sessions#new',           as: :new_user_session
-    post   '/login'    => 'devise/sessions#create',        as: :user_session
-    delete '/logout'   => 'devise/sessions#destroy',       as: :destroy_user_session
+    get    '/login'  => 'devise/sessions#new',           as: :new_user_session
+    post   '/login'  => 'devise/sessions#create',        as: :user_session
+    delete '/logout' => 'devise/sessions#destroy',       as: :destroy_user_session
     # signup
-    get    '/signup'   => 'users/registrations#new',       as: :new_user_registration
-    post   '/signup'   => 'users/registrations#create',    as: :user_registration
-    get    '/cancel'   => 'users/registrations#cancel',    as: :cancel_user_registration
+    get  '/signup'   => 'users/registrations#new',       as: :new_user_registration
+    post '/signup'   => 'users/registrations#create',    as: :user_registration
+    get  '/cancel'   => 'users/registrations#cancel',    as: :cancel_user_registration
     # account deletion
-    delete '/u/:id'    => 'users/registrations#destroy',   as: :delete_user_registration
+    delete '/u/:id'  => 'users/registrations#destroy',   as: :delete_user_registration
     # settings
-    get    '/settings/account'  => 'settings#account'
-    get    '/settings/password' => 'settings#password'
-    get    '/settings/profile'  => 'settings#profile'
-    put    '/settings/password' => 'settings#update_password'
-    put    '/settings/:section' => 'settings#update_without_password', constraints: { section: /profile/ }
-    put    '/settings/:section' => 'settings#update_with_password'
+    get '/settings/account'  => 'settings#account'
+    get '/settings/password' => 'settings#password'
+    get '/settings/profile'  => 'settings#profile'
+    put '/settings/password' => 'settings#update_password'
+    put '/settings/:section' => 'settings#update_without_password', constraints: { section: /profile/ }
+    put '/settings/:section' => 'settings#update_with_password'
   end
 
   resources :users, only: [:index, :show], path: 'u' do
@@ -42,13 +41,6 @@ Rails.application.routes.draw do
       get 'status/:message_id' => 'users#status', as: :status
     end
   end
-
-  # devise_scope :settings do
-    # get  :account
-    # post :account, action: :account_update
-    # get  :password
-    # get  :profile
-  # end
 
   resources :authentications, only: [:index, :destroy]
   resources :favorites,       only: [:create, :destroy]

@@ -17,7 +17,6 @@ module ApplicationHelper
     end
   end
 
-
   # From https://github.com/tnantoka/miclo/
   def decode_bindings(encoded)
     space = '(\+|%20)'

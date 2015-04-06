@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class ProfileImageUploader < CarrierWave::Uploader::Base
-
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
@@ -43,7 +42,7 @@ class ProfileImageUploader < CarrierWave::Uploader::Base
   end
 
   # version :big do
-    # process resize_to_fill: [400, 400]
+  #   process resize_to_fill: [400, 400]
   # end
 
   # Process files as they are uploaded:
@@ -73,8 +72,9 @@ class ProfileImageUploader < CarrierWave::Uploader::Base
   end
 
   protected
+
   def secure_token
     v = :"@#{mounted_as}_secure_token"
-    model.instance_variable_get(v) or model.instance_variable_set(v, SecureRandom.uuid)
+    model.instance_variable_get(v) || model.instance_variable_set(v, SecureRandom.uuid)
   end
 end

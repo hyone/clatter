@@ -3,7 +3,7 @@ class SettingsController < Devise::RegistrationsController
 
   before_action :require_user
   before_action :set_user
-  before_action :get_resource
+  before_action :set_resource
 
   def account
   end
@@ -23,21 +23,20 @@ class SettingsController < Devise::RegistrationsController
   end
 
   def update_password
-    _params = params_change_password
+    permitted_params = params_change_password
     # validations
     [:password, :password_confirmation].each do |field|
-      resource.errors.add(field, :blank) if _params[field].blank?
+      resource.errors.add(field, :blank) if permitted_params[field].blank?
     end
 
-    update_process('password') {
-      resource.errors.empty? and update_resource(resource, _params)
-    }
+    update_process('password') do
+      resource.errors.empty? && update_resource(resource, permitted_params)
+    end
   end
-
 
   private
 
-  def get_resource
+  def set_resource
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
   end
 
@@ -63,9 +62,9 @@ class SettingsController < Devise::RegistrationsController
       case
       when new_password?(resource, params)
         params.delete(:current_password)
-        resource.update_attributes(params)
+        resource.update_attributes(params, *options)
       else
-        resource.update_with_password(params)
+        resource.update_with_password(params, *options)
       end
 
     clean_up_passwords resource
@@ -78,17 +77,16 @@ class SettingsController < Devise::RegistrationsController
 
   # when you have not had a password yet and try to add it.
   def new_password?(resource, params)
-    not has_password?(resource) and not params[:password].blank?
+    !has_password?(resource) && !params[:password].blank?
   end
-
 
   PARAMS_REQUIRE_PASSWORD = [
     :screen_name, :email, :password, :time_zone,
-    :current_password,
+    :current_password
   ]
   PARAMS_WITHOUT_PASSWORD = [
     :name, :url, :description,
-    :profile_image, :profile_image_cache, :remove_profile_image,
+    :profile_image, :profile_image_cache, :remove_profile_image
   ]
 
   def params_require_password

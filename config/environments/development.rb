@@ -39,7 +39,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  config.action_mailer.default_url_options = { host: "http://localhost:3000/" }
+  config.action_mailer.default_url_options = { host: 'http://localhost:3000/' }
 
   # bullet
   config.after_initialize do
@@ -50,9 +50,9 @@ Rails.application.configure do
     Bullet.console = true
     # Bullet.growl = true
     # Bullet.xmpp = { :account  => 'bullets_account@jabber.org',
-                    # :password => 'bullets_password_for_jabber',
-                    # :receiver => 'your_account@jabber.org',
-                    # :show_online_status => true }
+    #                 :password => 'bullets_password_for_jabber',
+    #                 :receiver => 'your_account@jabber.org',
+    #                 :show_online_status => true }
     # Bullet.bugsnag = true
     # Bullet.airbrake = true
     # Bullet.add_footer = true

@@ -1,14 +1,13 @@
 source 'https://rubygems.org'
 ruby '2.2.1'
 
-
 gem 'rails', '4.2.1'
 gem 'pg'
 
 # views
 gem 'bower-rails'
 gem 'coffee-rails', '~> 4.1.0'
-gem "coffee-script-source", "~> 1.8.0"
+gem 'coffee-script-source', '~> 1.8.0'
 gem 'i18n-js'
 gem 'jbuilder', '~> 2.0'
 gem 'sass-rails', '~> 5.0'
@@ -41,7 +40,6 @@ gem 'counter_culture', '~> 0.1.30'
 gem 'ransack'
 gem 'egison'
 
-
 group :doc do
   gem 'sdoc', '~> 0.4.0'
 end
@@ -55,6 +53,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'capybara'
+  gem 'rubocop', require: false
 end
 
 group :development do

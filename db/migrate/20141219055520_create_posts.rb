@@ -9,7 +9,7 @@ class CreatePosts < ActiveRecord::Migration
     end
 
     add_foreign_key :posts, :users,
-      name: 'fk_messages_user_id',
-      on_delete: :cascade
+                    name: 'fk_messages_user_id',
+                    on_delete: :cascade
   end
 end

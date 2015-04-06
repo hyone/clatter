@@ -5,26 +5,26 @@
 # arguments:
 # - content_navigation: whether or not check following/followers count change in content navigation
 shared_examples 'a followable button' do |content_navigation: false|
-  let! (:user) { FactoryGirl.create(:user) }
-  let! (:other_user) { FactoryGirl.create(:user) }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:other_user) { FactoryGirl.create(:user) }
 
   subject { page }
 
   context 'as guest' do
-    before {
+    before do
       signout
       visit path(other_user)
-    }
+    end
     it 'follow button should be disabled' do
       expect(page).to have_selector("#follow-#{other_user.screen_name}.disabled")
     end
   end
 
   context 'as user' do
-    before {
+    before do
       signin user
       visit path(other_user)
-    }
+    end
 
     context 'about follow button' do
       it 'follow button should be visibule' do
@@ -47,9 +47,9 @@ shared_examples 'a followable button' do |content_navigation: false|
         end
 
         it 'should follow other_user' do
-          expect {
+          expect do
             click_follow_button(other_user)
-          }.to change {
+          end.to change {
             Follow.find_by(
               follower_id: user.id,
               followed_id: other_user.id
@@ -75,10 +75,10 @@ shared_examples 'a followable button' do |content_navigation: false|
     end
 
     context 'about unfollow button' do
-      before {
+      before do
         FactoryGirl.create(:follow, follower: user, followed: other_user)
         visit current_path
-      }
+      end
 
       it 'unfollow button should be visibule' do
         expect(page).to have_selector('.unfollow-button')
@@ -106,9 +106,9 @@ shared_examples 'a followable button' do |content_navigation: false|
         end
 
         it 'should unfollow other_user' do
-          expect {
+          expect do
             click_unfollow_button(other_user)
-          }.to change {
+          end.to change {
             Follow.find_by(
               follower_id: user.id,
               followed_id: other_user.id
@@ -128,4 +128,3 @@ shared_examples 'a followable button' do |content_navigation: false|
     end
   end
 end
-

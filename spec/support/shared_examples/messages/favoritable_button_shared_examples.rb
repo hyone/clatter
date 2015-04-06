@@ -5,8 +5,8 @@
 # arguments:
 # - content_navigation: whether or not check favorites count change in content navigation
 shared_examples 'a favoritable button' do |content_navigation: false|
-  let! (:user) { FactoryGirl.create(:user) }
-  let! (:message) { FactoryGirl.create(:message, user: user) }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:message) { FactoryGirl.create(:message, user: user) }
 
   subject { page }
 
@@ -20,10 +20,10 @@ shared_examples 'a favoritable button' do |content_navigation: false|
   end
 
   context 'as user', js: true do
-    before {
+    before do
       signin user
       visit path(message)
-    }
+    end
 
     context 'when message is not favorited' do
       it 'favorite button should be displayed' do
@@ -54,9 +54,9 @@ shared_examples 'a favoritable button' do |content_navigation: false|
         end
 
         it 'should mark the message as favorite' do
-          expect {
+          expect do
             click_favorite_button(message)
-          }.to change {
+          end.to change {
             Favorite.find_by(
               user: user,
               message: message
@@ -87,10 +87,10 @@ shared_examples 'a favoritable button' do |content_navigation: false|
     end
 
     context 'when message is favorited' do
-      before {
+      before do
         FactoryGirl.create(:favorite, user: user, message: message)
         visit path(message)
-      }
+      end
 
       it 'unfavorite button should be displayed' do
         expect(page).to have_selector("#message-#{message.id} .unfavorite-button")
@@ -120,9 +120,9 @@ shared_examples 'a favoritable button' do |content_navigation: false|
         end
 
         it 'should unmark the message as favorite' do
-          expect {
+          expect do
             click_unfavorite_button(message)
-          }.to change {
+          end.to change {
             Favorite.find_by(
               user: user,
               message: message
@@ -153,4 +153,3 @@ shared_examples 'a favoritable button' do |content_navigation: false|
     end
   end
 end
-

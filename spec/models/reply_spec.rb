@@ -18,18 +18,19 @@
 
 require 'rails_helper'
 
-
 describe Reply, type: :model do
-  let (:user) { FactoryGirl.create(:user) }
-  let (:message) { FactoryGirl.create(:message, user: user) }
-  let (:user_replied_to) { FactoryGirl.create(:user) }
-  let (:message_replied_to) { FactoryGirl.create(:message, user: user_replied_to) }
-  let (:reply) { FactoryGirl.create(
-    :reply,
-    message: message,
-    to_user: user_replied_to,
-    to_message: message_replied_to
-  ) }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:message) { FactoryGirl.create(:message, user: user) }
+  let(:user_replied_to) { FactoryGirl.create(:user) }
+  let(:message_replied_to) { FactoryGirl.create(:message, user: user_replied_to) }
+  let(:reply) do
+    FactoryGirl.create(
+      :reply,
+      message: message,
+      to_user: user_replied_to,
+      to_message: message_replied_to
+    )
+  end
 
   subject { reply }
 
@@ -46,7 +47,11 @@ describe Reply, type: :model do
     end
 
     context 'when the message is destroyed' do
-      before { reply; message.destroy; }
+      before do
+        # XXX: must be initialize 'reply' here
+        reply
+        message.destroy
+      end
 
       it 'should be deleted together' do
         expect(Reply.exists?(reply.id)).to be_falsey

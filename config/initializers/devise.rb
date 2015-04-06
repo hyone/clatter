@@ -41,12 +41,12 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [ :email ]
+  config.case_insensitive_keys = [:email]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
-  config.strip_whitespace_keys = [ :email ]
+  config.strip_whitespace_keys = [:email]
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
@@ -207,7 +207,6 @@ Devise.setup do |config|
   # are using only default views.
   config.scoped_views = true
 
-
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).
   # config.default_scope = :user
@@ -235,23 +234,27 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
-  unless Rails.env.production?
-    config.omniauth :developer
-  end
-  unless Rails.application.secrets.twitter_consumer_key.blank? or
+  config.omniauth :developer unless Rails.env.production?
+
+  unless Rails.application.secrets.twitter_consumer_key.blank? ||
          Rails.application.secrets.twitter_consumer_secret.blank?
-    config.omniauth :twitter, Rails.application.secrets.twitter_consumer_key,
-                              Rails.application.secrets.twitter_consumer_secret
+    config.omniauth :twitter,
+                    Rails.application.secrets.twitter_consumer_key,
+                    Rails.application.secrets.twitter_consumer_secret
   end
-  unless Rails.application.secrets.github_client_id.blank? or
+
+  unless Rails.application.secrets.github_client_id.blank? ||
          Rails.application.secrets.github_client_secret.blank?
-    config.omniauth :github,  Rails.application.secrets.github_client_id,
-                              Rails.application.secrets.github_client_secret
+    config.omniauth :github,
+                    Rails.application.secrets.github_client_id,
+                    Rails.application.secrets.github_client_secret
   end
-  unless Rails.application.secrets.google_client_id.blank? or
+
+  unless Rails.application.secrets.google_client_id.blank? ||
          Rails.application.secrets.google_client_secret.blank?
-    config.omniauth :google_oauth2,  Rails.application.secrets.google_client_id,
-                                     Rails.application.secrets.google_client_secret
+    config.omniauth :google_oauth2,
+                    Rails.application.secrets.google_client_id,
+                    Rails.application.secrets.google_client_secret
   end
 
   # ==> Warden configuration

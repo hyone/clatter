@@ -1,10 +1,9 @@
 require 'rails_helper'
 include ApiHelpers
 
-
 describe 'Follows page', type: :request do
-  let (:follower) { FactoryGirl.create(:user) }
-  let! (:followed_user) { FactoryGirl.create(:user) }
+  let(:follower) { FactoryGirl.create(:user) }
+  let!(:followed_user) { FactoryGirl.create(:user) }
 
   shared_examples 'following/followers stats' do
     it "should include count of follower's following" do
@@ -28,7 +27,6 @@ describe 'Follows page', type: :request do
       ).to eq(followed_user.followers.count)
     end
   end
-
 
   describe 'POST /follows' do
     def xhr_post_follows
@@ -95,13 +93,12 @@ describe 'Follows page', type: :request do
     end
   end
 
-
   describe 'DELETE /follows/:id' do
-    let  (:other_user) { FactoryGirl.create(:user) }
-    let! (:follow) { FactoryGirl.create(:follow, follower: follower, followed: followed_user) }
+    let(:other_user) { FactoryGirl.create(:user) }
+    let!(:follow) { FactoryGirl.create(:follow, follower: follower, followed: followed_user) }
 
     def xhr_delete_follow(m)
-      xhr :delete, follow_path(follow, format: 'json')
+      xhr :delete, follow_path(m, format: 'json')
     end
 
     context 'as guest' do

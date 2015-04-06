@@ -3,8 +3,8 @@
 # - path: method return path in which we test message, it is passed user and message
 #
 shared_examples 'a replyable button' do
-  let! (:user) { FactoryGirl.create(:user) }
-  let! (:message) { FactoryGirl.create(:message, user: user) }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:message) { FactoryGirl.create(:message, user: user) }
 
   subject { page }
 
@@ -22,10 +22,10 @@ shared_examples 'a replyable button' do
   end
 
   context 'as user', js: true do
-    before {
+    before do
       signin user
       visit path(message)
-    }
+    end
 
     it 'reply button should be enabled' do
       expect(page).to have_selector("#reply-to-message-#{message.id}")
@@ -40,10 +40,13 @@ shared_examples 'a replyable button' do
       end
 
       it "title should match 'Reply to @screen_name'" do
-        should have_selector('#message-dialog .modal-title', /Reply to @#{message.user.screen_name}/)
+        should have_selector(
+          '#message-dialog .modal-title',
+          /#{ Regexp.escape "Reply to @#{message.user.screen_name}" }/
+        )
       end
 
-      it "should include parent tweet" do
+      it 'should include parent tweet' do
         expect(page).to have_selector("#message-dialog #parent-message-#{message.id}")
       end
 
@@ -53,26 +56,30 @@ shared_examples 'a replyable button' do
         end
 
         it "should match '@screen_name'" do
-          expect(find('#modal-message-form-text').value).to match /@#{message.user.screen_name}/
+          expect(find('#modal-message-form-text').value).to match(
+            /#{ Regexp.escape "@#{message.user.screen_name}" }/
+          )
         end
       end
 
       context 'when submit' do
-        let (:text) { "@#{message.user.screen_name} Hello World!" }
+        let(:text) { "@#{message.user.screen_name} Hello World!" }
 
         it 'should create a reply to the message' do
-          expect {
-            fill_in "modal-message-form-text", with: text
-            click_button "modal-message-form-submit"
+          expect do
+            fill_in 'modal-message-form-text', with: text
+            click_button 'modal-message-form-submit'
             wait_for_ajax
-          }.to change {
-            Message.find_by(text: text, user: user)
-          }.from(nil)
-          .and change( Reply.where(
-            to_message_id: message.id,
-            to_user_id: message.user
-          ), :count )
-          .by(1)
+          end.to change { Message.find_by(text: text, user: user) }
+            .from(nil)
+            .and change(
+              Reply.where(
+                to_message_id: message.id,
+                to_user_id: message.user
+              ),
+              :count
+            )
+            .by(1)
         end
       end
     end

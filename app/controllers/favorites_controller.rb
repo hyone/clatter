@@ -16,8 +16,8 @@ class FavoritesController < ApplicationController
     @status = :success
   end
 
-
   private
+
   def favorite_params
     params.require(:favorite).permit(:message_id)
   end

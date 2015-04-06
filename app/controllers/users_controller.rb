@@ -16,39 +16,39 @@ class UsersController < ApplicationController
   def show
     @page = params[:page] || 1
     @messages = Message.with_retweets_without_replies_of(@user)
-                  .includes(*preload_fields)
-                  .page(@page)
-                  .per(MESSAGE_PAGE_SIZE)
+                .includes(*preload_fields)
+                .page(@page)
+                .per(MESSAGE_PAGE_SIZE)
   end
 
   def favorites
     @page = params[:page] || 1
     @messages = @user
-                  .favorites
-                  .includes(*preload_fields)
-                  .newer
-                  .page(@page)
-                  .per(MESSAGE_PAGE_SIZE)
+                .favorites
+                .includes(*preload_fields)
+                .newer
+                .page(@page)
+                .per(MESSAGE_PAGE_SIZE)
   end
 
   def followers
     @followers = @user.followers_newer
-                   .page(params[:page])
-                   .per(USER_PAGE_SIZE)
+                 .page(params[:page])
+                 .per(USER_PAGE_SIZE)
   end
 
   def following
     @followed_users = @user.followed_users_newer
-                        .page(params[:page])
-                        .per(USER_PAGE_SIZE)
+                      .page(params[:page])
+                      .per(USER_PAGE_SIZE)
   end
 
   def with_replies
     @messages = Message
-                  .with_retweets_of(@user)
-                  .includes(*preload_fields)
-                  .page(@page)
-                  .per(MESSAGE_PAGE_SIZE)
+                .with_retweets_of(@user)
+                .includes(*preload_fields)
+                .page(@page)
+                .per(MESSAGE_PAGE_SIZE)
     render 'show'
   end
 
@@ -56,8 +56,8 @@ class UsersController < ApplicationController
     @message = @user.messages.find(params[:message_id])
   end
 
-
   private
+
   def set_user
     @user = User.friendly.find(params[:id])
   end

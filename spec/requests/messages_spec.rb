@@ -1,16 +1,15 @@
 require 'rails_helper'
 include ApiHelpers
 
-
 describe 'Messages page', type: :request do
-  let (:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:user) }
 
   describe 'POST /messages' do
     def xhr_post_messages
       xhr :post, messages_path(format: 'json'), message: { text: message.text }
     end
 
-    let (:message) { FactoryGirl.build(:message) }
+    let(:message) { FactoryGirl.build(:message) }
 
     context 'as guest' do
       it 'should respond with 401' do
@@ -66,15 +65,13 @@ describe 'Messages page', type: :request do
     end
   end
 
-
   describe 'DELETE /messages' do
-    let! (:message) { FactoryGirl.create(:message, user: user) }
-    let  (:other_user) { FactoryGirl.create(:user) }
+    let!(:message) { FactoryGirl.create(:message, user: user) }
+    let(:other_user) { FactoryGirl.create(:user) }
 
     def xhr_delete_message(m)
-      xhr :delete, message_path(message, format: 'json')
+      xhr :delete, message_path(m, format: 'json')
     end
-
 
     context 'as guest' do
       it 'should respond with 401' do

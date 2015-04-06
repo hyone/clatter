@@ -23,10 +23,10 @@ class Ability
       can [:create, :destroy], Reply, user: user
 
       # Retweet
-      can    :create, Retweet, user: user
-      #   can't retweet own messages
+      can :create, Retweet, user: user
+      # can't retweet own messages
       cannot :create, Retweet do |retweet|
-        retweet.message.user and retweet.message.user == user
+        retweet.message.user && retweet.message.user == user
       end
       can :destroy, Retweet, user: user
     end

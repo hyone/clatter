@@ -5,7 +5,6 @@ MAIN_USER = FactoryGirl.create(
   password: 'password'
 )
 
-
 def random_user
   User.offset(rand(User.count)).first
 end
@@ -13,7 +12,6 @@ end
 def random_message
   Message.offset(rand(Message.count)).first
 end
-
 
 def gen_users
   FactoryGirl.create_list(:user, 99)
@@ -23,7 +21,7 @@ def gen_messages
   # main users messages
   users = User.order(created_at: :desc).limit(5).push(MAIN_USER)
   users.each do |user|
-    50.times { |n|
+    50.times do |n|
       if n % 5 != 0
         FactoryGirl.create(:message, user: user)
       else
@@ -34,22 +32,22 @@ def gen_messages
           users_replied_to: [to_user]
         )
       end
-    }
+    end
   end
 
   # message including URLs
-  10.times { |n|
+  10.times do
     FactoryGirl.create(
       :message,
       user: MAIN_USER,
       text: "Hello, #{ rand(1..3).times.map { Faker::Internet.url }.join(' and ') }"
     )
-  }
+  end
 
   # other users messages
-  User.all.each { |user|
+  User.all.each do |user|
     FactoryGirl.create_list(:message, 10, user: user)
-  }
+  end
 end
 
 def gen_follows
@@ -70,24 +68,24 @@ def gen_favorites
 end
 
 def gen_retweets
-  30.times {
+  30.times do
     m = random_message
     FactoryGirl.create(
       :retweet,
       user: MAIN_USER,
       message: m,
-      created_at: m.created_at + rand(Time.now - m.created_at),
+      created_at: m.created_at + rand(Time.now - m.created_at)
     )
-  }
-  200.times {
+  end
+  200.times do
     m = random_message
     FactoryGirl.create(
       :retweet,
       user: random_user,
       message: m,
-      created_at: m.created_at + rand(Time.now - m.created_at),
+      created_at: m.created_at + rand(Time.now - m.created_at)
     )
-  }
+  end
 end
 
 def gen_conversations
@@ -100,7 +98,6 @@ def gen_conversations
   )
   user      = random_user
   companion = MAIN_USER
-  branch    = nil
 
   10.times do |i|
     message = FactoryGirl.create(
@@ -133,9 +130,7 @@ def gen_conversations
 
     user, companion = companion, user
   end
-
 end
-
 
 gen_users
 gen_messages

@@ -1,16 +1,17 @@
 require 'rails_helper'
 
-
 describe User::Followable, type: :model do
-  let (:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:user) }
   subject { user }
 
   describe '#follow_relationships' do
     it { should respond_to(:follow_relationships) }
-    it { should have_many(:follow_relationships)
-         .class_name('Follow')
-         .with_foreign_key('follower_id')
-         .dependent(:destroy) }
+    it do
+      should have_many(:follow_relationships)
+        .class_name('Follow')
+        .with_foreign_key('follower_id')
+        .dependent(:destroy)
+    end
 
     context 'with 2 followed_users' do
       before { FactoryGirl.create_list(:follow, 2, follower: user) }
@@ -29,10 +30,12 @@ describe User::Followable, type: :model do
 
   describe '#reverse_follow_relationships' do
     it { should respond_to(:reverse_follow_relationships) }
-    it { should have_many(:reverse_follow_relationships)
-         .class_name('Follow')
-         .with_foreign_key('followed_id')
-         .dependent(:destroy) }
+    it do
+      should have_many(:reverse_follow_relationships)
+        .class_name('Follow')
+        .with_foreign_key('followed_id')
+        .dependent(:destroy)
+    end
 
     context 'with 2 followers' do
       before { FactoryGirl.create_list(:follow, 2, followed: user) }
@@ -51,25 +54,29 @@ describe User::Followable, type: :model do
 
   describe '#followed_users' do
     it { should respond_to(:followed_users) }
-    it { should have_many(:followed_users)
-         .through(:follow_relationships)
-         .source(:followed) }
+    it do
+      should have_many(:followed_users)
+        .through(:follow_relationships)
+        .source(:followed)
+    end
   end
 
   describe '#followers' do
     it { should respond_to(:followers) }
-    it { should have_many(:followers)
-         .through(:reverse_follow_relationships)
-         .source(:follower) }
+    it do
+      should have_many(:followers)
+        .through(:reverse_follow_relationships)
+        .source(:follower)
+    end
   end
 
   describe '#followed_users_newer' do
     it { should respond_to(:followed_users_newer) }
 
     context 'with 3 followed_users' do
-      let! (:follow1) { FactoryGirl.create(:follow, follower: user, created_at: 5.hours.ago) }
-      let! (:follow2) { FactoryGirl.create(:follow, follower: user, created_at: 8.hours.ago) }
-      let! (:follow3) { FactoryGirl.create(:follow, follower: user, created_at: 3.hours.ago) }
+      let!(:follow1) { FactoryGirl.create(:follow, follower: user, created_at: 5.hours.ago) }
+      let!(:follow2) { FactoryGirl.create(:follow, follower: user, created_at: 8.hours.ago) }
+      let!(:follow3) { FactoryGirl.create(:follow, follower: user, created_at: 3.hours.ago) }
       before { FactoryGirl.create(:follow) } # non-user follow
 
       it 'should have the same set as #followed_users' do
@@ -86,9 +93,9 @@ describe User::Followable, type: :model do
     it { should respond_to(:followers_newer) }
 
     context 'with 3 followers' do
-      let! (:follow1) { FactoryGirl.create(:follow, followed: user, created_at: 5.hours.ago) }
-      let! (:follow2) { FactoryGirl.create(:follow, followed: user, created_at: 8.hours.ago) }
-      let! (:follow3) { FactoryGirl.create(:follow, followed: user, created_at: 3.hours.ago) }
+      let!(:follow1) { FactoryGirl.create(:follow, followed: user, created_at: 5.hours.ago) }
+      let!(:follow2) { FactoryGirl.create(:follow, followed: user, created_at: 8.hours.ago) }
+      let!(:follow3) { FactoryGirl.create(:follow, followed: user, created_at: 3.hours.ago) }
       before { FactoryGirl.create(:follow) } # non-user follow
 
       it 'should have the same set as #followers' do
@@ -110,10 +117,10 @@ describe User::Followable, type: :model do
   end
 
   context 'when following' do
-    let (:other_user) { FactoryGirl.create(:user) }
-    before {
+    let(:other_user) { FactoryGirl.create(:user) }
+    before do
       user.follow!(other_user)
-    }
+    end
 
     it 'should be following other_user' do
       expect(user).to be_following(other_user)
@@ -141,7 +148,6 @@ describe User::Followable, type: :model do
       end
     end
   end
-
 
   describe '::self_and_followed_users_ids_of' do
     subject { User.self_and_followed_users_ids_of(user).pluck('id') }
