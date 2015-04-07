@@ -142,7 +142,7 @@ en:
         confirm_deactivate: "Are you sure deactive @%{user} ?"
         confirm_password_title: Save account changes
         confirm_password_description: Re-enter your password to save changes to your account.
-        connect_with: Connect with
+        connect_with: "Connect with %{provider}"
         connected_account: Connected Account
         danger_zone: Danger Zone
         deactivate: Deactivate My Account
@@ -179,7 +179,7 @@ en:
         profile: Profile
         signin: Sign in
         signup: Sign up
-        signup_link_text: Sign up with Email »
+        signup_link_text: Sign up with Email 損
         update: Update
 
       show:

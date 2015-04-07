@@ -12,6 +12,7 @@ ja:
         url: URL
         description: 自己紹介
         remove_profile_image: プロフィール画像を削除
+        lang: 言語設定
         time_zone: タイムゾーン
     errors:
       models:

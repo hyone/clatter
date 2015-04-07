@@ -27,6 +27,13 @@ div.row
                                         placeholder: t('activerecord.attributes.user.email')
 
             div.form-group
+              = f.label :lang, class: 'col-sm-3 control-label'
+              div.col-sm-9
+                = f.select :lang, I18n.available_locales.map { |l| [I18n.t("language", locale: l), l ] },
+                    {},
+                    { class: 'form-control' }
+
+            div.form-group
               = f.label :time_zone, class: 'col-sm-3 control-label'
               div.col-sm-9
                 = f.time_zone_select :time_zone, nil,

@@ -94,6 +94,12 @@ RSpec.configure do |config|
   config.include RequestHelpers, type: :feature
   config.include RequestHelpers, type: :request
 
+  # locales for poltergeist
+  config.before(:each, js: true) do
+    # I18n.locale = :ja
+    page.driver.headers = { 'Accept-Language' => "#{ I18n.locale }" }
+  end
+
   # database_cleaner
 
   DatabaseCleaner = DatabaseRewinder
