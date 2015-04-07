@@ -1,0 +1,21 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        screen_name: ユーザー名
+        email: メールアドレス
+        login: ユーザー名またはメールアドレス
+        password: パスワード
+        password_confirmation: パスワードを再入力
+        current_password: 現在のパスワード
+        name: 名前
+        url: URL
+        description: 自己紹介
+        remove_profile_image: プロフィール画像を削除
+        time_zone: タイムゾーン
+    errors:
+      models:
+        user:
+          attributes:
+            screen_name:
+              invalid: " 英数字と'_'(アンダーバー)が使えます"
