@@ -10,11 +10,11 @@ describe 'Navigation', type: :feature, js: true do
   end
 
   describe 'Home' do
-    it { should have_link(I18n.t('views.navigation.home'), root_path) }
+    it { should have_link(I18n.t('vue.navigation.home'), root_path) }
   end
 
   describe 'Users' do
-    it { should have_link(I18n.t('views.navigation.users'), users_path) }
+    it { should have_link(I18n.t('vue.navigation.users'), users_path) }
   end
 
   describe 'Search' do

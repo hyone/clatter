@@ -1,23 +1,142 @@
 ja:
-  views:
+  appname: Clatter
+  base_title: Clatter
 
-    generic:
-      appname: Clatter
-      base_title: Clatter
+  alert:
+    please_sign_in: サインインしてください。
+    failed_create_message: メッセージの作成に失敗しました
+    failed_delete_message: Failed to delete message
+    failed_follow_user: "Failed to folllow %{user}"
+    failed_favorite_message: メッセージをお気に入りに登録するのに失敗しました
+    success_create_message: メッセージを作成しました！
+    success_delete_message: メッセージは削除されました
 
-    # ----------------------------------------------------------------------------------------------
-    # Widgets
-    # ----------------------------------------------------------------------------------------------
+  # pages
+  # -----------------------------------------
 
-    alert:
-      please_sign_in: サインインしてください。
-      failed_create_message: メッセージの作成に失敗しました
-      failed_delete_message: Failed to delete message
-      failed_follow_user: "Failed to folllow %{user}"
-      failed_favorite_message: メッセージをお気に入りに登録するのに失敗しました
-      success_create_message: メッセージを作成しました！
-      success_delete_message: メッセージは削除されました
+  errors:
+    internet_server_error:
+      title: Something is wrong
+      message: Something is wrong
+    not_found:
+      title: 404 not found
+      message: Sorry, that page doesn't exist!
+    bad_request:
+      title: Bad Request
+      message: Bad Request
 
+  home:
+    index:
+      empty_description: タイムラインにまだメッセージがありません。興味のあるユーザーや話題をフォローすると、あなたのタイムラインにツイートが表示されます
+      signup_now: 今すぐ登録しましょう！
+      welcome_message: "%{appname} へようこそ"
+      profile:
+        messages: メッセージ
+        following: フォロー
+        followers: フォロワー
+        favorites: お気に入り
+
+    mentions:
+      title: "@メッセージ"
+      all: すべて
+      people_you_follow: あなたがフォローしているユーザー
+      description_all: "@メッセージをすべて表示する"
+      description_people_you_follow: フォローしているユーザーからの@メッセージのみを表示する
+      empty_description_all: あなたの状況についての@メッセージを探す
+      empty_description_people_you_follow: フォローしているユーザーからの@メッセージがここに表示されます。友だちと会話を始めてみましょう。
+
+      menu:
+        notifications: 通知
+        mentions: "@メッセージ"
+
+    search:
+      title_html: "Results for <strong>%{word}</strong>"
+      empty_description_html: "No %{mode} results for <strong>%{word}</strong>"
+      menu:
+        messages: メッセージ
+        users: ユーザー
+        all_people: すべてのユーザー
+        followed_users: あなたがフォローしているユーザー
+
+  settings:
+    title: 設定
+    menu:
+      account: アカウント情報
+      password: パスワード
+      profile: プロフィール
+    form:
+      password: パスワード
+      submit: 変更を保存
+      cancel: キャンセル
+
+    account:
+      title: アカウント情報
+      subtitle: アカウント情報と言語設定を変更します
+      confirm_deactivate: "本当に @%{user} を削除してもよろしいですか？"
+      confirm_password_title: 設定変更を保存
+      confirm_password_description: 設定変更を保存するためにパスワードを再入力してください
+      connect_with: "%{provider}ログイン"
+      connected_account: アカウント
+      danger_zone: 危険ゾーン
+      deactivate: アカウントを削除
+      disconnect_provider: "%{provider}の紐付けを解除"
+      oauth: 外部サービス
+      oauth_disabled_disconnect: 解除するには他のサービスを紐付けるか、パスワードを設定してください。
+
+    password:
+      title: パスワード
+      subtitle: パスワードの変更またはリセットができます。
+
+    profile:
+      title: プロフィール
+
+  users:
+    index:
+      title: すべてのユーザー
+
+    registrations:
+      new:
+        title: 登録
+        submit: 登録
+
+    sessions:
+      new:
+        title: ログイン
+        submit: ログイン
+        remember_me: 保存
+        forget_your_password: パスワードを忘れた場合はこちら
+        email_or_name: "%{email}または%{name}"
+
+    shared:
+      omniauth_logins:
+        title: "外部サービスで登録またはログイン"
+
+      signup:
+        title: 登録
+        new_visitor_question: 初めての訪問ですか？
+        link_text: メールアドレスで登録 »
+
+    show:
+      messages: メッセージ
+      messages_and_replies: メッセージと返信
+
+    followers:
+      title: "%{user}さんをフォローしている人"
+
+    following:
+      title: "%{user}さんにフォローされている人"
+
+    favorites:
+      title: "%{user}さんのお気に入りメッセージ"
+      header_title: Favorites
+
+    status:
+      title: "%{user}さんは%{appname}を使っています: \"%{message}\""
+      stats:
+        favorites: お気に入り
+        retweets: リツイート
+
+  vue:
     navigation:
       home: ホーム
       new_message: メッセージ
@@ -45,37 +164,39 @@ ja:
       home: ホーム
       copyright_html: "&copy; 2015 %{appname}"
 
-    menu_panel:
-      notifications: 通知
-      mentions: "@メッセージ"
-
     modal_dialog:
       close: 閉じる
       compose_new_message: メッセージを投稿する
       confirmation_default_title: 確認
       reply_to: "%{name}さんへ返信"
 
-    # Message widgets
-    # -----------------------------------------------
+    # message widgets
+
+    favorite_button:
+      favorite: お気に入りに登録
+      unfavorite: お気に入り削除
 
     message:
       reply: 返信
-      retweet: リツイート
-      unretweet: リツイートを取り消す
-      favorite: お気に入りに登録
-      unfavorite: お気に入り削除
-      actions: その他
       retweeted: さんがリツイート
+
+    message_actions_button:
+      title: その他
       confirm_delete: このメッセージを本当に削除しますか？
-      confirm_retweet: このメッセージをリツイートしますか？
-      delete_menu: メッセージを削除
+      delete_message: メッセージを削除
 
     message_form:
       new_message: いまどうしてる？
       submit: 投稿
 
-    # User widgets
-    # -----------------------------------------------
+    message_panel:
+
+    retweet_button:
+      confirm_retweet: このメッセージをリツイートしますか？
+      retweet: リツイート
+      unretweet: リツイートを取り消す
+
+    # user widgets
 
     follow_button:
       edit_profile: プロフィールを編集
@@ -86,118 +207,3 @@ ja:
     user_actions_button:
       title: ユーザーアクションをさらに表示
       message_to: '@%{screen_name}さんにメッセージ'
-
-
-    # ----------------------------------------------------------------------------------------------
-    # Pages
-    # ----------------------------------------------------------------------------------------------
-
-    errors:
-      internet_server_error:
-        title: Something is wrong
-        message: Something is wrong
-      not_found:
-        title: 404 not found
-        message: Sorry, that page doesn't exist!
-      bad_request:
-        title: Bad Request
-        message: Bad Request
-
-    home:
-      index:
-        empty_description: タイムラインにまだメッセージがありません。興味のあるユーザーや話題をフォローすると、あなたのタイムラインにツイートが表示されます
-        signup_now: 今すぐ登録しましょう！
-        welcome_message: "%{appname} へようこそ"
-        profile:
-          messages: メッセージ
-          following: フォロー
-          followers: フォロワー
-          favorites: お気に入り
-      mentions:
-        title: "@メッセージ"
-        all: すべて
-        people_you_follow: あなたがフォローしているユーザー
-        description_all: "@メッセージをすべて表示する"
-        description_people_you_follow: フォローしているユーザーからの@メッセージのみを表示する
-        empty_description_all: あなたの状況についての@メッセージを探す
-        empty_description_people_you_follow: フォローしているユーザーからの@メッセージがここに表示されます。友だちと会話を始めてみましょう。
-      search:
-        title_html: "Results for <strong>%{word}</strong>"
-        empty_description_html: "No %{mode} results for <strong>%{word}</strong>"
-        menu:
-          messages: メッセージ
-          users: ユーザー
-          all_people: すべてのユーザー
-          followed_users: あなたがフォローしているユーザー
-
-    settings:
-      title: 設定
-      menu:
-        account: アカウント情報
-        password: パスワード
-        profile: プロフィール
-      account:
-        title: アカウント情報
-        subtitle: アカウント情報と言語設定を変更します
-        confirm_deactivate: "本当に @%{user} を削除してもよろしいですか？"
-        confirm_password_title: 設定変更を保存
-        confirm_password_description: 設定変更を保存するためにパスワードを再入力してください
-        connect_with: "%{provider}ログイン"
-        connected_account: アカウント
-        danger_zone: 危険ゾーン
-        deactivate: アカウントを削除
-        disconnect_provider: "%{provider}の紐付けを解除"
-        oauth: 外部サービス
-        oauth_disabled_disconnect: 解除するには他のサービスを紐付けるか、パスワードを設定してください。
-      password:
-        title: パスワード
-        subtitle: パスワードの変更またはリセットができます。
-      profile:
-        title: プロフィール
-      form:
-        password: パスワード
-        submit: 変更を保存
-        cancel: キャンセル
-
-    users:
-      index:
-        title: すべてのユーザー
-      signup:
-        title: 登録
-      signin:
-        title: ログイン
-      edit:
-        title: 設定
-
-      form:
-        basic_information: 基本情報
-        email_or_name: "%{email}または%{name}"
-        forget_your_password: パスワードを忘れた場合はこちら
-        leave_blank_if_not_change: パスワードを変更しない場合は空にしておいてください
-        need_current_password: 新しいパスワードに変更する際は現在のパスワードの入力が必要です
-        new_visitor_question: 初めての訪問ですか？
-        profile: プロフィール
-        signin: ログイン 
-        signup: 登録
-        signup_link_text: メールアドレスで登録 »
-        update: 更新
-
-      show:
-        messages: メッセージ
-        messages_and_replies: メッセージと返信
-
-      followers:
-        title: "%{user}さんをフォローしている人"
-
-      following:
-        title: "%{user}さんにフォローされている人"
-
-      favorites:
-        title: "%{user}さんのお気に入りメッセージ"
-        header_title: Favorites
-
-      status:
-        title: "%{user}さんは%{appname}を使っています: \"%{message}\""
-        stats:
-          favorites: お気に入り
-          retweets: リツイート

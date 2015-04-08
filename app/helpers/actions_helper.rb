@@ -3,7 +3,7 @@ module ActionsHelper
     return if user_signed_in?
 
     session[:return_to] = request.original_url
-    message = t('views.alert.please_sign_in')
+    message = t('alert.please_sign_in')
     respond_to do |format|
       format.json do
         render 'shared/_response',

@@ -22,4 +22,4 @@ Clatter.MessageActionsButtonComponent = Vue.extend
       $(@$el).on 'ajax:error', (event, xhr, status, error) =>
         @$dispatch '_app.alert', event,
           status: status,
-          message: "#{I18n.t('views.alert.failed_delete_message')}: #{error}"
+          message: "#{I18n.t('alert.failed_delete_message')}: #{error}"

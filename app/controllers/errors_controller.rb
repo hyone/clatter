@@ -20,12 +20,12 @@ class ErrorsController < ActionController::Base
   end
 
   def bad_request(exception = nil)
-    message = exception.try(:message) || t('views.errors.bad_request.title')
+    message = exception.try(:message) || t('errors.bad_request.title')
     respond_error_to 'bad_request', 400, [message]
   end
 
   def unauthorized(exception = nil)
-    message = exception.try(:message) || t('views.errors.unauthorized.title')
+    message = exception.try(:message) || t('errors.unauthorized.title')
     respond_error_to 'unauthorized', 401, [message]
   end
 

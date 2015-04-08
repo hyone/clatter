@@ -22,15 +22,15 @@ div.content-body
                   ul.list-inline
                     li.home-profile-messages-count
                       = link_to @user do
-                        span.nav-label = t('views.home.index.profile.messages')
+                        span.nav-label = t('home.index.profile.messages')
                         span.nav-value #{@user.messages.count}
                     li.home-profile-following
                       = link_to following_user_path(@user)
-                        span.nav-label = t('views.home.index.profile.following')
+                        span.nav-label = t('home.index.profile.following')
                         span.nav-value #{@user.followed_users.count}
                     li.home-profile-followers
                       = link_to followers_user_path(@user)
-                        span.nav-label = t('views.home.index.profile.followers')
+                        span.nav-label = t('home.index.profile.followers')
                         span.nav-value #{@user.followers.count}
 
           div.hidden-lg
@@ -44,12 +44,12 @@ div.content-body
         = render layout: 'shared/messages_list_panel', locals: { \
             messages: @feeds, \
             page: @page, \
-            description: t('views.home.index.empty_description') \
+            description: t('home.index.empty_description') \
           } do
             div.message-form-block
               span.message-icon
                 = image_tag @user.profile_image.small.url
-              div v-component="content-main-message-form" v-ref='contentMainMessageForm' data-placeholder="#{ t('views.message_form.new_message') }"
+              div v-component="content-main-message-form" v-ref='contentMainMessageForm' data-placeholder="#{ t('vue.message_form.new_message') }"
 
     div.visible-lg-block
       div.col.col-lg-3

@@ -9,8 +9,8 @@ describe 'Authentication pages', type: :feature do
     before { visit '/no_such_path' }
 
     describe 'content' do
-      it { should have_title(I18n.t('views.errors.not_found.title')) }
-      it { should have_content(I18n.t('views.errors.not_found.message')) }
+      it { should have_title(I18n.t('errors.not_found.title')) }
+      it { should have_content(I18n.t('errors.not_found.message')) }
     end
   end
 
@@ -21,8 +21,8 @@ describe 'Authentication pages', type: :feature do
     end
 
     describe 'content' do
-      it { should have_title(I18n.t('views.errors.internet_server_error.title')) }
-      it { should have_content(I18n.t('views.errors.internet_server_error.message')) }
+      it { should have_title(I18n.t('errors.internet_server_error.title')) }
+      it { should have_content(I18n.t('errors.internet_server_error.message')) }
     end
   end
 end

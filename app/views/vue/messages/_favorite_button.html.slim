@@ -6,7 +6,7 @@ script type="text/x-template" id="favorite-button-template"
         remote: true,
         'v-show' => '!isFavorited') do |f|
       = hidden_field_tag 'favorite[message_id]', '{{message.id}}'
-      button class='btn btn-link' id='favorite-message-{{message.id}}' type='submit' data-toggle="tooltip" title="#{ t('views.message.favorite') }" v-class="
+      button class='btn btn-link' id='favorite-message-{{message.id}}' type='submit' data-toggle="tooltip" title="#{ t('vue.favorite_button.favorite') }" v-class="
         disabled: !canFavorite
       "
         b.fa.fa-star
@@ -16,7 +16,7 @@ script type="text/x-template" id="favorite-button-template"
                class: 'unfavorite-button',
                remote: true,
                'v-show' => 'isFavorited') do |f|
-      button class='btn btn-link' id='unfavorite-message-{{message.id}}' type='submit' data-toggle="tooltip" title="#{ t('views.message.unfavorite') }" v-class="
+      button class='btn btn-link' id='unfavorite-message-{{message.id}}' type='submit' data-toggle="tooltip" title="#{ t('vue.favorite_button.unfavorite') }" v-class="
         disabled: !canFavorite
       "
         b.fa.fa-star

@@ -9,5 +9,5 @@ shared_examples 'a user requirable page' do
     expect(current_path).to eq(new_user_session_path)
   end
 
-  it { expect(page).to have_alert(:notice, I18n.t('views.alert.please_sign_in')) }
+  it { expect(page).to have_alert(:notice, I18n.t('alert.please_sign_in')) }
 end

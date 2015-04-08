@@ -28,7 +28,7 @@ script type="text/x-template" id="message-panel-template"
         div.message-foot
           ul.message-action-list.list-inline
             li.open-reply-to-button-item
-              button class="btn btn-link" id="reply-to-message-{{message.id}}" data-toggle="tooltip" title="#{ t('views.message.reply') }" v-on="click: onClickReplyButton" v-class="
+              button class="btn btn-link" id="reply-to-message-{{message.id}}" data-toggle="tooltip" title="#{ t('vue.message.reply') }" v-on="click: onClickReplyButton" v-class="
                 disabled: !canReply
               "
                 b.fa.fa-reply
@@ -42,12 +42,12 @@ script type="text/x-template" id="message-panel-template"
           ul.message-stats.clearfix v-if="hasRetweets || hasFavorites"
             li.retweets-count v-if="hasRetweets"
               span.stats-label
-                | #{ t('views.users.status.stats.retweets') }
+                | #{ t('users.status.stats.retweets') }
               span.stats-value
                 | {{ message.retweeted_count }}
             li.favorites-count v-if="hasFavorites"
               span.stats-label
-                | #{ t('views.users.status.stats.favorites') }
+                | #{ t('users.status.stats.favorites') }
               span.stats-value
                 | {{ message.favorited_count }}
             li.message-avator-list

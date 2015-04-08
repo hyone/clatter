@@ -1,8 +1,8 @@
 script type="text/x-template" id="message-actions-button-template"
-  div.btn-group data-toggle="tooltip" title="#{ t('views.message.actions') }"
+  div.btn-group data-toggle="tooltip" title="#{ t('vue.message_actions_button.title') }"
     button class="btn-link message-actions-button dropdown-toggle" id="message-actions-{{message.id}}" type="button" data-toggle="dropdown" ari-expanded="false"
       b.fa.fa-ellipsis-h
     ul.dropdown-menu role="menu"
       li v-if="message.permissions.destroy"
-        a.delete-message id="delete-message-{{message.id}}" href="#{ bindable_path('message', "{{message.id}}", format: [:json]).html_safe }" data-method="delete" data-remote="true" data-confirm="#{ t('views.message.confirm_delete') }"
-          | #{ t('views.message.delete_menu') }
+        a.delete-message id="delete-message-{{message.id}}" href="#{ bindable_path('message', "{{message.id}}", format: [:json]).html_safe }" data-method="delete" data-remote="true" data-confirm="#{ t('vue.message_actions_button.confirm_delete') }"
+          | #{ t('vue.message_actions_button.delete_message') }

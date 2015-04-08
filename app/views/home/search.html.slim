@@ -17,13 +17,13 @@ div.content-body
               "
                 span.fa.fa-fw.fa-check v-if="search.mode === 'messages'"
                 span.fa.fa-fw v-if="search.mode !== 'messages'"
-                = t('views.home.search.menu.messages')
+                = t('home.search.menu.messages')
               a.list-group-item#search-menu-mode-users href="{{ parametersWith({'q[mode]': 'users'}) }}" v-class="
                 active: search.mode === 'users'
               "
                 span.fa.fa-fw.fa-check v-if="search.mode === 'users'"
                 span.fa.fa-fw v-if="search.mode !== 'users'"
-                = t('views.home.search.menu.users')
+                = t('home.search.menu.users')
 
           div.col-xs-12 v-if="currentUser"
             div.menu-panel
@@ -32,13 +32,13 @@ div.content-body
               "
                 span.fa.fa-fw.fa-check v-if="search.range === 'all'"
                 span.fa.fa-fw v-if="search.range !== 'all'"
-                = t('views.home.search.menu.all_people')
+                = t('home.search.menu.all_people')
               a.list-group-item#search-menu-range-followed-users href="{{ parametersWith({'q[range]': 'followed_users'}) }}" v-class="
                 active: search.range === 'followed_users'
               "
                 span.fa.fa-fw.fa-check v-if="search.range === 'followed_users'"
                 span.fa.fa-fw v-if="search.range !== 'followed_users'"
-                = t('views.home.search.menu.followed_users')
+                = t('home.search.menu.followed_users')
 
           div.hidden-lg
             div.col-xs-12
@@ -50,16 +50,16 @@ div.content-body
           = render layout: 'shared/users_list_panel', locals: { \
               users: @feeds, \
               page:  @page, \
-              description: t('views.home.search.empty_description_html', mode: @search[:mode], word: @search[:text]), \
+              description: t('home.search.empty_description_html', mode: @search[:mode], word: @search[:text]), \
             } do
-            h2.users-list-panel-title = t('views.home.search.title_html', word: @search[:text])
+            h2.users-list-panel-title = t('home.search.title_html', word: @search[:text])
         - else
           = render layout: 'shared/messages_list_panel', locals: { \
               messages: @feeds, \
               page: @page, \
-              description: t('views.home.search.empty_description_html', mode: @search[:mode], word: @search[:text]), \
+              description: t('home.search.empty_description_html', mode: @search[:mode], word: @search[:text]), \
             } do
-            h2.messages-list-panel-title = t('views.home.search.title_html', word: @search[:text])
+            h2.messages-list-panel-title = t('home.search.title_html', word: @search[:text])
 
     div.visible-lg-block
       div.col.col-lg-3

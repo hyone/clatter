@@ -1,4 +1,4 @@
 div.signup-link-block
-  h3 Sign up
-  p #{ t('views.users.form.new_visitor_question') } 
-    #{ link_to(t('views.users.form.signup_link_text'), new_registration_path(resource_name)) }
+  h3 #{ t('users.shared.signup.title') }
+  p #{ t('users.shared.signup.new_visitor_question') } 
+    #{ link_to(t('users.shared.signup.link_text'), new_registration_path(resource_name)) }

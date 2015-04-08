@@ -15,7 +15,7 @@ script type="text/x-template" id="navigation-template"
               active: isActiveMenu('#{ root_path }')
             "
               b.fa.fa-home.fa-lg
-              = t('views.navigation.home')
+              = t('vue.navigation.home')
 
           - if user_signed_in?
             li
@@ -23,14 +23,14 @@ script type="text/x-template" id="navigation-template"
                 active: isActiveMenu('#{ mentions_path }')
               "
                 b.fa.fa-bell.fa-lg
-                = t('views.navigation.notifications')
+                = t('vue.navigation.notifications')
 
           li
             a href="#{ users_path }" v-class="
               active: isActiveMenu('#{ users_path }')
             "
               b.fa.fa-users.fa-lg
-              = t('views.navigation.users')
+              = t('vue.navigation.users')
 
         ul.nav.navbar-nav.pull-right#navbar-right-block
           /! serach form
@@ -42,7 +42,7 @@ script type="text/x-template" id="navigation-template"
               div.form-group
                 div.input-group
                   input type="hidden" name='q[mode]' value="{{ search.mode }}"
-                  input type="text"   name="q[text]" class="form-control input-sm" id="navigation-search-input" placeholder="#{ t('views.navigation.search') }" v-model="search.text"
+                  input type="text"   name="q[text]" class="form-control input-sm" id="navigation-search-input" placeholder="#{ t('vue.navigation.search') }" v-model="search.text"
                   / use dummy text input to disable enter key submit when search text is empty.
                   / see also: http://qiita.com/mimoe/items/89b317be5e38bfbc44ee
                   input type="text" name="dummy" style="display:none;"
@@ -54,35 +54,35 @@ script type="text/x-template" id="navigation-template"
 
           /! user menu
           - if user_signed_in?
-            li.dropdown#navbar-user data-toggle="tooltip" data-placement="bottom" title="#{ t('views.navigation.profile_and_settings') }"
+            li.dropdown#navbar-user data-toggle="tooltip" data-placement="bottom" title="#{ t('vue.navigation.profile_and_settings') }"
               a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                 = image_tag current_user.profile_image.small.url, class: 'user-thumb'
               ul.dropdown-menu.pull-right
                 li
                   = link_to user_path(current_user) do
                     b.glyphicon.glyphicon-user
-                    = t('views.navigation.profile')
+                    = t('vue.navigation.profile')
                 li.divider
                 li
                   = link_to settings_account_path do
                     b.glyphicon.glyphicon-cog
-                    = t('views.navigation.settings')
+                    = t('vue.navigation.settings')
                 li
                   = link_to destroy_user_session_path, method: :delete do
                     b.glyphicon.glyphicon-log-out
-                    = t('views.navigation.signout')
+                    = t('vue.navigation.signout')
           - else
             li
               a href="#{ new_user_session_path }" v-class="
                 active: isActiveMenu('#{ new_user_session_path }')
               "
                 b.glyphicon.glyphicon-log-in
-                = t('views.navigation.signin')
+                = t('vue.navigation.signin')
 
           /! message button
           - if user_signed_in?
-            li data-toggle="tooltip" data-placement="bottom" title="#{ t('views.navigation.new_message') }"
+            li data-toggle="tooltip" data-placement="bottom" title="#{ t('vue.navigation.new_message') }"
               button.btn.btn-primary.btn-sm.navbar-btn#navigation-new-message v-on='click: onClickNewMessageButton'
                 b.fa.fa-2x.fa-pencil-square-o
                 / b.fa.fa-lg.fa-pencil
-                / = t('views.navigation.new_message')
+                / = t('vue.navigation.new_message')

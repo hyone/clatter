@@ -3,8 +3,8 @@ div.row
     div.setting-panel
       div.col-inner
         div.setting-panel-head
-          h2.setting-panel-title = t('views.settings.profile.title')
-          p.setting-panel-subtitle = t('views.settings.profile.subtitle')
+          h2.setting-panel-title = t('settings.profile.title')
+          p.setting-panel-subtitle = t('settings.profile.subtitle')
 
         div.setting-panel-body
           = form_for(@user, url: settings_profile_path,
@@ -46,4 +46,4 @@ div.row
 
             div.form-group
               div.col-sm-offset-3.col-sm-9
-                = f.submit t('views.settings.form.submit'), class: 'btn btn-primary'
+                = f.submit t('settings.form.submit'), class: 'btn btn-primary'

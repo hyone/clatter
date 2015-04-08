@@ -10,7 +10,7 @@ describe 'Users pages', type: :feature do
     end
 
     describe 'content' do
-      it { should have_title(I18n.t('views.users.index.title')) }
+      it { should have_title(I18n.t('users.index.title')) }
 
       context 'in pagination' do
         it { should have_selector('ul.pagination') }
@@ -40,7 +40,7 @@ describe 'Users pages', type: :feature do
         context 'in header' do
           it do
             should have_link(
-              I18n.t('views.users.show.messages_and_replies'),
+              I18n.t('users.show.messages_and_replies'),
               with_replies_user_path(user)
             )
           end
@@ -95,7 +95,7 @@ describe 'Users pages', type: :feature do
     describe 'content' do
       context 'in messages panel' do
         context 'in header' do
-          it { should have_link(I18n.t('views.users.show.messages'), user_path(user)) }
+          it { should have_link(I18n.t('users.show.messages'), user_path(user)) }
         end
 
         context 'in messages list', js: true do
@@ -133,11 +133,11 @@ describe 'Users pages', type: :feature do
       end
 
       describe 'content' do
-        it { should have_title(I18n.t('views.users.favorites.title', user: username_formatted(user))) }
+        it { should have_title(I18n.t('users.favorites.title', user: username_formatted(user))) }
 
         context 'in messages panel' do
           context 'in header' do
-            it { should have_content(I18n.t('views.users.favorites.header_title')) }
+            it { should have_content(I18n.t('users.favorites.header_title')) }
           end
 
           context 'in message list' do
@@ -257,9 +257,9 @@ describe 'Users pages', type: :feature do
       it do
         should have_title(
           I18n.t(
-            'views.users.status.title',
+            'users.status.title',
             user: user.name,
-            appname: I18n.t('views.generic.appname'),
+            appname: I18n.t('appname'),
             message: message.text
           )
         )

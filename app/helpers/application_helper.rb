@@ -1,6 +1,6 @@
 module ApplicationHelper
   def page_title(text = nil)
-    base = I18n.t('views.generic.base_title')
+    base = I18n.t('base_title')
     return base if text.blank?
     [text, base].join(' | ')
   end

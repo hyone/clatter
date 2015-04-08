@@ -3,7 +3,7 @@ include SettingsHelper
 
 describe 'Settings Page' do
   def submit
-    click_on I18n.t('views.settings.form.submit')
+    click_on I18n.t('settings.form.submit')
   end
 
   subject { page }
@@ -34,10 +34,10 @@ describe 'Settings Page' do
       its(:status_code) { should == 200 }
 
       describe 'content' do
-        it { should have_title(I18n.t('views.settings.title')) }
+        it { should have_title(I18n.t('settings.title')) }
 
-        it { should have_content(I18n.t('views.settings.account.title')) }
-        it { should have_content(I18n.t('views.settings.account.subtitle')) }
+        it { should have_content(I18n.t('settings.account.title')) }
+        it { should have_content(I18n.t('settings.account.subtitle')) }
       end
 
       describe 'Form' do
@@ -173,10 +173,10 @@ describe 'Settings Page' do
       end
 
       describe 'Danger Zone' do
-        it { should have_link(I18n.t('views.settings.account.deactivate'), delete_user_registration_path(user)) }
+        it { should have_link(I18n.t('settings.account.deactivate'), delete_user_registration_path(user)) }
 
         context 'when click user delete button' do
-          before { click_on I18n.t('views.settings.account.deactivate') }
+          before { click_on I18n.t('settings.account.deactivate') }
 
           it 'should display confirm dialog' do
             expect(page.find('#confirm-dialog')).to be_visible

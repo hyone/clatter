@@ -1,29 +1,29 @@
 script type="text/x-template" id="content-navigation-template"
   ul.nav.navbar-nav.content-navigation
-    li.content-navigation-messages data-toggle="tooltip" title="#{ t('views.content_navigation.messages_title', count: '{{user.messages_count}}') }" v-class="
+    li.content-navigation-messages data-toggle="tooltip" title="#{ t('vue.content_navigation.messages_title', count: '{{user.messages_count}}') }" v-class="
       active: isActiveMenu('#{ bindable_path('user', '{{user.screen_name}}') }')
     "
       a href="#{ bindable_path('user', '{{user.screen_name}}') }"
-        span.nav-label = t('views.content_navigation.messages')
+        span.nav-label = t('vue.content_navigation.messages')
         span.nav-value = "{{user.messages_count}}"
 
-    li.content-navigation-following data-toggle="tooltip" title="#{ t('views.content_navigation.following_title', count: '{{user.following_count}}') }" v-class="
+    li.content-navigation-following data-toggle="tooltip" title="#{ t('vue.content_navigation.following_title', count: '{{user.following_count}}') }" v-class="
       active: isActiveMenu('#{ bindable_path('following_user', '{{user.screen_name}}') }')
     "
       a href="#{ bindable_path('following_user', '{{user.screen_name}}') }"
-        span.nav-label = t('views.content_navigation.following')
+        span.nav-label = t('vue.content_navigation.following')
         span.nav-value = "{{user.following_count}}"
 
-    li.content-navigation-followers data-toggle="tooltip" title="#{ t('views.content_navigation.followers_title', count: '{{user.followers_count}}') }" v-class="
+    li.content-navigation-followers data-toggle="tooltip" title="#{ t('vue.content_navigation.followers_title', count: '{{user.followers_count}}') }" v-class="
       active: isActiveMenu('#{ bindable_path('followers_user', '{{user.screen_name}}') }')
     "
       a href="#{ bindable_path('followers_user', '{{user.screen_name}}') }"
-        span.nav-label = t('views.content_navigation.followers')
+        span.nav-label = t('vue.content_navigation.followers')
         span.nav-value = "{{user.followers_count}}"
 
-    li.content-navigation-favorites data-toggle="tooltip" title="#{ t('views.content_navigation.favorites_title', count: '{{user.favorites_count}}') }"
+    li.content-navigation-favorites data-toggle="tooltip" title="#{ t('vue.content_navigation.favorites_title', count: '{{user.favorites_count}}') }"
       a href="#{ bindable_path('favorites_user', '{{user.screen_name}}') }"
-        span.nav-label = t('views.content_navigation.favorites')
+        span.nav-label = t('vue.content_navigation.favorites')
         span.nav-value = "{{user.favorites_count}}"
 
     li.content-navigation-buttons

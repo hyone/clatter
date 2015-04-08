@@ -6,7 +6,7 @@ div.content-body
       div.session-panel
         div.col-inner
           div.form-block
-            h2 = t('views.users.signin.title')
+            h2 = t('.title')
 
             = form_for(resource, as: resource_name,
                                  url: session_path(resource_name),
@@ -16,7 +16,7 @@ div.content-body
                 = f.text_field :login,
                     autofocus: true,
                     class: 'form-control',
-                    placeholder: t('views.users.form.email_or_name', { \
+                    placeholder: t('users.sessions.new.email_or_name', { \
                       email: t('activerecord.attributes.user.email'), \
                       name: t('activerecord.attributes.user.screen_name') \
                     })
@@ -33,13 +33,13 @@ div.content-body
                   div.checkbox
                     = f.label(:remember_me) do
                       = f.check_box(:remember_me)
-                      = t('devise.sessions.new.remember_me')
+                      = t('users.sessions.new.remember_me')
 
               div.form-group
-                = f.submit 'Sign in', class: 'btn btn-primary'
+                = f.submit t('users.sessions.new.submit'), class: 'btn btn-primary'
                 - if devise_mapping.recoverable?
                   span.form-additional-info
-                    = link_to t('views.users.form.forget_your_password'), new_password_path(resource_name)
+                    = link_to t('users.sessions.new.forget_your_password'), new_password_path(resource_name)
 
           = render 'users/shared/omniauth_logins.html.slim', title: 'Sign in with :'
 

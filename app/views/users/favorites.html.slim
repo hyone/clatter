@@ -1,4 +1,4 @@
-- provide(:title, page_title(t('views.users.favorites.title', user: username_formatted(@user))))
+- provide(:title, page_title(t('users.favorites.title', user: username_formatted(@user))))
 
 
 div.row
@@ -14,7 +14,7 @@ div.row
   div.col.col-sm-8.col-lg-6.content-main
     div.row
       = render layout: 'shared/messages_list_panel', locals: { messages: @messages, page: @page } do
-        h2 = t('views.users.favorites.header_title')
+        h2 = t('users.favorites.header_title')
 
   div.visible-lg-block
     div.col.col-lg-3

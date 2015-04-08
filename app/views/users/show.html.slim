@@ -17,14 +17,14 @@ div.row
         ul.list-inline
           li
             - if request.path_info == user_path(@user)
-              = t('views.users.show.messages')
+              = t('.messages')
             - else
-              = link_to t('views.users.show.messages'), user_path(@user)
+              = link_to t('users.show.messages'), user_path(@user)
           li 
             - if request.path_info == with_replies_user_path(@user)
-              = t('views.users.show.messages_and_replies')
+              = t('users.show.messages_and_replies')
             - else
-              = link_to t('views.users.show.messages_and_replies'), with_replies_user_path(@user)
+              = link_to t('users.show.messages_and_replies'), with_replies_user_path(@user)
 
   div.visible-lg-block
     div.col.col-lg-3

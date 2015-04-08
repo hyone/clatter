@@ -42,7 +42,7 @@ Clatter.FollowButtonComponent = Vue.extend
       $(@$el).on 'ajax:error', (event, xhr, status, error) =>
         @$dispatch '_app.alert', event,
           status: status
-          message: "#{I18n.t('views.alert.failed_follow_user', user: @user.screen_name)}: #{error}"
+          message: "#{I18n.t('alert.failed_follow_user', user: @user.screen_name)}: #{error}"
 
       $(@$el).on 'ajax:complete', (event, data, status, xhr) =>
         $(event.target).find('button[type="submit"]').removeAttr('disabled')

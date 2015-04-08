@@ -1,4 +1,4 @@
-- provide(:title, page_title(t('views.errors.internet_server_error.title')))
+- provide(:title, page_title(t('errors.internet_server_error.title')))
 
 - provide(:page_type, 'errors')
 
@@ -6,7 +6,7 @@
 - content_for :header do
   div.header-head
     div.container.centerize
-      h1 = t('views.errors.internet_server_error.message')
+      h1 = t('errors.internet_server_error.message')
       / - if message
         / p = message
 

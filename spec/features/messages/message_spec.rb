@@ -15,7 +15,7 @@ describe 'Message Block', type: :feature, js: true do
       before { visit current_path }
 
       it 'should display retweet context message' do
-        expect(page).to have_selector('.message-context', text: I18n.t('views.message.retweeted'))
+        expect(page).to have_selector('.message-context', text: I18n.t('vue.message.retweeted'))
         expect(page).to have_selector('.message-context', text: retweet.user.screen_name)
       end
     end
