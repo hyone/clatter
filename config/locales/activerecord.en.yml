@@ -12,6 +12,8 @@ en:
         url: URL
         description: Description
         remove_profile_image: Remove Profile Image
+        lang: Language
+        time_zone: Time zone
     errors:
       models:
         user:

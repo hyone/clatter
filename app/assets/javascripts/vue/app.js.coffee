@@ -50,12 +50,8 @@ Clatter.appVM = new Vue
 
   methods:
     initMoment: ->
-      # lang
-      lang = $('html').prop('lang')
-      moment.locale(lang)
-      # timezone
-      timezone = $('html').data('timezone')
-      moment.tz.setDefault(timezone)
+      moment.locale(Clatter.lang)
+      moment.tz.setDefault(Clatter.timeZone)
 
     isActiveMenu: (url) ->
       @$interpolate(url) is location.pathname
@@ -97,7 +93,7 @@ Clatter.appVM = new Vue
 
     onMessageDeleted: (event, message) ->
       @messages.$remove(message)
-      @showAlert('success', I18n.t('views.alert.success_delete_message'))
+      @showAlert('success', I18n.t('alert.success_delete_message'))
       @$broadcast('message.deleted', event, message)
       false
 

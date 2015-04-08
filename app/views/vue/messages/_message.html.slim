@@ -6,7 +6,7 @@ script type="text/x-template" id="message-template"
         a href="#{ bindable_path('user', '{{message.retweeted.user.screen_name}}') }"
           | {{message.retweeted.user.screen_name}}
         span
-          = " #{ t('views.message.retweeted') }"
+          = " #{ t('vue.message.retweeted') }"
 
       a.message-user href="#{ bindable_path('user', '{{message.user.screen_name}}') }"
         span.message-icon
@@ -23,7 +23,7 @@ script type="text/x-template" id="message-template"
     div.message-foot v-if="showFoot"
       ul.list-inline
         li.open-reply-to-button-item
-          button class="btn btn-link" id="reply-to-message-{{message.id}}" data-toggle="tooltip" title="#{ t('views.message.reply') }" v-on="click: onClickReplyButton" v-class="
+          button class="btn btn-link" id="reply-to-message-{{message.id}}" data-toggle="tooltip" title="#{ t('vue.message.reply') }" v-on="click: onClickReplyButton" v-class="
             disabled: !canReply
           "
             b.fa.fa-reply

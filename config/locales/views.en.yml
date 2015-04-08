@@ -1,23 +1,144 @@
 en:
-  views:
+  appname: Clatter
+  base_title: Clatter
 
-    generic:
-      appname: Clatter
-      base_title: Clatter
+  alert:
+    please_sign_in: Please sign in.
+    failed_create_message: Failed to create message
+    failed_delete_message: Failed to delete message
+    failed_follow_user: "Failed to folllow %{user}"
+    failed_favorite_message: Failed to mark message as favorite
+    success_create_message: Message created!
+    success_delete_message: Your message has been deleted.
 
-    # ----------------------------------------------------------------------------------------------
-    # Widgets
-    # ----------------------------------------------------------------------------------------------
+  # pages
+  # -----------------------------------------
 
-    alert:
-      please_sign_in: Please sign in.
-      failed_create_message: Failed to create message
-      failed_delete_message: Failed to delete message
-      failed_follow_user: "Failed to folllow %{user}"
-      failed_favorite_message: Failed to mark message as favorite
-      success_create_message: Message created!
-      success_delete_message: Your message has been deleted.
+  errors:
+    internet_server_error:
+      title: Something is wrong
+      message: Something is wrong
+    not_found:
+      title: 404 not found
+      message: Sorry, that page doesn't exist!
+    bad_request:
+      title: Bad Request
+      message: Bad Request
 
+  home:
+    index:
+      empty_description: Your timeline is currently empty. Follow people and topics you find interesting to see their messages in your timeline. 
+      signup_now: Sign up now!
+      welcome_message: "Welcome to %{appname}"
+      profile:
+        messages: MESSAGES
+        following: FOLLOWING
+        followers: FOLLOWERS
+        favorites: FAVORITES
+
+    mentions:
+      title: Mentions
+      all: All
+      people_you_follow: People you follow
+      description_all: Show all interactions and mentions
+      description_people_you_follow: Show only interactions and mentions from people you follow
+      empty_description_all: Find mentions about you here.
+      empty_description_people_you_follow: Find mentions from people you follow. Start a conversation with your friends!
+      menu:
+        notifications: Notifications
+        mentions: Mentions
+
+    search:
+      title_html: "Results for <strong>%{word}</strong>"
+      empty_description_html: "No %{mode} results for <strong>%{word}</strong>"
+      menu:
+        messages: Messages
+        users: People
+        all_people: All people
+        followed_users: People you followers
+
+  settings:
+    title: Settings
+    menu:
+      account: Account
+      password: Password
+      profile: Profile
+    form:
+      password: Password
+      submit: Save Changes
+      cancel: Cancel
+
+    account:
+      title: Account
+      subtitle: Change your basic account and language settings.
+      confirm_deactivate: "Are you sure deactive @%{user} ?"
+      confirm_password_title: Save account changes
+      confirm_password_description: Re-enter your password to save changes to your account.
+      connect_with: "Connect with %{provider}"
+      connected_account: Connected Account
+      danger_zone: Danger Zone
+      deactivate: Deactivate My Account
+      disconnect_provider: "Disconnect %{provider}"
+      oauth: OAuth
+      oauth_disabled_disconnect: To disconnect, connecting with other services or registering a password is required.
+
+    password:
+      title: Password
+      subtitle: Change your password or recover your current one.
+
+    profile:
+      title: Profile
+
+  users:
+    index:
+      title: All People
+
+    registrations:
+      new:
+        title: Sign up
+        submit: Sign up
+
+    sessions:
+      new:
+        title: Sign in
+        submit: Sign in
+        remember_me: Remember Me
+        forget_your_password: Forgot your password?
+        email_or_name: "%{email} or %{name}"
+
+    shared:
+      omniauth_logins:
+        title: "Sign up / Sign in with :"
+
+      signup:
+        title: Sign up
+        new_visitor_question: New visitor?
+        link_text: Sign up with Email 損
+
+    show:
+      messages: Messages
+      messages_and_replies: Messages & replies
+
+    followers:
+      title: "People following %{user}"
+
+    following:
+      title: "People followed by %{user}"
+
+    favorites:
+      title: "Favorites Messages by %{user}"
+      header_title: Favorites
+
+    status:
+      title: "%{user} on %{appname} \"%{message}\""
+      stats:
+        favorites: FAVORITES
+        retweets: RETWEETS
+
+  # vue components
+  # -----------------------------------------
+
+  vue:
     navigation:
       home: Home
       new_message: Message
@@ -45,37 +166,41 @@ en:
       home: Home
       copyright_html: "&copy; 2015 %{appname}"
 
-    menu_panel:
-      notifications: Notifications
-      mentions: Mentions
-
     modal_dialog:
       close: Close
       compose_new_message: Compose New Message
       confirmation_default_title: Confirmation
       reply_to: "Reply to %{name}"
 
-    # Message widgets
-    # -----------------------------------------------
+    # message widgets
 
-    message:
-      reply: Reply
-      retweet: Retweet
-      unretweet: Undo retweet
+    favorite_button:
       favorite: Favorite
       unfavorite: Undo favorite
-      actions: More
+
+    message:
+      datetime_format: "h:mm A - D MMM YYYY"
+      datetime_format_rails: "%-l:%M %p - %-d %b %Y"
+      reply: Reply
       retweeted: retweeted
+
+    message_actions_button:
+      title: More
       confirm_delete: Are you sure you want to delete this message?
-      confirm_retweet: Retweet this to your followers?
-      delete_menu: Delete Message
+      delete_message: Delete Message
 
     message_form:
       new_message: What's happening?
       submit: Post
 
-    # User widgets
-    # -----------------------------------------------
+    message_panel:
+
+    retweet_button:
+      confirm_retweet: Retweet this to your followers?
+      retweet: Retweet
+      unretweet: Undo retweet
+
+    # user widgets
 
     follow_button:
       edit_profile: Edit Profile
@@ -86,118 +211,3 @@ en:
     user_actions_button:
       title: "More user actions"
       message_to: 'Message to @%{screen_name}'
-
-
-    # ----------------------------------------------------------------------------------------------
-    # Pages
-    # ----------------------------------------------------------------------------------------------
-
-    errors:
-      internet_server_error:
-        title: Something is wrong
-        message: Something is wrong
-      not_found:
-        title: 404 not found
-        message: Sorry, that page doesn't exist!
-      bad_request:
-        title: Bad Request
-        message: Bad Request
-
-    home:
-      index:
-        empty_description: Your timeline is currently empty. Follow people and topics you find interesting to see their messages in your timeline. 
-        signup_now: Sign up now!
-        welcome_message: "Welcome to %{appname}"
-        profile:
-          messages: MESSAGES
-          following: FOLLOWING
-          followers: FOLLOWERS
-          favorites: FAVORITES
-      mentions:
-        title: Mentions
-        all: All
-        people_you_follow: People you follow
-        description_all: Show all interactions and mentions
-        description_people_you_follow: Show only interactions and mentions from people you follow
-        empty_description_all: Find mentions about you here.
-        empty_description_people_you_follow: Find mentions from people you follow. Start a conversation with your friends!
-      search:
-        title_html: "Results for <strong>%{word}</strong>"
-        empty_description_html: "No %{mode} results for <strong>%{word}</strong>"
-        menu:
-          messages: Messages
-          users: People
-          all_people: All people
-          followed_users: People you followers
-
-    settings:
-      title: Settings
-      menu:
-        account: Account
-        password: Password
-        profile: Profile
-      account:
-        title: Account
-        subtitle: Change your basic account and language settings.
-        confirm_deactivate: "Are you sure deactive @%{user} ?"
-        confirm_password_title: Save account changes
-        confirm_password_description: Re-enter your password to save changes to your account.
-        connect_with: Connect with
-        connected_account: Connected Account
-        danger_zone: Danger Zone
-        deactivate: Deactivate My Account
-        disconnect_provider: "Disconnect %{provider}"
-        oauth: OAuth
-        oauth_disabled_disconnect: To disconnect, connecting with other services or registering a password is required.
-      password:
-        title: Password
-        subtitle: Change your password or recover your current one.
-      profile:
-        title: Profile
-      form:
-        password: Password
-        submit: Save Changes
-        cancel: Cancel
-
-    users:
-      index:
-        title: All People
-      signup:
-        title: Sign up
-      signin:
-        title: Sign in
-      edit:
-        title: Setting
-
-      form:
-        basic_information: Basic Information
-        email_or_name: "%{email} or %{name}"
-        forget_your_password: Forgot your password?
-        leave_blank_if_not_change: leave blank if you don't want to change it
-        need_current_password: we need your current password when password changes
-        new_visitor_question: New visitor?
-        profile: Profile
-        signin: Sign in
-        signup: Sign up
-        signup_link_text: Sign up with Email »
-        update: Update
-
-      show:
-        messages: Messages
-        messages_and_replies: Messages & replies
-
-      followers:
-        title: "People following %{user}"
-
-      following:
-        title: "People followed by %{user}"
-
-      favorites:
-        title: "Favorites Messages by %{user}"
-        header_title: Favorites
-
-      status:
-        title: "%{user} on %{appname} \"%{message}\""
-        stats:
-          favorites: FAVORITES
-          retweets: RETWEETS

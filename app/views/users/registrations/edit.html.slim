@@ -1,9 +1,9 @@
-- provide(:title, page_title(t('views.users.edit.title')))
+- provide(:title, page_title(t('users.edit.title')))
 
 div.session
   div.row
     div.col-sm-12
-      h1 = t('views.users.edit.title')
+      h1 = t('users.edit.title')
 
   = form_for(resource, as: resource_name,
                        url: edit_registration_path(resource_name),
@@ -12,7 +12,7 @@ div.session
 
     div.row
       div.col-sm-12
-        h3 = t('views.users.form.basic_information')
+        h3 = t('users.form.basic_information')
 
         div.form-group
           = f.label :screen_name
@@ -30,7 +30,7 @@ div.session
         div.form-group
           = f.label :password
           span.help-block
-            = t('views.users.form.leave_blank_if_not_change')
+            = t('users.form.leave_blank_if_not_change')
           = f.password_field :password,
               autocomplete: 'off',
               class: 'form-control',
@@ -46,7 +46,7 @@ div.session
         div.form-group
           = f.label :current_password, class: 'sr-only'
           span.help-block
-            = t('views.users.form.need_current_password')
+            = t('users.form.need_current_password')
           = f.password_field :current_password,
               autocomplete: 'off',
               class: 'form-control',
@@ -54,7 +54,7 @@ div.session
 
     div.row
       div.col-sm-12
-        h3 = t('views.users.form.profile')
+        h3 = t('users.form.profile')
 
         div.form-group
           = f.label :name, class: 'sr-only'
@@ -87,14 +87,14 @@ div.session
 
     div.row
       div.col-sm-12
-        h3 = t('views.users.form.update')
+        h3 = t('users.form.update')
 
         div.form-group
-          = f.submit t('views.users.form.update'), class: 'btn btn-primary'
+          = f.submit t('users.form.update'), class: 'btn btn-primary'
 
     div.row.setting-oauth
       div.col-sm-12
-        h3 = t('views.users.form.oauth')
+        h3 = t('users.form.oauth')
         ul.list-unstyled
           - User.omniauth_providers.each do |provider|
             li
@@ -112,9 +112,9 @@ div.session
                                             data: { confirm: 'You sure?' } do
                     = text_disconnect_provider(provider)
                   span.additional-info
-                    = "( #{t('views.users.form.oauth_disabled_disconnect')} )"
+                    = "( #{t('users.form.oauth_disabled_disconnect')} )"
                 p
-                  = "#{t('views.users.form.connected_account')}: "
+                  = "#{t('users.form.connected_account')}: "
                   b
                     - if authentication.url.blank?
                       = authentication.account_name
@@ -128,10 +128,10 @@ div.session
   div.row
     div.col-sm-12
       div.setting-danger-zone
-        h3 = t('views.users.form.danger-zone')
+        h3 = t('users.form.danger-zone')
         p
           / = link_to t('delete_my_account'), registration_path(resource_name),
-          = link_to t('views.users.form.delete_my_account'),
+          = link_to t('users.form.delete_my_account'),
                     delete_user_registration_path(resource_name),
                     id: 'delete-user-acount',
                     data: { confirm: "Are you sure?" },

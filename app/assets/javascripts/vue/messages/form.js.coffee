@@ -44,7 +44,7 @@ MessageForm = Vue.extend
       $(@$el).on 'ajax:error', (event, xhr, status, error) =>
         @$dispatch '_app.alert', event,
           status: status,
-          message: "#{I18n.t('views.alert.failed_create_message')}: #{error}"
+          message: "#{I18n.t('alert.failed_create_message')}: #{error}"
 
       $(@$el).on 'ajax:complete', (event, data, status, xhr) =>
         $(event.target).find('button[type="submit"]').removeAttr('disabled')

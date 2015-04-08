@@ -49,10 +49,10 @@ Clatter.ModalDialogComponent = Vue.extend
       @bodyView = null
 
     setDefaultTitle: ->
-      @title = I18n.t('views.modal_dialog.compose_new_message')
+      @title = I18n.t('vue.modal_dialog.compose_new_message')
 
     setReplyTitle: (text) ->
-      @title = I18n.t('views.modal_dialog.reply_to', name: text)
+      @title = I18n.t('vue.modal_dialog.reply_to', name: text)
 
     setupModalEventListeners: ->
       $(@$el).on 'hidden.bs.modal', (event) =>

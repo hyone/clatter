@@ -116,7 +116,10 @@ describe 'Message Panel', type: :feature, js: true do
 
       it do
         should have_content(
-          message.created_at.in_time_zone(login_user.time_zone).strftime('%-l:%M %p - %-d %b %Y')
+          message
+            .created_at
+            .in_time_zone(login_user.time_zone)
+            .strftime(I18n.t('vue.message.datetime_format_rails'))
         )
       end
     end

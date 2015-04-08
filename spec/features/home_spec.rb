@@ -11,10 +11,10 @@ describe 'Home pages', type: :feature, js: true do
     context 'as guest' do
       it do
         should have_content(
-          I18n.t('views.home.index.welcome_message', appname: I18n.t('views.generic.appname'))
+          I18n.t('home.index.welcome_message', appname: I18n.t('appname'))
         )
       end
-      it { should have_link(I18n.t('views.home.index.signup_now'), new_user_registration_path) }
+      it { should have_link(I18n.t('home.index.signup_now'), new_user_registration_path) }
     end
 
     context 'as user' do
@@ -38,7 +38,7 @@ describe 'Home pages', type: :feature, js: true do
         # messages
         it 'should have messages link with its count' do
           expect(page).to have_link(
-            I18n.t('views.home.index.profile.messages'),
+            I18n.t('home.index.profile.messages'),
             href: user_path(user)
           )
           expect(page).to have_selector(
@@ -50,7 +50,7 @@ describe 'Home pages', type: :feature, js: true do
         # following
         it 'should have following link with its count' do
           expect(page).to have_link(
-            I18n.t('views.home.index.profile.following'),
+            I18n.t('home.index.profile.following'),
             href: following_user_path(user)
           )
           expect(page).to have_selector(
@@ -62,7 +62,7 @@ describe 'Home pages', type: :feature, js: true do
         # followers
         it 'should have followers link with its count' do
           expect(page).to have_link(
-            I18n.t('views.home.index.profile.followers'),
+            I18n.t('home.index.profile.followers'),
             href: followers_user_path(user)
           )
           expect(page).to have_selector(
@@ -82,7 +82,7 @@ describe 'Home pages', type: :feature, js: true do
           end
 
           it 'should not have greeting text' do
-            should_not have_selector('.empty-description', text: I18n.t('views.home.index.empty_description'))
+            should_not have_selector('.empty-description', text: I18n.t('home.index.empty_description'))
           end
 
           context 'in pagination' do
@@ -98,7 +98,7 @@ describe 'Home pages', type: :feature, js: true do
 
         context 'when has not any messages' do
           it 'should have greeting text' do
-            should have_selector('.empty-description', text: I18n.t('views.home.index.empty_description'))
+            should have_selector('.empty-description', text: I18n.t('home.index.empty_description'))
           end
         end
       end
@@ -131,14 +131,14 @@ describe 'Home pages', type: :feature, js: true do
       its(:status_code) { should eq(200) }
 
       describe 'content' do
-        it { should have_link(I18n.t('views.menu_panel.mentions'), mentions_path) }
+        it { should have_link(I18n.t('home.mentions.menu.mentions'), mentions_path) }
 
         context 'when has not any messages' do
           context 'when "filter" parameter is none' do
             it 'should have greeting text' do
               should have_selector(
                 '.empty-description',
-                text: I18n.t('views.home.mentions.empty_description_all')
+                text: I18n.t('home.mentions.empty_description_all')
               )
             end
           end
@@ -149,7 +149,7 @@ describe 'Home pages', type: :feature, js: true do
             it 'should have greeting text' do
               should have_selector(
                 '.empty-description',
-                text: I18n.t('views.home.mentions.empty_description_people_you_follow')
+                text: I18n.t('home.mentions.empty_description_people_you_follow')
               )
             end
           end
@@ -180,7 +180,7 @@ describe 'Home pages', type: :feature, js: true do
 
             it do
               should have_link(
-                I18n.t('views.home.mentions.people_you_follow'),
+                I18n.t('home.mentions.people_you_follow'),
                 mentions_path(filter: 'following')
               )
             end
@@ -194,7 +194,7 @@ describe 'Home pages', type: :feature, js: true do
           context 'when "filter" parameter is "following"' do
             before { visit mentions_path(filter: 'following') }
 
-            it { should have_link(I18n.t('views.home.mentions.all'), mentions_path) }
+            it { should have_link(I18n.t('home.mentions.all'), mentions_path) }
 
             it 'should have replies from followed users' do
               expect(page).to have_selector("#message-#{reply_from_followed_user.id}")
@@ -225,7 +225,7 @@ describe 'Home pages', type: :feature, js: true do
       it 'should display no result message' do
         expect(page).to have_selector(
           '.empty-description',
-          I18n.t('views.home.search.empty_description_html', mode: mode, word: keyword)
+          I18n.t('home.search.empty_description_html', mode: mode, word: keyword)
         )
       end
     end

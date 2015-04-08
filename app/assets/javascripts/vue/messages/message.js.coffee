@@ -25,7 +25,7 @@ Clatter.MessageComponent = Vue.extend
 
     date: ->
       d = moment(@message.created_at)
-      d.format('h:mm A - D MMM YYYY')
+      d.format(I18n.t('vue.message.datetime_format'))
 
     dateFromNow: ->
       d = moment(@message.created_at)

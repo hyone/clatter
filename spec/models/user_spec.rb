@@ -25,6 +25,7 @@
 #  followers_count        :integer          default(0), not null
 #  favorites_count        :integer          default(0), not null
 #  time_zone              :string           default("UTC")
+#  lang                   :string
 #
 # Indexes
 #

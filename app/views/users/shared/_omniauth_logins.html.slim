@@ -1,6 +1,6 @@
 - unless resource_class.omniauth_providers.empty?
   div.omniauth-logins-block
-    h3 Sign up / Sign in with :
+    h3 #{ t('users.shared.omniauth_logins.title') }
 
     ul.list-inline
       - resource_class.omniauth_providers.each do |provider|

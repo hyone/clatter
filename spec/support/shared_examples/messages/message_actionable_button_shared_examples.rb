@@ -85,7 +85,7 @@ shared_examples 'a message actionable button' do
             it do
               click_on 'ok-action-button'
               wait_for_ajax
-              expect(page).to have_alert(:success, I18n.t('views.alert.success_delete_message'))
+              expect(page).to have_alert(:success, I18n.t('alert.success_delete_message'))
             end
 
             it 'should dismiss confirm dialog' do

@@ -9,7 +9,7 @@ describe 'Registration pages', type: :feature do
     before { visit new_user_session_path }
 
     describe 'content' do
-      it { should have_content(I18n.t('views.users.form.signin')) }
+      it { should have_content(I18n.t('users.sessions.new.submit')) }
 
       # oauth links
       User.omniauth_providers.each do |provider|
@@ -22,7 +22,7 @@ describe 'Registration pages', type: :feature do
       end
 
       # sign up link
-      it { should have_link(I18n.t('views.users.form.signup_link_text'), href: new_user_registration_path) }
+      it { should have_link(I18n.t('users.shared.signup.link_text'), href: new_user_registration_path) }
     end
 
     context 'by email login', js: true do
@@ -110,7 +110,7 @@ describe 'Registration pages', type: :feature do
 
           context 'after signed up', js: true do
             before { click_signup_button }
-            it { should have_alert(:notice, 'signed') }
+            it { should have_alert(:notice, I18n.t('devise.registrations.signed_up')) }
           end
         end
       end
@@ -146,7 +146,7 @@ describe 'Registration pages', type: :feature do
     before { visit new_user_registration_path }
 
     describe 'content' do
-      it { should have_content(I18n.t('views.users.form.signup')) }
+      it { should have_content(I18n.t('users.registrations.new.submit')) }
     end
 
     context 'with invalid info' do

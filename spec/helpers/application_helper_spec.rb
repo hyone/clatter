@@ -6,21 +6,21 @@ describe ApplicationHelper, type: :helper do
 
     context 'with "home"' do
       let(:text) { 'home' }
-      it { should eq("home | #{ I18n.t('views.generic.base_title') }") }
+      it { should eq("home | #{ I18n.t('base_title') }") }
     end
 
     context 'with ""' do
       let(:text) { '' }
-      it { should eq(I18n.t('views.generic.base_title')) }
+      it { should eq(I18n.t('base_title')) }
     end
 
     context 'with nil' do
       let(:text) { nil }
-      it { should eq(I18n.t('views.generic.base_title')) }
+      it { should eq(I18n.t('base_title')) }
     end
 
     context 'with arguments' do
-      it { expect(page_title).to eq(I18n.t('views.generic.base_title')) }
+      it { expect(page_title).to eq(I18n.t('base_title')) }
     end
   end
 

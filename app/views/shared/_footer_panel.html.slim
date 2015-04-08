@@ -1,10 +1,10 @@
 div.footer-panel
   div.col-inner.panel
-    p = t('views.footer_panel.copyright_html', appname: t('views.generic.appname'))
+    p = t('vue.footer_panel.copyright_html', appname: t('appname'))
     ul.list-inline
       li
         = link_to root_path do
-          = t('views.footer_panel.home')
+          = t('vue.footer_panel.home')
       li
         = link_to about_path do
-          = t('views.footer_panel.about')
+          = t('vue.footer_panel.about', app: t('appname'))

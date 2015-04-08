@@ -67,7 +67,7 @@ Clatter.ConfirmDialogComponent = Vue.extend
           @title = @target.attr('data-confirm')
           @showMessageView(message)
         else
-          @title = I18n.t('views.modal_dialog.confirmation_default_title')
+          @title = I18n.t('vue.modal_dialog.confirmation_default_title')
           @showDefaultView(@target.attr('data-confirm'))
         @open()
         false

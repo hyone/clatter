@@ -10,11 +10,11 @@ module RequestHelpers
   end
 
   def click_signin_button
-    click_button I18n.t('views.users.form.signin')
+    click_button I18n.t('users.sessions.new.submit')
   end
 
   def click_signup_button
-    click_button I18n.t('views.users.form.signup')
+    click_button I18n.t('users.registrations.new.submit')
   end
 
   def setup_omniauth(service = 'developer')

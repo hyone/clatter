@@ -11,13 +11,13 @@ div.content-body
               / a.list-group-item href="#{ notifications_path }" v-class="
                 / active: isActiveMenu('#{ notifications_path }')
               / "
-                / = t('views.menu_panel.notifications')
+                / = t('home.mentions.menu.notifications')
                 / span.fa.fa-chevron-right
 
               a.list-group-item href="#{ mentions_path }" v-class="
                 active: isActiveMenu('#{ mentions_path }')
               "
-                = t('views.menu_panel.mentions')
+                = t('home.mentions.menu.mentions')
                 span.fa.fa-chevron-right
 
           div.hidden-lg
@@ -27,29 +27,29 @@ div.content-body
     div.col.col-xs-8.col-lg-6.content-main
       div.row
         - description = params[:filter].blank? ? \
-            t('views.home.mentions.empty_description_all') : \
-            t('views.home.mentions.empty_description_people_you_follow')
+            t('home.mentions.empty_description_all') : \
+            t('home.mentions.empty_description_people_you_follow')
         = render layout: 'shared/messages_list_panel', locals: { \
             messages: @feeds, \
             page: @page, \
             description: description \
           } do
-          h2.messages-list-panel-title = t('views.home.mentions.title')
+          h2.messages-list-panel-title = t('home.mentions.title')
           ul.list-inline
             li
               - if params[:filter].blank?
-                = t('views.home.mentions.all')
+                = t('home.mentions.all')
               - else
-                a href="#{ mentions_path }" data-toggle="tooltip" title="#{ t('views.home.mentions.description_all') }"
-                  | #{ t('views.home.mentions.all') }
+                a href="#{ mentions_path }" data-toggle="tooltip" title="#{ t('home.mentions.description_all') }"
+                  | #{ t('home.mentions.all') }
             li 
               | /
             li
               - if params[:filter] == 'following'
-                = t('views.home.mentions.people_you_follow')
+                = t('home.mentions.people_you_follow')
               - else
-                a href="#{ mentions_path(filter: 'following') }" data-toggle="tooltip" title="#{ t('views.home.mentions.description_people_you_follow') }"
-                  | #{ t('views.home.mentions.people_you_follow') }
+                a href="#{ mentions_path(filter: 'following') }" data-toggle="tooltip" title="#{ t('home.mentions.description_people_you_follow') }"
+                  | #{ t('home.mentions.people_you_follow') }
 
 
     div.visible-lg-block

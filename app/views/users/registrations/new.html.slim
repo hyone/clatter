@@ -6,14 +6,12 @@ div.content-body
       div.session-panel
         div.col-inner
           div.form-block
-            h2 = t('views.users.signup.title')
+            h2 = t('users.registrations.new.title')
 
             = form_for(resource, as: resource_name,
                                  url: registration_path(resource_name),
                                  html: { role: 'form' }) do |f|
               = devise_error_messages!(resource)
-
-              / h3 = t('views.users.form.basic_information')
 
               div.form-group
                 = f.label :name
@@ -50,6 +48,6 @@ div.content-body
                     placeholder: t('activerecord.attributes.user.screen_name')
 
               div.form-group
-                = f.submit t('views.users.form.signup'), class: 'btn btn-primary'
+                = f.submit t('users.registrations.new.submit'), class: 'btn btn-primary'
 
           = render 'users/shared/omniauth_logins.html.slim', title: 'Sign up / Sign in with :'

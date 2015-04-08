@@ -1,7 +1,7 @@
 - message ||= nil
 
 
-- provide(:title, page_title(t('views.errors.bad_request.title')))
+- provide(:title, page_title(t('errors.bad_request.title')))
 
 - provide(:page_type, 'errors')
 
@@ -9,6 +9,6 @@
 - content_for :header do
   div.header-head
     div.container.centerize
-      h1 = t('views.errors.bad_request.message')
+      h1 = t('errors.bad_request.message')
       - if message
         p = message

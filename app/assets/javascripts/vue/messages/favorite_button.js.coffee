@@ -41,7 +41,7 @@ Clatter.FavoriteButtonComponent = Vue.extend
       $(@$el).on 'ajax:error', (event, xhr, status, error) =>
         @$dispatch '_app.alert', event,
           status: status,
-          message: "#{I18n.t('views.alert.failed_favorite_message')}: #{error}"
+          message: "#{I18n.t('alert.failed_favorite_message')}: #{error}"
         false
 
     updateButtonStatus: (data, inc) ->
