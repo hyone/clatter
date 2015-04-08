@@ -36,12 +36,16 @@ describe 'Message Block', type: :feature, js: true do
 
         it do
           expect(find('a.message-time')['data-original-title']).to eq(
-            message.created_at.in_time_zone(login_user.time_zone).strftime('%-l:%M %p - %-d %b %Y')
+            message
+              .created_at
+              .in_time_zone(login_user.time_zone)
+              .strftime(I18n.t('vue.message.datetime_format_rails'))
           )
         end
       end
 
-      it { should have_link('2 hours ago', user_path(message.user)) }
+      # date from now
+      it { should have_link('2', user_path(message.user)) }
 
       context 'with UTC' do
         let(:time_zone) { 'UTC' }

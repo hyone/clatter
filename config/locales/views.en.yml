@@ -179,6 +179,8 @@ en:
       unfavorite: Undo favorite
 
     message:
+      datetime_format: "h:mm A - D MMM YYYY"
+      datetime_format_rails: "%-l:%M %p - %-d %b %Y"
       reply: Reply
       retweeted: retweeted
 

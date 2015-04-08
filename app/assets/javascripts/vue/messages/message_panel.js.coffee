@@ -43,10 +43,11 @@ Clatter.MessagePanelComponent = Vue.extend
 
     date: ->
       d = moment(@message.created_at)
-      """#{d.format('h:mm A - D MMM YYYY')}"""
+      d.format(I18n.t('vue.message.datetime_format'))
 
     formText: ->
       "#{ Clatter.util.replyText(@message, Clatter.currentUser) } "
+
     formPlaceholder: ->
       "Reply to #{ Clatter.util.replyText(@message, Clatter.currentUser) }"
 

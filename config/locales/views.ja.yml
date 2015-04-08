@@ -177,6 +177,8 @@ ja:
       unfavorite: お気に入り削除
 
     message:
+      datetime_format: "H:mm - YYYY年M月D日"
+      datetime_format_rails: "%-k:%M - %Y年%-m月%-d日"
       reply: 返信
       retweeted: さんがリツイート
 
