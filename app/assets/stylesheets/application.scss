@@ -430,6 +430,11 @@ div.home-profile-panel {
         border-top: 0px;
       }
     }
+
+    // To make the pointer on button.disabled inside form default pointer
+    form {
+      cursor: auto;
+    }
   }
 }
 
