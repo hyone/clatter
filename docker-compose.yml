@@ -7,9 +7,15 @@ app:
   links:
     - db:db
   restart: always
+  environment:
+    # RAILS_ENV: production
+    # SECRET_KEY_BASE: need_security
+    DATABASE_URL: postgres://postgres@db:5432
 
 db:
   image: postgres
   ports:
     - "5432:5432"
+  # volumes:
+    # - postgresql:/var/lib/postgresql
   restart: always
