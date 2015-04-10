@@ -50,6 +50,7 @@ end
 
 group :development, :test do
   gem 'capybara'
+  gem 'dotenv-rails'
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'rubocop', require: false

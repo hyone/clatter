@@ -111,6 +111,9 @@ GEM
     docile (1.1.5)
     domain_name (0.5.23)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.0.1)
+    dotenv-rails (2.0.1)
+      dotenv (= 2.0.1)
     egison (1.0.0)
     erubis (2.7.0)
     excon (0.45.1)
@@ -519,6 +522,7 @@ DEPENDENCIES
   coveralls
   database_rewinder
   devise
+  dotenv-rails
   egison
   excon (>= 0.44.4)
   factory_girl_rails
