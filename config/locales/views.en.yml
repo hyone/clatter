@@ -113,7 +113,7 @@ en:
       signup:
         title: Sign up
         new_visitor_question: New visitor?
-        link_text: Sign up with Email 損
+        link_text: Sign up with Email »
 
     show:
       messages: Messages
