@@ -25,33 +25,33 @@ gem 'omniauth-twitter'
 
 # others
 gem 'annotate'
+gem 'fog', require: 'fog/aws/storage' # MUST require before carrierwave
+gem 'excon', '>= 0.44.4'
+gem 'carrierwave'
+gem 'counter_culture', '~> 0.1.30'
+gem 'egison'
 gem 'factory_girl_rails'
 gem 'faker'
 gem 'friendly_id'
 gem 'kaminari'
 gem 'kaminari-bootstrap'
-gem 'fog', require: 'fog/aws/storage'
-gem 'carrierwave'
-gem 'excon', '>= 0.44.4'
 gem 'mini_magick'
-gem 'responders', '~> 2.0'
-gem 'counter_culture', '~> 0.1.30'
 gem 'ransack'
-gem 'egison'
+gem 'responders', '~> 2.0'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'
 end
 
 group :production do
-  gem 'rails_12factor'
   gem 'newrelic_rpm'
+  gem 'rails_12factor'
 end
 
 group :development, :test do
+  gem 'capybara'
   gem 'rspec-rails'
   gem 'rspec-its'
-  gem 'capybara'
   gem 'rubocop', require: false
 end
 
@@ -59,27 +59,26 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'bullet'
+  gem 'byebug'
+  gem 'coffee-rails-source-maps'
   gem 'foreman'
+  gem 'guard-rspec'
   gem 'hirb'
   gem 'hirb-unicode'
   gem 'pry-rails'
   gem 'awesome_print'
   gem 'spring'
   gem 'spring-commands-rspec'
-  gem 'guard-rspec'
   gem 'terminal-notifier-guard'
-  gem 'coffee-rails-source-maps'
-  gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'view_source_map'
 end
 
 group :test do
-  gem 'selenium-webdriver'
-  gem 'shoulda-matchers', require: false
-  gem 'poltergeist'
-  gem 'database_rewinder'
   gem 'coveralls', require: false
-  gem 'simplecov', require: false
+  gem 'database_rewinder'
+  gem 'poltergeist'
   gem 'rake_shared_context'
+  gem 'shoulda-matchers', require: false
+  gem 'simplecov', require: false
 end
