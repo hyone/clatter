@@ -59,9 +59,7 @@ Clatter.MessageComponent = Vue.extend
 
     isClickable: (elem) ->
       tagName = $(elem).get(0).tagName
-      tagName is 'A' or \
-      tagName is 'BUTTON' or \
-      $(elem).closest('a').size() > 0 or \
-      $(event.target).closest('button').size() > 0
 
-
+      tagName in ['A', 'FORM', 'BUTTON'] or \
+        $(elem).closest('a').size() > 0 or \
+        $(elem).closest('button').size() > 0
