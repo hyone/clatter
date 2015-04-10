@@ -58,4 +58,7 @@ Rails.application.configure do
     # Bullet.add_footer = true
     # Bullet.stacktrace_includes = [ 'your_gem', 'your_middleware' ]
   end
+
+  # web console
+  config.web_console.whitelisted_ips = '192.168.0.0/16'
 end

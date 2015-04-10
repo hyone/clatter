@@ -1,2 +1,2 @@
-From ruby:onbuild
-CMD foreman start
+From rails:onbuild
+CMD ["rails", "server", "-b", "0.0.0.0"]

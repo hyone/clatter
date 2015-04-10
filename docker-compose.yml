@@ -1,13 +1,15 @@
-web:
+app:
   build: .
   ports:
-    - "5000:5000"
-  volumes:
-    - .:/user/src/app
+    - "3000:3000"
+  # volumes:
+  #   - .:/usr/src/app
   links:
     - db:db
+  restart: always
 
 db:
   image: postgres
   ports:
     - "5432:5432"
+  restart: always

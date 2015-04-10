@@ -1,0 +1,2 @@
+web: bin/rails server -b "0.0.0.0" --port ${PORT}
+guard: bin/guard start -i

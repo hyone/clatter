@@ -9,12 +9,12 @@
 default: &default
   adapter: postgresql
   pool: 5
-  username: postgres
-  password: <%= ENV['POSTGRESQL_ENV_POSTGRES_PASSWORD'] %>
-  host: <%= ENV['POSTGRESQL_PORT_5432_TCP_ADDR'] ||
+  username: <%= ENV['DB_ENV_POSTGRES_USER']  || 'postgres' %>
+  password: <%= ENV['DB_ENV_POSTGRES_PASSWORD'] %>
+  host: <%= ENV['DB_PORT_5432_TCP_ADDR'] ||
               ( ENV['DOCKER_HOST'] && URI(ENV['DOCKER_HOST']).host ) ||
              'localhost' %>
-  port: <%= ENV['POSTGRESQL_PORT_5432_TCP_PORT'] || 5432 %>
+  port: <%= ENV['DB_PORT_5432_TCP_PORT'] || 5432 %>
 
 development:
   <<: *default
