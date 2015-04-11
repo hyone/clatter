@@ -31,14 +31,14 @@ div.row
               div.col-sm-9
                 = f.select :lang, I18n.available_locales.map { |l| [I18n.t("language", locale: l), l ] },
                     {},
-                    { class: 'form-control' }
+                    { class: 'form-control', disabled: disabled }
 
             div.form-group
               = f.label :time_zone, class: 'col-sm-3 control-label'
               div.col-sm-9
                 = f.time_zone_select :time_zone, nil,
                     { include_blank: true },
-                    { class: 'form-control' }
+                    { class: 'form-control', disabled: disabled }
 
             = render 'vue/shared/password_dialog'
             div v-component="password-dialog"
