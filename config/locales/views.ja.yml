@@ -81,7 +81,8 @@ ja:
       deactivate: アカウントを削除
       disconnect_provider: "%{provider}の紐付けを解除"
       oauth: 外部サービス
-      oauth_disabled_disconnect: 解除するには他のサービスを紐付けるか、パスワードを設定してください。
+      oauth_disabled_disconnect: このサービスの紐付けを解除するには、他のサービスを紐付けるか、パスワードを設定してください
+      password_required_html: アカウント情報を変更するためには、<a href="%{url}">パスワードを設定してください</a>
 
     password:
       title: パスワード

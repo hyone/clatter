@@ -81,6 +81,7 @@ en:
       disconnect_provider: "Disconnect %{provider}"
       oauth: OAuth
       oauth_disabled_disconnect: To disconnect, connecting with other services or registering a password is required.
+      password_required_html: To change account information, <a href="%{url}">a password is required</a>
 
     password:
       title: Password
@@ -113,7 +114,7 @@ en:
       signup:
         title: Sign up
         new_visitor_question: New visitor?
-        link_text: Sign up with Email »
+        link_text: Sign up with Email 損
 
     show:
       messages: Messages

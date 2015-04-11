@@ -50,10 +50,7 @@ div.row
 
                 - if @user.encrypted_password.blank?
                   p.additional-info
-                    | ( To change account information, 
-                    a href="#{ settings_password_path }"
-                      | a password is required
-                    |  )
+                    | ( #{ t('settings.account.password_required_html', url: settings_password_path) } )
                     / = "( #{t('settings.account.oauth_disabled_disconnect')} )"
 
             hr
