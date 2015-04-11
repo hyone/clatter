@@ -48,7 +48,7 @@ Clatter.MessageComponent = Vue.extend
       @$dispatch('_message.click-reply-button', event, @message)
 
     onClick: (event) ->
-      if @isClickable(event.target)
+      if @isDisableAction(event.target)
         return false
 
       switch @action
@@ -57,9 +57,10 @@ Clatter.MessageComponent = Vue.extend
         else
           false
 
-    isClickable: (elem) ->
+    isDisableAction: (elem) ->
       tagName = $(elem).get(0).tagName
 
-      tagName in ['A', 'FORM', 'BUTTON'] or \
-        $(elem).closest('a').size() > 0 or \
-        $(elem).closest('button').size() > 0
+      tagName in ['A', 'FORM', 'BUTTON'] || \
+        $(elem).closest('a').size() > 0 || \
+        $(elem).closest('button').size() > 0 || \
+        $(elem).hasClass('disabled')

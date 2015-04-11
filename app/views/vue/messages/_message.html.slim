@@ -22,7 +22,7 @@ script type="text/x-template" id="message-template"
       | {{{* textHtml}}}
     div.message-foot v-if="showFoot"
       ul.list-inline
-        li.open-reply-to-button-item
+        li.open-reply-to-button-item v-class="disabled: !canReply"
           button class="btn btn-link" id="reply-to-message-{{message.id}}" data-toggle="tooltip" title="#{ t('vue.message.reply') }" v-on="click: onClickReplyButton" v-class="
             disabled: !canReply
           "

@@ -435,6 +435,10 @@ div.home-profile-panel {
     form {
       cursor: auto;
     }
+
+    .disabled {
+      cursor: default;
+    }
   }
 }
 
