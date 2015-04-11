@@ -2,9 +2,11 @@ module Users
   class RegistrationsController < Devise::RegistrationsController
     private
 
-    # apply information from omniauth authentication when a User object builds
     def build_resource(*args)
       super
+
+      @user.lang = I18n.locale
+      # apply information from omniauth authentication when a User object builds
       @user.apply_omniauth(session[:omniauth]) if session[:omniauth]
     end
 
