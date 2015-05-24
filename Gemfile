@@ -25,7 +25,8 @@ gem 'omniauth-twitter'
 
 # others
 gem 'annotate'
-gem 'fog', require: 'fog/aws/storage' # MUST require before carrierwave
+gem 'fog-aws'
+gem 'fog'
 gem 'excon', '>= 0.44.4'
 gem 'carrierwave'
 gem 'counter_culture', '~> 0.1.30'
