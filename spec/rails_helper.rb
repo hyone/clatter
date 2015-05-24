@@ -66,9 +66,6 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
-
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
@@ -90,9 +87,10 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include ControllerHelpers, type: :controller
-
-  config.include RequestHelpers, type: :feature
   config.include RequestHelpers, type: :request
+  config.include FeatureHelpers, type: :feature
+  config.include AuthHelpers, type: :request
+  config.include AuthHelpers, type: :feature
 
   # locales for poltergeist
   config.before(:each, js: true) do
