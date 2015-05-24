@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-  include Egison
   include MessagesHelper
 
   before_action :require_user, only: [:mentions]
@@ -81,20 +80,17 @@ class HomeController < ApplicationController
         end
 
         # specify model collection in which search
-        target = match([@search[:mode], @search[:range]]) do
-          with(List.('users', 'followed_users')) do
+        target =
+          case [@search[:mode], @search[:range]]
+          when %w(users followed_users)
             User.self_and_followed_users_of(current_user)
-          end
-          with(List.('users', _)) do
+          when ['users', @search[:range]]
             User
-          end
-          with(List.(_, 'followed_users')) do
+          when [@search[:mode], 'followed_users']
             Message.from_self_and_followed_users(current_user)
-          end
-          with(List.(_, _)) do
+          else
             Message
           end
-        end
 
         target.search(@search[:params])
       end

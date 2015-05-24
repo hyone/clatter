@@ -29,7 +29,6 @@ gem 'fog', require: 'fog/aws/storage' # MUST require before carrierwave
 gem 'excon', '>= 0.44.4'
 gem 'carrierwave'
 gem 'counter_culture', '~> 0.1.30'
-gem 'egison'
 gem 'factory_girl_rails'
 gem 'faker'
 gem 'friendly_id'
