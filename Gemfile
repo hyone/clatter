@@ -66,6 +66,7 @@ group :development do
   gem 'guard-rspec'
   gem 'hirb'
   gem 'hirb-unicode'
+  gem 'meta_request'
   gem 'pry-rails'
   gem 'awesome_print'
   gem 'spring'
