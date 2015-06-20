@@ -9,7 +9,9 @@ gem 'bower-rails'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'coffee-script-source', '~> 1.8.0'
 gem 'i18n-js'
-gem 'jbuilder', '~> 2.0'
+# pending to upgrade to jbuilder 2.3
+# see also: https://github.com/rails/jbuilder/issues/274
+gem 'jbuilder', '~> 2.2.16'
 gem 'sass-rails', '~> 5.0'
 gem 'slim-rails'
 gem 'therubyracer',  platforms: :ruby
