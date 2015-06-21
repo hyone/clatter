@@ -2,7 +2,16 @@ Clatter.ModalDialogComponent = Vue.extend
   template: '#modal-dialog-template'
   replace: true
 
-  paramAttributes: ['data-foot-view', 'data-body-view']
+  props: [
+    {
+      name: 'foot-view'
+      type: String
+    },
+    {
+      name: 'body-view'
+      type: String
+    }
+  ]
 
   data: ->
     title: ''
@@ -13,14 +22,13 @@ Clatter.ModalDialogComponent = Vue.extend
   components:
     'modal-message-form': Clatter.ModalMessageFormComponent
     message:
+      props: [{ name: 'params', type: Object }]
       template: """
-        <div v-component="inner"
-             v-with="
-              message:  params.message,
-              prefixId:   params.prefixId,
-              showFoot: params.showFoot
-            ">
-        </div>
+        <inner message="{{* params.message}}"
+               prefix-id="{{* params.prefixId}}"
+               show-foot="{{* params.showFoot}}"
+        >
+        </inner>
       """
       components:
         inner: Clatter.MessageComponent

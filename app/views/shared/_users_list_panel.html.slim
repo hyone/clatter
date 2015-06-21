@@ -16,7 +16,7 @@ div.col-xs-12
       javascript:
         Clatter.users = #{raw render(template: 'users/index', formats: [:json], locals: { users: users, follow: true })};
       ul
-        li v-repeat="user: users" v-component="user"
+        user v-repeat="user: users"
         li.user v-if="!hasUsers"
           div.user-body
             - if description

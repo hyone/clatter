@@ -7,8 +7,8 @@ script type="text/x-template" id="user-panel-template"
             img v-attr="src: user.profile_image_url"
       div.user-profile-panel-main
         div.user-profile-buttons
-          div v-component="user-actions-button" v-with="user : user"
-          div v-component="follow-button" v-with="user : user"
+          user-actions-button user="{{user}}"
+          follow-button user="{{user}}"
         p.user-profile-name
           = link_to  '{{user.name}}', bindable_path('user', '{{user.screen_name}}')
         p.user-profile-screen-name

@@ -19,7 +19,7 @@ div.row
   div.col.col-sm-8.col-lg-6.content-main
     div.row
       div.col.col-xs-12
-        div v-component="message-panel" v-with="message: messages[0]" v-ref="messagePanel"
+        message-panel message="{{messages[0]}}" v-ref="messagePanel"
 
       div.col.col-xs-12
         = render 'shared/footer_panel'

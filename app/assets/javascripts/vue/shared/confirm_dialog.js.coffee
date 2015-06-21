@@ -2,7 +2,12 @@ Clatter.ConfirmDialogComponent = Vue.extend
   template: '#confirm-dialog-template'
   replace: true
 
-  paramAttributes: ['data-body-view']
+  props: [
+    {
+      name: 'body-view'
+      type: String
+    }
+  ]
 
   data: ->
     title: ''
@@ -20,20 +25,20 @@ Clatter.ConfirmDialogComponent = Vue.extend
 
   components:
     message:
+      props: [{ name: 'params', type: Object }]
       template: """
-        <div v-component="inner"
-             v-with="
-              message:  params.message,
-              prefixId: params.prefixId,
-              showFoot: params.showFoot
-            ">
-        </div>
+        <inner message="{{* params.message}}"
+               prefix-id="{{* params.prefixId}}"
+               show-foot="{{* params.showFoot}}"
+        >
+        </inner>
       """
       components:
         inner: Clatter.MessageComponent
     default:
+      props: [{ name: 'params', type: Object }]
       template: """
-        <div class="confirmation-dialog-description">{{params.description}}</div>
+        <div class="confirmation-dialog-description">{{* params.description}}</div>
       """
 
   created: ->

@@ -2,8 +2,16 @@ window.Clatter.NavigationComponent = Vue.extend
   template: '#navigation-template'
   replace: true
 
+  props: [
+    {
+      name: 'search'
+      type: Object
+      validator: (value) -> value.text?
+    }
+  ]
+
   data: ->
-    search: {}
+    search: { text: '' }
 
   methods:
     isActiveMenu: (url) ->

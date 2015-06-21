@@ -28,8 +28,8 @@ script type="text/x-template" id="message-template"
           "
             b.fa.fa-reply
         li.retweet-button-item
-          div v-component="retweet-button" v-with="message: message"
+          retweet-button message="{{message}}"
         li.favorite-button-item
-          div v-component="favorite-button" v-with="message: message"
+          favorite-button message="{{message}}"
         li.message-actions-button-item v-if="canActions"
-          div v-component="message-actions-button" v-with="message: message"
+          message-actions-button message="{{message}}"

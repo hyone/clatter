@@ -1,6 +1,18 @@
 Clatter.MessagePanelComponent = Vue.extend
   template: '#message-panel-template'
 
+  props: [
+    {
+      name: 'message'
+      type: Object
+      required: true
+    },
+    {
+      name: 'prefix-id'
+      type: String
+    }
+  ]
+
   components:
     'content-main-message-form': Clatter.ContentMainMessageFormComponent
     'favorite-button': Clatter.FavoriteButtonComponent

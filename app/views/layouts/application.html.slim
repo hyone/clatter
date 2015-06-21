@@ -46,18 +46,18 @@ html lang="#{I18n.locale}" data-timezone="#{time_zone}"
       = render 'vue/messages/form', prefix: 'modal'
       = render 'vue/messages/form', prefix: 'content-main-'
 
-    div v-component="navigation" v-ref="navigation" v-with="search: search"
+    navigation v-ref="navigation" search="{{search}}"
 
-    div v-component="alert" v-ref="alert"
+    alert v-ref="alert"
 
     /! alert block
     - unless flash.empty?
       - flash.each do |key, value|
-        div v-component="alert" v-ref="alert" data-status="#{key}" data-message="#{value}"
+        alert status="#{key}" message="#{value}"
 
     - if user_signed_in?
-      div v-component="confirm-dialog" v-ref="confirmDialog"
-      div v-component="modal-dialog"   v-ref="modalDialog" data-foot-view="modal-message-form"
+      confirm-dialog v-ref="confirmDialog"
+      modal-dialog v-ref="modalDialog" foot-view="modal-message-form"
 
     div.header
       = yield(:header)

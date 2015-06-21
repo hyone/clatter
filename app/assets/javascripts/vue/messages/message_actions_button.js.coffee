@@ -2,6 +2,14 @@ Clatter.MessageActionsButtonComponent = Vue.extend
   template: '#message-actions-button-template'
   replace: true
 
+  props: [
+    {
+      name: 'message'
+      type: Object
+      required: true
+    }
+  ]
+
   data: ->
     message: {}
 

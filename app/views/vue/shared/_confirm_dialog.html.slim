@@ -9,7 +9,7 @@ script type="text/x-template" id="confirm-dialog-template"
             span.sr-only = t('vue.modal_dialog.close')
           h4 class="modal-title" id="confirmFormLabel" {{title}}
         div.modal-body v-if="bodyView"
-          div v-component="{{bodyView}}" v-ref="bodyView" v-with="params: params"
+          component is="{{bodyView}}" params="{{params}}"
         div.modal-footer
           button.btn.btn-default#cancel-action-button data-dismiss="modal" v-el="cancelButton" Cancel
           button.btn.btn-primary#ok-action-button data-dismiss="modal" v-el="okButton" v-on="click: onClickOk" Ok

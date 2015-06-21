@@ -4,7 +4,7 @@ Clatter.appVM = new Vue
   data:
     messages: Clatter.messages?.messages
     users: Clatter.users
-    search: Clatter.search || {}
+    search: Clatter.search || { text: '' }
     uri: URI(location.href)
 
   computed:
@@ -15,7 +15,7 @@ Clatter.appVM = new Vue
       @users.length > 0
 
     searchKeywords: ->
-      @search.text?.split(/\s+/)
+      @search.text?.split(/\s+/) || []
 
     currentUser: ->
       Clatter.currentUser

@@ -1,7 +1,14 @@
 Clatter.FollowButtonComponent = Vue.extend
   template: '#follow-button-template'
-
   replace: true
+
+  props: [
+    {
+      name: 'user'
+      type: Object
+      required: true
+    }
+  ]
 
   data: ->
     user: undefined

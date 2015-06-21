@@ -2,7 +2,17 @@ Clatter.RetweetButtonComponent = Vue.extend
   template: '#retweet-button-template'
   replace: true
 
-  paramAttributes: ['data-show-count']
+  props: [
+    {
+      name: 'message'
+      type: Object
+      required: true
+    },
+    {
+      name: 'show-count'
+      type: Boolean
+    }
+  ]
 
   data: ->
     message: undefined

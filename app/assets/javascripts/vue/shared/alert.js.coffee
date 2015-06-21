@@ -3,7 +3,16 @@ window.Clatter.AlertComponent = Vue.extend
 
   replace: true
 
-  paramAttributes: ['data-status', 'data-message']
+  props: [
+    {
+      name: 'status'
+      type: String
+    },
+    {
+      name: 'message'
+      type: String
+    }
+  ]
 
   data: ->
     status: undefined

@@ -27,5 +27,5 @@ script type="text/x-template" id="content-navigation-template"
         span.nav-value = "{{user.favorites_count}}"
 
     li.content-navigation-buttons
-      div v-component="user-actions-button" v-with="user : user"
-      div v-component="follow-button" v-with="user : user"
+      user-actions-button user="{{user}}"
+      follow-button user="{{user}}"

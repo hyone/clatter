@@ -2,6 +2,14 @@ Clatter.UserActionsButtonComponent = Vue.extend
   template: '#user-actions-button-template'
   replace: true
 
+  props: [
+    {
+      name: 'user'
+      type: Object
+      required: true
+    }
+  ]
+
   data: ->
     user: undefined
 

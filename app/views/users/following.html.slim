@@ -13,7 +13,7 @@ div.row
         ul.row
           javascript:
             Clatter.users = #{raw render(template: 'users/index', formats: [:json], locals: { users: @followed_users, follow: true })};
-          li v-repeat="user: users" v-component="user-panel"
+          user-panel v-repeat="user: users"
 
       div.col-xs-12.pager-panel
         = paginate @followed_users
