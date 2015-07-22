@@ -7,8 +7,6 @@ bundler_args: --without development --deployment
 
 cache: bundler
 
-sudo: false
-
 before_script:
   - export TZ=Asia/Tokyo
   - npm install
