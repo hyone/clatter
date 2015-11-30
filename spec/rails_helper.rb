@@ -1,54 +1,9 @@
-# Test Coverage
-require 'simplecov'
-require 'coveralls'
-
-if ENV['COVERAGE']
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-    SimpleCov::Formatter::HTMLFormatter
-  ]
-  SimpleCov.start 'rails'
-  # SimpleCov.start do
-  #   add_filter '/config/'
-  #   add_filter '/db/'
-  #   add_filter '/vendor/bundle/'
-  #   add_filter '/spec/'
-  #
-  #   add_group 'Controllers', 'app/controllers'
-  #   add_group 'Models', 'app/models'
-  #   add_group 'Helpers', 'app/helpers'
-  #   add_group 'Libraries', 'lib'
-  # end
-end
-
-# coveralls
-if ENV['CI']
-  Coveralls.wear!
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-    Coveralls::SimpleCov::Formatter
-  ]
-  SimpleCov.start 'rails'
-end
-
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 
 require 'spec_helper'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
-require 'capybara/rails'
-require 'capybara/rspec'
-require 'capybara/poltergeist'
-
-# capybara
-Capybara.javascript_driver = :poltergeist
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(
-    app,
-    js_errors: false,
-    timeout: 60,
-    window_size: [1920, 6000]
-  )
-end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -95,40 +50,4 @@ RSpec.configure do |config|
   config.include FeatureHelpers, type: :feature
   config.include AuthHelpers, type: :request
   config.include AuthHelpers, type: :feature
-
-  # locales for poltergeist
-  config.before(:each, js: true) do
-    # I18n.locale = :ja
-    page.driver.headers = { 'Accept-Language' => "#{ I18n.locale }" }
-  end
-
-  # database_cleaner
-
-  DatabaseCleaner = DatabaseRewinder
-
-  config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
-  end
-
-  # use transaction on usual tests
-  config.before(:each) do
-    DatabaseCleaner.strategy = :transaction
-  end
-
-  # use truncation (database_cleaner) on tests with plterguist
-  config.before(:each, js: true) do
-    DatabaseCleaner.strategy = :truncation
-  end
-
-  config.before(:each, truncation: true) do
-    DatabaseCleaner.strategy = :truncation
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
-
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
 end
