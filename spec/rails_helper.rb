@@ -42,7 +42,12 @@ require 'capybara/poltergeist'
 # capybara
 Capybara.javascript_driver = :poltergeist
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 60)
+  Capybara::Poltergeist::Driver.new(
+    app,
+    js_errors: false,
+    timeout: 60,
+    window_size: [1920, 6000]
+  )
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
