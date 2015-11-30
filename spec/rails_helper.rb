@@ -38,7 +38,6 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
-require 'shoulda/matchers'
 
 # capybara
 Capybara.javascript_driver = :poltergeist
